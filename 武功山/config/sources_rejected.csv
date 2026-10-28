@@ -1,0 +1,4 @@
+﻿doc_id,source_site,source_url,reason
+WGS-X-01,Trip.com,https://www.trip.com/moments/detail/luxi-1445977-129326226/?locale=zh-CN,"页面为繁体中文，正文由前端 JSON 渲染，抽取结果不稳定；为保证简体中文语料一致性未纳入"
+WGS-X-02,Trip.com,https://www.trip.com/moments/detail/luxi-1445977-155324681/?locale=zh-CN,"同上：繁体+动态渲染，正文与推荐流混杂"
+WGS-X-03,马蜂窝,https://www.mafengwo.cn/group/info.php?iid=7904416,"跳转登录/验证页（HTTP 202），无法直接获取正文"

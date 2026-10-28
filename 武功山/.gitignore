@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.dsh-office-*/
+data/raw/html/*.html
+~$*.docx
+~$*.xlsx

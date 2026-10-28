@@ -1,0 +1,92 @@
+{
+  "records": 14,
+  "valid": 13,
+  "official": 6,
+  "travelogue": 8,
+  "valid_official": 6,
+  "valid_travelogue": 7,
+  "sites": [
+    [
+      "萍乡武功山景区官网",
+      6
+    ],
+    [
+      "豆瓣小组",
+      3
+    ],
+    [
+      "简书",
+      2
+    ],
+    [
+      "搜狐号",
+      2
+    ],
+    [
+      "8264户外论坛",
+      1
+    ]
+  ],
+  "types": [
+    [
+      "游客游记",
+      8
+    ],
+    [
+      "官方路线",
+      6
+    ]
+  ],
+  "missing_author": 2,
+  "missing_date": 0,
+  "exact_dups": [],
+  "near_dups": [],
+  "bad_char_docs": 0,
+  "bad_chars": 0,
+  "route_sep_docs": 8,
+  "char_raw_total": 15769,
+  "char_clean_total": 15134,
+  "char_raw_mean": 1126.4,
+  "char_clean_mean": 1081.0,
+  "char_clean_median": 886.0,
+  "char_clean_min": 33,
+  "char_clean_max": 3418,
+  "removed_ratio": 0.0403,
+  "noise_lines": 18,
+  "emoji": 50,
+  "urls": 1,
+  "dup_paras": 2,
+  "flags": [
+    [
+      "站点噪声已清理",
+      5
+    ],
+    [
+      "重复段落已去除",
+      2
+    ],
+    [
+      "表情符号已清理",
+      2
+    ],
+    [
+      "作者缺失",
+      2
+    ],
+    [
+      "链接已清理",
+      1
+    ],
+    [
+      "文本过短",
+      1
+    ],
+    [
+      "图片为主",
+      1
+    ]
+  ],
+  "check_official": true,
+  "check_travelogue": true,
+  "requirements_pass": true
+}
