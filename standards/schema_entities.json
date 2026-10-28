@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "项目2 实体识别输出（entities.jsonl，每行一个实体）",
+  "version": "1.0",
+  "file_convention": "analysis/p02_entities/outputs/entities.jsonl",
+  "encoding": "utf-8",
+  "format": "JSON Lines",
+  "span_rule": "基于该 doc 的 clean_content，起点从 0 计，结束位置不含",
+  "entity_type_enum": ["POI", "TRANSPORT", "TIME"],
+  "fields": [
+    {"name": "doc_id", "type": "string", "required": true, "desc": "对应项目1 主数据集 doc_id"},
+    {"name": "entity_text", "type": "string", "required": true, "desc": "实体原文（必须能在 clean_content[start:end] 中精确取出）"},
+    {"name": "entity_type", "type": "string", "required": true, "enum": ["POI", "TRANSPORT", "TIME"]},
+    {"name": "char_start", "type": "integer", "required": true, "minimum": 0},
+    {"name": "char_end", "type": "integer", "required": true, "desc": "不含"},
+    {"name": "sentence", "type": "string", "required": false, "desc": "所在句，便于人工抽查"},
+    {"name": "method", "type": "string", "required": false, "enum": ["dic", "rule", "llm", "hybrid"]},
+    {"name": "confidence", "type": "number", "required": false, "minimum": 0, "maximum": 1}
+  ],
+  "checks": [
+    "clean_content[char_start:char_end] == entity_text",
+    "char_start < char_end <= len(clean_content)",
+    "doc_id 必须存在于三份 *_guides.csv",
+    "entity_type 必须在枚举内"
+  ]
+}

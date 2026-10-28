@@ -1,0 +1,9 @@
+﻿doc_id,source_url,http_status,bytes,sha256,fetch_time,html_local_path
+CHL-N01,https://tw.trip.com/moments/detail/guangzhou-152-144829973/,200,841977,290096a0f688729692d8b48e6bec349589d210cd9db43c2cd03ceb468cd4e4dc,2026-10-28 18:56:25,experiment1_chimelong/data/raw/CHL-N01.html
+CHL-N02,https://tw.trip.com/moments/detail/guangzhou-152-149982547/,200,943931,2946e84b1c6bdece701a59b87b6b593d9ad86b6128538113076ed0bb29591257,2026-10-28 18:56:28,experiment1_chimelong/data/raw/CHL-N02.html
+CHL-N03,https://tw.trip.com/moments/detail/guangzhou-152-155862848/,200,992331,274b6b244af1faed6f14cc3b3762e2edc7b070f7b9a8ae803f422592ccc718e8,2026-10-28 18:56:34,experiment1_chimelong/data/raw/CHL-N03.html
+CHL-N04,https://tw.trip.com/moments/detail/guangzhou-152-139591348/,200,873020,6f900230359a4d2a1787562a7e52b4c8eb39399e0f5209c5be940b2cf36b0ad1,2026-10-28 18:56:38,experiment1_chimelong/data/raw/CHL-N04.html
+CHL-N05,https://tw.trip.com/moments/detail/guangzhou-152-143716112/,200,791071,b601429cd1e4a8c48960761979e4cdae372058576622c914bd452c45a5a26074,2026-10-28 18:56:41,experiment1_chimelong/data/raw/CHL-N05.html
+CHL-O01,https://www.chimelong.com/gz/trip/6957.html,200,141825,16db1b99e5498976c070786687f09c643a48edda27d31866992f8070eaa27604,2026-10-28 18:56:18,experiment1_chimelong/data/raw/CHL-O01.html
+CHL-O02,https://www.chimelong.com/gz/trip/3536.html,200,137385,28ccf0ff03e8b6dc652ba499f89fa2cce4a44ceb6a2472789d7a6e3946364e1b,2026-10-28 18:56:19,experiment1_chimelong/data/raw/CHL-O02.html
+CHL-O03,https://www.chimelong.com/gz/trip/3537.html,200,139764,e6fc6206ea30729aab148665fcbab406e7795062b3091d517e7cfe96c54a0e27,2026-10-28 18:56:21,experiment1_chimelong/data/raw/CHL-O03.html

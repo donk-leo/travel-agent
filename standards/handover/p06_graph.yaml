@@ -1,0 +1,44 @@
+project: p06_graph
+title: 多源程序性知识融合与图谱可视化
+owner: T0coke
+reviewer: HappinessJo
+status: planned
+version_tag: ""
+
+inputs:
+  - path: analysis/p02_entities/outputs/entities.jsonl
+    schema: standards/schema_entities.json
+    from_tag: v0.2-p02
+  - path: analysis/p03_routes/outputs/routes.jsonl
+    schema: standards/schema_routes.json
+    from_tag: v0.3-p03
+  - path: analysis/p05_conditions/outputs/conditions.jsonl
+    schema: standards/schema_conditions.json
+    from_tag: v0.5-p05
+    optional: true
+
+outputs:
+  - path: analysis/p06_graph/outputs/graph_nodes.csv
+    schema: standards/schema_graph.json
+  - path: analysis/p06_graph/outputs/graph_edges.csv
+    schema: standards/schema_graph.json
+  - path: analysis/p06_graph/outputs/graph.graphml
+  - path: analysis/p06_graph/outputs/figures/graph_*.png
+  - path: analysis/p06_graph/outputs/graph_qa.md
+
+checks:
+  - python checks/check_graph.py analysis/p06_graph/outputs/
+
+frozen:
+  - 节点/边类型枚举
+  - 融合去重规则（同义合并、父子关系保留）
+
+acceptance:
+  - 至少一个景区完整连通图（不是散点）
+  - 所有边端点存在于节点表
+  - 节点/边类型在图例可辨，关键路径可高亮
+  - graph_qa.md 有可执行查询示例与核心节点分析
+  - 能解释"为什么合并 / 为什么保留"
+
+notes: |
+  只读 P2/P3（+P5）的产出，不得回头改上游；发现上游问题 → 联系 owner 升 tag。

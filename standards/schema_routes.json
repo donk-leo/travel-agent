@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "项目3 路线结构输出（routes.jsonl，每行一个步骤）",
+  "version": "1.0",
+  "file_convention": "analysis/p03_routes/outputs/routes.jsonl",
+  "encoding": "utf-8",
+  "format": "JSON Lines",
+  "fields": [
+    {"name": "doc_id", "type": "string", "required": true},
+    {"name": "route_id", "type": "string", "required": true, "desc": "同景区同文档内唯一，如 CL-O-02-r1"},
+    {"name": "step_no", "type": "integer", "required": true, "minimum": 1, "desc": "同 route_id 内从 1 递增"},
+    {"name": "poi", "type": "string", "required": false, "desc": "归一化后的景点名"},
+    {"name": "poi_raw", "type": "string", "required": false, "desc": "原文写法"},
+    {"name": "activity", "type": "string", "required": false, "desc": "活动/交通/用餐等"},
+    {"name": "time_raw", "type": "string", "required": false, "desc": "原文时间表达，如 10:30、上午"},
+    {"name": "time_norm", "type": "string", "required": false, "desc": "HH:MM 或 AM/NOON/PM，推断时须标 time_source"},
+    {"name": "time_source", "type": "string", "required": true, "enum": ["explicit", "inferred", "absent"]},
+    {"name": "time_period", "type": "string", "required": false, "enum": ["上午", "中午", "下午", "晚上", "未知"]},
+    {"name": "duration_min", "type": "integer", "required": false, "desc": "停留时长（分钟），缺省不填"},
+    {"name": "source_span", "type": "array", "required": false, "desc": "[char_start, char_end]，基于 clean_content"}
+  ],
+  "rules": [
+    "缺失时间不得伪装为原文事实：time_source=absent 时 time_norm 必须为空",
+    "同 route_id 内 step_no 必须连续且唯一",
+    "poi 归一化规则表放 config/alias.csv，并说明局限"
+  ]
+}

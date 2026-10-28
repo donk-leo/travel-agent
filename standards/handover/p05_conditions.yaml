@@ -1,0 +1,40 @@
+project: p05_conditions
+title: 条件性游览建议的抽取
+owner: T0coke
+reviewer: 成员3
+status: planned
+version_tag: ""
+
+inputs:
+  - path: scenic/changlong/data/processed/changlong_guides.csv
+    column: clean_content
+    from_tag: v0.1-p01
+  - path: scenic/baiyunshan/data/processed/baiyunshan_guides.csv
+    column: clean_content
+    from_tag: v0.1-p01
+  - path: scenic/wugongshan/data/processed/wugongshan_guides.csv
+    column: clean_content
+    from_tag: v0.1-p01
+
+outputs:
+  - path: analysis/p05_conditions/outputs/conditions.jsonl
+    schema: standards/schema_conditions.json
+  - path: analysis/p05_conditions/outputs/映射表.xlsx
+  - path: analysis/p05_conditions/outputs/figures/condition_stats.png
+  - path: analysis/p05_conditions/config/triggers.csv
+
+checks:
+  - python checks/check_conditions.py analysis/p05_conditions/outputs/conditions.jsonl
+
+frozen:
+  - 触发词表
+  - 条件类型枚举（天气/人群/时间/体力/预算/交通/其他）
+
+acceptance:
+  - 覆盖"如果/假如/若/建议/可以"等触发词
+  - 条件与建议为原文片段，边界切分正确
+  - 同句多建议拆分为多条，共享 source_sentence
+  - 去重前后统计齐全，样本稀疏问题如实说明
+
+notes: |
+  官方文本的条件句密度低，游记里"带老人/下雨/夜爬"更常见，跨景区对比时要说明分布差异。

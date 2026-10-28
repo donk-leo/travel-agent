@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "项目4 共指消解输出（coref.jsonl，每行一个代词消解结果）",
+  "version": "1.0",
+  "file_convention": "analysis/p04_coref/outputs/coref.jsonl",
+  "encoding": "utf-8",
+  "format": "JSON Lines",
+  "fields": [
+    {"name": "doc_id", "type": "string", "required": true},
+    {"name": "pronoun", "type": "string", "required": true, "desc": "它/这/那里/他们 等"},
+    {"name": "pronoun_start", "type": "integer", "required": true, "minimum": 0},
+    {"name": "pronoun_end", "type": "integer", "required": true, "desc": "不含"},
+    {"name": "sentence", "type": "string", "required": true},
+    {"name": "antecedent", "type": "string", "required": false, "desc": "消解结果；无法确定时留空"},
+    {"name": "antecedent_start", "type": "integer", "required": false},
+    {"name": "antecedent_type", "type": "string", "required": false, "enum": ["POI", "TRANSPORT", "TIME", "EVENT", "UNKNOWN"]},
+    {"name": "method", "type": "string", "required": true, "enum": ["rule_nearest", "model", "llm"]},
+    {"name": "confidence", "type": "number", "required": false, "minimum": 0, "maximum": 1},
+    {"name": "needs_review", "type": "boolean", "required": false, "desc": "低置信或歧义时为 true"}
+  ],
+  "annotation_file": {
+    "path": "analysis/p04_coref/outputs/annotations.csv",
+    "columns": ["doc_id", "pronoun", "pronoun_start", "sentence", "gold_antecedent", "gold_type", "note"],
+    "min_rows": 5,
+    "note_rule": "无明确先行词时 gold_antecedent 留空，note 写原因"
+  },
+  "metrics": ["accuracy", "coverage", "unresolved_rate"]
+}

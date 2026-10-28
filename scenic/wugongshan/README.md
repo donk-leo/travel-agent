@@ -1,5 +1,9 @@
 # 武功山景区指南数据采集与预处理（项目1）
 
+> **目录变更说明（2026-10-28）**：本目录由原来的 `武功山/` 迁移到 `scenic/wugongshan/`
+> （`git mv` 保留历史）。内部相对路径（`src/`、`data/`、`outputs/`）不变，脚本可直接运行。
+> 交接卡见 `standards/handover/p01_scenic.yaml`，自检命令：`python checks/check_scenic.py scenic/wugongshan/data/processed/wugongshan_guides.csv`。
+
 《数据挖掘》探索性实验 · 项目1 · 本人负责景区：**武功山（江西省萍乡市）**。
 
 本仓库完成武功山景区官方推荐路线与游客游记的采集、正文抽取、清洗、结构化与质量验证，

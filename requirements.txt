@@ -1,0 +1,23 @@
+# 《数据挖掘》探索性实验 · 共享依赖
+# 安装：python -m pip install -r requirements.txt
+# 说明：本项目 1 只用到前 7 个；项目 2-7 按需增加（jieba / networkx / pyvis / openai）。
+#       新增依赖时必须同步提交本文件，避免“我这能跑你跑不了”。
+
+# —— 采集与解析（项目1）——
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
+
+# —— 数据处理与结构化（项目1）——
+pandas>=2.2
+openpyxl>=3.1
+python-docx>=1.1          # 生成实验报告
+matplotlib>=3.8           # 图表
+opencc-python-reimplemented>=0.1.7   # 繁简统一
+
+# —— 项目2-7（按需启用）——
+jieba>=0.42               # 分词与自定义词典（项目2）
+networkx>=3.2             # 知识图谱（项目6）
+# pyvis>=0.3              # 图谱交互可视化（可选）
+# openai>=1.30            # LLM 接入（项目7，密钥走 .env，不入库）
+# python-dotenv>=1.0      # 读取 .env
