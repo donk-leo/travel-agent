@@ -204,7 +204,7 @@ python src/merge_group.py ..\changlong\data\processed\changlong_guides.csv `
 
 | 项目 | owner | 状态 | 产出 tag |
 |---|---|---|---|
-| P1 数据（长隆/白云山/武功山） | 三人各自 | 武功山 ✅ / 长隆 🚧 / 白云山 ❌ | — |
+| P1 数据（长隆/白云山/武功山） | 三人各自 | 长隆 ✅（8 条）/ 武功山 ✅（14 条）/ 白云山 ❌ | 待三景区齐后打 `v0.1-p01` |
 | P2 实体识别 | T0coke | 未开始 | — |
 | P3 路线层级 | HappinessJo | 未开始 | — |
 | P4 共指消解 | 成员3 | 未开始 | — |
