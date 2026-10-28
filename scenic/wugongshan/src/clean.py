@@ -292,7 +292,8 @@ def main() -> None:
         "quality_flags", "is_valid", "clean_hash",
     ]
     df = df[cols]
-    df.to_csv(DATASET_CSV, index=False, encoding="utf-8-sig")
+    df.to_csv(DATASET_CSV, index=False, encoding="utf-8-sig", lineterminator="
+")
 
     summary = {
         "records": len(df),

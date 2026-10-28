@@ -258,6 +258,7 @@ def main() -> None:
         writer = csv.DictWriter(
             fh,
             fieldnames=["doc_id", "source_url", "http_status", "bytes", "sha256", "fetch_time"],
+            lineterminator="\n",
         )
         writer.writeheader()
         for rec in records:

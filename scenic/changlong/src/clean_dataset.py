@@ -419,7 +419,8 @@ def main() -> None:
         "reduction_rate", "is_valid", "cleaning_log", "clean_text", "raw_text",
     ]
     df_out = df[out_cols].sort_values("doc_id")
-    df_out.to_csv(INTERIM_DIR / "legacy_20col.csv", index=False, encoding="utf-8-sig")
+    df_out.to_csv(INTERIM_DIR / "legacy_20col.csv", index=False, encoding="utf-8-sig", lineterminator="
+")
     df_out.to_json(INTERIM_DIR / "chimelong_docs.json", orient="records", force_ascii=False, indent=2)
     # 供后续项目直接读取的精简表（只留清洗文本，避免下游误用原始 HTML）
     df_out[out_cols[:18]].to_csv(

@@ -1,0 +1,27 @@
+# 统一换行符：仓库与工作区都用 LF
+# 目的：Windows 上重跑脚本后不会因为 CRLF/LF 差异产生“假修改”
+* text=auto eol=lf
+
+# 二进制文件：禁止任何文本转换（否则 docx/xlsx 可能被损坏）
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.pdf    binary
+*.docx   binary
+*.xlsx   binary
+*.pptx   binary
+*.zip    binary
+*.7z     binary
+*.pyc    binary
+
+# 文本类数据显式声明（便于 diff 与合并）
+*.csv    text eol=lf
+*.json   text eol=lf
+*.jsonl  text eol=lf
+*.yaml   text eol=lf
+*.yml    text eol=lf
+*.md     text eol=lf
+*.py     text eol=lf
+*.txt    text eol=lf
