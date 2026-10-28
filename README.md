@@ -14,7 +14,7 @@
 
 | # | 项目 | 主责 | 状态 | 产出 | 交付 tag |
 |---|---|---|---|---|---|
-| 1 | 数据采集与预处理 | 三人各自负责一景区 | 长隆 ✅（8 条）｜武功山 ✅（14 条）｜白云山 ❌ | `scenic/*/data/processed/*_guides.csv` | 待三景区齐后打 `v0.1-p01` |
+| 1 | 数据采集与预处理 | 三人各自负责一景区 | 长隆 ✅（8 条）｜白云山 ✅（7 条）｜武功山 ✅（14 条） | `scenic/*/data/processed/*_guides.csv` + `scenic/summary/` | 待补白云山脚本后打 `v0.1-p01` |
 | 2 | 实体识别 | T0coke | 未开始 | `analysis/p02_entities/outputs/entities.jsonl` | — |
 | 3 | 路线层级结构 | HappinessJo | 未开始 | `analysis/p03_routes/outputs/routes.jsonl` | — |
 | 4 | 共指消解 | 成员3 | 未开始 | `analysis/p04_coref/outputs/coref.jsonl` | — |

@@ -45,6 +45,7 @@
 ├─ checks/                ← 质量门：每项目一个 check_pNN_*.py
 ├─ scenic/                ← 项目1 数据层：一人一景区
 │  ├─ changlong/  baiyunshan/  wugongshan/
+│  └─ summary/            跨景区汇总（29 条 + 汇总报告，T0coke 维护）
 ├─ analysis/              ← 项目2–7：跨景区，唯一实现
 │  ├─ p02_entities/ … p07_agent/
 ├─ report/                ← 章节模板 + 总报告（只有组长改总报告）
@@ -204,7 +205,7 @@ python src/merge_group.py ..\changlong\data\processed\changlong_guides.csv `
 
 | 项目 | owner | 状态 | 产出 tag |
 |---|---|---|---|
-| P1 数据（长隆/白云山/武功山） | 三人各自 | 长隆 ✅（8 条）/ 武功山 ✅（14 条）/ 白云山 ❌ | 待三景区齐后打 `v0.1-p01` |
+| P1 数据（长隆/白云山/武功山） | 三人各自 | 三景区齐：长隆 8 / 白云山 7 / 武功山 14 = 29 条 | 待补白云山脚本后打 `v0.1-p01` |
 | P2 实体识别 | T0coke | 未开始 | — |
 | P3 路线层级 | HappinessJo | 未开始 | — |
 | P4 共指消解 | 成员3 | 未开始 | — |

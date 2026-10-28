@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 from lib.schema import SCENIC_COLUMNS, clean_hash, count_paragraphs  # noqa: E402
 from lib.io_utils import read_csv_sig, write_csv_sig  # noqa: E402
+from lib.clean_rules import strip_html, unescape_entities  # noqa: E402
 
 BASE = Path(__file__).resolve().parents[1]
 DEFAULT_IN = BASE / "data" / "interim" / "legacy_20col.csv"
@@ -46,9 +47,23 @@ def from_log(log: str, label: str) -> int:
     return int(match.group(1)) if match else 0
 
 
+def to_plain_text(html_or_text: str) -> str:
+    """把抽取结果统一成"纯文本"口径（与武功山/白云山一致）。
+
+    官网三篇的原始抽取结果是 innerHTML，含大量样式标签；组内另外两个景区的
+    raw_content 都是"去标签后的正文"。若不做这一步，长隆的 char_raw 会虚高，
+    跨景区的"原始字数 / 删除比例"统计不可比。
+    注意：这里只去标签、还原实体、统一换行，**保留模板噪声**（raw 的语义就是清洗前）。
+    """
+    text = unescape_entities(html_or_text or "")
+    text = strip_html(text)
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    return "\n".join(ln.strip() for ln in text.split("\n")).strip()
+
+
 def convert_row(row: dict) -> dict:
-    raw = row.get("raw_text") or ""
-    clean = row.get("clean_text") or ""
+    raw = to_plain_text(row.get("raw_text") or "")
+    clean = (row.get("clean_text") or "").replace("\r\n", "\n").strip()
     log = row.get("cleaning_log") or ""
     author = (row.get("author") or "").strip()
     date = (row.get("publish_date") or "").strip()
@@ -65,6 +80,9 @@ def convert_row(row: dict) -> dict:
     if not valid:
         flags.append("文本过短")
 
+    char_raw = len(re.sub(r"\s+", "", raw))
+    char_clean = int(row.get("char_count_no_space") or len(re.sub(r"\s+", "", clean)))
+    para_raw, para_clean = count_paragraphs(raw), count_paragraphs(clean)
     return {
         "doc_id": map_doc_id((row.get("doc_id") or "").strip()),
         "scenic_area": "长隆",
@@ -78,12 +96,12 @@ def convert_row(row: dict) -> dict:
         "extract_rule": (row.get("extract_rule") or "").strip(),
         "raw_content": raw,
         "clean_content": clean,
-        "char_raw": len(re.sub(r"\s+", "", raw)),
-        "char_clean": int(row.get("char_count_no_space") or len(re.sub(r"\s+", "", clean))),
-        "para_raw": count_paragraphs(raw),
-        "para_clean": count_paragraphs(clean),
-        "removed_char_ratio": round(float(row.get("reduction_rate") or 0), 3),
-        "noise_lines_removed": max(0, count_paragraphs(raw) - count_paragraphs(clean)),
+        "char_raw": char_raw,
+        "char_clean": char_clean,
+        "para_raw": para_raw,
+        "para_clean": para_clean,
+        "removed_char_ratio": round(1 - char_clean / char_raw, 3) if char_raw else 0.0,
+        "noise_lines_removed": max(0, para_raw - para_clean),
         "emoji_removed": from_log(log, "去除 emoji 与装饰符号"),
         "urls_removed": from_log(log, "去除网址/邮箱/客服电话"),
         "dup_paragraphs_removed": from_log(log, "段内重复行去重"),
