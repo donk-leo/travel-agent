@@ -1,0 +1,1925 @@
+﻿doc_id,scenic_area,doc_type,subtype,title,author,publish_date,source_site,source_url,extract_rule,raw_content,clean_content,char_raw,char_clean,para_raw,para_clean,removed_char_ratio,noise_lines_removed,emoji_removed,urls_removed,dup_paragraphs_removed,quality_flags,is_valid,clean_hash
+CL-O-01,长隆,官方路线,度假区（多园区）,广州长隆3天2夜游玩攻略,长隆官网编辑部,2024-05-30,长隆官网,https://www.chimelong.com/gz/trip/6957.html,BeautifulSoup 定位 div.flow-list 取 innerHTML,"
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">嗨！各位快乐玩家，欢迎来到广州长隆度假区，快收下这份吃住玩一站式度假攻略，一键开启快乐假日吧！</span></span></span></span></p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:center;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><b><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">第一站：长隆欢乐世界</span></span></b></span></span></p>
+<p style=""text-align:center;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">假期想狂欢？那就来广州长隆欢乐世界！忘掉工作的繁忙和生活的琐碎，来一场全身心的狂欢刺激之旅吧。这里有全球领先的70+游乐设施，有趣，好看又刺激，让你心跳加速尽情释放！ </span></span></span></span></p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">坐上“全球过山车之王“的垂直过山车。三分钟之内让你完成上天入地冲浪的刺激体验</span></span> </span></span></p>
+<p style=""text-align:justify;""> </p>
+<div class=""list-img-wrap"">
+<ul class=""row list-img""><li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/czgsc1.393645f.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/czgsc2.1062028.jpg""/></div>
+</li>
+</ul></div>
+<p style=""text-align:center;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">坐上游乐园最大的秋千，挑战地心引力 在超级大摆锤的极致摇摆中，感受无尽的刺激和乐趣 </span></span></span></span></p>
+<div class=""text-wrap""> </div>
+<div class=""list-img-wrap"">
+<ul class=""row list-img""><li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/cjdbc1.99578e7.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/cjdbc2.65d4f90.jpg""/></div>
+</li>
+</ul></div>
+<div class=""text-wrap""> </div>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">谁说欢乐世界只适合大朋友，这里有小朋友也能玩的飞马家庭过山车，刺激又奇幻，家庭出游千万不要错过。最浪漫的打卡点还是梦幻转马，无论是小朋友还是拥有少女心的你，都可以进入梦幻童话世界， 打卡到人生照片</span></span></span></span></p>
+<div class=""text-wrap""> </div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/mhzm1.23a35f5.jpg""/></p>
+<div class=""text-wrap""> </div>
+<p style=""text-align:center;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><b><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">第二站：长隆野生动物世界</span></span></b></span></span></p>
+<p style=""text-align:center;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">来都来了，怎么能错过长隆野生动物世界~珍稀的动物大家族，独特的观赏方式和精彩的科普课堂，各种超好玩的项目等你来打卡 </span></span></span></span></p>
+<p style=""text-align:center;""> </p>
+<p style=""text-align:center;""> </p>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/kzlc1.40f8bcf.jpg""/></p>
+<div class=""text-wrap""> </div>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">搭乘缆车飞跃东非大草原，俯瞰壮观的动物大迁徙。在长颈鹿广场，可以给长颈鹿投喂树叶，与它互动拍照打卡</span></span></span></span></p>
+<p style=""text-align:justify;""> </p>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/cjlgc1.27fdc07.jpg""/></p>
+<div class=""text-wrap""> </div>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">乘坐森林小火车，穿越五大洲的珍稀动物世界，近距离接触可爱的动物朋友</span></span></span></span></p>
+<p style=""text-align:center;""> </p>
+<div class=""list-img-wrap"">
+<ul class=""row list-img""><li class=""col-sm-6"">
+<div class=""oImg""><img alt=""266e8bad2e088404.jpg"" src=""https://cdn.chimelong.com/upload/eaa5ec555452a0a4/266e8bad2e088404.jpg"" title=""image""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/xhcyl2.43f032c.jpg""/></div>
+</li>
+</ul></div>
+<div class=""text-wrap""> </div>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">喜欢大熊猫的小朋友千万别错过，拥有全球唯一大熊猫三胞胎的熊猫村。熊猫三宝今年就10周岁啦，小朋友们记得来参加萌帅酷的十周岁生日呀！</span></span></span></span></p>
+<p style=""text-align:justify;""> </p>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/xmly1.a586251.jpg""/></p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">考拉园也同样值得游玩，考拉大家族八代同堂，同时还是北半球至大的考拉大种群</span></span></span></span></p>
+<p style=""text-align:justify;""> </p>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/kly1.baf2827.jpg""/></p>
+<div class=""text-wrap""> </div>
+<p style=""text-align:center;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><b><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">第三站：长隆水上乐园</span></span></b></span></span></p>
+<p style=""text-align:center;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">夏天的正确打开方式，当然是来广州长隆水上乐园玩水啦！超过70套顶级设备为玩水家们带来无尽的欢乐与惊喜 </span></span></span></span></p>
+<p style=""text-align:center;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">摇滚巨轮是长隆水上乐园跨时代的玩水设施，一出道就迅速爆红，获得多个国际行业大奖。在这里你可以体验到360°漂移，俯冲快感，收获前所未有的玩水体验</span></span> </span></span></p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:center;""><img alt=""fc3a5c84b5cddfbc.gif"" class=""img-responsive"" src=""https://cdn.chimelong.com/upload/6c73256b6a59a2bd/fc3a5c84b5cddfbc.gif"" title=""image""/></p>
+<p> </p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">白天没玩够？来超级造浪池，九种海浪模式为玩水家带来全海域体验，晚上还有水上电音节，绚丽的烟花，酷炫的灯光和炸裂的音效，配合行业顶尖DJ/MC驻场，点燃每一晚的电音狂潮，跟着节奏不断摇摆，来一场独一无二的水上蹦迪 </span></span> </span></span></p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:center;""><img alt=""78cef3af6a1828cd.gif"" class=""img-responsive"" src=""https://cdn.chimelong.com/upload/362f338ee933c99f/78cef3af6a1828cd.gif"" title=""image""/></p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:justify;""> </p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>关于饮食</strong></div>
+<p style=""text-align:justify;""> </p>
+<div class=""text p""><strong>野生动物世界推荐：熊猫餐厅</strong></div>
+<div class=""text p"">熊猫乐园旁边的熊猫餐厅就是一个解决午餐的好地方，可以和可爱的熊猫宝宝一起吃午饭。</div>
+</div>
+<p style=""text-align:justify;""> </p>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/xmct1.0194a95.jpg""/></p>
+<div class=""text-wrap""> </div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>欢乐世界：椰林餐厅</strong></div>
+<div class=""text p"">椰林餐厅，有地道的粤式美食滋味咸香鸡和东南亚风味的泰式风情沙拉菜式，让您吃的生态，品的自然。还有现烤的正宗德克萨斯牛柳焦香味浓，肉质鲜嫩，一定会让您垂涎欲滴！</div>
+</div>
+<p style=""text-align:justify;""> </p>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/upload/17189bc3c67f1bb8/3930f1515ca1919d.jpg""/></p>
+<p style=""text-align:justify;""> </p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>关于住宿</strong></div>
+<div class=""text p""><strong>广州长隆熊猫酒店</strong></div>
+<div class=""text p""><strong>【入住温馨提示】</strong></div>
+<div class=""text p"">1.记得提前准备好所有入住人的有效证件哦~</div>
+<div class=""text p"">2.第二个重要的事情就是去拿行李啦！请凭房号前往礼宾部~</div>
+<div class=""text p""><strong>四大主题房：</strong></div>
+<div class=""text p"">卡哇伊的粉红“萌萌房”，最适合甜美范儿的小可爱~</div>
+<div class=""text p"">奔放热烈的红色“帅帅房”，瞬间穿越童话二次元！</div>
+<div class=""text p"">充满朝气的橙色“酷酷房”，让人感觉活力满满！</div>
+<div class=""text p"">还有童心爆棚的王子家庭房，这个就特别适合家庭居住啦！</div>
+</div>
+<div class=""list-img-wrap"">
+<ul class=""row list-img""><li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/xmjdztf1.65b0a82.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/xmjdztf2.8028a2e.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/xmjdztf3.ba8200b.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/xmjdztf4.6dae13a.jpg""/></div>
+</li>
+</ul></div>
+<div class=""text p""><strong>广州长隆酒店</strong></div>
+<p style=""text-align:justify;""> </p>
+<div class=""text p"">探趣亲子房</div>
+<div class=""text p"">为多胎家庭贴心设计的亲子房，大胆融入各种动物主题，仿佛身临其境置身动物家园之余，大人小朋友都还可以拥有自己的专属小空间。房间更多隐藏细节彩蛋带您发现，更贴心准备小童专属用品，快来这里度过美好的亲子时光吧！</div>
+<p style=""text-align:justify;""> </p>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/upload/9d76f17abc5fdee8/88d7b99adfc31bfe.jpg""/></p>
+<p style=""text-align:justify;""> </p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>关于交通</strong></div>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;"">速速收下这份交通指南，让你轻轻松松来广州长隆！</span></span></span></span></p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;""><strong>机场接驳：</strong>从广州白云机场出发搭乘机场快线约1小时15分钟直达广州长隆度假旅游区。</span></span></span></span></p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;""><strong>高铁轻轨：</strong>从广州南高铁站出发搭乘地铁7号线到达汉溪长隆地铁站（E出口）；从广州东高铁站出发搭乘地铁3号线北延段到达体育西地铁站转3号线到达汉溪长隆地铁站（E出口）；从广州火车站地铁站出发搭乘地铁5号线到达珠江新城站转3号线到达汉溪长隆地铁站（E出口）。</span></span></span></span></p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;""><strong>地铁：</strong>从广州各地铁站点搭乘至3号线或7号线（E出口）。</span></span></span></span></p>
+<p style=""text-align:justify;""> </p>
+<p style=""text-align:justify;""><span style=""font-size:10.5pt;""><span style=""font-family:'等线';""><span style=""font-size:12pt;""><span style=""font-family:'微软雅黑', sans-serif;""><strong>公交巴士：</strong>129路，番163路，番109路，304路。</span></span></span></span></p>
+<p style=""text-align:justify;""> </p>
+<p> </p>
+</div> ","嗨！各位快乐玩家，欢迎来到广州长隆度假区，快收下这份吃住玩一站式度假攻略，一键开启快乐假日吧！
+第一站：长隆欢乐世界
+假期想狂欢？那就来广州长隆欢乐世界！忘掉工作的繁忙和生活的琐碎，来一场全身心的狂欢刺激之旅吧。这里有全球领先的70+游乐设施，有趣，好看又刺激，让你心跳加速尽情释放！
+坐上“全球过山车之王“的垂直过山车。三分钟之内让你完成上天入地冲浪的刺激体验
+坐上游乐园最大的秋千，挑战地心引力 在超级大摆锤的极致摇摆中，感受无尽的刺激和乐趣
+谁说欢乐世界只适合大朋友，这里有小朋友也能玩的飞马家庭过山车，刺激又奇幻，家庭出游千万不要错过。最浪漫的打卡点还是梦幻转马，无论是小朋友还是拥有少女心的你，都可以进入梦幻童话世界，打卡到人生照片
+第二站：长隆野生动物世界
+来都来了，怎么能错过长隆野生动物世界~珍稀的动物大家族，独特的观赏方式和精彩的科普课堂，各种超好玩的项目等你来打卡
+搭乘缆车飞跃东非大草原，俯瞰壮观的动物大迁徙。在长颈鹿广场，可以给长颈鹿投喂树叶，与它互动拍照打卡
+乘坐森林小火车，穿越五大洲的珍稀动物世界，近距离接触可爱的动物朋友
+喜欢大熊猫的小朋友千万别错过，拥有全球唯一大熊猫三胞胎的熊猫村。熊猫三宝今年就10周岁啦，小朋友们记得来参加萌帅酷的十周岁生日呀！
+考拉园也同样值得游玩，考拉大家族八代同堂，同时还是北半球至大的考拉大种群
+第三站：长隆水上乐园
+夏天的正确打开方式，当然是来广州长隆水上乐园玩水啦！超过70套顶级设备为玩水家们带来无尽的欢乐与惊喜
+摇滚巨轮是长隆水上乐园跨时代的玩水设施，一出道就迅速爆红，获得多个国际行业大奖。在这里你可以体验到360°漂移，俯冲快感，收获前所未有的玩水体验
+白天没玩够？来超级造浪池，九种海浪模式为玩水家带来全海域体验，晚上还有水上电音节，绚丽的烟花，酷炫的灯光和炸裂的音效，配合行业顶尖DJ/MC驻场，点燃每一晚的电音狂潮，跟着节奏不断摇摆，来一场独一无二的水上蹦迪
+关于饮食
+野生动物世界推荐：熊猫餐厅
+熊猫乐园旁边的熊猫餐厅就是一个解决午餐的好地方，可以和可爱的熊猫宝宝一起吃午饭。
+欢乐世界：椰林餐厅
+椰林餐厅，有地道的粤式美食滋味咸香鸡和东南亚风味的泰式风情沙拉菜式，让您吃的生态，品的自然。还有现烤的正宗德克萨斯牛柳焦香味浓，肉质鲜嫩，一定会让您垂涎欲滴！
+关于住宿
+广州长隆熊猫酒店
+【入住温馨提示】
+1.记得提前准备好所有入住人的有效证件哦~
+2.第二个重要的事情就是去拿行李啦！请凭房号前往礼宾部~
+四大主题房
+卡哇伊的粉红“萌萌房”，最适合甜美范儿的小可爱~
+奔放热烈的红色“帅帅房”，瞬间穿越童话二次元！
+充满朝气的橙色“酷酷房”，让人感觉活力满满！
+还有童心爆棚的王子家庭房，这个就特别适合家庭居住啦！
+广州长隆酒店
+探趣亲子房
+为多胎家庭贴心设计的亲子房，大胆融入各种动物主题，仿佛身临其境置身动物家园之余，大人小朋友都还可以拥有自己的专属小空间。房间更多隐藏细节彩蛋带您发现，更贴心准备小童专属用品，快来这里度过美好的亲子时光吧！
+关于交通
+速速收下这份交通指南，让你轻轻松松来广州长隆！
+机场接驳：从广州白云机场出发搭乘机场快线约1小时15分钟直达广州长隆度假旅游区。
+高铁轻轨：从广州南高铁站出发搭乘地铁7号线到达汉溪长隆地铁站（E出口）；从广州东高铁站出发搭乘地铁3号线北延段到达体育西地铁站转3号线到达汉溪长隆地铁站（E出口）；从广州火车站地铁站出发搭乘地铁5号线到达珠江新城站转3号线到达汉溪长隆地铁站（E出口）。
+地铁：从广州各地铁站点搭乘至3号线或7号线（E出口）。
+公交巴士：129路，番163路，番109路，304路。",10542,1478,138,40,0.862,98,0,0,0,长隆;子园区:度假区（多园区）,True,38111808d12f940af9afd9002a019ad8ad743b44
+CL-O-02,长隆,官方路线,野生动物世界,广州长隆野生动物世界游玩攻略,长隆官网编辑部,2019-01-01,长隆官网,https://www.chimelong.com/gz/trip/3536.html,BeautifulSoup 定位 div.flow-list 取 innerHTML,"
+<div class=""text-wrap"">
+<div class=""text p""><strong>带上你爱的人，来长隆野生动物世界数动物，顺便来一场浪漫的空中告白</strong></div>
+<div class=""text p""><strong>——长隆野生动物世界情侣游攻略</strong></div>
+<div class=""text p"">享用完早餐，可以凭房号前往礼宾部寄存行李，然后出门乘坐免费巴士到达长隆野生动物世界北门，我们打算从北门入园，先乘坐小火车游览一遍，然后一路向南，完美！</div>
+<div class=""text p""><strong>提前准备：</strong></div>
+<div class=""text p"">√现金（喂食的项目需要现金）</div>
+<div class=""text p"">√手机、相机、充电宝</div>
+<div class=""text p"">√太阳伞、防晒、防蚊喷雾（夏天）</div>
+<div class=""text p"">√饮用水（怕游客乱投食，除婴儿食品和每人限带一支（瓶）饮用水外，长隆各主题公园和马戏场馆谢绝游客（观众）带入其它食品和饮品）</div>
+<div class=""text p"">√另一半</div>
+<div class=""text p""> </div>
+<div class=""text p""><strong>【游玩路线】</strong></div>
+<div class=""text p"">北门——小火车游览区——青龙山——考拉园——熊猫乐园——熊猫餐厅——4D影院——亚洲象园——长颈鹿广场——空中缆车——火烈鸟——南门纪念品商店——出园</div>
+<div class=""text p""><strong>第一站（10:00）：小火车游览</strong></div>
+<div class=""text p"">从北门入园，在天鹅美食对面可以先乘坐小火车游玩乘车游览部分，游览时间大概30分钟，期间可以看到斑马、大象、长颈鹿、羊驼、狮子、狼、秃鹫、黑熊、羚羊等等，很多女孩子都对动物没有抵抗之力，在这里能一次性满足你对动物的喜爱哦！小火车中途不停车，是免费乘坐的哦，这么近距离地看这么多动物，很有声临其境的感觉，有点大胆的动物还会跟着车跑，感觉真的是超棒的！</div>
+</div>
+<div class=""list-img-wrap"">
+<ul class=""row list-img""><li class=""col-sm-6"">
+<div class=""oImg""><img alt=""266e8bad2e088404.jpg"" src=""https://cdn.chimelong.com/upload/eaa5ec555452a0a4/266e8bad2e088404.jpg"" title=""image""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/xhcyl2.43f032c.jpg""/></div>
+</li>
+</ul></div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第二站（11:00）：青龙山</strong></div>
+<div class=""text p"">小火车下来就是青龙山，按照路标我们来到了一直心心念念的侏罗纪森林，这个时候就是男朋友展示男友力的时候啦，逼真的特效还是让女孩子有点点小怕小怕的！森林里到处藏着恐龙，有的恐龙还会喷水，遇到喷水恐龙记得要躲开哦~期间还会穿过一个时空隧道，里面有两个超大的恐龙！</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/qls1.3209fa4.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第三站（11:50）：考拉园</strong></div>
+<div class=""text p"">女孩子大部分都喜欢萌萌的动物，来到考拉园一定会敲开心！这是我们第一次看到这么萌的圆滚滚，光是盯着它们睡觉就能笑很久，还有一个看点就是看考拉吃树叶，吧唧吧唧吧唧的样子真香~连我都不由吞了下口水，额额，有点饿了！</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/kly1.baf2827.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第四站（12:10）：熊猫乐园</strong></div>
+<div class=""text p"">除了可耐的考拉，还有男女通杀的大熊猫！简直迈不开脚步舍不得离开！天哪这个世界上怎么会有滚滚这么可爱的生物呢？看我迷离的眼神，身旁的TA说没见过你这么宠溺地看过我呢~除了三胞胎，还有其他团子，都是一副懒洋洋的样子，超级萌！</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/xmly1.a586251.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第五站（12:30）：熊猫餐厅</strong></div>
+<div class=""text p"">刚好到了午饭时间，熊猫乐园旁边的熊猫餐厅就是一个解决午餐的好地方，因为可以和熊猫双胞胎亲亲爱爱一起吃午饭，而且套餐价格也还可以接受，七八十元起。吃完午餐可以看一看亲亲爱爱，这两只小家伙一直在打架，从树上打到树下，打的不亦乐乎，看的人也不亦乐乎！像极了平时一起打打闹闹的我们哈哈哈哈！</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/xmct1.0194a95.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第六站（14:00）：4D影院</strong></div>
+<div class=""text p"">熊猫餐厅周边还有4D影院，刚好可以看看4D电影午休一下，顺便来一场跟平时不一样的电影约会哦~我们两个大孩子看得津津有味，4D的体验还是很神奇的，天上会飘下泡泡，打斗的剧情椅子还会跟着摇摆，有点刺激！</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/4dyy1.3c32cca.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第七站（15:00）：亚洲象园</strong></div>
+<div class=""text p"">休息了一下，我们就要去喂大象啦！大象的口粮是香蕉，30元/五根！不知道是不是我的错觉，我感觉吃了香蕉的大象咧开嘴在微笑嘻嘻~在这里教大家一个大招，五根香蕉可以掰成十段，就可以喂十次啦！投食当然也是为了跟大象来个近距离合照，来一个不一样的秀恩爱方式~咔嚓！</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/yzxy1.308db16.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第八站（15:30）：长颈鹿广场</strong></div>
+<div class=""text p"">大象旁边就是长颈鹿广场，也是可以投喂的！如果你实在不想花钱，我这里又有一招，那就是等别人在投喂的时候，立马咔嚓拍下长颈鹿跟你们的合照，是不是超级聪明哒！不过看长颈鹿的时候可要注意不要太近哦，不然可能会被长颈鹿的口水滴到哦~</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/cjlgc1.27fdc07.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第九站（16:00）：空中缆车</strong></div>
+<div class=""text p"">这个时候感觉已经走了好久好久，是时候休息一下了，于是空中缆车走起！空中缆车有两条路线：环园线和天鹅湖线！重点还是免费哦！这票价真的值了！</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/kzlc1.40f8bcf.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>天鹅湖线</strong></div>
+<div class=""text p"">天鹅湖线是从熊猫乐园站——天鹅湖站的路线，缆车将低空横跨天鹅湖和鸳鸯湖，在缆车上俯瞰整个天鹅湖！听说天鹅一生严守一夫一妻制，若一方死亡，另一方则不食不眠，一意殉情！所以天鹅被视为忠诚和永恒爱情的象征。所以情侣们当然要来沾沾天鹅的美好祝愿~成双成对的天鹅，还有白鹭、海鸥等湖居动物朋友扑腾翅膀溅起水花，伴随湖风习习，真的是很舒服。</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/tehx1.a6eb1c1.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>环园线</strong></div>
+<div class=""text p"">建议大家坐环园线，也就是从熊猫乐园站——东非草原站——天鹅湖站——熊猫乐园站！整个路程大概30分钟，低空掠过整个园区时可以再看一遍动物，可以看到在奔腾的长颈鹿、跳羚、斑马等，还可以从空中看到考拉馆和熊猫乐园，记得跟住在半空中的团子们say hi哦！刚好是傍晚时分，可以跟最爱的人一起在夕阳下来张合照，简直不要太浪漫~</div>
+</div>
+<p><img alt=""af56df792008e445.jpg"" src=""https://cdn.chimelong.com/upload/4b26f3741ce67587/af56df792008e445.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第十站（17:00）：看火烈鸟</strong></div>
+<div class=""text p"">坐完空中缆车，已经快到闭园时间啦！沿着路标往南门走，路上还能相遇很多小动物，其中就有风靡时尚圈的火烈鸟！红红火火真的是太耀眼了，有红的白的，太美了！看着看着旁边的傻货突然神秘兮兮地问我你知道为什么火烈鸟有的是白色有的是红色吗？“不知道哇”“那我就勉为其难地跟你科普一下”然后巴拉巴拉讲了一通之后：怎么样，现在是不是觉得本公子特别博学~看来是做足了功课额！</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/khln1.a9f571a.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>第十一站（17:30）：南门纪念品商场</strong></div>
+<div class=""text p"">看了这么多萌萌的动物，肯定想把可爱的动物带回家！最后可以到南门的纪念品商场逛一逛，各自为对方选购精美可爱的动物玩具和礼品，在带走和动物们的美丽回忆的同时，把动物玩具带回家，以后看到这些可爱的小玩意就会想起这段美好记忆呢！</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/nmjnpsc1.7f03b00.jpg""/></p> ","带上你爱的人，来长隆野生动物世界数动物，顺便来一场浪漫的空中告白
+——长隆野生动物世界情侣游攻略
+享用完早餐，可以凭房号前往礼宾部寄存行李，然后出门乘坐免费巴士到达长隆野生动物世界北门，我们打算从北门入园，先乘坐小火车游览一遍，然后一路向南，完美！
+提前准备
+现金（喂食的项目需要现金）
+手机、相机、充电宝
+太阳伞、防晒、防蚊喷雾（夏天）
+饮用水（怕游客乱投食，除婴儿食品和每人限带一支（瓶）饮用水外，长隆各主题公园和马戏场馆谢绝游客（观众）带入其它食品和饮品）
+另一半
+【游玩路线】
+北门——小火车游览区——青龙山——考拉园——熊猫乐园——熊猫餐厅——4D影院——亚洲象园——长颈鹿广场——空中缆车——火烈鸟——南门纪念品商店——出园
+第一站（10:00）：小火车游览
+从北门入园，在天鹅美食对面可以先乘坐小火车游玩乘车游览部分，游览时间大概30分钟，期间可以看到斑马、大象、长颈鹿、羊驼、狮子、狼、秃鹫、黑熊、羚羊等等，很多女孩子都对动物没有抵抗之力，在这里能一次性满足你对动物的喜爱哦！小火车中途不停车，是免费乘坐的哦，这么近距离地看这么多动物，很有声临其境的感觉，有点大胆的动物还会跟着车跑，感觉真的是超棒的！
+第二站（11:00）：青龙山
+小火车下来就是青龙山，按照路标我们来到了一直心心念念的侏罗纪森林，这个时候就是男朋友展示男友力的时候啦，逼真的特效还是让女孩子有点点小怕小怕的！森林里到处藏着恐龙，有的恐龙还会喷水，遇到喷水恐龙记得要躲开哦~期间还会穿过一个时空隧道，里面有两个超大的恐龙！
+第三站（11:50）：考拉园
+女孩子大部分都喜欢萌萌的动物，来到考拉园一定会敲开心！这是我们第一次看到这么萌的圆滚滚，光是盯着它们睡觉就能笑很久，还有一个看点就是看考拉吃树叶，吧唧吧唧吧唧的样子真香~连我都不由吞了下口水，额额，有点饿了！
+第四站（12:10）：熊猫乐园
+除了可耐的考拉，还有男女通杀的大熊猫！简直迈不开脚步舍不得离开！天哪这个世界上怎么会有滚滚这么可爱的生物呢？看我迷离的眼神，身旁的TA说没见过你这么宠溺地看过我呢~除了三胞胎，还有其他团子，都是一副懒洋洋的样子，超级萌！
+第五站（12:30）：熊猫餐厅
+刚好到了午饭时间，熊猫乐园旁边的熊猫餐厅就是一个解决午餐的好地方，因为可以和熊猫双胞胎亲亲爱爱一起吃午饭，而且套餐价格也还可以接受，七八十元起。吃完午餐可以看一看亲亲爱爱，这两只小家伙一直在打架，从树上打到树下，打的不亦乐乎，看的人也不亦乐乎！像极了平时一起打打闹闹的我们哈哈哈哈！
+第六站（14:00）：4D影院
+熊猫餐厅周边还有4D影院，刚好可以看看4D电影午休一下，顺便来一场跟平时不一样的电影约会哦~我们两个大孩子看得津津有味，4D的体验还是很神奇的，天上会飘下泡泡，打斗的剧情椅子还会跟着摇摆，有点刺激！
+第七站（15:00）：亚洲象园
+休息了一下，我们就要去喂大象啦！大象的口粮是香蕉，30元/五根！不知道是不是我的错觉，我感觉吃了香蕉的大象咧开嘴在微笑嘻嘻~在这里教大家一个大招，五根香蕉可以掰成十段，就可以喂十次啦！投食当然也是为了跟大象来个近距离合照，来一个不一样的秀恩爱方式~咔嚓！
+第八站（15:30）：长颈鹿广场
+大象旁边就是长颈鹿广场，也是可以投喂的！如果你实在不想花钱，我这里又有一招，那就是等别人在投喂的时候，立马咔嚓拍下长颈鹿跟你们的合照，是不是超级聪明哒！不过看长颈鹿的时候可要注意不要太近哦，不然可能会被长颈鹿的口水滴到哦~
+第九站（16:00）：空中缆车
+这个时候感觉已经走了好久好久，是时候休息一下了，于是空中缆车走起！空中缆车有两条路线：环园线和天鹅湖线！重点还是免费哦！这票价真的值了！
+天鹅湖线
+天鹅湖线是从熊猫乐园站——天鹅湖站的路线，缆车将低空横跨天鹅湖和鸳鸯湖，在缆车上俯瞰整个天鹅湖！听说天鹅一生严守一夫一妻制，若一方死亡，另一方则不食不眠，一意殉情！所以天鹅被视为忠诚和永恒爱情的象征。所以情侣们当然要来沾沾天鹅的美好祝愿~成双成对的天鹅，还有白鹭、海鸥等湖居动物朋友扑腾翅膀溅起水花，伴随湖风习习，真的是很舒服。
+环园线
+建议大家坐环园线，也就是从熊猫乐园站——东非草原站——天鹅湖站——熊猫乐园站！整个路程大概30分钟，低空掠过整个园区时可以再看一遍动物，可以看到在奔腾的长颈鹿、跳羚、斑马等，还可以从空中看到考拉馆和熊猫乐园，记得跟住在半空中的团子们say hi哦！刚好是傍晚时分，可以跟最爱的人一起在夕阳下来张合照，简直不要太浪漫~
+第十站（17:00）：看火烈鸟
+坐完空中缆车，已经快到闭园时间啦！沿着路标往南门走，路上还能相遇很多小动物，其中就有风靡时尚圈的火烈鸟！红红火火真的是太耀眼了，有红的白的，太美了！看着看着旁边的傻货突然神秘兮兮地问我你知道为什么火烈鸟有的是白色有的是红色吗？“不知道哇”“那我就勉为其难地跟你科普一下”然后巴拉巴拉讲了一通之后：怎么样，现在是不是觉得本公子特别博学~看来是做足了功课额！
+第十一站（17:30）：南门纪念品商场
+看了这么多萌萌的动物，肯定想把可爱的动物带回家！最后可以到南门的纪念品商场逛一逛，各自为对方选购精美可爱的动物玩具和礼品，在带走和动物们的美丽回忆的同时，把动物玩具带回家，以后看到这些可爱的小玩意就会想起这段美好记忆呢！",5426,2153,84,37,0.613,47,5,0,0,长隆;子园区:野生动物世界,True,ad10cc2fdac68b543f77c05bf894f32b719255e2
+CL-O-03,长隆,官方路线,欢乐世界,广州长隆欢乐世界游玩攻略,长隆官网编辑部,2023-01-01,长隆官网,https://www.chimelong.com/gz/trip/3537.html,BeautifulSoup 定位 div.flow-list 取 innerHTML,"
+<div class=""text-wrap"">
+<div class=""text p""><strong>广州长隆欢乐世界游玩攻略</strong></div>
+<div class=""text p""><strong>【交通指南】</strong></div>
+<div class=""text p"">因为当天晚上要入住广州长隆熊猫酒店，所以我们先前往酒店寄存行李！在地铁7号线汉溪长隆地铁站E出口，可直接乘坐免费巴士到达长隆熊猫酒店，到达酒店先前往一楼酒店大堂服务中心寄存行李。从广州长隆熊猫酒店出发步行至广州长隆欢乐世界北门，几分钟即可到达，散散步当放松也不错～</div>
+<div class=""text p""> </div>
+<div class=""text p""><strong>关于安检入园：</strong>为保证公众安全，进入长隆各主题公园及马戏表演场馆的游客（观众）必须接受安全检查，请您主动打开随身包裹配合安全检查，严禁携带管制器具、枪支弹药、易燃易爆等物品以及法律法规规定的其它违禁物品入园（场）。<br/>
+ </div>
+<div class=""text p"">从北门进的话第一站就是尖叫地带啦，我们将在这里开启尖叫路线，为广州长隆欢乐世界之旅开一个好头～Follow me～</div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>上午——尖叫地带</strong></div>
+<div class=""text p""><strong>推荐指数：※※※※※</strong></div>
+<div class=""text p""><strong>火箭过山车 尖叫指数：※※※※※</strong></div>
+</div>
+<div class=""list-img-wrap"">
+<ul class=""row list-img""><li class=""col-sm-6"">
+<div class=""oImg""> </div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""> </div>
+</li>
+</ul></div>
+<div class=""text-wrap"">
+<div class=""text p"">来广州长隆欢乐世界一定要打卡的就是过山车了！虽然有很多过山车，但是每一种的体验都是不一样的，火箭过山车能够让你们一次性体验“垂直跌落”、“倒挂俯冲”和“高速回旋”～当然更是显示你男友力的最好时刻，要记得全程紧握着她的手，紧张时陪她一起放声大叫，以后回想起来也是专属于两人的美好回忆呢~但是…我全程都是紧握着自己的手哈哈哈，觉得自己抱紧自己安全点～</div>
+<div class=""text p"" style=""text-align:center;""><img alt=""419b80377d645862.jpg"" class=""img-responsive"" src=""https://cdn.chimelong.com/upload/83379e71244ea9a9/419b80377d645862.jpg"" title=""image""/></div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p""> </div>
+</div>
+<div class=""list-img-wrap""> </div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>龙卷风暴 尖叫指数：※※※※※</strong></div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/assets/images/ljfb1.6eec923.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p""><strong>中午：椰林餐厅+欢乐嘉年华</strong></div>
+<div class=""text p""><strong>推荐指数：※※※※</strong></div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p"">在尖叫地带游玩下来其实差不多就饿了哈哈，因为尖叫真的消耗太多能量啦！ 但没关系，园区有多个主题餐厅和美食小站，可以及时帮你补充满满能量，也可以在餐厅内歇歇脚，一起吐槽对方紧张时的大喊大叫～继续体验尖叫设施~</div>
+<div class=""text p""><strong>椰林餐厅 好吃指数：※※※※</strong></div>
+<div class=""text p"">因为午后想去星梦奇园和欢乐嘉年华溜溜，所以选择的是椰林餐厅，地道的粤式美食滋味咸香鸡和东南亚风味的泰式风情沙拉菜式，让您吃的生态，品的自然。还有现烤的正宗德克萨斯牛柳焦香味浓，肉质鲜嫩，一定会让您垂涎欲滴！ ～还有其他风格的餐厅以后还要再去试试～</div>
+</div>
+<p><img alt="""" class=""list-img img-responsive"" src=""https://cdn.chimelong.com/upload/17189bc3c67f1bb8/3930f1515ca1919d.jpg""/></p>
+<div class=""text-wrap"">
+<div class=""text p"">因为午饭后不宜进行剧烈运动，我们就到了星梦奇园区域，我们成为饭后缓冲地带哈哈，开启童真线路～但其实虽然是叫欢乐嘉年华，但也是情侣的打卡胜地呢！毕竟谈起恋爱来真的会变小孩子…emmm...我说的是开心得跟小孩子一样啦～</div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>梦幻转马 浪漫指数：※※※※</strong></div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p"">都说女生心目中都有一个公主梦，那就带她来梦幻转马吧~这个项目可以说是来广州长隆欢乐世界，除了垂直过山车外第二个比打卡的了哈哈，至少在梦幻转马前留下一张甜甜的剪影图也好呀～</div>
+<div class=""text p"">两人一起骑上木马，在马背上旋转、奔腾，进入浪漫又神奇的童话世界～这个项目速度比较缓慢，在中心转轴处也有很多个镜子方便女生用女生拍下美美的照片～在这里男生要记住了，一定要帮女孩子拍一张照片，女孩子不一定会说，但是你要主动点！！我就只能帮你到这了～当然这个项目也有固定的摄影点，不相信自己拍照技术的，就靠园区的摄影师啦～看到镜头时记得一起比心~留下一张甜甜的合影~</div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>欢乐跳跳 尖叫指数：※※※※</strong></div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p"">在欢乐嘉年华的项目都比较温和，其中欢乐跳跳可以说是自由落体的迷你版，也可以说是自由落体的入门级项目了～有些男生是很怕这种突然的失重感的，女生如果发现了，可以告诉他：没事，你坐中间会好点。安慰安慰他，其实也没有什么区别啦，就是给他一种他身边都有很多人的安全感哈哈~</div>
+<div class=""text p"">在欢乐嘉年华里还有其他小朋友体验的项目，但是谁还不是个孩子呢对吧，拉上你的男朋友一起体验体验呀～</div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>欢乐剧场《魔法奇幻之旅》表演 好看指数：※※※※</strong></div>
+<div class=""text p"">在欢乐嘉年华里逛一逛差不多一点多了，看了园区地图，在欢乐剧场会有表演《魔法奇幻之旅》，会表演魔术，还能跟魔术师互动呢，在剧场里歇歇脚也是不错滴～欢乐剧场就在梦幻转马附近，三两分钟左右的路程，赶不及的话也可以再出去溜一溜，然后四点半还会有一场的～对魔术不感兴趣的朋友也往前走，玩一玩，然后观看园区大巡游。</div>
+</div>
+<p><img alt=""e02941876d4db270.jpg"" src=""https://cdn.chimelong.com/upload/6568380c5047b676/e02941876d4db270.jpg"" title=""image""/></p>
+<p> </p>
+<div class=""text-wrap"">
+<div class=""text p"">在欢乐剧场看完表演后稍继续游玩，就来到了丛林探险和律动天地，又开启了我们的尖叫路线啦～ps.其实往垂直过山车走的路上，我们又体验了一次超级大摆锤哈哈～我感觉急流勇进也挺好玩的，但是有水，男朋友怕鞋子湿了死活不肯去哈哈，男人果然爱鞋如命，想玩的朋友也别担心噢，排队的地方会有雨衣卖滴！</div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>下午——律动天地</strong></div>
+<div class=""text p""><strong>推荐指数：※※※※※</strong></div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>垂直过山车 尖叫指数：※※※※※</strong></div>
+</div>
+<div class=""list-img-wrap"">
+<ul class=""row list-img""><li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/czgsc1.393645f.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/czgsc2.1062028.jpg""/></div>
+</li>
+</ul></div>
+<div class=""text-wrap"">
+<div class=""text p"">垂直过山车能够让你上天也能够让你入地，我心中也是排名第一的！这个项目真的不分性别，只有勇敢的人才能直接上去体验。如果胆子小在体验前一定要做好心理建设工作，比如先跟对象打预防针：我等下要是叫出来，你可不能笑我！你看别的男生也是有大叫的，所以我大叫的话你也不能笑我！</div>
+<div class=""text p"">此外呢，学霸情侣可以通过转移注意力来缓解紧张，比如两个人跟着过山车的轨迹来分享重力势能和动力势能的互相转换，那么你们的对话大概就是：你看你看往上是XX势能转换为XX势能，下来了，XX势能转换为XX势能～当然啦这也是一个可以让你们心灵相通的项目呀——垂直处悬挂时的紧张，慢速爬升的头皮发麻，快速下落的大声尖叫，这些奇妙的内心活动，让你们此时此刻心灵相通！</div>
+</div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>超级大摆锤 尖叫指数：※※※※</strong></div>
+</div>
+<div class=""list-img-wrap"">
+<ul class=""row list-img""><li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/cjdbc1.99578e7.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/cjdbc2.65d4f90.jpg""/></div>
+</li>
+</ul></div>
+<div class=""text-wrap"">
+<div class=""text p"">刚从垂直过山车下下来，有没有边走边意犹未尽？当当当当，超级大摆锤正在你面前甩起来呢～超级大摆锤不仅左右旋转还上下摇摆，360度无死角翻转，所以记得把贵重物品放在物品存储柜噢，避免被甩飞了。当然时不时也会发生鞋子被甩飞的事情，所以鞋带也要记得系紧啦哈哈！当超级大摆锤往上摆的时候，你可以张开双手拥抱天空，假装自己就要上天了，浪漫的你也可以牵着她的手，在最高点的时候告诉她，走吧，我们一起私奔到月球～？整个路线游玩下来可能大概四点多五点左右，时间上允许的话还是推荐再看一场演出，对，但是我们赶着去吃晚饭就提前出园啦～</div>
+<div class=""text-wrap"">
+<div class=""text p""><strong>关于纪念品</strong></div>
+<div class=""text p"">一路这样玩下来，其实我们已经慢慢地从北门走到了接近南门的地方，因为我们还要回到酒店，从北门出比较方便，所以我们就往回走，顺便再体验一次你喜欢的项目嘿嘿～而且一般旅程下来，吃吃玩玩，但是感觉还差点什么？没错！那就是买点纪念品，养成旅游留下纪念品这样的仪式感，就会有两个人一起去过很多地方的感觉～</div>
+<div class=""text p"">因为南门出口缤纷店设了闸，进店就意味着出园，我们按打算是从北门出滴，所以就没有在那买纪念品了，但是如果想从南门出，坐地铁的话，超方便的！除了南门出口缤纷店，园区内有多处纪念品商店，放眼望去尽是卡卡虎、鲸鲨、企鹅、魔鬼鱼等长隆集团明星的系列商品，我们就在往回走的路上逛了一逛，在五花八门的可爱商品中，为对方挑选礼物吧~也可以男生买卡卡的，女生买琦琦的，这样也是情侣款呢～</div>
+</div>
+<div class=""list-img-wrap"">
+<ul class=""row list-img""><li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/gyjnp1.45b82fa.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/gyjnp2.06b862a.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/gyjnp3.2f7c078.jpg""/></div>
+</li>
+<li class=""col-sm-6"">
+<div class=""oImg""><img alt="""" src=""https://cdn.chimelong.com/assets/images/gyjnp4.7d2454b.jpg""/></div>
+</li>
+</ul></div>
+<div class=""text-wrap"">
+<div class=""text p"">游完长隆欢乐世界，从北门出园，旁边正是我们的下一站：广州长隆国际大马戏！ 这个时间点出园最大的好处就是可以慢悠悠地去广州长隆国际大马戏吃个晚饭，还有占个好位置！</div>
+<div class=""text p""> </div>
+<div class=""text p""> </div>
+<div class=""text p""> </div>
+</div>
+</div> ","【交通指南】
+因为当天晚上要入住广州长隆熊猫酒店，所以我们先前往酒店寄存行李！在地铁7号线汉溪长隆地铁站E出口，可直接乘坐免费巴士到达长隆熊猫酒店，到达酒店先前往一楼酒店大堂服务中心寄存行李。从广州长隆熊猫酒店出发步行至广州长隆欢乐世界北门，几分钟即可到达，散散步当放松也不错～
+关于安检入园：为保证公众安全，进入长隆各主题公园及马戏表演场馆的游客（观众）必须接受安全检查，请您主动打开随身包裹配合安全检查，严禁携带管制器具、枪支弹药、易燃易爆等物品以及法律法规规定的其它违禁物品入园（场）。
+从北门进的话第一站就是尖叫地带啦，我们将在这里开启尖叫路线，为广州长隆欢乐世界之旅开一个好头～Follow me～
+上午——尖叫地带
+来广州长隆欢乐世界一定要打卡的就是过山车了！虽然有很多过山车，但是每一种的体验都是不一样的，火箭过山车能够让你们一次性体验“垂直跌落”、“倒挂俯冲”和“高速回旋”～当然更是显示你男友力的最好时刻，要记得全程紧握着她的手，紧张时陪她一起放声大叫，以后回想起来也是专属于两人的美好回忆呢~但是…我全程都是紧握着自己的手哈哈哈，觉得自己抱紧自己安全点～
+中午：椰林餐厅+欢乐嘉年华
+在尖叫地带游玩下来其实差不多就饿了哈哈，因为尖叫真的消耗太多能量啦！但没关系，园区有多个主题餐厅和美食小站，可以及时帮你补充满满能量，也可以在餐厅内歇歇脚，一起吐槽对方紧张时的大喊大叫～继续体验尖叫设施~
+因为午后想去星梦奇园和欢乐嘉年华溜溜，所以选择的是椰林餐厅，地道的粤式美食滋味咸香鸡和东南亚风味的泰式风情沙拉菜式，让您吃的生态，品的自然。还有现烤的正宗德克萨斯牛柳焦香味浓，肉质鲜嫩，一定会让您垂涎欲滴！～还有其他风格的餐厅以后还要再去试试～
+因为午饭后不宜进行剧烈运动，我们就到了星梦奇园区域，我们成为饭后缓冲地带哈哈，开启童真线路～但其实虽然是叫欢乐嘉年华，但也是情侣的打卡胜地呢！毕竟谈起恋爱来真的会变小孩子…emmm……我说的是开心得跟小孩子一样啦～
+都说女生心目中都有一个公主梦，那就带她来梦幻转马吧~这个项目可以说是来广州长隆欢乐世界，除了垂直过山车外第二个比打卡的了哈哈，至少在梦幻转马前留下一张甜甜的剪影图也好呀～
+两人一起骑上木马，在马背上旋转、奔腾，进入浪漫又神奇的童话世界～这个项目速度比较缓慢，在中心转轴处也有很多个镜子方便女生用女生拍下美美的照片～在这里男生要记住了，一定要帮女孩子拍一张照片，女孩子不一定会说，但是你要主动点！我就只能帮你到这了～当然这个项目也有固定的摄影点，不相信自己拍照技术的，就靠园区的摄影师啦～看到镜头时记得一起比心~留下一张甜甜的合影~
+在欢乐嘉年华的项目都比较温和，其中欢乐跳跳可以说是自由落体的迷你版，也可以说是自由落体的入门级项目了～有些男生是很怕这种突然的失重感的，女生如果发现了，可以告诉他：没事，你坐中间会好点。安慰安慰他，其实也没有什么区别啦，就是给他一种他身边都有很多人的安全感哈哈~
+在欢乐嘉年华里还有其他小朋友体验的项目，但是谁还不是个孩子呢对吧，拉上你的男朋友一起体验体验呀～
+在欢乐嘉年华里逛一逛差不多一点多了，看了园区地图，在欢乐剧场会有表演《魔法奇幻之旅》，会表演魔术，还能跟魔术师互动呢，在剧场里歇歇脚也是不错滴～欢乐剧场就在梦幻转马附近，三两分钟左右的路程，赶不及的话也可以再出去溜一溜，然后四点半还会有一场的～对魔术不感兴趣的朋友也往前走，玩一玩，然后观看园区大巡游。
+在欢乐剧场看完表演后稍继续游玩，就来到了丛林探险和律动天地，又开启了我们的尖叫路线啦～ps.其实往垂直过山车走的路上，我们又体验了一次超级大摆锤哈哈～我感觉急流勇进也挺好玩的，但是有水，男朋友怕鞋子湿了死活不肯去哈哈，男人果然爱鞋如命，想玩的朋友也别担心噢，排队的地方会有雨衣卖滴！
+下午——律动天地
+垂直过山车能够让你上天也能够让你入地，我心中也是排名第一的！这个项目真的不分性别，只有勇敢的人才能直接上去体验。如果胆子小在体验前一定要做好心理建设工作，比如先跟对象打预防针：我等下要是叫出来，你可不能笑我！你看别的男生也是有大叫的，所以我大叫的话你也不能笑我！
+此外呢，学霸情侣可以通过转移注意力来缓解紧张，比如两个人跟着过山车的轨迹来分享重力势能和动力势能的互相转换，那么你们的对话大概就是：你看你看往上是XX势能转换为XX势能，下来了，XX势能转换为XX势能～当然啦这也是一个可以让你们心灵相通的项目呀——垂直处悬挂时的紧张，慢速爬升的头皮发麻，快速下落的大声尖叫，这些奇妙的内心活动，让你们此时此刻心灵相通！
+刚从垂直过山车下下来，有没有边走边意犹未尽？当当当当，超级大摆锤正在你面前甩起来呢～超级大摆锤不仅左右旋转还上下摇摆，360度无死角翻转，所以记得把贵重物品放在物品存储柜噢，避免被甩飞了。当然时不时也会发生鞋子被甩飞的事情，所以鞋带也要记得系紧啦哈哈！当超级大摆锤往上摆的时候，你可以张开双手拥抱天空，假装自己就要上天了，浪漫的你也可以牵着她的手，在最高点的时候告诉她，走吧，我们一起私奔到月球～？整个路线游玩下来可能大概四点多五点左右，时间上允许的话还是推荐再看一场演出，对，但是我们赶着去吃晚饭就提前出园啦～
+关于纪念品
+一路这样玩下来，其实我们已经慢慢地从北门走到了接近南门的地方，因为我们还要回到酒店，从北门出比较方便，所以我们就往回走，顺便再体验一次你喜欢的项目嘿嘿～而且一般旅程下来，吃吃玩玩，但是感觉还差点什么？没错！那就是买点纪念品，养成旅游留下纪念品这样的仪式感，就会有两个人一起去过很多地方的感觉～
+因为南门出口缤纷店设了闸，进店就意味着出园，我们按打算是从北门出滴，所以就没有在那买纪念品了，但是如果想从南门出，坐地铁的话，超方便的！除了南门出口缤纷店，园区内有多处纪念品商店，放眼望去尽是卡卡虎、鲸鲨、企鹅、魔鬼鱼等长隆集团明星的系列商品，我们就在往回走的路上逛了一逛，在五花八门的可爱商品中，为对方挑选礼物吧~也可以男生买卡卡的，女生买琦琦的，这样也是情侣款呢～
+游完长隆欢乐世界，从北门出园，旁边正是我们的下一站：广州长隆国际大马戏！这个时间点出园最大的好处就是可以慢悠悠地去广州长隆国际大马戏吃个晚饭，还有占个好位置！",6516,2545,128,24,0.624,104,0,0,0,长隆;子园区:欢乐世界,True,f73d3a2ed7a8e42e0d72ba543642c544b899be76
+CL-T-01,长隆,游客游记,欢乐世界,五一長隆歡樂世界保姆級攻略｜避開人潮玩回票價！,cortexezu6yn4xgma0,2026-04-26,Trip.com,https://tw.trip.com/moments/detail/guangzhou-152-144829973/,JSON-LD 取标题/作者/时间 + article.info-wrapper 取正文区文本,"五一長隆歡樂世界保姆級攻略｜避開人潮玩回票價！
+
+cortexezu6yn4xgma0分享的 長隆歡樂世界 Trip Moment
+30 天前發布，幫助了 108 位旅客的旅程
+還有另外 357 篇關於 長隆歡樂世界 的 Trip Moment，可為您的旅程提供更多參考
+2026.10.28 長隆歡樂世界即時旅遊資訊
+今日天氣：21~30℃
+今日營業狀態：營業中 | 10:00–22:00 營業 (於 20:00 停售門票)
+點評分：4.7/5 | 28068 評論 | TWD1156起 | 3178位旅客感興趣
+姊妹們快看!五一去長隆歡樂世界必看這份超詳細攻略💯親測有效,一天刷遍所有王牌項目真的太爽啦!🔥
+
+📅 行程安排(黃金6小時衝關版)
+
+⏰8:30前
+一定要在北門排隊‼️
+9點開園直接衝鴨!🏃‍♀️
+
+🎢9:00-12:00 刺激項目黃金時段
+✔️首衝""超級激流""(全球首個旋轉式雙提升系統!全新體驗!)
+✔️接著玩""彈射過山車""(推背感炸裂💥)
+✔️""超級海盜船""(搖擺幅度超大!)
+✔️""U型滑板""(360度旋轉絕了)
+✔️最後體驗""超級大擺錘""和""飛虎跳""
+(這幾個項目中午後排隊都超久)
+
+🍱12:00-13:30 錯峰午餐+拍美照
+✨推薦南國茶餐廳吃正宗的廣式燒味飯
+✨奇妙島隨便拍都出片
+✨12:45觀看超級可愛的卡通巡遊
+
+👨‍👩‍👧‍👦13:30-17:30 沉浸體驗+親子時間
+✅星際決戰(4D動感影院超震撼)
+✅歡樂水花戲水區(小朋友最愛)
+✅動物王國餵長頸鹿🦒+看鸚鵡表演
+✅四維影院或魔幻劇場(玩累了正好休息)
+
+🌈五一專屬彩蛋:
+今年""春日暢玩季""主題活動美哭❗️
+""悅己→熱戀→童夢""三階情感體驗✨
+場景佈置夢幻到炸,拍照絕絕子📸
+全新""超級激流""設備已經開放🎢
+融合卡卡虎IP故事,沉浸感MAX💯
+(十環和垂直過山車在升級中,期待王者歸來👑)
+
+🚗出行小貼士:
+🔸手機購票:提前在""長隆旅遊""微信買票立省20元
+🔸必備APP:實時查看排隊時間、演出安排,優速卡解決排隊煩惱
+🔸交通建議:3號線漢溪長隆站D出口直達最靠譜
+🔸穿衣指南:運動鞋必備+掛繩手機殼+防曬裝備
+🔸住宿福利:住長隆酒店/熊貓酒店可提前30分鐘入園
+
+五一期間人流量超大❗️建議7:30就要到北門排隊哦~帶上這份攻略,分分鐘值回票價!💕","姊妹们快看！五一去长隆欢乐世界必看这份超详细攻略亲测有效，一天刷遍所有王牌项目真的太爽啦！
+行程安排（黄金6小时冲关版）
+8:30前
+一定要在北门排队
+9点开园直接冲鸭！
+9:00-12:00 刺激项目黄金时段
+首冲“超级激流”（全球首个旋转式双提升系统！全新体验！）
+接著玩“弹射过山车”（推背感炸裂）
+“超级海盗船”（摇摆幅度超大！）
+“U型滑板”（360度旋转绝了）
+最后体验“超级大摆锤”和“飞虎跳”
+（这几个项目中午后排队都超久）
+12:00-13:30 错峰午餐+拍美照
+推荐南国茶餐厅吃正宗的广式烧味饭
+奇妙岛随便拍都出片
+12:45观看超级可爱的卡通巡游
+13:30-17:30 沉浸体验+亲子时间
+星际决战（4D动感影院超震撼）
+欢乐水花戏水区（小朋友最爱）
+动物王国喂长颈鹿+看鹦鹉表演
+四维影院或魔幻剧场（玩累了正好休息）
+五一专属彩蛋
+今年“春日畅玩季”主题活动美哭
+“悦己→热恋→童梦”三阶情感体验
+场景布置梦幻到炸，拍照绝绝子
+全新“超级激流”设备已经开放
+融合卡卡虎IP故事，沉浸感MAX
+（十环和垂直过山车在升级中，期待王者归来）
+出行小贴士
+手机购票：提前在“长隆旅游”微信买票立省20元
+必备APP:实时查看排队时间、演出安排，优速卡解决排队烦恼
+交通建议：3号线汉溪长隆站D出口直达最靠谱
+穿衣指南：运动鞋必备+挂绳手机壳+防晒装备
+住宿福利：住长隆酒店/熊猫酒店可提前30分钟入园
+五一期间人流量超大建议7:30就要到北门排队哦~带上这份攻略，分分钟值回票价！",896,613,44,35,0.335,9,56,0,0,长隆;子园区:欢乐世界,True,5c4dd4a5cb7b19e7cf3aa741bce0566fee6e516f
+CL-T-02,长隆,游客游记,度假区（多园区）,廣州長隆不繞路攻略，新手直接抄作業！,_TI***33,2026-08-06,Trip.com,https://tw.trip.com/moments/detail/guangzhou-152-149982547/,JSON-LD 取标题/作者/时间 + article.info-wrapper 取正文区文本,"廣州長隆不繞路攻略，新手直接抄作業！
+
+_TI***33分享的 長隆歡樂世界 Trip Moment
+30 天前發布，幫助了 349 位旅客的旅程
+6 位旅客與此 Trip Moment 互動，提供更多真實反饋
+還有另外 357 篇關於 長隆歡樂世界 的 Trip Moment，可為您的旅程提供更多參考
+2026.10.28 長隆歡樂世界即時旅遊資訊
+今日天氣：21~30℃
+今日營業狀態：營業中 | 10:00–22:00 營業 (於 20:00 停售門票)
+點評分：4.7/5 | 28068 評論 | TWD1156起 | 3178位旅客感興趣
+如果你是過山車狂熱愛好者,或者喜歡追求心跳刺激的快感,那廣州長隆歡樂世界絕對是你的“快樂老家”!這份一日遊路線,帶你玩轉全園最刺激的“四大天王”,全程不走回頭路,趕緊繫好安全帶,準備起飛!
+
+🎢 極限過山車一日遊路線(跟著走,尖叫不停)
+
+核心思路:進園直奔垂直過山車 ➡️ 順時針刷遍熱門項目 ➡️ 下午看表演/親子時光 ➡️ 晚上看大秀壓軸
+
+09:00 入園 / 安檢入口
+• 必做: 提前到達!一入園就是宏偉的歡樂世界大門,先拍個照打卡。
+
+09:20 歡樂主街區
+• 玩法: 進入主街,兩邊是各種商店和餐廳。不用停留太久,熟悉一下方向,直奔下一個目標。
+
+09. 40 垂直過山車(⭐⭐⭐⭐⭐ 必玩)
+• 玩法: 進園第一站必須是它!90度垂直跌落,全程禁食(會嚇吐),體驗自由落體的極致快感,絕對是華南地區最刺激的過山車!
+
+10. 30 十環過山車(⭐⭐⭐⭐⭐ 必玩)
+• 玩法: 從垂直過山車出來,步行幾分鐘就能到十環過山車。顧名思義,它有十個翻轉圈,速度與激情並存,玩完這個感覺魂都飛了。
+
+11. 20 超級大擺錘(⭐⭐⭐⭐ 必玩)
+• 玩法: 繼續順時針走,來到超級大擺錘。坐在上面隨著大盤瘋狂搖擺,最高點180度旋轉,考驗你的心理素質和腰腹力量。
+
+12. 10 午餐休息區
+• 推薦: 玩了三個重頭項目,體力消耗巨大。可以在附近的餐廳(比如“熊貓餐廳”或“噴泉餐廳”)補充能量,吃點肉壓壓驚。
+
+13. 10 家庭親子區 / 飛馬家庭過山車
+• 玩法: 如果你帶了小朋友,或者想稍微緩一緩,可以來這裡玩飛馬家庭過山車。節奏相對舒緩,適合全家一起體驗。
+
+14. 10 歡樂劇場 / 表演區
+• 玩法: 下午可以看看精彩的舞台劇,比如《叢林的故事》,演員們的表演非常賣力,特效也很棒,是個不錯的放鬆時刻。
+
+15. 30 巡遊主街段 / 主題街區
+• 玩法: 跟著花車巡遊隊伍走,看各種卡通人物和花車從眼前經過,氣氛熱烈,記得和喜歡的角色互動合影。
+
+19:00 夜場演出 / 返程點
+• 玩法: 一天的狂歡接近尾聲,千萬不要錯過晚上的大秀!燈光、煙花、噴泉、無人機齊上陣,視覺效果震撼,看完再滿意離園。
+
+💡 遊玩小貼士(特種兵必看)
+
+1. 心臟不好慎入: 園區的過山車非常刺激,有高血壓、心臟病或容易暈眩的朋友請量力而行。
+2. 下載官方APP: 一定要提前下載“長隆旅遊”APP,實時查看各個項目的排隊時間,靈活調整路線。
+3. 穿搭建議: 建議穿短袖短褲,方便在過山車上活動。女生盡量把頭髮紮起來,避免被風吹亂。
+4. 備好雨衣: 雖然大部分項目在室內,但像“飛馬家庭過山車”等戶外項目可能會遇到小雨,備件一次性雨衣更安心。
+5. 注意防曬: 戶外活動多,紫外線強,塗好防曬霜,戴好墨鏡和帽子。
+
+祝你在長隆玩得開心,尖叫聲不斷!","如果你是过山车狂热爱好者，或者喜欢追求心跳刺激的快感，那广州长隆欢乐世界绝对是你的“快乐老家”！这份一日游路线，带你玩转全园最刺激的“四大天王”，全程不走回头路，赶紧系好安全带，准备起飞！
+极限过山车一日游路线（跟著走，尖叫不停）
+核心思路：进园直奔垂直过山车 → 顺时针刷遍热门项目 → 下午看表演/亲子时光 → 晚上看大秀压轴
+09:00 入园 / 安检入口
+必做： 提前到达！一入园就是宏伟的欢乐世界大门，先拍个照打卡。
+09:20 欢乐主街区
+玩法： 进入主街，两边是各种商店和餐厅。不用停留太久，熟悉一下方向，直奔下一个目标。
+09:40 垂直过山车（必玩）
+玩法： 进园第一站必须是它！90度垂直跌落，全程禁食（会吓吐），体验自由落体的极致快感，绝对是华南地区最刺激的过山车！
+10:30 十环过山车（必玩）
+玩法： 从垂直过山车出来，步行几分钟就能到十环过山车。顾名思义，它有十个翻转圈，速度与激情并存，玩完这个感觉魂都飞了。
+11:20 超级大摆锤（必玩）
+玩法： 继续顺时针走，来到超级大摆锤。坐在上面随著大盘疯狂摇摆，最高点180度旋转，考验你的心理素质和腰腹力量。
+12:10 午餐休息区
+推荐： 玩了三个重头项目，体力消耗巨大。可以在附近的餐厅（比如“熊猫餐厅”或“喷泉餐厅”）补充能量，吃点肉压压惊。
+13:10 家庭亲子区 / 飞马家庭过山车
+玩法： 如果你带了小朋友，或者想稍微缓一缓，可以来这里玩飞马家庭过山车。节奏相对舒缓，适合全家一起体验。
+14:10 欢乐剧场 / 表演区
+玩法： 下午可以看看精彩的舞台剧，比如《丛林的故事》,演员们的表演非常卖力，特效也很棒，是个不错的放松时刻。
+15:30 巡游主街段 / 主题街区
+玩法： 跟著花车巡游队伍走，看各种卡通人物和花车从眼前经过，气氛热烈，记得和喜欢的角色互动合影。
+19:00 夜场演出 / 返程点
+玩法： 一天的狂欢接近尾声，千万不要错过晚上的大秀！灯光、烟花、喷泉、无人机齐上阵，视觉效果震撼，看完再满意离园。
+游玩小贴士（特种兵必看）
+1. 心脏不好慎入： 园区的过山车非常刺激，有高血压、心脏病或容易晕眩的朋友请量力而行。
+2. 下载官方APP: 一定要提前下载“长隆旅游”APP,实时查看各个项目的排队时间，灵活调整路线。
+3. 穿搭建议： 建议穿短袖短裤，方便在过山车上活动。女生尽量把头发扎起来，避免被风吹乱。
+4. 备好雨衣： 虽然大部分项目在室内，但像“飞马家庭过山车”等户外项目可能会遇到小雨，备件一次性雨衣更安心。
+5. 注意防晒： 户外活动多，紫外线强，涂好防晒霜，戴好墨镜和帽子。
+祝你在长隆玩得开心，尖叫声不断！",1308,1041,40,30,0.236,10,30,0,0,长隆;子园区:度假区（多园区）,True,2901abf87efbc9ef9d32cf37c9c5cb1ee17911e8
+CL-T-03,长隆,游客游记,野生动物世界,🐼🐨長隆野生動物園 | 無回頭路旅遊指南,_TI***mo,2026-10-26,Trip.com,https://tw.trip.com/moments/detail/guangzhou-152-155862848/,JSON-LD 取标题/作者/时间 + article.info-wrapper 取正文区文本,"🐼🐨長隆野生動物園 | 無回頭路旅遊指南
+
+_TI***mo分享的 長隆野生動物世界 Trip Moment
+2 天前發布，幫助了 23 位旅客的旅程
+還有另外 1285 篇關於 長隆野生動物世界 的 Trip Moment，可為您的旅程提供更多參考
+2026.10.28 長隆野生動物世界即時旅遊資訊
+今日天氣：21~30℃
+今日營業狀態：今天已休園 | 明日09:30–18:00 營業
+點評分：4.8/5 | 107563 評論 | TWD1462起 | 10505位旅客感興趣
+避開北門旅行團人流,全程不折返,一天打卡全部精華✨
+⏰開園9:30|建議9:20南門排隊
+1. 09:30 南門入園
+進門先打卡火烈鳥(錯過的話最後補也可以),
+順路走到熊森林、黑猩猩。
+2. 10:30 纜車熊貓樂園站【環園纜車】
+這裡可預留時間10.即可排隊提前排隊第一波環園
+✅纜車免費不限次數,環園線一圈大約30分鐘。
+3. 11:00 4D影院 → 花果山 → 金猴王國
+4D影片大約10分鐘,老少皆宜;花果山是花車巡遊起點,可以提前看好下午巡遊時間。金猴王國猴子種類超多,上午最活潑。
+4. 12:00 青龍山+科莫多龍
+侏羅紀風格區域,恐龍模型(這個按需可以不看)科莫多巨蜥打卡
+5. 13:00 百虎山|看【白虎跳水】(必看!)
+白虎跳水半點有演出(13:30/14:30…),提前10分鐘佔位,老虎撲水超震撼,園區王牌節目。
+6. 14:00 天鵝湖站坐【小火車】
+坐纜車到天鵝湖站下車,就是小火車起點!這裡也可提前預留時間排隊
+👉小火車選右側座位,動物大多在右邊,穿越五大洲草原。小火車終點回到北門,再坐纜車返回園區中部。
+7. 15:00 動物幼兒園
+奶萌小羊、小老虎、小猴子,很適合拍照。
+15:30 花車大巡遊(花果山始發)
+提前在花果山道路兩邊佔位置!花車互動,演員會揮手送小禮物,全天最熱鬧項目(時間以入園拿到的當日節目表為準)。
+8. 16:30 百虎山→長頸鹿廣場→考拉園→亞洲象
+長頸鹿可以付費投喂,拍照巨出片;考拉園超多考拉,慢悠悠打卡;亞洲象區域看大象洗澡。
+9. 17:10 長隆大熊貓中心(妹豬)
+看熊貓三胞胎+妹豬,傍晚熊貓會出來活動。
+接著逛騏驥天地、細尾獴、山魈、濕地精靈。
+10. 18:00 火烈鳥區域 → 返回南門,結束出園
+南門出去有接駁車 大家遊玩一天的話 可以等待接駁車接送至園區飯店 or 地鐵
+💡必看貼士
+▫️入園第一件事拿紙質節目單!表演時間當日會微調
+▫️纜車+小火車全部包含在門票內,免費不限次
+▫️自帶水杯,園區多處直飲水,穿舒服運動鞋
+▫️南門車位很少!自駕建議停北門坐接駁車過來
+     與野生動物零距離
+查看原文","避开北门旅行团人流，全程不折返，一天打卡全部精华
+开园9:30|建议9:20南门排队
+1. 09:30 南门入园
+进门先打卡火烈鸟（错过的话最后补也可以）
+顺路走到熊森林、黑猩猩。
+2. 10:30 缆车熊猫乐园站【环园缆车】
+这里可预留时间10.即可排队提前排队第一波环园
+缆车免费不限次数，环园线一圈大约30分钟。
+3. 11:00 4D影院 → 花果山 → 金猴王国
+4D影片大约10分钟，老少皆宜；花果山是花车巡游起点，可以提前看好下午巡游时间。金猴王国猴子种类超多，上午最活泼。
+4. 12:00 青龙山+科莫多龙
+侏罗纪风格区域，恐龙模型（这个按需可以不看）科莫多巨蜥打卡
+5. 13:00 百虎山|看【白虎跳水】（必看！）
+白虎跳水半点有演出(13:30/14:30…)，提前10分钟占位，老虎扑水超震撼，园区王牌节目。
+6. 14:00 天鹅湖站坐【小火车】
+坐缆车到天鹅湖站下车，就是小火车起点！这里也可提前预留时间排队
+小火车选右侧座位，动物大多在右边，穿越五大洲草原。小火车终点回到北门，再坐缆车返回园区中部。
+7. 15:00 动物幼儿园
+奶萌小羊、小老虎、小猴子，很适合拍照。
+15:30 花车大巡游（花果山始发）
+提前在花果山道路两边占位置！花车互动，演员会挥手送小礼物，全天最热闹项目（时间以入园拿到的当日节目表为准）。
+8. 16:30 百虎山→长颈鹿广场→考拉园→亚洲象
+长颈鹿可以付费投喂，拍照巨出片；考拉园超多考拉，慢悠悠打卡；亚洲象区域看大象洗澡。
+9. 17:10 长隆大熊猫中心（妹猪）
+看熊猫三胞胎+妹猪，傍晚熊猫会出来活动。
+接著逛骐骥天地、细尾獴、山魈、湿地精灵。
+10. 18:00 火烈鸟区域 → 返回南门，结束出园
+南门出去有接驳车 大家游玩一天的话 可以等待接驳车接送至园区饭店 or 地铁
+必看贴士
+入园第一件事拿纸质节目单！表演时间当日会微调
+缆车+小火车全部包含在门票内，免费不限次
+自带水杯，园区多处直饮水，穿舒服运动鞋
+南门车位很少！自驾建议停北门坐接驳车过来
+与野生动物零距离",1037,809,44,34,0.235,10,14,0,0,长隆;子园区:野生动物世界,True,2dcd9872c9bdeb6dbe4fd8ab75f814abaa3b37f0
+CL-T-04,长隆,游客游记,欢乐世界,廣東長隆歡樂世界旅遊攻略：高效玩轉華南王牌樂園，快樂不踩坑,JAYLA GOODWIN,2025-12-21,Trip.com,https://tw.trip.com/moments/detail/guangzhou-152-139591348/,JSON-LD 取标题/作者/时间 + article.info-wrapper 取正文区文本,"廣東長隆歡樂世界旅遊攻略：高效玩轉華南王牌樂園，快樂不踩坑  作為中國主題樂園的標杆之一，廣州長隆歡
+
+JAYLA GOODWIN分享的 長隆歡樂世界 Trip Moment
+30 天前發布，幫助了 999 位旅客的旅程
+31 位旅客與此 Trip Moment 互動，提供更多真實反饋
+還有另外 357 篇關於 長隆歡樂世界 的 Trip Moment，可為您的旅程提供更多參考
+2026.10.28 長隆歡樂世界即時旅遊資訊
+今日天氣：21~30℃
+今日營業狀態：營業中 | 10:00–22:00 營業 (於 20:00 停售門票)
+點評分：4.7/5 | 28068 評論 | TWD1156起 | 3178位旅客感興趣
+廣東長隆歡樂世界旅遊攻略:高效玩轉華南王牌樂園,快樂不踩坑
+
+作為中國主題樂園的標杆之一,廣州長隆歡樂世界不是簡單的「過山車集合地」,而是一座融合尖端科技、沉浸敘事與嶺南風情的全天候遊樂綜合體。它佔地2000畝,擁有12大主題區、70餘項機動遊戲及數十場演藝秀,日均客流常破3萬——若無規劃,極易陷入排隊兩小時、遊玩五分鐘的疲憊循環。這份實用攻略,專為追求高效率、低消耗、強體驗的遊客訂製,助你把時間花在心跳上,而非隊尾。
+
+一. 行前必做三件事:省下3小時,多玩2個項目
+✅ 購票預約:微信公眾號「長隆旅遊」官方購票(比現場便宜約20元),務必提前1天預約入園日期(節假日需搶票);學生/老人/兒童按規則帶證件核驗;
+✅ 下載APP+綁定門票:「長隆旅遊」APP實時查排隊時長、演出時間、地圖導航,開啟「快速通行」功能(部分熱門項目可購優速卡,單次30–50元,推薦「垂直過山車」「十環過山車」必買);
+✅ 裝備精簡清單:穿運動鞋(禁拖鞋、高跟鞋)、帶掛繩手機殼、小腰包(存手機+充電寶+濕巾)、防曬帽+冰袖(園區遮陰少);雙肩包需寄存(入口處免費自助儲物櫃充足)。
+
+二. 交通住宿:離園越近,快樂越久
+📍地址:廣州市番禺區迎賓路88號(地鐵3號線「漢溪長隆站」D出口直達,出站即見園區拱門)。
+🚌最優抵達方式:
+· 地鐵(首選):市區乘3號線至「漢溪長隆站」,全程免換乘,出閘即入園,避免堵車與停車焦慮;
+· 自駕:導航「長隆歡樂世界停車場」,P1/P2最便利(30元/天),但旺季10點後常滿位,建議早於9:00抵達。
+🏨住宿推薦:
+長隆酒店/熊貓酒店(步行5分鐘):住客享提前30分鐘入園+專屬通道,夜間有煙花導覽,性價比最高;
+周邊經濟型酒店(如7天、如家):價格低,但通勤需打車(約15元),適合預算有限者。
+
+三. 動線規劃:黃金6小時,玩轉核心精華
+⏰ 推薦入園時間:8:30前到達(9:00開園),直奔北區——此時人最少,項目幾乎不用排隊。
+🔹上午(9:00–12:00):衝刺王牌刺激項
+9:00–9:30:直衝「垂直過山車」(亞洲首台彈射式,0–90km/h僅2秒),用優速卡免排40分鐘;
+9. 30–10:15:「十環過山車」(全球唯一雙環過山車,倒掛360°),緊接「U型滑板」(失重感最強);
+10. 15–11:00:「超級大擺錘」+「飛虎跳」(高空蕩秋千),感受腎上腺素持續飆升。
+
+🔹中午(12:00–13:30):錯峰休整+特色午餐
+· 避開12:30用餐高峰,12:00先吃「南國茶餐廳」廣式燒味飯(叉燒嫩、例湯鮮);
+· 飯後逛「奇妙島」拍照打卡,看卡通巡遊(12:45開始,路線覆蓋主幹道)。
+
+🔹下午(13:30–17:30):沉浸體驗+親子友好
+· 13:30–14:30:「星際決戰」(4D動感影院,劇情緊湊不暈眩);
+14. 30–15:30:「歡樂水花」(全齡段戲水區,夏季必玩,備好毛巾);
+15. 30–16:30:「動物王國」互動區:餵長頸鹿、摸羊駝、看鸚鵡表演(16:00場次最佳);
+16. 30–17:30:預留給「四維影院」或「魔幻劇場」(每日僅2–3場,APP查準時間)。
+
+四. 不可錯過的三大隱藏彩蛋
+🔸 夜場加成:18:00後入園票價半價(限當日),燈光秀+煙花秀(20:00開始)浪漫值拉滿,人流量驟減,摩天輪視野絕佳;
+🔸 美食冷知識:「歡樂餐廳」的榴槤披薩、熊貓酒店的竹筒飯、南國茶餐廳的楊枝甘露冰粉,是本地人私藏榜單;
+🔸 帶娃貼士:嬰兒車可租(50元/天),所有洗手間配母嬰室;「兒童天地」區設施軟包安全,家長可在「奇幻漂流」旁休息亭同步觀景。
+
+五. 重要提醒:快樂可持續的關鍵
+-園內消費偏高(瓶裝水15元、冰淇淋35元),可自帶未開封水和小食(安檢允許);
+演出時間每日微調,務必以APP當日推送為準;
+雨天部分戶外項目暫停,但室內場館照常開放,備好輕便雨衣更從容。
+
+長隆歡樂世界的終極心法,從來不是「刷完所有項目」,  
+而是:  
+在垂直過山車俯衝時放聲大笑,  
+在摩天輪升至最高點時靜靜看雲,  
+在孩子牽你手跑向旋轉木馬時,  
+忽然想起——  
+原來快樂,一直都很簡單,  
+只是我們太久沒讓它,  
+自由落地。","广东长隆欢乐世界旅游攻略：高效玩转华南王牌乐园，快乐不踩坑
+作为中国主题乐园的标杆之一，广州长隆欢乐世界不是简单的「过山车集合地」，而是一座融合尖端科技、沉浸叙事与岭南风情的全天候游乐综合体。它占地2000亩，拥有12大主题区、70余项机动游戏及数十场演艺秀，日均客流常破3万——若无规划，极易陷入排队两小时、游玩五分钟的疲惫循环。这份实用攻略，专为追求高效率、低消耗、强体验的游客订制，助你把时间花在心跳上，而非队尾。
+一、行前必做三件事：省下3小时，多玩2个项目
+购票预约：微信公众号「长隆旅游」官方购票（比现场便宜约20元），务必提前1天预约入园日期（节假日需抢票）；学生/老人/儿童按规则带证件核验
+下载APP+绑定门票：「长隆旅游」APP实时查排队时长、演出时间、地图导航，开启「快速通行」功能（部分热门项目可购优速卡，单次30–50元，推荐「垂直过山车」「十环过山车」必买）
+装备精简清单：穿运动鞋（禁拖鞋、高跟鞋）、带挂绳手机壳、小腰包（存手机+充电宝+湿巾）、防晒帽+冰袖（园区遮阴少）；双肩包需寄存（入口处免费自助储物柜充足）。
+二、交通住宿：离园越近，快乐越久
+地址：广州市番禺区迎宾路88号（地铁3号线「汉溪长隆站」D出口直达，出站即见园区拱门）。
+最优抵达方式
+· 地铁（首选）:市区乘3号线至「汉溪长隆站」，全程免换乘，出闸即入园，避免堵车与停车焦虑
+· 自驾：导航「长隆欢乐世界停车场」，P1/P2最便利（30元/天），但旺季10点后常满位，建议早于9:00抵达。
+住宿推荐
+长隆酒店/熊猫酒店（步行5分钟）:住客享提前30分钟入园+专属通道，夜间有烟花导览，性价比最高
+周边经济型酒店（如7天、如家）:价格低，但通勤需打车（约15元），适合预算有限者。
+三、动线规划：黄金6小时，玩转核心精华
+推荐入园时间：8:30前到达（9:00开园），直奔北区——此时人最少，项目几乎不用排队。
+上午(9:00–12:00):冲刺王牌刺激项
+9:00–9:30:直冲「垂直过山车」（亚洲首台弹射式，0–90km/h仅2秒），用优速卡免排40分钟
+9:30–10:15:「十环过山车」（全球唯一双环过山车，倒挂360°），紧接「U型滑板」（失重感最强）
+10:15–11:00:「超级大摆锤」+「飞虎跳」（高空荡秋千），感受肾上腺素持续飙升。
+中午(12:00–13:30):错峰休整+特色午餐
+· 避开12:30用餐高峰，12:00先吃「南国茶餐厅」广式烧味饭（叉烧嫩、例汤鲜）
+· 饭后逛「奇妙岛」拍照打卡，看卡通巡游（12:45开始，路线覆盖主干道）。
+下午(13:30–17:30):沉浸体验+亲子友好
+· 13:30–14:30:「星际决战」（4D动感影院，剧情紧凑不晕眩）
+14:30–15:30:「欢乐水花」（全龄段戏水区，夏季必玩，备好毛巾）
+15:30–16:30:「动物王国」互动区：喂长颈鹿、摸羊驼、看鹦鹉表演（16:00场次最佳）
+16:30–17:30:预留给「四维影院」或「魔幻剧场」（每日仅2–3场，APP查准时间）。
+四、不可错过的三大隐藏彩蛋
+夜场加成：18:00后入园票价半价（限当日），灯光秀+烟花秀（20:00开始）浪漫值拉满，人流量骤减，摩天轮视野绝佳
+美食冷知识：「欢乐餐厅」的榴梿披萨、熊猫酒店的竹筒饭、南国茶餐厅的杨枝甘露冰粉，是本地人私藏榜单
+带娃贴士：婴儿车可租（50元/天），所有洗手间配母婴室；「儿童天地」区设施软包安全，家长可在「奇幻漂流」旁休息亭同步观景。
+五、重要提醒：快乐可持续的关键
+-园内消费偏高（瓶装水15元、冰淇淋35元），可自带未开封水和小食（安检允许）
+演出时间每日微调，务必以APP当日推送为准
+雨天部分户外项目暂停，但室内场馆照常开放，备好轻便雨衣更从容。
+长隆欢乐世界的终极心法，从来不是「刷完所有项目」
+而是
+在垂直过山车俯冲时放声大笑
+在摩天轮升至最高点时静静看云
+在孩子牵你手跑向旋转木马时
+忽然想起——
+原来快乐，一直都很简单
+只是我们太久没让它
+自由落地。",1942,1633,55,45,0.19,10,14,0,0,长隆;子园区:欢乐世界,True,9a882734f9141a53b6a35c1caf87c3387f397ac9
+CL-T-05,长隆,游客游记,水上乐园,廣州長隆度假區遊玩攻略 夏日必打卡！廣州長隆水上樂園，承包一整個夏天的快樂！過山車、造浪,andysunset,2026-03-31,Trip.com,https://tw.trip.com/moments/detail/guangzhou-152-143716112/,JSON-LD 取标题/作者/时间 + article.info-wrapper 取正文区文本,"廣州長隆度假區遊玩攻略 夏日必打卡！廣州長隆水上樂園，承包一整個夏天的快樂！過山車、造浪
+
+andysunset分享的 廣州長隆度假區 Trip Moment
+30 天前發布，幫助了 4844 位旅客的旅程
+156 位旅客與此 Trip Moment 互動，提供更多真實反饋
+還有另外 364 篇關於 廣州長隆度假區 的 Trip Moment，可為您的旅程提供更多參考
+2026.10.28 廣州長隆度假區即時旅遊資訊
+今日天氣：21~30℃
+今日營業狀態：營業中 | 24 小時全年無休
+點評分：4.7/5 | 14831 評論 | TWD488起 | 3733位旅客感興趣
+廣州長隆度假區遊玩攻略 🎢🐨🐼
+
+🔥夏日必打卡!廣州長隆水上樂園,承包一整個夏天的快樂!過山車、造浪池、大喇叭...尖叫聲與歡笑聲交織,刺激與歡樂共存! 🏖️
+
+📍地址:廣東省廣州市番禺區漢溪大道東299號
+
+💰門票:100.0(含歡樂世界、水上樂園、野生動物世界)
+
+🎢遊樂設施推薦:
+
+✨搖滾巨輪(超級大喇叭):尖叫聲響徹天際!像被吸進漩渦,失重感超刺激!🎢🌊
+
+✨巨獸碗(激流勇進):像被捲入巨大的碗中,被水浪推著前進,超爽快!🛁🏄‍♂️
+
+✨巨洪峽(造浪池):超長的造浪池,人浪翻滾!站在浪尖上感受被衝擊的快感,超帶感!🌊🌊🌊
+
+✨大滑板(水上過山車):像在衝浪板上玩過山車,超刺激!全程尖叫不斷!🏄‍♀️🏄‍♂️
+
+📸拍照打卡點推薦:
+
+🔥大熱天必備——造浪池!站在浪尖上拍照,拍出超酷炫的照片!📸📸📸
+
+🌟水上過山車——別忘記用手機記錄下這瞬間的刺激!📱📱📱
+
+🎢娛樂設施——玩累了就拍張照休息下,記錄這難忘的時刻!📷📷📷
+
+🍱美食推薦:
+
+✨亞洲餐廳——麻辣燙、甜品小吃、飲品...應有盡有,滿足你的味蕾需求!🍲🍦☕️
+
+✨燒烤區域——烤串、烤魚、海鮮...盡情享受美食盛宴!🍢🦐","广州长隆度假区游玩攻略
+夏日必打卡！广州长隆水上乐园，承包一整个夏天的快乐！过山车、造浪池、大喇叭……尖叫声与欢笑声交织，刺激与欢乐共存！
+地址：广东省广州市番禺区汉溪大道东299号
+门票：100.0（含欢乐世界、水上乐园、野生动物世界）
+游乐设施推荐
+摇滚巨轮（超级大喇叭）:尖叫声响彻天际！像被吸进漩涡，失重感超刺激！
+巨兽碗（激流勇进）:像被卷入巨大的碗中，被水浪推著前进，超爽快！
+巨洪峡（造浪池）:超长的造浪池，人浪翻滚！站在浪尖上感受被冲击的快感，超带感！
+大滑板（水上过山车）:像在冲浪板上玩过山车，超刺激！全程尖叫不断！
+拍照打卡点推荐
+大热天必备——造浪池！站在浪尖上拍照，拍出超酷炫的照片！
+水上过山车——别忘记用手机记录下这瞬间的刺激！
+娱乐设施——玩累了就拍张照休息下，记录这难忘的时刻！
+美食推荐
+亚洲餐厅——麻辣烫、甜品小吃、饮品……应有尽有，满足你的味蕾需求！
+烧烤区域——烤串、烤鱼、海鲜……尽情享受美食盛宴！",718,406,26,16,0.466,10,54,0,0,长隆;子园区:水上乐园,True,3c1c0c1c52e5b7870776f2d56f6b97fe8bdddc82
+BYS-O-01,广州白云山,官方路线,官方线路-A线,白云山游览线路（A线）,白云山风景区管理局,2020-06-29,白云山官网,https://www.baiyunshan.com.cn/bys/lytj/202006/64091ad56c74407f8475ae9ff2de3f81.shtml,官网-div#zoomcon,"该游览路线贯穿麓湖景区、云台景区、鸣春谷景区、摩星岭景区、明珠楼景区，由麓湖景区至明珠楼景区的西门，长度约23.4公里。
+从麓湖景区出发，首先步行游览麓湖公园、鸿鹄楼、聚芳园、白云仙馆、星海园等景点；经由麓湖公园进入云台景区，步行游览云台花园（含飞瀑流彩、玻璃温室、姑嫂坟、玫瑰园、岩石园、谊园等景点）；步行沿登山道路从南门进入鸣春谷景区，可步行或乘坐游览观光车途经游览蒲谷、能仁寺、世纪圆梦石、鸣春谷、山顶公园、两江情缘石等主要景点，园中园的游览方式以步行为主；经由鸣春谷景区进入摩星岭景区，可步行或乘坐游览观光车途经游览广州碑林（含九龙泉）、黄河石广场、锦绣南天、摩星岭主峰等景点，园中园的游览方式以步行为主；经由摩星岭景区进入明珠楼景区，可步行或乘坐游览观光车途经游览山庄旅舍、双溪别墅、白云松涛、桃花涧、明珠楼、梅花谷、黄婆洞水库、回归林等景点，园中园的游览方式以步行为主，由西门出。","该游览路线贯穿麓湖景区、云台景区、鸣春谷景区、摩星岭景区、明珠楼景区，由麓湖景区至明珠楼景区的西门，长度约23.4公里。
+从麓湖景区出发，首先步行游览麓湖公园、鸿鹄楼、聚芳园、白云仙馆、星海园等景点；经由麓湖公园进入云台景区，步行游览云台花园（含飞瀑流彩、玻璃温室、姑嫂坟、玫瑰园、岩石园、谊园等景点）；步行沿登山道路从南门进入鸣春谷景区，可步行或乘坐游览观光车途经游览蒲谷、能仁寺、世纪圆梦石、鸣春谷、山顶公园、两江情缘石等主要景点，园中园的游览方式以步行为主；经由鸣春谷景区进入摩星岭景区，可步行或乘坐游览观光车途经游览广州碑林（含九龙泉）、黄河石广场、锦绣南天、摩星岭主峰等景点，园中园的游览方式以步行为主；经由摩星岭景区进入明珠楼景区，可步行或乘坐游览观光车途经游览山庄旅舍、双溪别墅、白云松涛、桃花涧、明珠楼、梅花谷、黄婆洞水库、回归林等景点，园中园的游览方式以步行为主，由西门出。",395,395,2,2,0.0,0,0,0,0,无,True,a158ccadb638fb02353a7cd1ee2b89fb9f061cab
+BYS-O-02,广州白云山,官方路线,官方线路-B线,白云山游览路线（B线）,白云山风景区管理局,2020-08-18,白云山官网,https://www.baiyunshan.com.cn/bys/lytj/202008/a1dc4c2358d140059126c530847e1c0b.shtml,官网-div#zoomcon,该游览路线由濂泉门至可憩大草坪，长度约为1.16公里。首先由濂泉门进入鸣春谷景区，沿百步梯步行游览蒲涧濂泉、可憩大草坪等景点。,该游览路线由濂泉门至可憩大草坪，长度约为1.16公里。首先由濂泉门进入鸣春谷景区，沿百步梯步行游览蒲涧濂泉、可憩大草坪等景点。,63,63,1,1,0.0,0,0,0,0,无,True,2f954d1cac2097cba268310fcf39bc8950c03965
+BYS-O-03,广州白云山,官方路线,官方线路-C线,白云山游览路线（C线）,白云山风景区管理局,2020-08-18,白云山官网,https://www.baiyunshan.com.cn/bys/lytj/202008/e988337476ac4eef9b978956f0845c9a.shtml,官网-div#zoomcon,该游览路线由柯子岭门至山顶广场，长度约为3.45公里。首先由柯子岭门进入摩星岭景区，沿登山步道步行游览梁佩兰墓、景泰僧归等景点。,该游览路线由柯子岭门至山顶广场，长度约为3.45公里。首先由柯子岭门进入摩星岭景区，沿登山步道步行游览梁佩兰墓、景泰僧归等景点。,64,64,1,1,0.0,0,0,0,0,无,True,fcdf69dd4698dfc73dd4dba2ec42b1cc3f21a0df
+BYS-T-02,广州白云山,游客游记,攻略,5元爬5A景区？广州白云山保姆级攻略来了！ - 小红书,未知,未知,小红书,https://www.xiaohongshu.com/explore/6a97e9990000000012024d1f?xsec_token=ABjM4oiX--ZP6A2D1ylUtC_RY1VY0bx12CN7ZSsFzT3qI=&xsec_source=pc_feed,组员采集-正文（小红书按标题截取笔记正文）,"广州周末去哪儿？
+5块钱就能爬的国家5A级景区，真的香😭
+整理了3条路线+隐藏机位，看完不迷路👇
+📍 基础信息
+🎫 门票：进山5元，
+学生半价 ⏰ 开放：南门/西门24小时
+🚇 交通：地铁11号线“云台花园站”
+C1口步行5分钟到南门
+🗺️ 3条路线怎么选？
+🥇 休闲入门线（带娃/懒人首选）
+南门→云台花园→缆车上山→山顶广场→摩星岭 ⏳ 3-4小时 | 💰 索道单程25元
+🥈 经典全景线（深度玩家）
+西门→桃花涧→黄婆洞水库→明珠楼→摩星岭→南门 ⏳ 3-4小时 | 🌿 负氧离子爆表
+🥉 挑战硬核线（徒步党）
+西门→黄婆洞水库→梅花谷→松涛别院→摩星岭 ⏳ 5小时+ | 💪 全程爬坡考验体力
+📸 必打卡机位
+1️⃣ 摩星岭：382米主峰，俯瞰广州塔全景
+2️⃣ 黄婆洞水库：号称“广州小九寨”，520米亲水栈道
+3️⃣ 能仁寺：红墙拍照超出片
+4️⃣ 山顶广场：远眺小蛮腰，日落绝美
+5️⃣ 蒲谷溪流：热带雨林既视感，夏天踩水超凉快
+⚠️ 避坑贴士
+🔸 穿防滑鞋！雨后石阶湿滑
+🔸 自带水，山上物价偏高
+🔸 索道18:00停运，注意下山时间
+🔸 夏天带驱蚊水+防晒
+编辑于 09-09","广州周末去哪儿？
+5块钱就能爬的国家5A级景区，真的香
+整理了3条路线+隐藏机位，看完不迷路
+基础信息
+门票：进山5元，
+学生半价开放：南门/西门24小时
+交通：地铁11号线“云台花园站”
+C1口步行5分钟到南门
+3条路线怎么选？
+休闲入门线（带娃/懒人首选）
+南门→云台花园→缆车上山→山顶广场→摩星岭 3-4小时 | 索道单程25元
+经典全景线（深度玩家）
+西门→桃花涧→黄婆洞水库→明珠楼→摩星岭→南门 3-4小时 | 负氧离子爆表
+挑战硬核线（徒步党）
+西门→黄婆洞水库→梅花谷→松涛别院→摩星岭 5小时+ | 全程爬坡考验体力
+必打卡机位
+1. 摩星岭：382米主峰，俯瞰广州塔全景
+2. 黄婆洞水库：号称“广州小九寨”，520米亲水栈道
+3. 能仁寺：红墙拍照超出片
+4. 山顶广场：远眺小蛮腰，日落绝美
+5. 蒲谷溪流：热带雨林既视感，夏天踩水超凉快
+避坑贴士
+穿防滑鞋！雨后石阶湿滑
+自带水，山上物价偏高
+索道18:00停运，注意下山时间
+夏天带驱蚊水+防晒
+编辑于 09-09",435,406,27,27,0.0667,0,24,0,0,表情符号已清理；作者缺失；日期缺失,True,d23198cfa5d4757c43f66f048923214d064581f0
+BYS-T-03,广州白云山,游客游记,路线,广州白云山｜3条精选路线 - 小红书,未知,未知,小红书,https://www.xiaohongshu.com/explore/698aed9a000000001a02418e?xsec_token=ABH7H5cO_zWMoE1guONORy7Xn-T3O-i8tt7xyxZP1AVKo=&xsec_source=pc_feed,组员采集-正文（小红书按标题截取笔记正文）,"🌿 懒人轻松线（2-3h｜零难度）
+南门→索道上山→山顶广场→九龙泉→碑林→索道下山
+全程几乎不爬山，索道4分钟直达山顶，俯瞰广州全景超治愈。碑林洞穴机位拍广州三件套，出片率100%。适合怕累、带娃、老人，主打一个舒服吸氧。
+🌿 经典全景线（3-4h｜性价比最高）
+南门→能仁寺→蒲谷→山顶广场→摩星岭→南门下山
+走平缓步道，沿途古寺、溪涧、树荫全覆盖，不晒不累。登顶382米摩星岭，把珠江新城、小蛮腰尽收眼底，成就感拉满。第一次来必走这条，景点全覆盖不绕路。
+🌿 森系秘境线（3-4h｜人少出片）
+西门/北门→黄婆洞水库→明珠楼→环湖栈道→桃花涧→观光车南门下山
+人少安静，环湖步道像小森林，碧水蓝天随手拍森系大片。桃花涧季节限定超美，全程树荫浓密，适合喜欢安静、拍照、慢逛的姐妹。北门出发有很多阶梯，走的时间会长一点哦。
+📝 实用信息
+🎫 门票：5元｜索道单程25元｜观光车20元
+🚇 交通：南门→11号线云台花园站；西门→2号线萧岗站
+💡 建议穿运动鞋，轻装上阵，山上水和小吃价格友好
+⏰ 最佳时间：9:00前/16:00后，人少凉快，傍晚看日落绝美
+广州城央绿肺，5元快乐一整天，周末解压、徒步吸氧、拍照打卡都合适～","懒人轻松线（2-3h｜零难度）
+南门→索道上山→山顶广场→九龙泉→碑林→索道下山
+全程几乎不爬山，索道4分钟直达山顶，俯瞰广州全景超治愈。碑林洞穴机位拍广州三件套，出片率100%。适合怕累、带娃、老人，主打一个舒服吸氧。
+经典全景线（3-4h｜性价比最高）
+南门→能仁寺→蒲谷→山顶广场→摩星岭→南门下山
+走平缓步道，沿途古寺、溪涧、树荫全覆盖，不晒不累。登顶382米摩星岭，把珠江新城、小蛮腰尽收眼底，成就感拉满。第一次来必走这条，景点全覆盖不绕路。
+森系秘境线（3-4h｜人少出片）
+西门/北门→黄婆洞水库→明珠楼→环湖栈道→桃花涧→观光车南门下山
+人少安静，环湖步道像小森林，碧水蓝天随手拍森系大片。桃花涧季节限定超美，全程树荫浓密，适合喜欢安静、拍照、慢逛的姐妹。北门出发有很多阶梯，走的时间会长一点哦。
+实用信息
+门票：5元｜索道单程25元｜观光车20元
+交通：南门→11号线云台花园站；西门→2号线萧岗站
+建议穿运动鞋，轻装上阵，山上水和小吃价格友好
+最佳时间：9:00前/16:00后，人少凉快，傍晚看日落绝美
+广州城央绿肺，5元快乐一整天，周末解压、徒步吸氧、拍照打卡都合适~",490,482,15,15,0.0163,0,8,0,0,表情符号已清理；作者缺失；日期缺失,True,31863287dc04fa4e4387abb2c12f8baeed45870f
+BYS-T-04,广州白云山,游客游记,攻略,广州白云山徒步攻略｜南门—西门 10 公里整 - 小红书,未知,未知,小红书,https://www.xiaohongshu.com/explore/6ac22a13000000001b02f345?xsec_token=AB2bRzmaN_1BujPOFrhZcGZ8b194_z7K_ofn9i0q0aAeI=&xsec_source=pc_feed,组员采集-正文（小红书按标题截取笔记正文）,"🥾 路线选择
+此次选择的是从「云台花园-南门-山顶公园-摩星岭-西门」的 10 公里整全程徒步路线，总爬升 400 米，总用时可参考 3-5 小时
+由于摩星岭从北侧登顶的路线要比从南侧登顶陡得多，因此此次选择南门进西门出
+🚇 公共交通路线
+南门：11 号线「云台花园」站 C2 口出，沿着「云山南路」向北走约 700 米即可到达南门
+西门：2 号线「萧岗」站距离西门步行约 1.4 公里，也可乘坐「白云山 2 线」接驳到达
+🎫 票价信息
+白云山进山门票：成人 5 元，60-64 岁老人和学生及未成年人 2.5 元，65 岁以上老人和 1.2 米以下儿童免票
+摩星岭门票：成人 5 元，半票 2.5 元
+小贴士：南门前有很多二维码可以直接扫码购票，摩星岭可以直接在闸机刷付款码进入
+🟡 第一段｜云台花园 — 山顶广场｜2.6 公里｜爬升 220 米
+从地铁站出来后，我们先沿着云山南路路过「白云山索道」和「云萝植物园」后到达南门，随后沿着大路再直行一小段直到看到左侧石阶路，沿着台阶一路向上
+分别路过「合璧」- 「将军坟」-「胜揽」后就可以到达山顶广场，到达广场前最后一小段的台阶会陡一些，但有一个小平台可以拍到很好看的三件套合影
+🟡 第二段｜山顶广场 — 摩星岭｜1.9 公里｜爬升 140 米
+从山顶广场接着沿云山南路向北走，我们在「九龙泉牌坊」处走左侧小路，路过「九龙泉」-「广州碑林」-「爬山廊」-「观云阁」后再次回到马路上，再走一小段即可到达「摩星岭南门」，在这里买票进入后走台阶即可到达摩星岭最高点
+🟢 第三段｜摩星岭 — 西门｜5.5 公里｜爬升 30 米
+从最高点向北我们开始下山，先要走一段很陡的下山台阶到达北门售票处后，沿着云山北路路过「白云飞索」后一路下山，经过「白云松涛」-「桃花涧」-「明珠楼」-「云山茶苑」-「回归林」最后沿马路走到终点西门
+🧩 其他体验
+[一R]作为大城市中的徒步爬山线路，白云山真的非常不错，徒步登山小路既安静又悠闲，同时还能锻炼身体再加远眺广州城，真的是难得的好去处
+[二R]整条路线绝大部分都有头顶树荫遮阳，不需要担心在烈日下暴晒，做好常规防晒措施即可
+[三R]全程补给点和卫生间很多，连洗手池全程也有多处配备
+[四R]常规地图软件的路线已经非常清楚，完全不用担心迷路
+🔶 小结
+白云山南门-西门这条线路整体非常成熟，全程铺装路面，配套设施齐全，同时闹中取静，还有非常不错的景色和历史名迹，值得好评
+如果这篇纯手搓无 AI 的笔记对您有用的话，欢迎点赞收藏转发哦
+编辑于 10-04 北京","路线选择
+此次选择的是从「云台花园-南门-山顶公园-摩星岭-西门」的 10 公里整全程徒步路线，总爬升 400 米，总用时可参考 3-5 小时
+由于摩星岭从北侧登顶的路线要比从南侧登顶陡得多，因此此次选择南门进西门出
+公共交通路线
+南门：11 号线「云台花园」站 C2 口出，沿着「云山南路」向北走约 700 米即可到达南门
+西门：2 号线「萧岗」站距离西门步行约 1.4 公里，也可乘坐「白云山 2 线」接驳到达
+票价信息
+白云山进山门票：成人 5 元，60-64 岁老人和学生及未成年人 2.5 元，65 岁以上老人和 1.2 米以下儿童免票
+摩星岭门票：成人 5 元，半票 2.5 元
+第一段｜云台花园 — 山顶广场｜2.6 公里｜爬升 220 米
+从地铁站出来后，我们先沿着云山南路路过「白云山索道」和「云萝植物园」后到达南门，随后沿着大路再直行一小段直到看到左侧石阶路，沿着台阶一路向上
+分别路过「合璧」- 「将军坟」-「胜揽」后就可以到达山顶广场，到达广场前最后一小段的台阶会陡一些，但有一个小平台可以拍到很好看的三件套合影
+第二段｜山顶广场 — 摩星岭｜1.9 公里｜爬升 140 米
+从山顶广场接着沿云山南路向北走，我们在「九龙泉牌坊」处走左侧小路，路过「九龙泉」-「广州碑林」-「爬山廊」-「观云阁」后再次回到马路上，再走一小段即可到达「摩星岭南门」，在这里买票进入后走台阶即可到达摩星岭最高点
+第三段｜摩星岭 — 西门｜5.5 公里｜爬升 30 米
+从最高点向北我们开始下山，先要走一段很陡的下山台阶到达北门售票处后，沿着云山北路路过「白云飞索」后一路下山，经过「白云松涛」-「桃花涧」-「明珠楼」-「云山茶苑」-「回归林」最后沿马路走到终点西门
+其他体验
+[一R]作为大城市中的徒步爬山线路，白云山真的非常不错，徒步登山小路既安静又悠闲，同时还能锻炼身体再加远眺广州城，真的是难得的好去处
+[二R]整条路线绝大部分都有头顶树荫遮阳，不需要担心在烈日下暴晒，做好常规防晒措施即可
+[三R]全程补给点和卫生间很多，连洗手池全程也有多处配备
+[四R]常规地图软件的路线已经非常清楚，完全不用担心迷路
+小结
+白云山南门-西门这条线路整体非常成熟，全程铺装路面，配套设施齐全，同时闹中取静，还有非常不错的景色和历史名迹，值得好评
+如果这篇纯手搓无 AI 的笔记对您有用的话，欢迎点赞收藏转发哦
+编辑于 10-04 北京",989,943,26,25,0.0465,1,8,0,0,站点噪声已清理；表情符号已清理；作者缺失；日期缺失,True,a20e6b0f1745056c6f52def60bec28c5b0a4e868
+BYS-T-01,广州白云山,站点攻略,攻略,广州白云山游玩有哪些避雷攻略？ - 去哪儿,未知,未知,去哪儿,https://travelnews.qunar.com/qa_strategy/guangzhou-baiyunshan-travel-avoid-pitfalls-guide,组员采集-正文（小红书按标题截取笔记正文）,"广州白云山游玩有哪些避雷攻略？
+· 广州· 行程攻略· 发布时间 2026-07-31
+广州白云山游玩可参考推荐省力路线，提前做好出行准备，避开人流与多余体力消耗，能获得更舒适省心的游玩体验。
+白云山南门大门门票5元
+白云山索道单程票价上山25元/人，下山20元/人
+白云山索道往返票价45元/人
+白云山索道运营时间每日9:00-18:00，末班上山约17:30
+摩星岭入园门票5元/人
+白云山观光车票价A线全程20元，B/C/D线分段收费10元/段
+白云山南门停车收费16元/小时
+金贵村长腰岭停车场收费8元/小时
+涉及地点：白云山 · 摩星岭 · 山顶广场 · 白云晚望 · 爱情锁台 · 广州碑林 · 明珠楼 · 桃花涧 · 黄婆洞水库 · 白云山南门 · 金贵村长腰岭停车场 · 白云索道 · 能仁寺 · 云山叠翠 · 蒲谷 · 滴水岩 · 鸣春谷 · 西门出口
+交通信息
+地铁：乘坐11号线到云台花园站C2口，出站即到白云山南门。
+自驾停车信息：
+导航至白云山南门，院内停车收费为16元/小时
+可停在金贵村长腰岭停车场，收费8元/小时，位于白云索道对面，较为方便
+推荐游玩路线
+推荐南门进西门出，全程以下坡路段为主，更省力。完整路线如下：
+南门入口 → 南门售票处（步行约2分钟）→ 索道下站（步行约5分钟）→ 索道上山直达山顶广场
+山顶广场步行约5分钟到白云晚望，再步行约10分钟到摩星岭检票
+摩星岭检票后步行约10分钟到爱情锁台，再步行约15分钟到摩星岭顶
+摩星岭顶步行约15分钟到广州碑林，再步行约15分钟到桃花涧
+桃花涧乘观光车约10分钟到黄婆洞水库，再乘观光车到西门出口，行程结束
+懒人速通摩星岭省力路线：
+索道上山（25元/人）到山顶广场，休整后前往摩星岭方向
+可乘坐观光车直达摩星岭（10元/人），也可徒步2公里约30分钟到摩星岭入口
+摩星岭入口检票后可乘坐扶手电梯上山，轻松登顶
+下山可坐观光车（10元/人）到南门，或乘坐索道下山（20元/人）
+索道指南
+索道途经打卡点位：南门、云山叠翠、蒲谷、滴水岩、能仁寺、索道上站、山顶广场。
+购票规则：
+需先购买南门大门票5元
+单程票25元/人，往返票45元/人
+1.2米以下儿童免票
+建议购买单程上山，下山走西线更轻松
+运营时间：每日9:00-18:00，末班上山约17:30，具体以售票处公告为准。
+小贴士：带上身份证或电子购票码更方便，节假日建议早点排队避开高峰期。
+观光车指南
+运营时间：
+常规时段9:00-17:00，夏季延长至18:00
+节假日视客流延长服务时间，建议提前确认末班车时间，夜间无观光车
+票价与乘坐规则：
+A线全程20元，B/C/D线分段收费10元/段
+各站点排队购票上车，中途下车车票即作废，需重新购票
+热门上车点：南门、山顶广场、明珠楼、西门调度站
+路线选择：
+A线：南门至山顶广场，适合不想坐索道的游客
+B线：山顶广场至明珠楼，适合作为下山代步
+C线：明珠楼至西门，下坡路段走路也较轻松
+美食推荐
+山顶广场麦当劳：可俯瞰广州市区，推荐观景汉堡套餐，适合休息观景
+鸣春谷豆腐花：推荐冰镇山水豆腐花、茶叶蛋，适合中途歇脚补充体力
+明珠楼湖畔简餐：推荐干炒牛河、瘦肉肠粉、鱼蛋、柠檬茶，可边看湖景边用餐
+西门出口糖水铺：推荐广式传统双皮奶，下山后食用冰凉解暑，帮助恢复体力
+出行注意事项
+出行准备：
+穿搭建议：穿运动鞋，运动装或休闲装即可，带一件薄外套抵御山顶大风
+物品准备：带好驱蚊液、防晒霜，行李尽量减负，带水和纸巾即可
+补给建议：山顶小卖部价格较高，建议在山下便利店提前买好水和能量食物
+游玩提示：
+建议选择晴天出行，阴雨天视野差，台阶湿滑需注意行走安全
+节假日索道排队可能超过1小时，建议错峰出行
+恐高人群乘坐索道尽量少往下看，情侣可坐同一侧方便自拍
+西门下山坡度大，对膝盖负担较大，建议穿鞋底柔软的运动鞋
+想拍日落和广州塔同框，建议下午4点半左右到达山顶广场或摩星岭
+建议在官方渠道提前购票，减少现场排队时间
+其他推荐
+广州火车站
+广州火车站怎么快速进站？
+从地铁出发按指引路线行走，赶时间可走爱心急客通道，即可快速完成广州火车站进站，适合赶广深城际的旅客参考。
+广州交通攻略📅 发布时间 2026-10-14
+广州番禺万博雅致酒店（旗舰店）四海城广州塔Hape儿童乐园
+广州番禺带娃住宿有什么推荐？
+推荐广州番禺万博雅致酒店（旗舰店），位置便利，配套儿童乐园和齐全的亲子设施，适合带娃家庭入住，性价比不错。
+广州住宿攻略📅 发布时间 2026-10-14
+‹ 返回旅行攻略","广州白云山游玩有哪些避雷攻略？
+广州白云山游玩可参考推荐省力路线，提前做好出行准备，避开人流与多余体力消耗，能获得更舒适省心的游玩体验。
+白云山南门大门门票5元
+白云山索道单程票价上山25元/人，下山20元/人
+白云山索道往返票价45元/人
+白云山索道运营时间每日9:00-18:00，末班上山约17:30
+摩星岭入园门票5元/人
+白云山观光车票价A线全程20元，B/C/D线分段收费10元/段
+白云山南门停车收费16元/小时
+金贵村长腰岭停车场收费8元/小时
+涉及地点：白云山 · 摩星岭 · 山顶广场 · 白云晚望 · 爱情锁台 · 广州碑林 · 明珠楼 · 桃花涧 · 黄婆洞水库 · 白云山南门 · 金贵村长腰岭停车场 · 白云索道 · 能仁寺 · 云山叠翠 · 蒲谷 · 滴水岩 · 鸣春谷 · 西门出口
+交通信息
+地铁：乘坐11号线到云台花园站C2口，出站即到白云山南门。
+自驾停车信息：
+导航至白云山南门，院内停车收费为16元/小时
+可停在金贵村长腰岭停车场，收费8元/小时，位于白云索道对面，较为方便
+推荐游玩路线
+推荐南门进西门出，全程以下坡路段为主，更省力。完整路线如下：
+南门入口 → 南门售票处（步行约2分钟）→ 索道下站（步行约5分钟）→ 索道上山直达山顶广场
+山顶广场步行约5分钟到白云晚望，再步行约10分钟到摩星岭检票
+摩星岭检票后步行约10分钟到爱情锁台，再步行约15分钟到摩星岭顶
+摩星岭顶步行约15分钟到广州碑林，再步行约15分钟到桃花涧
+桃花涧乘观光车约10分钟到黄婆洞水库，再乘观光车到西门出口，行程结束
+懒人速通摩星岭省力路线：
+索道上山（25元/人）到山顶广场，休整后前往摩星岭方向
+可乘坐观光车直达摩星岭（10元/人），也可徒步2公里约30分钟到摩星岭入口
+摩星岭入口检票后可乘坐扶手电梯上山，轻松登顶
+下山可坐观光车（10元/人）到南门，或乘坐索道下山（20元/人）
+索道指南
+索道途经打卡点位：南门、云山叠翠、蒲谷、滴水岩、能仁寺、索道上站、山顶广场。
+购票规则：
+需先购买南门大门票5元
+单程票25元/人，往返票45元/人
+1.2米以下儿童免票
+建议购买单程上山，下山走西线更轻松
+运营时间：每日9:00-18:00，末班上山约17:30，具体以售票处公告为准。
+小贴士：带上身份证或电子购票码更方便，节假日建议早点排队避开高峰期。
+观光车指南
+运营时间：
+常规时段9:00-17:00，夏季延长至18:00
+节假日视客流延长服务时间，建议提前确认末班车时间，夜间无观光车
+票价与乘坐规则：
+A线全程20元，B/C/D线分段收费10元/段
+各站点排队购票上车，中途下车车票即作废，需重新购票
+热门上车点：南门、山顶广场、明珠楼、西门调度站
+路线选择：
+A线：南门至山顶广场，适合不想坐索道的游客
+B线：山顶广场至明珠楼，适合作为下山代步
+C线：明珠楼至西门，下坡路段走路也较轻松
+美食推荐
+山顶广场麦当劳：可俯瞰广州市区，推荐观景汉堡套餐，适合休息观景
+鸣春谷豆腐花：推荐冰镇山水豆腐花、茶叶蛋，适合中途歇脚补充体力
+明珠楼湖畔简餐：推荐干炒牛河、瘦肉肠粉、鱼蛋、柠檬茶，可边看湖景边用餐
+西门出口糖水铺：推荐广式传统双皮奶，下山后食用冰凉解暑，帮助恢复体力
+出行注意事项
+出行准备：
+穿搭建议：穿运动鞋，运动装或休闲装即可，带一件薄外套抵御山顶大风
+物品准备：带好驱蚊液、防晒霜，行李尽量减负，带水和纸巾即可
+补给建议：山顶小卖部价格较高，建议在山下便利店提前买好水和能量食物
+游玩提示：
+建议选择晴天出行，阴雨天视野差，台阶湿滑需注意行走安全
+节假日索道排队可能超过1小时，建议错峰出行
+恐高人群乘坐索道尽量少往下看，情侣可坐同一侧方便自拍
+西门下山坡度大，对膝盖负担较大，建议穿鞋底柔软的运动鞋
+想拍日落和广州塔同框，建议下午4点半左右到达山顶广场或摩星岭
+建议在官方渠道提前购票，减少现场排队时间
+其他推荐
+广州火车站
+广州火车站怎么快速进站？
+从地铁出发按指引路线行走，赶时间可走爱心急客通道，即可快速完成广州火车站进站，适合赶广深城际的旅客参考。
+广州番禺万博雅致酒店（旗舰店）四海城广州塔Hape儿童乐园
+广州番禺带娃住宿有什么推荐？
+推荐广州番禺万博雅致酒店（旗舰店），位置便利，配套儿童乐园和齐全的亲子设施，适合带娃家庭入住，性价比不错。
+‹ 返回旅行攻略",1766,1701,77,74,0.0368,3,0,0,0,站点噪声已清理；作者缺失；日期缺失；站点攻略（非个人游记）,True,6f72f10caf5ac0400a87739af725a0aabf59275b
+WGS-O-01,武功山,官方路线,徒步一日游,户外体验一日游,武功山景区管理员,2017-06-25,萍乡武功山景区官网,http://wap.wugongshan.cn/page/strategyList!info.htm?id=104,官网-富文本div.raid-main,"简要行程
+
+路线：石鼓寺--尽心桥--飙水岩瀑布--猴谷--紫极宫（中庵）--吊马桩--金顶(古祭坛群、环形栈道)--武功山神--武功神拳--金顶索道（或徒步走草甸之舟--狮象峰 --武功泉--情人花廊--福星谷）--高空栈道--许愿桥（悬索桥）--福星谷--紫极宫（中庵）-- 中庵索道--石鼓寺。
+温馨提示：选择一日徒步游的游客，应合理安排好时间，正常体力的游客们可以在7小时内完成往返。由于徒步登山耗费体力较多，建议带上一些干粮和水。","简要行程
+路线：石鼓寺--尽心桥--飙水岩瀑布--猴谷--紫极宫（中庵）--吊马桩--金顶(古祭坛群、环形栈道)--武功山神--武功神拳--金顶索道（或徒步走草甸之舟--狮象峰 --武功泉--情人花廊--福星谷）--高空栈道--许愿桥（悬索桥）--福星谷--紫极宫（中庵）-- 中庵索道--石鼓寺。
+温馨提示：选择一日徒步游的游客，应合理安排好时间，正常体力的游客们可以在7小时内完成往返。由于徒步登山耗费体力较多，建议带上一些干粮和水。",215,215,3,3,0.0,0,0,0,0,无,True,ee82e77fbb9247c8074a6662c6d43fa5b12e03ff
+WGS-O-02,武功山,官方路线,索道观光一日游,休闲观光一日游,武功山景区管理员,2017-06-25,萍乡武功山景区官网,http://wap.wugongshan.cn/page/strategyList!info.htm?id=103,官网-富文本div.raid-main,"简要行程
+
+路线设计：石鼓寺—中庵索道—紫极宫（中庵）--福星谷—许愿桥（悬索桥）--高空栈道—金顶索道—武功神拳—武功山神—金顶(古祭坛群、环形栈道)—金顶索道（或走高空栈道—许愿桥（悬索桥）—福星谷）—松园—可选择乘坐高空滑索—福星谷—紫极宫（中庵）—中庵索道—石鼓寺；在武功山中安度假餐厅用午餐后返程。
+温馨提示：全程索道是最为轻松休闲的体验游，所走的是景区打造的精品游玩路线，所看的景色也是独一无二最为人称赞的，观看云海的绝佳之地。所花费的时间来回大约是在五个小时以内，体力好的可能只需3小时便可完成来回。","简要行程
+路线设计：石鼓寺—中庵索道—紫极宫（中庵）--福星谷—许愿桥（悬索桥）--高空栈道—金顶索道—武功神拳—武功山神—金顶(古祭坛群、环形栈道)—金顶索道（或走高空栈道—许愿桥（悬索桥）—福星谷）—松园—可选择乘坐高空滑索—福星谷—紫极宫（中庵）—中庵索道—石鼓寺；在武功山中安度假餐厅用午餐后返程。
+温馨提示：全程索道是最为轻松休闲的体验游，所走的是景区打造的精品游玩路线，所看的景色也是独一无二最为人称赞的，观看云海的绝佳之地。所花费的时间来回大约是在五个小时以内，体力好的可能只需3小时便可完成来回。",254,254,3,3,0.0,0,0,0,0,无,True,2518d10063b0739547ee9f368ae32bcc80f17b12
+WGS-O-03,武功山,官方路线,两日游,生态武功山+红色安源两日游,武功山景区管理员,2017-07-24,萍乡武功山景区官网,http://wap.wugongshan.cn/page/strategyList!info.htm?id=188,官网-富文本div.raid-main,"生态武功山两日游
+古代江南三大名山之一。海拔1918.3米,其类型与特色被专家概括为“山景雄秀、瀑布独特、草甸奇观、生态优良、天象称奇、人文荟萃”24个字。景区分为金顶、九龙山、发云界、羊狮幕四大景区。区内10万亩高山草甸碧波连天、一望无际
+D1：
+游览由邓小平题写馆名的全国优秀教育基地——【安源路矿工人运动纪念馆】（1个小时），这里山清树绿花艳，这里展示从1898年安源开矿至1930年这段辉煌历史，后游览建于20世纪20年代初期由工人出资建造的中国工人阶级的第一座大厦——安源路矿工人俱乐部（15分钟），以及毛泽东去安源铜像、总平巷口，盛公祠等景点。后游览萍乡市一级博物馆“萍乡市博物馆”，了解赣西风土人情。后游览江南第一大广场—【秋收起义广场】，在海天情酒楼用完晚餐之后入住萍乡安源宾馆。
+D2:
+乘车前往国家AAAAA级景区武功山风景区（车程约1小时，游览约4小时），武功山雄奇险峻，景色迷人，自古为江南三大名山之一，有“衡首庐尾武功中”之美誉。武功山是大自然鬼斧神工的杰作，是人类文化的瑰宝，是世界罕见的养生胜境。抵达后乘坐中庵索道上山（费用自理，索道上山约10分钟）。坐索道可以欣赏武功山竹海，行走游览中庵紫极宫（15分钟）游福星谷、问道台、松涛阁、许愿石、观武功山奇松怪石与石林风光，高空悬索桥、福星谷栈道，可选择金顶索道上山或步行上山（金顶索道费用自理，索道上山时间约8分钟）。到达十万亩云中草原，尽情感受大草原的气息；游距今1700多年的神秘古祭坛群；征服武功山金顶最高点（1.5小时左右），纵揽湘赣风云；体验天苍苍野茫茫的“江南塞北”。在景鸿葡萄农庄用完午餐之后返回温馨的家。
+温馨提示：全程索道是最为轻松休闲的体验游，所走的是景区打造的精品游玩路线，所看的景色也是独一无二最为人称赞的，观看云海的绝佳之地。所花费的时间来回大约是在五个小时以内，体力好的可能只需3小时便可完成来回。
+
+索道：中庵索道上行65元下行55元， 金顶索道上行45元下行35元。","生态武功山两日游
+古代江南三大名山之一。海拔1918.3米,其类型与特色被专家概括为“山景雄秀、瀑布独特、草甸奇观、生态优良、天象称奇、人文荟萃”24个字。景区分为金顶、九龙山、发云界、羊狮幕四大景区。区内10万亩高山草甸碧波连天、一望无际
+D1：
+游览由邓小平题写馆名的全国优秀教育基地——【安源路矿工人运动纪念馆】（1个小时），这里山清树绿花艳，这里展示从1898年安源开矿至1930年这段辉煌历史，后游览建于20世纪20年代初期由工人出资建造的中国工人阶级的第一座大厦——安源路矿工人俱乐部（15分钟），以及毛泽东去安源铜像、总平巷口，盛公祠等景点。后游览萍乡市一级博物馆“萍乡市博物馆”，了解赣西风土人情。后游览江南第一大广场—【秋收起义广场】，在海天情酒楼用完晚餐之后入住萍乡安源宾馆。
+D2:
+乘车前往国家AAAAA级景区武功山风景区（车程约1小时，游览约4小时），武功山雄奇险峻，景色迷人，自古为江南三大名山之一，有“衡首庐尾武功中”之美誉。武功山是大自然鬼斧神工的杰作，是人类文化的瑰宝，是世界罕见的养生胜境。抵达后乘坐中庵索道上山（费用自理，索道上山约10分钟）。坐索道可以欣赏武功山竹海，行走游览中庵紫极宫（15分钟）游福星谷、问道台、松涛阁、许愿石、观武功山奇松怪石与石林风光，高空悬索桥、福星谷栈道，可选择金顶索道上山或步行上山（金顶索道费用自理，索道上山时间约8分钟）。到达十万亩云中草原，尽情感受大草原的气息；游距今1700多年的神秘古祭坛群；征服武功山金顶最高点（1.5小时左右），纵揽湘赣风云；体验天苍苍野茫茫的“江南塞北”。在景鸿葡萄农庄用完午餐之后返回温馨的家。
+温馨提示：全程索道是最为轻松休闲的体验游，所走的是景区打造的精品游玩路线，所看的景色也是独一无二最为人称赞的，观看云海的绝佳之地。所花费的时间来回大约是在五个小时以内，体力好的可能只需3小时便可完成来回。
+索道：中庵索道上行65元下行55元， 金顶索道上行45元下行35元。",829,829,8,8,0.0,0,0,0,0,无,True,3238c90a06d4f55795e41a712fd5e533e9b848aa
+WGS-O-04,武功山,官方路线,露营两日游,武功山帐篷露营两日游,武功山景区管理员,2019-10-15,萍乡武功山景区官网,http://wap.wugongshan.cn/page/strategyList!info.htm?id=1297,官网-富文本div.raid-main,"武功山的高山草甸海拔之高，面积之广在世界同纬度名山中都是绝无仅有的。10万亩草甸绵绵于海拔1600多米的高山之巅，穿云入雾，真可谓“天上草原、人间仙境、北国风光、绿色家园”，被专家称为“奇山伴草甸，天下一绝。”
+D1：
+在武功山商业街用完午餐，乘坐观光车到达石鼓寺。感受禅宗文化和神秘傩文化，然后乘坐中庵索道上山（10分钟。索道自理65元）,游中庵紫极宫.走空中栈道、福星谷、许愿桥、玻璃眺台，可乘坐金顶索道（8分钟、索道自理45元）欣赏武功神拳、武功山神，走环形木栈道到达山顶，欣赏江南一绝---高山草甸 (20分钟).在山顶欣赏完后，步行到达帐篷营地扎营。在金顶餐厅用晚餐后结束今天的行程。
+备注：露营作为一种假日生活体验，山上露营条件有限，切勿擅自单独行动；注意个人人身及财产安全。
+
+D2：
+早上5：30左右起床看日出, 用完早餐后。云中漫步十万亩天上草原，尽情感受初春“江南塞北”大草原的气息；游距今1700多年的神秘古祭坛群；征服江西最高峰武功山金顶——体验万里云山齐到眼，九宵日月可摩肩，纵揽湘赣风云,走吊马桩，灵鼠朝王爷下山。到达中庵。可选择乘坐索道，下山到达山脚下集合(二级下35元，一级下55元自理)，后车赴游览【武功山红岩谷景区】（正常行车20分钟），游览七仙潭（15分钟）听七仙女的传说、红岩瀑（15分钟），观情比金坚的夫妻瀑（15分钟）、一木成林，赏落差高达120米的金壶洒酒瀑布（15分钟）等瀑布群（游览时间不少于3小时），尽情享受武功山千瀑红岩谷的魅力山水。在景鸿葡萄农庄用午餐，愉快的行程结束!
+
+露营注意事项：
+1、作为一种假日生活体验，山上露营条件有限，请悉心听从导游安排，切勿擅自单独行动；不要穿皮鞋以防脚被扭伤，尽量穿旅游鞋或软底布鞋；照相取景时注意安全，互相礼让，不要拥挤。
+2、请游客携带洗漱、雨伞等个人出行用品；山上气温较低，请自备厚外套；
+3、游客在游览的过程中应注意自我人身安全防护，妥善保管个人物品。","武功山的高山草甸海拔之高，面积之广在世界同纬度名山中都是绝无仅有的。10万亩草甸绵绵于海拔1600多米的高山之巅，穿云入雾，真可谓“天上草原、人间仙境、北国风光、绿色家园”，被专家称为“奇山伴草甸，天下一绝。”
+D1：
+在武功山商业街用完午餐，乘坐观光车到达石鼓寺。感受禅宗文化和神秘傩文化，然后乘坐中庵索道上山（10分钟。索道自理65元）,游中庵紫极宫.走空中栈道、福星谷、许愿桥、玻璃眺台，可乘坐金顶索道（8分钟、索道自理45元）欣赏武功神拳、武功山神，走环形木栈道到达山顶，欣赏江南一绝---高山草甸 (20分钟).在山顶欣赏完后，步行到达帐篷营地扎营。在金顶餐厅用晚餐后结束今天的行程。
+备注：露营作为一种假日生活体验，山上露营条件有限，切勿擅自单独行动；注意个人人身及财产安全。
+D2：
+早上5：30左右起床看日出, 用完早餐后。云中漫步十万亩天上草原，尽情感受初春“江南塞北”大草原的气息；游距今1700多年的神秘古祭坛群；征服江西最高峰武功山金顶——体验万里云山齐到眼，九宵日月可摩肩，纵揽湘赣风云,走吊马桩，灵鼠朝王爷下山。到达中庵。可选择乘坐索道，下山到达山脚下集合(二级下35元，一级下55元自理)，后车赴游览【武功山红岩谷景区】（正常行车20分钟），游览七仙潭（15分钟）听七仙女的传说、红岩瀑（15分钟），观情比金坚的夫妻瀑（15分钟）、一木成林，赏落差高达120米的金壶洒酒瀑布（15分钟）等瀑布群（游览时间不少于3小时），尽情享受武功山千瀑红岩谷的魅力山水。在景鸿葡萄农庄用午餐，愉快的行程结束!
+露营注意事项：
+1、作为一种假日生活体验，山上露营条件有限，请悉心听从导游安排，切勿擅自单独行动；不要穿皮鞋以防脚被扭伤，尽量穿旅游鞋或软底布鞋；照相取景时注意安全，互相礼让，不要拥挤。
+2、请游客携带洗漱、雨伞等个人出行用品；山上气温较低，请自备厚外套；
+3、游客在游览的过程中应注意自我人身安全防护，妥善保管个人物品。",813,813,10,10,0.0,0,0,0,0,无,True,6456cce28f2803fa51536fa1d7c8a067583b7564
+WGS-O-05,武功山,官方路线,两日游攻略,最强攻略 | 武功山两日游,武功山景区管理员,2019-10-15,萍乡武功山景区官网,http://wap.wugongshan.cn/page/strategyList!info.htm?id=1293,官网-富文本div.raid-main,"武功山
+
+一线天过入仙境
+雾绕云缠崖石倩
+观音驾鹤南海去
+留的芳名在人间
+
+国家地理杂志将它列为
+“十大非著名山峰”之一
+人们称它为“户外天堂”
+现在小武即将介绍一条经典路线
+
+许多小伙伴都是坐火车来萍乡
+不管是高铁站还是火车站
+都能很方便的来武功山
+土豪方式：直接包车进山，具体价格看车型
+勤俭持家：车站都有直达景区的车，23元搞定
+淡季时高铁站景区直通车比较少
+建议小伙伴们前往火车站坐车
+
+现在景区施行全封闭管理
+私家车与公交车都只能到达游客服务中心
+小伙伴们可以选择在公众号里购买门票
+也可以选择在景区售票中心购票
+当日购买地票价是70元
+小武悄悄地说个小福利
+在公众号里提前一天买票只需60元
+
+（游客服务中心）
+
+小伙伴可以选择全程徒步上山
+也可以选择坐索道上山
+小武真的强烈建议
+一定要坐第一级索道上山
+这样既不累，又能欣赏美景
+此时万能小武上线
+小伙伴们可以直接在订阅号里购买索道票
+是不是很方便很简单
+第一级索道是从石鼓寺到中庵
+此段索道上行售价65元
+私家车与公交车都只能到达游客服务中心
+服务中心离山脚有5KM的路程
+真心建议小伙伴们购买转运车车票
+
+（第一级索道入口---山脚到中庵）
+
+DAY-1
+
+小伙伴们可以中午商业街吃午饭
+商业街位于游客服务中心对面
+午餐过后搭乘转运车至石鼓寺
+之后即可乘坐中庵索道上山
+乘坐索道时可远眺迎霞亭
+尽心瀑、飞来石、寒婆岩皆在眼中
+历时十分钟可到达中庵紫极宫
+
+（紫极宫雪景）.
+游览完紫极宫就可以徒步上山至金顶
+期间可以去体验一下武功山玻璃栈道
+在玻璃眺台远望武功山的秀美风景
+此时上行可按以下线路前行
+紫极宫→福星谷→许愿桥→玻璃栈道→回音谷→情人花廊→草甸之舟→古祭坛群→金顶
+
+（福星谷栈道）
+
+（许愿桥）
+
+（玻璃眺台）
+
+到达金顶之后
+小伙伴肯定累的不行
+此时可在金顶稍作休息
+观赏高山草甸、落日及云海
+
+金顶游完，拍完照
+就可以从吊马桩方向开始下山
+往观音宕方向前行
+观音宕地处武功山中段
+在发云界与吊马桩之间，海拔1600米
+因为有两个非常开阔的盆地
+使其成为历届武功山帐篷节的营地
+而且在观音宕草甸星空露营地
+晚上经常会有各种活动
+因此小武晚上选择在此露营
+可以跟自己小伙伴或其他驴友一起参加活动
+一起看看星空、聊聊天，放空自我
+
+（观音宕营地）
+
+DAY-2
+
+今天可以睡到自然醒
+收拾好东西后即可准备下山
+从观音宕下山可先行至吊马桩
+从吊马桩往好汉坡方向前行
+下山路线可按下文所示走
+观音宕→吊马桩→好汉坡→滴水观音→猴谷→飚水瀑布→尽心瀑→石鼓寺
+
+（吊马桩）
+
+（好汉坡）
+
+（尽心瀑）
+
+现在处于丰水期
+武功山上有大大小小几十个瀑布
+爬山途中可以尽情观赏瀑布带来的震撼
+此时也处于猴群活跃期
+在猴谷很容易看到猴群活动
+还可以看到更多的武功山野生动物
+从观音宕徒步下山至石鼓寺需花费3-4H
+下山后结束这次为期两天的武功山之旅
+
+小伙伴们下山后记得及时放松腿部肌肉
+希望大家看完这次小武的推荐
+能对武功山了解更多
+有任何关于武功山的问题都可以私信小武
+小武会竭诚为各位小伙伴服务
+最后来个此次行程大总结
+课代表来划重点啦！！！
+
+行程安排
+第一天：萍乡车站--金顶--观音宕
+1、上午到达萍乡，坐车至武功山风景区游客服务中心
+2、中午在游客服务中心进行午餐，午餐结束后乘坐转运车至石鼓寺
+3、乘坐中庵索道至紫极宫，开始徒步上山
+4、抵达金顶，观看风景并拍照留念
+5、从金顶徒步至观音宕草甸星空帐篷基地，晚上在此露营
+
+第2天：观音宕--武功山正门--萍乡市区
+1、早上自然醒之后收拾完毕开始准备下山
+2、从观音宕行至吊马桩
+3、一路下山，可以在猴谷歇息，坐等猴群出没
+4、到达武功山正门，乘坐转运车至游客服务中心
+5、乘坐武功山景区到市区的公交，结束为期两天的武功山之旅
+
+【小武提醒】
+1、乘坐火车必带身份证；不可携带管制刀具和户外气罐，无法通过安检
+2、如果特别爱干净的朋友，建议携带自己的睡袋，这样晚上住宿的会舒服一些
+3、晚上看星星，凌晨看日出，在海拔1600以上都较冷的，所以厚衣服一定要带上
+
+出行装备
+1、必备装备：双肩背包、登山鞋或运动鞋、外套、替换衣物、洗漱用品、有效证件、移动电源、皮肤风衣、防水袋、饮用水（杯）、适量现金、适量零食、一颗爱玩
+爱闹宽容的心！
+2、参考装备：雨具、手套、太阳帽、太阳镜、防晒油、充气枕头、垃圾袋等
+3、参考药品：感冒药、藿香正气丸或黄连素、风油精、跌打药、止血帖等
+
+这条路线就是《经典武功山路线》
+
+“一条拥有绝佳的旅行节奏和丰富旅行体验的路线”","武功山
+一线天过入仙境
+雾绕云缠崖石倩
+观音驾鹤南海去
+留的芳名在人间
+国家地理杂志将它列为
+“十大非著名山峰”之一
+人们称它为“户外天堂”
+现在小武即将介绍一条经典路线
+许多小伙伴都是坐火车来萍乡
+不管是高铁站还是火车站
+都能很方便的来武功山
+土豪方式：直接包车进山，具体价格看车型
+勤俭持家：车站都有直达景区的车，23元搞定
+淡季时高铁站景区直通车比较少
+建议小伙伴们前往火车站坐车
+现在景区施行全封闭管理
+私家车与公交车都只能到达游客服务中心
+小伙伴们可以选择在公众号里购买门票
+也可以选择在景区售票中心购票
+当日购买地票价是70元
+小武悄悄地说个小福利
+在公众号里提前一天买票只需60元
+（游客服务中心）
+小伙伴可以选择全程徒步上山
+也可以选择坐索道上山
+小武真的强烈建议
+一定要坐第一级索道上山
+这样既不累，又能欣赏美景
+此时万能小武上线
+小伙伴们可以直接在订阅号里购买索道票
+是不是很方便很简单
+第一级索道是从石鼓寺到中庵
+此段索道上行售价65元
+服务中心离山脚有5KM的路程
+真心建议小伙伴们购买转运车车票
+（第一级索道入口---山脚到中庵）
+DAY-1
+小伙伴们可以中午商业街吃午饭
+商业街位于游客服务中心对面
+午餐过后搭乘转运车至石鼓寺
+之后即可乘坐中庵索道上山
+乘坐索道时可远眺迎霞亭
+尽心瀑、飞来石、寒婆岩皆在眼中
+历时十分钟可到达中庵紫极宫
+（紫极宫雪景）.
+游览完紫极宫就可以徒步上山至金顶
+期间可以去体验一下武功山玻璃栈道
+在玻璃眺台远望武功山的秀美风景
+此时上行可按以下线路前行
+紫极宫→福星谷→许愿桥→玻璃栈道→回音谷→情人花廊→草甸之舟→古祭坛群→金顶
+（福星谷栈道）
+（许愿桥）
+（玻璃眺台）
+到达金顶之后
+小伙伴肯定累的不行
+此时可在金顶稍作休息
+观赏高山草甸、落日及云海
+金顶游完，拍完照
+就可以从吊马桩方向开始下山
+往观音宕方向前行
+观音宕地处武功山中段
+在发云界与吊马桩之间，海拔1600米
+因为有两个非常开阔的盆地
+使其成为历届武功山帐篷节的营地
+而且在观音宕草甸星空露营地
+晚上经常会有各种活动
+因此小武晚上选择在此露营
+可以跟自己小伙伴或其他驴友一起参加活动
+一起看看星空、聊聊天，放空自我
+（观音宕营地）
+DAY-2
+今天可以睡到自然醒
+收拾好东西后即可准备下山
+从观音宕下山可先行至吊马桩
+从吊马桩往好汉坡方向前行
+下山路线可按下文所示走
+观音宕→吊马桩→好汉坡→滴水观音→猴谷→飚水瀑布→尽心瀑→石鼓寺
+（吊马桩）
+（好汉坡）
+（尽心瀑）
+现在处于丰水期
+武功山上有大大小小几十个瀑布
+爬山途中可以尽情观赏瀑布带来的震撼
+此时也处于猴群活跃期
+在猴谷很容易看到猴群活动
+还可以看到更多的武功山野生动物
+从观音宕徒步下山至石鼓寺需花费3-4H
+下山后结束这次为期两天的武功山之旅
+小伙伴们下山后记得及时放松腿部肌肉
+希望大家看完这次小武的推荐
+能对武功山了解更多
+有任何关于武功山的问题都可以私信小武
+小武会竭诚为各位小伙伴服务
+最后来个此次行程大总结
+课代表来划重点啦！
+行程安排
+第一天：萍乡车站--金顶--观音宕
+1、上午到达萍乡，坐车至武功山风景区游客服务中心
+2、中午在游客服务中心进行午餐，午餐结束后乘坐转运车至石鼓寺
+3、乘坐中庵索道至紫极宫，开始徒步上山
+4、抵达金顶，观看风景并拍照留念
+5、从金顶徒步至观音宕草甸星空帐篷基地，晚上在此露营
+第2天：观音宕--武功山正门--萍乡市区
+1、早上自然醒之后收拾完毕开始准备下山
+2、从观音宕行至吊马桩
+3、一路下山，可以在猴谷歇息，坐等猴群出没
+4、到达武功山正门，乘坐转运车至游客服务中心
+5、乘坐武功山景区到市区的公交，结束为期两天的武功山之旅
+【小武提醒】
+1、乘坐火车必带身份证；不可携带管制刀具和户外气罐，无法通过安检
+2、如果特别爱干净的朋友，建议携带自己的睡袋，这样晚上住宿的会舒服一些
+3、晚上看星星，凌晨看日出，在海拔1600以上都较冷的，所以厚衣服一定要带上
+出行装备
+1、必备装备：双肩背包、登山鞋或运动鞋、外套、替换衣物、洗漱用品、有效证件、移动电源、皮肤风衣、防水袋、饮用水（杯）、适量现金、适量零食、一颗爱玩
+爱闹宽容的心！
+2、参考装备：雨具、手套、太阳帽、太阳镜、防晒油、充气枕头、垃圾袋等
+3、参考药品：感冒药、藿香正气丸或黄连素、风油精、跌打药、止血帖等
+这条路线就是《经典武功山路线》
+“一条拥有绝佳的旅行节奏和丰富旅行体验的路线”",1745,1725,121,120,0.0115,0,0,0,1,重复段落已去除,True,535aa81a709255b1610994e826cffe8c4579bc69
+WGS-O-06,武功山,官方路线,两日游攻略,干货！武功山两天怎么玩？这份攻略请收好！,武功山景区管理员,2019-09-24,萍乡武功山景区官网,http://wap.wugongshan.cn/page/strategyList!info.htm?id=1228,官网-富文本div.raid-main,"最近有不少小伙伴问小武
+武功山两天怎么玩？
+接下来，听我的，这篇攻略一定要收好
+小武给你们介绍一条游玩武功山经典路线
+
+Part 1
+交通如何到到达
+
+来武功山的方式有很多，公交，租车，自驾都可以。
+
+-公交到达-
+萍乡北站：30分钟一趟 27元/人
+
+萍乡站/长途汽车站： 30分钟一趟 24/人
+城南站： 20分钟一趟 22/人
+
+-租车到达-
+
+①打出租车直达景区，大概150-200之间
+②直接包车，具体价格看车型和人数，具体详情可后台咨询小武。
+
+-自驾直达-
+
+导航定位“萍乡武功山游客服务中心”即可
+由于景区施行全封闭管理，私家车与公交车都只能到达游客服务中心，景区有停车场可供停车。
+小汽车白天收费10元/辆 过夜20元/辆
+大中型汽车白天20元/辆 过夜49元/辆
+
+Part 2
+门票预订
+
+①可在景区售票窗口购票买，门票70/人
+
+②可在“以武慧游”后台购买门票和索道票，在公众号提前一天以上购买门票只要60元/人
+
+③索道分为两级，需要分开购票哦。
+
+温馨提示：如不需要发票，可以凭电子票扫码入园和乘坐索道。
+
+订门票的同时记得也要提前预订好帐篷或者酒店，根据自己的露营地选择合适位置的住宿地。
+
+提前预订好帐篷，到山上找到位置可以直接入住，商家会搭好。预订帐篷也可在“以武慧游”公众号预订哦
+
+Part3
+两天一夜经典路线
+
+DAY.1线路行程
+
+石鼓寺-紫极宫-福星谷-许愿桥-玻璃眺台-回音谷-情人花廊-草甸之舟-古祭坛群-金顶
+
+上午到达武功山，可以先在商业街吃完午饭稍作休息然后开始爬山。第一步先乘坐景区免费转运车到达石鼓寺。
+
+小武建议可以乘坐第一级索道，因为这段路最陡，乘坐索道省时又省力。
+
+乘坐索道时可远眺迎霞亭，尽心瀑、飞来石、寒婆岩皆在眼中，大概10分钟可到达中庵紫极宫。
+
+游览完紫极宫可以选择徒步至金顶，这段路程涵盖了景区部分精华景点，徒步过程中你将看到福星谷栈道，许愿桥，玻璃眺台，回音谷，情人花廊。
+
+还记得抖音刷得最多的武功山风景吗？没错就是这个地方，位于白鹤峰下来一点，站在高处，十万亩草甸就在眼前。
+
+步行大概两个多小时可以到达金顶，在这你可以看到神秘的千年古祭坛，运气好还可以看到云海。
+
+露营地点可选择金顶或者观音宕，在金顶观日效果最佳，如想看日出又喜欢氛围热闹那可以选择观音宕。
+
+观音宕距离山顶大概1个小时多的路程，可结合自身情况选择营地哦。
+
+那么接下来好好等待武功山第二天的日出吧。看日出记得调好闹钟，现在日出大概在6点钟左右。
+
+DAY.2线路安排
+
+①金顶-吊马桩-玻璃栈道-吊马桩-好汉坡-滴水观音-猴谷-飚水瀑布-尽心瀑-石鼓寺
+②观音宕-玻璃栈道-吊马桩-好汉坡-滴水观音-猴谷-飚水瀑布-尽心瀑-石鼓寺
+
+如在金顶露营可往吊马桩方向下山，第二天一早看完日出就可以迎着朝阳全程置身高山草甸之中行走。
+
+大概1个小时不到就可以到达吊马桩，这个地方是高山和草甸的分界线，在这往下看是峻峭山峰，往上走是柔软的草甸。
+
+武功山星空栈道是全国海拔最高的玻璃栈道，想要挑战下刺激心跳的感觉一定要去呀。ps:去星空栈道要出示门票，小伙伴们要记得保管好自己的门票。
+
+游览完玻璃栈道就可以下山了，途经好汉坡，可以说是武功山阶梯最多的一段路。
+
+武功山大大小小有几十个瀑布，现在还处于丰水时期，途中你还可以看到尽心瀑飞流直下。
+
+再往下走经过猴谷，现在是短尾猴活跃时期，经常有游客偶遇到猴哥。
+
+大概1个半小时可步行至紫极宫，如果体力不佳可乘坐第一级索道返回，如体力充足也可选择徒步下山，全程大概需花费3-4个小时。
+
+武功山路线地图快收藏好
+
+【小武提醒】
+
+1、乘坐火车必带身份证；不可携带管制刀具和户外气罐，无法通过安检
+2、如果特别爱干净的朋友，建议携带自己的睡袋，这样晚上住宿的会舒服一些
+3、晚上看星星，凌晨看日出，在海拔1600以上都较冷的，所以厚衣服一定要带上
+
+出行装备
+
+1、必备装备：双肩背包、登山鞋或运动鞋、外套、替换衣物、洗漱用品、有效证件、移动电源、皮肤风衣、防水袋、饮用水（杯）、适量现金、适量零食、一颗爱玩
+爱闹宽容的心！
+
+2、参考装备：雨具、手套、太阳帽、太阳镜、防晒油、充气枕头、垃圾袋等
+3、参考药品：感冒药、藿香正气丸或黄连素、风油精、跌打药、止血帖等","最近有不少小伙伴问小武
+武功山两天怎么玩？
+接下来，听我的，这篇攻略一定要收好
+小武给你们介绍一条游玩武功山经典路线
+Part 1
+交通如何到到达
+来武功山的方式有很多，公交，租车，自驾都可以。
+-公交到达-
+萍乡北站：30分钟一趟 27元/人
+萍乡站/长途汽车站： 30分钟一趟 24/人
+城南站： 20分钟一趟 22/人
+-租车到达-
+①打出租车直达景区，大概150-200之间
+②直接包车，具体价格看车型和人数，具体详情可后台咨询小武。
+-自驾直达-
+导航定位“萍乡武功山游客服务中心”即可
+由于景区施行全封闭管理，私家车与公交车都只能到达游客服务中心，景区有停车场可供停车。
+小汽车白天收费10元/辆过夜20元/辆
+大中型汽车白天20元/辆过夜49元/辆
+Part 2
+门票预订
+①可在景区售票窗口购票买，门票70/人
+②可在“以武慧游”后台购买门票和索道票，在公众号提前一天以上购买门票只要60元/人
+③索道分为两级，需要分开购票哦。
+订门票的同时记得也要提前预订好帐篷或者酒店，根据自己的露营地选择合适位置的住宿地。
+提前预订好帐篷，到山上找到位置可以直接入住，商家会搭好。预订帐篷也可在“以武慧游”公众号预订哦
+Part3
+两天一夜经典路线
+DAY.1线路行程
+石鼓寺-紫极宫-福星谷-许愿桥-玻璃眺台-回音谷-情人花廊-草甸之舟-古祭坛群-金顶
+上午到达武功山，可以先在商业街吃完午饭稍作休息然后开始爬山。第一步先乘坐景区免费转运车到达石鼓寺。
+小武建议可以乘坐第一级索道，因为这段路最陡，乘坐索道省时又省力。
+乘坐索道时可远眺迎霞亭，尽心瀑、飞来石、寒婆岩皆在眼中，大概10分钟可到达中庵紫极宫。
+游览完紫极宫可以选择徒步至金顶，这段路程涵盖了景区部分精华景点，徒步过程中你将看到福星谷栈道，许愿桥，玻璃眺台，回音谷，情人花廊。
+还记得抖音刷得最多的武功山风景吗？没错就是这个地方，位于白鹤峰下来一点，站在高处，十万亩草甸就在眼前。
+步行大概两个多小时可以到达金顶，在这你可以看到神秘的千年古祭坛，运气好还可以看到云海。
+露营地点可选择金顶或者观音宕，在金顶观日效果最佳，如想看日出又喜欢氛围热闹那可以选择观音宕。
+观音宕距离山顶大概1个小时多的路程，可结合自身情况选择营地哦。
+那么接下来好好等待武功山第二天的日出吧。看日出记得调好闹钟，现在日出大概在6点钟左右。
+DAY.2线路安排
+①金顶-吊马桩-玻璃栈道-吊马桩-好汉坡-滴水观音-猴谷-飚水瀑布-尽心瀑-石鼓寺
+②观音宕-玻璃栈道-吊马桩-好汉坡-滴水观音-猴谷-飚水瀑布-尽心瀑-石鼓寺
+如在金顶露营可往吊马桩方向下山，第二天一早看完日出就可以迎着朝阳全程置身高山草甸之中行走。
+大概1个小时不到就可以到达吊马桩，这个地方是高山和草甸的分界线，在这往下看是峻峭山峰，往上走是柔软的草甸。
+武功山星空栈道是全国海拔最高的玻璃栈道，想要挑战下刺激心跳的感觉一定要去呀。ps:去星空栈道要出示门票，小伙伴们要记得保管好自己的门票。
+游览完玻璃栈道就可以下山了，途经好汉坡，可以说是武功山阶梯最多的一段路。
+武功山大大小小有几十个瀑布，现在还处于丰水时期，途中你还可以看到尽心瀑飞流直下。
+再往下走经过猴谷，现在是短尾猴活跃时期，经常有游客偶遇到猴哥。
+大概1个半小时可步行至紫极宫，如果体力不佳可乘坐第一级索道返回，如体力充足也可选择徒步下山，全程大概需花费3-4个小时。
+武功山路线地图快收藏好
+【小武提醒】
+1、乘坐火车必带身份证；不可携带管制刀具和户外气罐，无法通过安检
+2、如果特别爱干净的朋友，建议携带自己的睡袋，这样晚上住宿的会舒服一些
+3、晚上看星星，凌晨看日出，在海拔1600以上都较冷的，所以厚衣服一定要带上
+出行装备
+1、必备装备：双肩背包、登山鞋或运动鞋、外套、替换衣物、洗漱用品、有效证件、移动电源、皮肤风衣、防水袋、饮用水（杯）、适量现金、适量零食、一颗爱玩
+爱闹宽容的心！
+2、参考装备：雨具、手套、太阳帽、太阳镜、防晒油、充气枕头、垃圾袋等
+3、参考药品：感冒药、藿香正气丸或黄连素、风油精、跌打药、止血帖等",1669,1641,60,59,0.0168,1,0,0,0,站点噪声已清理,True,16da3973922eac896947769facabc281b5ebd406
+WGS-T-01,武功山,游客游记,徒步（雨天）,端午之武功山徒步,南方部落户外,2012-06-29,豆瓣小组,https://www.douban.com/group/topic/30742477/,豆瓣-topic-richtext,"豆瓣小站：http://site.douban.com/nf1799/
+豆瓣小组：http://www.douban.com/group/
+新浪微博：http://weibo.com/u/1865894115
+游记详帖：http://www.nf1799.com/read.php?tid=25914
+全程：上山——二十X公里；负重三十X斤；雨ing；行进六小时
+下山——NNN个台阶；负重三十X斤；雨ing；行进三个半小时。
+-----------------------------------------------------------------------------------------------------------------------) Q- ?& J S' j4 o
+想去武功山很久了，之前报了一个武功山穿越的团，但是最后终究因为人数不够没有成行。正在考虑端午该如何计划一下的时候，又接到某某人推荐的一个武功山逃票线路，虽然比穿越线路强度小了好多，但是感觉应该也还不错，就毫不犹豫的报名。4 Y"" F$ a"" [* O; ?/ D
+
+帐篷、睡袋什么的都准备好了，只盼着能有个好天气，一查天气预报，武功山这两天全是雨。无奈之下还是出发了，只在祈祷天气预报能像往常一样不准。
+
+等待，上车，早上4点左右准点到达萍乡，才发现原来我们是多个户外俱乐部的拼团。无话，大巴一个多小时终于绕到了山脚下，这时候，天蒙蒙亮，天阴，但是还没下雨。
+在山脚下的一个接待站吃早餐，只有米粉加一煎蛋，7块钱，还行。吃完后不到六点，准备出发。这时候，天气开始下起小雨，只好把相机挤进背包，罩好背包防雨罩六点整开始了徒步行程。 越走雨越大，还好走的基本都是山路，虽然很崎岖，但是树和竹子很多，所以，雨好似是小了一点点。先是田间小路，再是竹林，森林，差不多三个小时，终于走到了草甸，路是稍稍好走了一些，但是周围全是雨雾，无法辨别方向，只是跟着向导走着，注意力必须集中在脚下。向导是当地的一村民，穿的一拖鞋，走这些泥泞山路如履平地啊！ 四小时后，登上一小山包，雨开始停了，雾也散开了一些，才发现周围的风景真是好啊！立马从包中取出相机，开始拍几张！因为雨太大，背包的防雨罩已经没什么作用了，里面的相机已经湿了，身上也全部湿透，只好脱下身上的湿皮，裸着套上冲锋衣，大概的擦一下相机后，背在了冲锋衣下。
+突然，云雾中中间出现一缺口，很壮观，当举起相机，缺口已经开始被云雾填满，此景持续了差不多20秒左右。 此事，已经负重徒步四个多小时了，风和雨都开始大了，我们也开始走悬崖小路，不得不说，在走这段路的时候，必须要站稳重心，注意力高度集中才行。 如此如此，我们行的最快的一个小TEAM，在六小时后，成功登顶，在武功山金顶上，风雨交加，很冷，雾茫茫的看不到山下。原路下金顶，路很滑，安全安全…… 在此候了一个小时后，与大部队会。去传说中的小木屋，看有没有合适的地方扎帐篷，但是到处都在流水，最后还是放弃扎营，和大家一起住小木屋。之前有听过小木屋条件很差，已有心理准备。但是见了真正的所谓的小木屋后，发现比我想象中的还要差。一张半双人床的空间，各种昆虫物种。房间里各种蚊子，不过幸好房间里还会有它的天敌，好几个大蜘蛛。晚上在睡袋中没有被蚊子袭击。 原以为，这次，除了雨，什么景也看不到了。就在这时，外面有叫声，出去发现雨停了，云海开始显现！我们屋外的一个小平台，观景位置很好！
+由于天色已慢慢暗下，又没带脚架，好多相都有些虚，但是还是蛮激动的！还有晚上的月亮和星空！ 因为包全部湿了，鞋全部灌水，干的衣物就只有冲锋衣和一件速干T还有一条防风裤。不过这已足矣。 第二天本事去看日出，但是4点多起来，天阴下雨，回去继续睡。七点起来重新去了趟金顶，虽然天阴，但是雾气不浓。站在昨天的位置，开下周围的环境，发现与昨天完全不同，所有的小路也都不同了。我当时终于明白了那些雾天迷路的孩纸们的心情。
+回去将湿衣物全部打包，早上十点准时开始下山，坑爹的天气又开始下雨，还好没有雾，周围的景色还是很清楚的。相机也包在塑料袋中不敢拿出了。独自欣赏美景……只是景区这坑爹的台阶太多。","全程：上山——二十X公里；负重三十X斤；雨ing；行进六小时
+下山——NNN个台阶；负重三十X斤；雨ing；行进三个半小时。
+想去武功山很久了，之前报了一个武功山穿越的团，但是最后终究因为人数不够没有成行。正在考虑端午该如何计划一下的时候，又接到某某人推荐的一个武功山逃票线路，虽然比穿越线路强度小了好多，但是感觉应该也还不错，就毫不犹豫的报名。
+帐篷、睡袋什么的都准备好了，只盼着能有个好天气，一查天气预报，武功山这两天全是雨。无奈之下还是出发了，只在祈祷天气预报能像往常一样不准。
+等待，上车，早上4点左右准点到达萍乡，才发现原来我们是多个户外俱乐部的拼团。无话，大巴一个多小时终于绕到了山脚下，这时候，天蒙蒙亮，天阴，但是还没下雨。
+在山脚下的一个接待站吃早餐，只有米粉加一煎蛋，7块钱，还行。吃完后不到六点，准备出发。这时候，天气开始下起小雨，只好把相机挤进背包，罩好背包防雨罩六点整开始了徒步行程。 越走雨越大，还好走的基本都是山路，虽然很崎岖，但是树和竹子很多，所以，雨好似是小了一点点。先是田间小路，再是竹林，森林，差不多三个小时，终于走到了草甸，路是稍稍好走了一些，但是周围全是雨雾，无法辨别方向，只是跟着向导走着，注意力必须集中在脚下。向导是当地的一村民，穿的一拖鞋，走这些泥泞山路如履平地啊！ 四小时后，登上一小山包，雨开始停了，雾也散开了一些，才发现周围的风景真是好啊！立马从包中取出相机，开始拍几张！因为雨太大，背包的防雨罩已经没什么作用了，里面的相机已经湿了，身上也全部湿透，只好脱下身上的湿皮，裸着套上冲锋衣，大概的擦一下相机后，背在了冲锋衣下。
+突然，云雾中中间出现一缺口，很壮观，当举起相机，缺口已经开始被云雾填满，此景持续了差不多20秒左右。 此事，已经负重徒步四个多小时了，风和雨都开始大了，我们也开始走悬崖小路，不得不说，在走这段路的时候，必须要站稳重心，注意力高度集中才行。 如此如此，我们行的最快的一个小TEAM，在六小时后，成功登顶，在武功山金顶上，风雨交加，很冷，雾茫茫的看不到山下。原路下金顶，路很滑，安全安全…… 在此候了一个小时后，与大部队会。去传说中的小木屋，看有没有合适的地方扎帐篷，但是到处都在流水，最后还是放弃扎营，和大家一起住小木屋。之前有听过小木屋条件很差，已有心理准备。但是见了真正的所谓的小木屋后，发现比我想象中的还要差。一张半双人床的空间，各种昆虫物种。房间里各种蚊子，不过幸好房间里还会有它的天敌，好几个大蜘蛛。晚上在睡袋中没有被蚊子袭击。 原以为，这次，除了雨，什么景也看不到了。就在这时，外面有叫声，出去发现雨停了，云海开始显现！我们屋外的一个小平台，观景位置很好！
+由于天色已慢慢暗下，又没带脚架，好多相都有些虚，但是还是蛮激动的！还有晚上的月亮和星空！ 因为包全部湿了，鞋全部灌水，干的衣物就只有冲锋衣和一件速干T还有一条防风裤。不过这已足矣。 第二天本事去看日出，但是4点多起来，天阴下雨，回去继续睡。七点起来重新去了趟金顶，虽然天阴，但是雾气不浓。站在昨天的位置，开下周围的环境，发现与昨天完全不同，所有的小路也都不同了。我当时终于明白了那些雾天迷路的孩纸们的心情。
+回去将湿衣物全部打包，早上十点准时开始下山，坑爹的天气又开始下雨，还好没有雾，周围的景色还是很清楚的。相机也包在塑料袋中不敢拿出了。独自欣赏美景……只是景区这坑爹的台阶太多。",1688,1397,14,9,0.1724,5,0,1,0,站点噪声已清理；链接已清理,True,86c1a3505b9da825dccbd1e67908d4d24ba0f241
+WGS-T-02,武功山,游客游记,徒步穿越,武功山——偶遇游望，结缘酱瓜,140502,2014-11-24,8264户外论坛,https://bbs.8264.com/thread-2279795-1-1.html,8264-首帖td.t_f,"本帖最后由 140502 于 2014-11-24 18:24 编辑
+
+写在前面的话：
+
+在五一还没到的时候大家就在讨论五一要去哪里玩儿，原本计划是和莲去崇明导两日游，去下东滩湿地公园和西滩森林公园，吃吃烧烤骑骑单车。突然有一天在豆瓣网上看到了上海的一个户外驴友组织五一要去徒步穿越七尖山，打开链接很吸引我，然后就改变方案了，准备穿越，可是莲担心走不下来就不去了；因为没有穿越的经验，就把这个活动链接发给同学看，他说你去七尖还不如和我们一起去武功山，可是时间安排的好紧张，担心不能走下来；经过讨论之后我决定去武功山，安全起见，有个熟悉的人也比较好一点，好吧，我决定从上海出发到萍乡和驴友团汇合，然后5.3号自己再回上海。
+
+这么决定以后我就看是购买来回的车票和徒步登山需要的装备，并且开始每天跑步一小时，锻炼下耐力和体力，我不想到时候拖小伙伴的后腿，徒步穿越的各种装备按照帖子上的要求一一备齐，当然有些还没是没有准备，比如帐篷、手套，本着轻装的原则，我就简单一些。 。。徒步穿越开始：
+
+我是不幸的又是幸运的。说不幸是因为同学的驴友团因为五一路上堵车，而且联系不上。说幸运是我准时5.1日6点到萍乡，火车站遇到义乌的2个驴友，拼车去了沈子村，再三联系驴友团无果之下，决定和义乌驴友一起走，他们是可爱的七月和帅气的十七，就这样开始我的武功山徒步穿越之行。
+
+此处省略N多个字。。。。。。
+
+废话不多说了，来说我和游望的缘分吧！
+
+我的人品大爆发是在5.2日下午，我和七月快到发云界的时候，在平安客栈，十七说我们不走了，今天在这里露营。我去问客栈老板：“有帐篷没？”老板说：“有房间的，还有三间，一晚上50元。”哇哦，好便宜，金顶一晚上一个床位就要200元。我在问了老板如果我们第二天下山该怎么走的时候？他给指路了，可是不明确，傍边扎帐篷的驴友说你可以去问在客栈里的那个驴友团的领队，他一定知道的；我就去问，问了才知道他们来自上海，明天也下山，他们热情的邀请我一起回去，说车子上有空位置，可以带我回去，房间有个姑娘是一个人住，我可以拼房间住。我同意了，然后告诉七月和十七，七月说好人有好运，你的人品好到爆棚，我开心的跳起来，其他驴友也说我运气真好。是啊，可以舒舒服服的洗个澡，踏实的睡了觉，还能做睡前美美的做个面膜，哈哈哈。。。
+
+早晨被窗外的呼喊声叫醒，时间为五点多点，原来驴友要看日出，这个上海驴友团名叫：游望天下，他们5.2号驻扎在铁蹄峰，没能看到日出，我不打算凑热闹了，起床洗漱去。
+
+七点的时候七月和十七也整理好了，领队说我们七点半出发，找个当地是向导，走一条比较陡的山路下山，这条道一般是当地人往山上送东西才走的，因为比较近。一般下山要5小时，我们这条道三个半小时就OK了。
+
+准时出发，一路上风景也不错的，山路比较滑，不是特别好走，一路上也欢笑声不断，队伍里有2个低音炮，曲风都不一样，领队走前阵，熊二在中间，酱瓜在最后压阵，为了不让驴友走丢，一个领队和两个副领队很负责任，受伤的和走的慢的，负重减轻，包裹是其他同伴帮忙背的，一路上小伙伴们很热情，再一次体会到驴友说的：天驴友是一家。
+
+顺利到达山下，大巴车已经到位，领队带我们去吃中饭，我和领队说过要他帮忙带七月和十七到能乘上去萍乡火车站的地方，他同意了，然后我们就一起出发了。 七月和十七没有和我们一起在餐馆里吃中饭，我和驴友团一起了，因为要一起回上海；等我吃晚饭准备退车票的时候，我才发现我的车票已经取出来了，不可能在退了，而且我返程的车票是宜春到上海的，我有点纠结了，虽然钱不多也是钱呢，总不能浪费吧，在我犹豫间我看到七月和十七还没有等到去火车站的车，我打算让他们帮我去退票，身份证和车票都给他们，七月没有拒绝，说可以试试。当我和驴友团的人说这个事情的时候，老的驴友说你还是坐火车吧，大巴可能会堵的，如果时间差不多，坐火车也可以的，不要浪费money。啊。。。我决定做火车了，加了群号，告别驴友，我和七月他们一起等车，最后拼车去火车站。
+
+与七月和十七在萍乡火车站相遇，也在这里分别，虽然依依不舍，却总是要分开的，我们希望还有机会同游；感谢一路的陪伴，带给我很多感动，谢谢七月，谢谢十七！谢谢游望天下的驴友们！
+
+回到上海加入了游望天下户外群，游望天下带我看天下美景，万万没想到还带给我一段姻缘。。。。。。 2014-11-24 18:20 上传
+下载 (18.31 KB)
+
+下载积分: 驴币 -1
+
+2014-11-24 18:20 上传
+下载 (17.34 KB)
+
+下载积分: 驴币 -1
+
+2014-11-24 18:20 上传
+下载 (18.31 KB)
+
+下载积分: 驴币 -1","写在前面的话：
+在五一还没到的时候大家就在讨论五一要去哪里玩儿，原本计划是和莲去崇明导两日游，去下东滩湿地公园和西滩森林公园，吃吃烧烤骑骑单车。突然有一天在豆瓣网上看到了上海的一个户外驴友组织五一要去徒步穿越七尖山，打开链接很吸引我，然后就改变方案了，准备穿越，可是莲担心走不下来就不去了；因为没有穿越的经验，就把这个活动链接发给同学看，他说你去七尖还不如和我们一起去武功山，可是时间安排的好紧张，担心不能走下来；经过讨论之后我决定去武功山，安全起见，有个熟悉的人也比较好一点，好吧，我决定从上海出发到萍乡和驴友团汇合，然后5.3号自己再回上海。
+这么决定以后我就看是购买来回的车票和徒步登山需要的装备，并且开始每天跑步一小时，锻炼下耐力和体力，我不想到时候拖小伙伴的后腿，徒步穿越的各种装备按照帖子上的要求一一备齐，当然有些还没是没有准备，比如帐篷、手套，本着轻装的原则，我就简单一些。 ……徒步穿越开始：
+我是不幸的又是幸运的。说不幸是因为同学的驴友团因为五一路上堵车，而且联系不上。说幸运是我准时5.1日6点到萍乡，火车站遇到义乌的2个驴友，拼车去了沈子村，再三联系驴友团无果之下，决定和义乌驴友一起走，他们是可爱的七月和帅气的十七，就这样开始我的武功山徒步穿越之行。
+此处省略N多个字……
+废话不多说了，来说我和游望的缘分吧！
+我的人品大爆发是在5.2日下午，我和七月快到发云界的时候，在平安客栈，十七说我们不走了，今天在这里露营。我去问客栈老板：“有帐篷没？”老板说：“有房间的，还有三间，一晚上50元。”哇哦，好便宜，金顶一晚上一个床位就要200元。我在问了老板如果我们第二天下山该怎么走的时候？他给指路了，可是不明确，傍边扎帐篷的驴友说你可以去问在客栈里的那个驴友团的领队，他一定知道的；我就去问，问了才知道他们来自上海，明天也下山，他们热情的邀请我一起回去，说车子上有空位置，可以带我回去，房间有个姑娘是一个人住，我可以拼房间住。我同意了，然后告诉七月和十七，七月说好人有好运，你的人品好到爆棚，我开心的跳起来，其他驴友也说我运气真好。是啊，可以舒舒服服的洗个澡，踏实的睡了觉，还能做睡前美美的做个面膜，哈哈哈……
+早晨被窗外的呼喊声叫醒，时间为五点多点，原来驴友要看日出，这个上海驴友团名叫：游望天下，他们5.2号驻扎在铁蹄峰，没能看到日出，我不打算凑热闹了，起床洗漱去。
+七点的时候七月和十七也整理好了，领队说我们七点半出发，找个当地是向导，走一条比较陡的山路下山，这条道一般是当地人往山上送东西才走的，因为比较近。一般下山要5小时，我们这条道三个半小时就OK了。
+准时出发，一路上风景也不错的，山路比较滑，不是特别好走，一路上也欢笑声不断，队伍里有2个低音炮，曲风都不一样，领队走前阵，熊二在中间，酱瓜在最后压阵，为了不让驴友走丢，一个领队和两个副领队很负责任，受伤的和走的慢的，负重减轻，包裹是其他同伴帮忙背的，一路上小伙伴们很热情，再一次体会到驴友说的：天驴友是一家。
+顺利到达山下，大巴车已经到位，领队带我们去吃中饭，我和领队说过要他帮忙带七月和十七到能乘上去萍乡火车站的地方，他同意了，然后我们就一起出发了。 七月和十七没有和我们一起在餐馆里吃中饭，我和驴友团一起了，因为要一起回上海；等我吃晚饭准备退车票的时候，我才发现我的车票已经取出来了，不可能在退了，而且我返程的车票是宜春到上海的，我有点纠结了，虽然钱不多也是钱呢，总不能浪费吧，在我犹豫间我看到七月和十七还没有等到去火车站的车，我打算让他们帮我去退票，身份证和车票都给他们，七月没有拒绝，说可以试试。当我和驴友团的人说这个事情的时候，老的驴友说你还是坐火车吧，大巴可能会堵的，如果时间差不多，坐火车也可以的，不要浪费money。啊……我决定做火车了，加了群号，告别驴友，我和七月他们一起等车，最后拼车去火车站。
+与七月和十七在萍乡火车站相遇，也在这里分别，虽然依依不舍，却总是要分开的，我们希望还有机会同游；感谢一路的陪伴，带给我很多感动，谢谢七月，谢谢十七！谢谢游望天下的驴友们！
+回到上海加入了游望天下户外群，游望天下带我看天下美景，万万没想到还带给我一段姻缘……",1865,1715,22,13,0.0804,9,0,0,0,站点噪声已清理,True,8e7895ab8f54d49357156be77347c693357a61cd
+WGS-T-03,武功山,游客游记,交通门票攻略,攻略｜武功山两天一夜攻略，建议收藏,甜面酱酱,2021-09-04,豆瓣小组,https://www.douban.com/group/topic/244979629/,豆瓣-topic-richtext,"武功山两天一夜攻略｜不收藏绝对后悔篇
+草甸｜日出｜星空｜云海｜日落
+📍武功山位于江西省萍乡市
+✈️行前准备
+✅看天气预报☀️最好大太阳出发，能看见日出🌅和日落🌄
+✅如果只玩两天可直接背书包就行，一般大家都是从江西南昌过去，或者湖南长沙过去。
+✅提前关注“武功山”公众号，提前一天购票优惠10元
+✅学生可搜索🔍小程序“云游江西”认证学生身份并提前一天预约可免门票‼️（一定要提前预约）
+
+小程序预约
+
+🧳 行李准备
+1️⃣证件：身份证，银行卡，学生证
+2️⃣衣服：登山的鞋，厚外套，袜子，毛巾，防晒袖，防晒霜，换洗衣服
+3️⃣电子：充电宝（建议带两个），耳机，手电，相机
+4️⃣零食：建议带轻零食的，多带点，水可以背3瓶，太多就重了。（鸭脖，泡面，自热火锅，薯片，水果……）
+5️⃣其他：纸巾，伞（伞在山顶没有用会吹坏），雨衣，驱蚊啥的可以不带因为山顶很冷，蚊子没有。
+6️⃣⚠️ 山顶不管夏天还是冬天都特别冷，空气潮湿，所以厚外套一定要带！
+
+🚗交通
+萍乡有两个站，萍乡站（火车站），萍乡北站（高铁站）
+萍乡站🚂
+发车时间： 首车为6:00 末车为17：30
+乘坐时间：路程 1个小时20分钟
+乘坐地点： 出站口客运站 大概步行3分钟
+乘车价格： 💰22元/人
+萍乡北站🚄
+发车时间： 首车为08：30 末车为17：00
+乘坐时间： 路程 1个小时20分钟
+乘车地点： 出站口对面 大招牌很明显
+乘车价格： 💰27元/人
+
+⚠️这里给大家避个坑‼️
+无论是高铁站还是火车站出站后门口有很多私家车在门口拉客拼车去武功山。 司机会说带你去山脚下，大家记住私家车不可能开到山脚下只能开到游客中心。只有乘坐免费的转运车才能去石鼓寺坐索道上山。
+如果拼车的价格超过30就没有必要坐了，价格在30左右就是合理的。
+⚠️自驾，或者其他私人车辆都是得在武功山游客中心停车，然后必须乘坐免费转运车上索道口（石鼓寺）。另外一些离谱的拼车司机说会到山脚下的基本都是走另外一边山脚下的村路，还是得走路去索道口。 所以建议大家坐车到游客中心即可‼️
+
+深夜搬帐篷
+
+⚠️建议定早一点的车票，然后早一点上山会看见日落🌄因为从车站到景区就需要一个多小时的时间，太晚了就得摸黑爬山了。
+⚠️零食可以多带一点，在山上可以买但是未必能买到你想吃的东西而且东西是人工挑上去的特别辛苦，价格也会贵。
+
+🎫门票价格
+目前小程序“云游江西”持有学生证的提前一天预约可免门票
+成人票：💰70元／人
+公众号“武功山”提前一天预定💰60元/人
+儿童票：身高1.2m-1.5m儿童可享受门票5折优惠，身高1.2m以下儿童可免门票和索道票。
+其他特殊人员可看公众号“武功山”查看优惠政策
+🧗‍♂️索道价格
+武功山有两段索道，
+1.石鼓寺（武功山大门）→中庵索道
+2.福星谷→金顶索道
+中庵索道：上行⏫ 💰65元/人 下行 ⏬💰50元/人
+金顶索道：上行⏫💰35元/人 下行⏬💰25元/人
+
+1️⃣大部分人都是买上行的中庵索道开始爬到金顶，返回也是买下行的中庵索道。
+2️⃣还有一部分为了节省时间，体力并不是那么好的，会两段索道都买在上山，然后再买一段下行的中庵索道下山。
+最后可以进去门票换券领冰棍～
+
+抹茶味的冰棍很难不爱
+
+最后，祝大家旅途愉快🎉🎉🎉","武功山两天一夜攻略｜不收藏绝对后悔篇
+草甸｜日出｜星空｜云海｜日落
+武功山位于江西省萍乡市
+行前准备
+看天气预报最好大太阳出发，能看见日出和日落
+如果只玩两天可直接背书包就行，一般大家都是从江西南昌过去，或者湖南长沙过去。
+提前关注“武功山”公众号，提前一天购票优惠10元
+学生可搜索小程序“云游江西”认证学生身份并提前一天预约可免门票（一定要提前预约）
+小程序预约
+行李准备
+1. 证件：身份证，银行卡，学生证
+2. 衣服：登山的鞋，厚外套，袜子，毛巾，防晒袖，防晒霜，换洗衣服
+3. 电子：充电宝（建议带两个），耳机，手电，相机
+4. 零食：建议带轻零食的，多带点，水可以背3瓶，太多就重了。（鸭脖，泡面，自热火锅，薯片，水果……）
+5. 其他：纸巾，伞（伞在山顶没有用会吹坏），雨衣，驱蚊啥的可以不带因为山顶很冷，蚊子没有。
+6. 山顶不管夏天还是冬天都特别冷，空气潮湿，所以厚外套一定要带！
+交通
+萍乡有两个站，萍乡站（火车站），萍乡北站（高铁站）
+萍乡站
+发车时间： 首车为6:00 末车为17：30
+乘坐时间：路程 1个小时20分钟
+乘坐地点： 出站口客运站大概步行3分钟
+乘车价格： 22元/人
+萍乡北站
+发车时间： 首车为08：30 末车为17：00
+乘车地点： 出站口对面大招牌很明显
+乘车价格： 27元/人
+这里给大家避个坑
+无论是高铁站还是火车站出站后门口有很多私家车在门口拉客拼车去武功山。 司机会说带你去山脚下，大家记住私家车不可能开到山脚下只能开到游客中心。只有乘坐免费的转运车才能去石鼓寺坐索道上山。
+如果拼车的价格超过30就没有必要坐了，价格在30左右就是合理的。
+自驾，或者其他私人车辆都是得在武功山游客中心停车，然后必须乘坐免费转运车上索道口（石鼓寺）。另外一些离谱的拼车司机说会到山脚下的基本都是走另外一边山脚下的村路，还是得走路去索道口。 所以建议大家坐车到游客中心即可
+深夜搬帐篷
+建议定早一点的车票，然后早一点上山会看见日落因为从车站到景区就需要一个多小时的时间，太晚了就得摸黑爬山了。
+零食可以多带一点，在山上可以买但是未必能买到你想吃的东西而且东西是人工挑上去的特别辛苦，价格也会贵。
+门票价格
+目前小程序“云游江西”持有学生证的提前一天预约可免门票
+成人票：70元/人
+公众号“武功山”提前一天预定60元/人
+儿童票：身高1.2m-1.5m儿童可享受门票5折优惠，身高1.2m以下儿童可免门票和索道票。
+其他特殊人员可看公众号“武功山”查看优惠政策
+索道价格
+武功山有两段索道，
+1.石鼓寺（武功山大门）→中庵索道
+2.福星谷→金顶索道
+中庵索道：上行⏫ 65元/人下行 ⏬50元/人
+金顶索道：上行⏫35元/人下行⏬25元/人
+1. 大部分人都是买上行的中庵索道开始爬到金顶，返回也是买下行的中庵索道。
+2. 还有一部分为了节省时间，体力并不是那么好的，会两段索道都买在上山，然后再买一段下行的中庵索道下山。
+最后可以进去门票换券领冰棍~
+抹茶味的冰棍很难不爱
+最后，祝大家旅途愉快",1268,1196,52,51,0.0568,0,49,0,1,表情符号已清理；重复段落已去除,True,5c092d872402af53c7b7fad53526990481449c30
+WGS-T-04,武功山,游客游记,风光记录,风光｜永远值得回忆的武功山！,好粥慢煮,2023-04-19,豆瓣小组,https://www.douban.com/group/topic/287032716/,豆瓣-topic-richtext,为了看这个日落，后面一个人在乌漆麻黑的山上走了一个小时才到住的地方😭,为了看这个日落，后面一个人在乌漆麻黑的山上走了一个小时才到住的地方,34,33,1,1,0.0294,0,1,0,0,表情符号已清理；文本过短；图片为主,False,1dae1bc610cc5e9c5f594799eb47652eacc03ee4
+WGS-T-05,武功山,游客游记,徒步穿越（沈明线）,风雨赴山海，再徒武功山——沈明线47公里两日徒步游记,未知,2026-10-06,简书,https://www.jianshu.com/p/b1e2ca31a9c3,简书-article,"国庆前夕，天气预报频频播报江西假期阴雨连绵，可早已敲定的山海之约，我们不愿轻易辜负。9月30日下午16:30，我和小月月如约搭乘网约车奔赴广州白云车费每人分摊64元，与何工在车站顺利汇合。国庆出行一票难求，万般无奈之下，我们买下了九个小时的硬座车票。细数岁月，我早已记不清多少年没有熬过这般漫长的硬座旅途。奔赴诗和远方的热爱，总能让人甘愿奔赴辛苦，所幸我们早有规划，提前抢好了10月3日的返程卧铺，为疲惫的归途留好了温柔退路。
+
+线路图
+
+此次我们挑战经典的武功山沈明线，全程47公里，是一场两天一夜的山野穿越。行程路线规划为：沈子村起点→九龙客栈→铁蹄峰→金顶（武功山最高点1918米）→吊马桩→观音宕→绝望坡→好汉坡→发云界→老鹰岩→沈家大院→羊狮慕小火车站→三县界碑→明月山6281梯→明月山景区大门终点。第一天山上住宿、落地拼车事宜，细心的何工早已提前全部预定妥当。我始终坚信，山野之行不必纠结于阴晴不定的天气，心怀平常心，顺其自然、随遇而安，便是最好的出行状态。
+10月1日清晨六点多，我们准时抵达萍乡站。再次踏足这里的站台，依稀记得去年端午，我也曾奔赴这片山野。当日天色蒙蒙、雾气氤氲，所幸并未下雨。出站后，预约的司机早已等候多时，同行除了我们三人，还有一位拼车的重装驴友，每人车费40元，路途之中，司机格外暖心，特意到乡镇，带我们品尝了地道的江西炒粉，我也趁机采购好了登山所需的物资补给。休整备妥，车程一小时有余，我们顺利抵达本次徒步起点——沈子村。简单整理行囊后，称重发现背包负重23斤。为应对长途穿越，所有人都备好双登山杖。上午八点，缴纳10元卫生费后，我们正式开启了山野爬升。
+天色依旧阴沉微凉，但进山徒步的同伴络绎不绝，其中不乏重装出行的资深驴友。一路前行，我们陆续赶超数拨队伍，没走多久，山间便飘起零星小雨，大家默契地拿出防雨罩，仔细护住背包，继续稳步向前。前行六公里多、耗时两个半小时左右，我们抵达九龙山。此刻视野骤然开阔，山野风光尽数铺展眼前。沿途穿过独特的草木界域，一路向前，便来到了海拔1846米的铁蹄峰。此峰因山体形似战马马蹄得名，山势极为险峻，岩石裸露、绝壁陡峭，两侧皆是万丈悬崖，是沈子村通往金顶的必经之路。部分路段为碎石陡坡，无任何防护围栏，行走需步步谨慎。
+记忆犹新的是去年端午途经此处，山间大雾弥漫、狂风呼啸，举步维艰，每一步都小心翼翼，生怕脚下打滑。而今年天公作美，视野通透清朗，我们一边沉浸式欣赏山野盛景，一边稳步提速，轻松穿越险峰。一路攀登，终抵武功山最高点——金顶，又称白鹤峰，海拔1918.3米。峰顶地势平坦开阔，是观赏日出云海、高山草甸的绝佳机位。恰逢国庆假期，峰顶游人络绎不绝，可惜绵绵细雨便如期而至。我们寻得山间亭子驻足避雨、休整补给、解决午餐。休憩片刻，细雨渐歇，山间云雾缭绕、山峦若隐若现，仙气氤氲，满目皆是治愈人心的美景。简单打卡留念后，我们再度启程，而此时，漫长的徒步路程才刚刚走过三分之一，我们当日的目的地，是远方的发云界。从金顶下坡前往吊马桩的途中，一路风光旖旎，步步皆景。这段属于景区主干道，游客较多，大家都自觉靠右通行、有序前行。抵达观音宕后，我们舍弃了去年的老路，选择走玻璃栈道前行。这里奇峰林立、怪石嶙峋、苍松挺拔，远眺群山气势磅礴。行走于悬空栈道之上，周身云雾流转、形态万千，宛若置身仙境，让人忍不住驻足停留、拍照记录。
+
+贪恋美景之余，我们也深知路程漫漫，当即加快脚步，生怕拖沓至夜间摸黑赶路。途经网红路段绝望坡，此处海拔落差约350米，最大坡度高达70度，坡长路陡、碎石遍布，全程几乎需要手脚并用攀爬。翻越虐人的绝望坡，紧接着便是好汉坡。行至好汉坡时，天边浮现出绝美夕阳余晖。我心知今年行进速度慢于去年，加之秋日昼短夜长，夜幕提前降临，今晚大概率要走夜路。打开手机导航查看，距离发云界还有6.7公里左右，预计还需两到三小时行程。不敢懈怠，我们即刻提速前行。行至云上青客栈，我们稍作休整、等候同伴，彼此打气鼓劲后，继续奔赴前路。
+
+日落
+
+帐篷
+
+此时夜色彻底笼罩山野，四周漆黑一片，沿途依旧能遇见反向穿越的驴友，山野徒步的热爱，从来不分昼夜。当晚八点零几分，我们终于顺利抵达当日目的地发云界，全员悬着的心终于放下。第一天全程徒步24公里多，累计爬升约2400米，体能消耗巨大。所幸客栈老板十分热情周到，快速为我们安排好房间、备好热水。国庆旺季，住宿性价比极高，100元一人，包含晚餐与次日早餐。饭菜虽算不上精致美味，但在极致疲惫、体力透支的状态下，我依旧踏实吃下了两碗米饭。洗漱完毕、收拾妥当后，晚上十点，我们终于躺下休息，结束了充实又虐脚的第一天行程。
+10月2日清晨六点，天光微亮，我们准时醒来，快速洗漱、吃完早餐，补齐路上补给，仔细检查行囊、确认无物品遗漏，早上七点准时出发。清晨山间雾气浓重、空气湿润，不见日出云海，一片朦朦胧胧。今日行程依旧漫长：从发云界出发，途经老鹰岩、沈家大院、羊狮慕小火车站、三县界碑，最终挑战6281级明月山阶梯，直达景区大门。
+
+发云界
+
+启程后，我们一头扎进幽深密林，前路皆是连绵起伏的V型山坡。从老鹰岩裸岩路段前往沈家大院的路途，没有壮阔草甸，没有缥缈云海，只有无尽蜿蜒的野路。路面铺满湿滑腐叶，暗藏诸多行路陷阱，全程在树丛间穿梭，反复爬升、下降，无法大步提速，只能稳住呼吸、保持节奏、稳步前行。途中因手套未晾干，我空手前行，在下老鹰岩陡坡时，左脚不慎勾住树根，湿滑的树干无从借力，直接重重摔倒在地，左膝磕出大片淤青。万幸只是皮外伤、未伤及筋骨，但也着实让人惊出一身冷汗。自此之后，我的左脚受力受限，下坡路段只能步步小心、缓慢挪步，渐渐落在队伍后方。此刻我深深感悟：山野长线徒步，从不是比拼瞬间爆发力，而是考验持之以恒的耐力与沉稳平稳的心态。原本计划探访的沈家大院旧屋遗迹，也只能遗憾放弃。
+熬过漫长孤寂的密林穿越，我们终于抵达羊狮慕附近的“几字湾”栈道。这里是回望武功山整条山脊线的绝佳观景位。只可惜天公依旧不作美，细雨绵绵，我们全程在水雾迷雾中穿行。栈道途中，我们偶遇四位重装徒步的驴友。前路仅剩最后一段爬升，雨天石阶青苔遍布、路面湿滑，所有人都格外谨慎慢行。我的左膝伤痛，不断传来痛感，我向同伴提出原地休整。看着不远的羊狮慕小火车站，我一度担心自己难以坚持抵达。幸好小月月随身携带了活络油，涂抹在伤处后，一阵清凉麻木感蔓延开来，疼痛感大幅缓解。休整过后再度启程，短短一公里多路程，我们便顺利抵达羊狮慕小火车站。在此充分休整补给后继续前行，所幸接下来六公里路程地势平缓，几乎无爬升、无陡坡，行进格外轻松。
+一路前行抵达三县界碑，发现界碑已重新用水泥翻新修整，少了往日古朴自然的韵味，一旁还新建了尚未完工的临时休憩亭子。我们简单打卡拍照，便继续赶路。接下来是两公里多长的平整机耕路，虽无陡坡险路，好在全程阴天无日晒，若是烈日当空，这段平缓路途也定会格外煎熬。走完机耕路，转角便看见景区灯饰建筑，仿佛从荒芜山野瞬间步入规整景区，别有一番意境。正式进入明月山景区，国庆期间景区人头攒动、游人如织。行至索道口，我们放弃了轻松的索道下山，依旧选择徒步挑战阶梯。
+等待我们的，是足足6281级陡峭下山台阶，正常全程走完需两小时，去年我们状态极佳，一路小跑下山，仅用1.5小时。原本计划下午16点半抵达山脚，行至中途岔路时，瀑布路段湿滑难行，我们便听从景区工作人员建议，选择绕行骆驼峰路线，却不料迎来了全程最大的考验。这条路线的石阶极窄、坡度极陡，多处倾斜角度超70度，比瀑布路线更险峻、路程更长。唯有护栏相伴，步步惊心。真正体会到：人生选择皆是如此，既然选了这条路，便只能咬牙坚持、风雨兼程。
+下午十七点多，我们全员平安抵达明月山景区大门，圆满完成47公里沈明线全程徒步。第一天耗时12小时，走完24余公里山路；第二天耗时10小时，完成22余公里路程。对比去年50公里的丘明线徒步，此次耗时更久，但阴雨湿滑，安全永远是山野徒步的第一准则，慢一点、稳一点，便是最好的结果。约了的士费用3人共76元，车程1个小时左右到达宜春订好的民宿小区楼下。
+武功山从来都是一条极致虐身的徒步路线，翻不完的坡、走不尽的路，风雨相伴、身心俱疲，却有着让人无限奔赴的魔力。来过、累过、治愈过，便念念不忘、次次重逢。
+一场风雨山野行，一身疲惫，满心丰盈。这便是徒步的意义，累并热爱，奔赴且治愈。","国庆前夕，天气预报频频播报江西假期阴雨连绵，可早已敲定的山海之约，我们不愿轻易辜负。9月30日下午16:30，我和小月月如约搭乘网约车奔赴广州白云车费每人分摊64元，与何工在车站顺利汇合。国庆出行一票难求，万般无奈之下，我们买下了九个小时的硬座车票。细数岁月，我早已记不清多少年没有熬过这般漫长的硬座旅途。奔赴诗和远方的热爱，总能让人甘愿奔赴辛苦，所幸我们早有规划，提前抢好了10月3日的返程卧铺，为疲惫的归途留好了温柔退路。
+线路图
+此次我们挑战经典的武功山沈明线，全程47公里，是一场两天一夜的山野穿越。行程路线规划为：沈子村起点→九龙客栈→铁蹄峰→金顶（武功山最高点1918米）→吊马桩→观音宕→绝望坡→好汉坡→发云界→老鹰岩→沈家大院→羊狮慕小火车站→三县界碑→明月山6281梯→明月山景区大门终点。第一天山上住宿、落地拼车事宜，细心的何工早已提前全部预定妥当。我始终坚信，山野之行不必纠结于阴晴不定的天气，心怀平常心，顺其自然、随遇而安，便是最好的出行状态。
+10月1日清晨六点多，我们准时抵达萍乡站。再次踏足这里的站台，依稀记得去年端午，我也曾奔赴这片山野。当日天色蒙蒙、雾气氤氲，所幸并未下雨。出站后，预约的司机早已等候多时，同行除了我们三人，还有一位拼车的重装驴友，每人车费40元，路途之中，司机格外暖心，特意到乡镇，带我们品尝了地道的江西炒粉，我也趁机采购好了登山所需的物资补给。休整备妥，车程一小时有余，我们顺利抵达本次徒步起点——沈子村。简单整理行囊后，称重发现背包负重23斤。为应对长途穿越，所有人都备好双登山杖。上午八点，缴纳10元卫生费后，我们正式开启了山野爬升。
+天色依旧阴沉微凉，但进山徒步的同伴络绎不绝，其中不乏重装出行的资深驴友。一路前行，我们陆续赶超数拨队伍，没走多久，山间便飘起零星小雨，大家默契地拿出防雨罩，仔细护住背包，继续稳步向前。前行六公里多、耗时两个半小时左右，我们抵达九龙山。此刻视野骤然开阔，山野风光尽数铺展眼前。沿途穿过独特的草木界域，一路向前，便来到了海拔1846米的铁蹄峰。此峰因山体形似战马马蹄得名，山势极为险峻，岩石裸露、绝壁陡峭，两侧皆是万丈悬崖，是沈子村通往金顶的必经之路。部分路段为碎石陡坡，无任何防护围栏，行走需步步谨慎。
+记忆犹新的是去年端午途经此处，山间大雾弥漫、狂风呼啸，举步维艰，每一步都小心翼翼，生怕脚下打滑。而今年天公作美，视野通透清朗，我们一边沉浸式欣赏山野盛景，一边稳步提速，轻松穿越险峰。一路攀登，终抵武功山最高点——金顶，又称白鹤峰，海拔1918.3米。峰顶地势平坦开阔，是观赏日出云海、高山草甸的绝佳机位。恰逢国庆假期，峰顶游人络绎不绝，可惜绵绵细雨便如期而至。我们寻得山间亭子驻足避雨、休整补给、解决午餐。休憩片刻，细雨渐歇，山间云雾缭绕、山峦若隐若现，仙气氤氲，满目皆是治愈人心的美景。简单打卡留念后，我们再度启程，而此时，漫长的徒步路程才刚刚走过三分之一，我们当日的目的地，是远方的发云界。从金顶下坡前往吊马桩的途中，一路风光旖旎，步步皆景。这段属于景区主干道，游客较多，大家都自觉靠右通行、有序前行。抵达观音宕后，我们舍弃了去年的老路，选择走玻璃栈道前行。这里奇峰林立、怪石嶙峋、苍松挺拔，远眺群山气势磅礴。行走于悬空栈道之上，周身云雾流转、形态万千，宛若置身仙境，让人忍不住驻足停留、拍照记录。
+贪恋美景之余，我们也深知路程漫漫，当即加快脚步，生怕拖沓至夜间摸黑赶路。途经网红路段绝望坡，此处海拔落差约350米，最大坡度高达70度，坡长路陡、碎石遍布，全程几乎需要手脚并用攀爬。翻越虐人的绝望坡，紧接着便是好汉坡。行至好汉坡时，天边浮现出绝美夕阳余晖。我心知今年行进速度慢于去年，加之秋日昼短夜长，夜幕提前降临，今晚大概率要走夜路。打开手机导航查看，距离发云界还有6.7公里左右，预计还需两到三小时行程。不敢懈怠，我们即刻提速前行。行至云上青客栈，我们稍作休整、等候同伴，彼此打气鼓劲后，继续奔赴前路。
+日落
+帐篷
+此时夜色彻底笼罩山野，四周漆黑一片，沿途依旧能遇见反向穿越的驴友，山野徒步的热爱，从来不分昼夜。当晚八点零几分，我们终于顺利抵达当日目的地发云界，全员悬着的心终于放下。第一天全程徒步24公里多，累计爬升约2400米，体能消耗巨大。所幸客栈老板十分热情周到，快速为我们安排好房间、备好热水。国庆旺季，住宿性价比极高，100元一人，包含晚餐与次日早餐。饭菜虽算不上精致美味，但在极致疲惫、体力透支的状态下，我依旧踏实吃下了两碗米饭。洗漱完毕、收拾妥当后，晚上十点，我们终于躺下休息，结束了充实又虐脚的第一天行程。
+10月2日清晨六点，天光微亮，我们准时醒来，快速洗漱、吃完早餐，补齐路上补给，仔细检查行囊、确认无物品遗漏，早上七点准时出发。清晨山间雾气浓重、空气湿润，不见日出云海，一片朦朦胧胧。今日行程依旧漫长：从发云界出发，途经老鹰岩、沈家大院、羊狮慕小火车站、三县界碑，最终挑战6281级明月山阶梯，直达景区大门。
+发云界
+启程后，我们一头扎进幽深密林，前路皆是连绵起伏的V型山坡。从老鹰岩裸岩路段前往沈家大院的路途，没有壮阔草甸，没有缥缈云海，只有无尽蜿蜒的野路。路面铺满湿滑腐叶，暗藏诸多行路陷阱，全程在树丛间穿梭，反复爬升、下降，无法大步提速，只能稳住呼吸、保持节奏、稳步前行。途中因手套未晾干，我空手前行，在下老鹰岩陡坡时，左脚不慎勾住树根，湿滑的树干无从借力，直接重重摔倒在地，左膝磕出大片淤青。万幸只是皮外伤、未伤及筋骨，但也着实让人惊出一身冷汗。自此之后，我的左脚受力受限，下坡路段只能步步小心、缓慢挪步，渐渐落在队伍后方。此刻我深深感悟：山野长线徒步，从不是比拼瞬间爆发力，而是考验持之以恒的耐力与沉稳平稳的心态。原本计划探访的沈家大院旧屋遗迹，也只能遗憾放弃。
+熬过漫长孤寂的密林穿越，我们终于抵达羊狮慕附近的“几字湾”栈道。这里是回望武功山整条山脊线的绝佳观景位。只可惜天公依旧不作美，细雨绵绵，我们全程在水雾迷雾中穿行。栈道途中，我们偶遇四位重装徒步的驴友。前路仅剩最后一段爬升，雨天石阶青苔遍布、路面湿滑，所有人都格外谨慎慢行。我的左膝伤痛，不断传来痛感，我向同伴提出原地休整。看着不远的羊狮慕小火车站，我一度担心自己难以坚持抵达。幸好小月月随身携带了活络油，涂抹在伤处后，一阵清凉麻木感蔓延开来，疼痛感大幅缓解。休整过后再度启程，短短一公里多路程，我们便顺利抵达羊狮慕小火车站。在此充分休整补给后继续前行，所幸接下来六公里路程地势平缓，几乎无爬升、无陡坡，行进格外轻松。
+一路前行抵达三县界碑，发现界碑已重新用水泥翻新修整，少了往日古朴自然的韵味，一旁还新建了尚未完工的临时休憩亭子。我们简单打卡拍照，便继续赶路。接下来是两公里多长的平整机耕路，虽无陡坡险路，好在全程阴天无日晒，若是烈日当空，这段平缓路途也定会格外煎熬。走完机耕路，转角便看见景区灯饰建筑，仿佛从荒芜山野瞬间步入规整景区，别有一番意境。正式进入明月山景区，国庆期间景区人头攒动、游人如织。行至索道口，我们放弃了轻松的索道下山，依旧选择徒步挑战阶梯。
+等待我们的，是足足6281级陡峭下山台阶，正常全程走完需两小时，去年我们状态极佳，一路小跑下山，仅用1.5小时。原本计划下午16点半抵达山脚，行至中途岔路时，瀑布路段湿滑难行，我们便听从景区工作人员建议，选择绕行骆驼峰路线，却不料迎来了全程最大的考验。这条路线的石阶极窄、坡度极陡，多处倾斜角度超70度，比瀑布路线更险峻、路程更长。唯有护栏相伴，步步惊心。真正体会到：人生选择皆是如此，既然选了这条路，便只能咬牙坚持、风雨兼程。
+下午十七点多，我们全员平安抵达明月山景区大门，圆满完成47公里沈明线全程徒步。第一天耗时12小时，走完24余公里山路；第二天耗时10小时，完成22余公里路程。对比去年50公里的丘明线徒步，此次耗时更久，但阴雨湿滑，安全永远是山野徒步的第一准则，慢一点、稳一点，便是最好的结果。约了的士费用3人共76元，车程1个小时左右到达宜春订好的民宿小区楼下。
+武功山从来都是一条极致虐身的徒步路线，翻不完的坡、走不尽的路，风雨相伴、身心俱疲，却有着让人无限奔赴的魔力。来过、累过、治愈过，便念念不忘、次次重逢。
+一场风雨山野行，一身疲惫，满心丰盈。这便是徒步的意义，累并热爱，奔赴且治愈。",3418,3418,19,19,0.0,0,0,0,0,作者缺失,True,1562b3044e738a05be6325dae5b1110c2fa9a94f
+WGS-T-06,武功山,游客游记,反穿徒步,反穿武功山,未知,2025-10-09,简书,https://www.jianshu.com/p/b740595834db,简书-article,"半山腰总是拥挤的，你要到山顶看看！
+国庆期间去江西萍乡徒步了十五小时，一家三口反穿武功山成功到达金顶。从早上六点半一直走到晚上九点半，天蒙蒙亮便开始出发直到天黑了终于到达顶峰。
+龙门村反穿入口进去的时候人并不多，大多数人会选择从景区乘坐缆车到达山顶。这一路的风景都好美，蓝天白云，绿野松林，大片大片的芦苇荡随风摇曳。
+好汉坡爬上去的都是好汉，绝望坡爬起来也是真的绝望。去之前信誓旦旦要出片，实际爬山途中灰头土脸埋头赶路。在发云界的时候倒是拍到不少好看的照片，配上国庆期间飘扬的五星红旗，简直是太有意境了。
+我九岁的儿子给我们带来惊喜，去之前很担心孩子是否能够完成这次高难度的徒步，实际行进过程中他比我们爬得快多了，到最后我要爬不动的时候连背包都是孩子背的！小小的身躯大大的能量。
+晚上住在金顶睡帐篷营地，山顶的风是真大啊！第二天看了日出，日出东方红胜火，云海里的日出壮丽非凡，若不是亲眼所见，无法想象宛若新生的震撼。
+爬山是能量的净化和补充，虽然这一路很累，但终究是坚持下来到达了目的地。我们一家三口都很棒，忍不住给自己点个赞。以后再遇到什么难事什么坎坷就想想爬下来的这座武功山，两千米的海拔都拿下来了其他事情对我们来说算什么，路虽远行则将至！","半山腰总是拥挤的，你要到山顶看看！
+国庆期间去江西萍乡徒步了十五小时，一家三口反穿武功山成功到达金顶。从早上六点半一直走到晚上九点半，天蒙蒙亮便开始出发直到天黑了终于到达顶峰。
+龙门村反穿入口进去的时候人并不多，大多数人会选择从景区乘坐缆车到达山顶。这一路的风景都好美，蓝天白云，绿野松林，大片大片的芦苇荡随风摇曳。
+好汉坡爬上去的都是好汉，绝望坡爬起来也是真的绝望。去之前信誓旦旦要出片，实际爬山途中灰头土脸埋头赶路。在发云界的时候倒是拍到不少好看的照片，配上国庆期间飘扬的五星红旗，简直是太有意境了。
+我九岁的儿子给我们带来惊喜，去之前很担心孩子是否能够完成这次高难度的徒步，实际行进过程中他比我们爬得快多了，到最后我要爬不动的时候连背包都是孩子背的！小小的身躯大大的能量。
+晚上住在金顶睡帐篷营地，山顶的风是真大啊！第二天看了日出，日出东方红胜火，云海里的日出壮丽非凡，若不是亲眼所见，无法想象宛若新生的震撼。
+爬山是能量的净化和补充，虽然这一路很累，但终究是坚持下来到达了目的地。我们一家三口都很棒，忍不住给自己点个赞。以后再遇到什么难事什么坎坷就想想爬下来的这座武功山，两千米的海拔都拿下来了其他事情对我们来说算什么，路虽远行则将至！",516,516,7,7,0.0,0,0,0,0,作者缺失,True,cac22c69ba475d0c0ad5213dcd4ea4f595e42948
+WGS-T-07,武功山,游客游记,徒步,草已黄，人未老，武功山上见分晓,三姐姐,2024-12-13,搜狐号,https://www.sohu.com/a/836540158_102484,搜狐-article,"登上武功山，是我多年以来的心愿。早就想去一睹武功山上那壮观的云海和茫茫的草甸，这个冬日，我终于如愿以偿，好友相邀，八人成行，意气风发地向武功山进发了。
+
+萍乡武功山乃江西第一高峰，有道是“东南天柱有三，盖衡，庐与武功”；当年许霞客游武功山后，曾赋诗一首《武功游》，赞叹武功山壮美风光，他写道：“千峰嵯峨碧玉簪，五岭堪比武功山”。
+
+近年来，萍乡武功山景区潜心打造“户外天堂”的名号，从徒步到骑行，从攀岩到漂流，从露营到滑雪，武功山成了年轻人趋之若鹜的户外胜地。
+
+然而，攀登武功山对我们来说并非一件容易的事，我们八人中虽然有90后的青壮年，但也有80岁的“杖朝”老人，平均下来年龄达到50岁以上，另外还有刚刚出院的病号，要登上1918米的山巅金顶，对于我们来说，的确是一次的挑战。
+
+登武功山的方式有新手级、选手级、专业级等多种选择，我们本着量力而行的原则，明智地选择了适合体力较弱和初次来武功山的“新手级轻松走路线”方式。
+
+我们从游客中心出发，乘坐观光车到达山门的石鼓寺，接着坐索道到达“中庵”，从这里开始徒步爬山，沿着紫金宫方向前行；中途经过好汉坡，这里是整个武功山中最陡峭的地方，石怪峰奇，悬崖万丈。
+
+“加油！”，“一个也不能少呀！”我走在队伍的最前面，一路大声呼喊，说说笑笑，活跃着气氛，朋友们互相鼓劲、互相搀扶，一个台阶又一个台阶地努力向上；大约爬了2个半小时，我们到达了吊马桩。
+
+到达吊马桩之后，又有两种选择，一种是从吊马桩徒步朝万宝柜、白鹤峰方向前进，直至金顶。还有一种就是新手级路线，继续乘坐索道到达武功神拳后，然后再徒步前进，登向金顶。
+
+武功山的山顶真的是美得让人窒息。从吊马桩开始，沿途可以欣赏到壮丽的自然风光，郁郁葱葱的森林、巍峨壮丽的山峰，高山草甸在风中摇曳，蓝天白云仿佛触手可及；最终我们一行8人全都到达了金顶。
+
+太兴奋！太激动！虽然高山草甸已经泛黄，虽然没有邂逅缥缈的云海，但一路沐浴着冬日暖阳，领略着大自然的壮丽与神奇，感受着天地间的灵秀与奥秘，还有暖心相伴的挚爱亲朋，可以说是我人生中难以忘怀的奇妙之旅。
+
+站在武功山之巅，风非常大，但蓝天、白云与金黄的草甸，召唤着我们疲惫的灵魂，于山水草木间、于攀登跋涉中找寻生命的真谛。我情不自禁地脱口而出：“草已黄，人未老；武功山上见分晓！”。
+
+【作者简介】三姐姐：中国摄影家协会会员、专栏作家、旅行家。
+
+【版权声明】本图文版权归三姐姐所有，未经允许，不得转载、商用。返回搜狐，查看更多","登上武功山，是我多年以来的心愿。早就想去一睹武功山上那壮观的云海和茫茫的草甸，这个冬日，我终于如愿以偿，好友相邀，八人成行，意气风发地向武功山进发了。
+萍乡武功山乃江西第一高峰，有道是“东南天柱有三，盖衡，庐与武功”；当年许霞客游武功山后，曾赋诗一首《武功游》，赞叹武功山壮美风光，他写道：“千峰嵯峨碧玉簪，五岭堪比武功山”。
+近年来，萍乡武功山景区潜心打造“户外天堂”的名号，从徒步到骑行，从攀岩到漂流，从露营到滑雪，武功山成了年轻人趋之若鹜的户外胜地。
+然而，攀登武功山对我们来说并非一件容易的事，我们八人中虽然有90后的青壮年，但也有80岁的“杖朝”老人，平均下来年龄达到50岁以上，另外还有刚刚出院的病号，要登上1918米的山巅金顶，对于我们来说，的确是一次的挑战。
+登武功山的方式有新手级、选手级、专业级等多种选择，我们本着量力而行的原则，明智地选择了适合体力较弱和初次来武功山的“新手级轻松走路线”方式。
+我们从游客中心出发，乘坐观光车到达山门的石鼓寺，接着坐索道到达“中庵”，从这里开始徒步爬山，沿着紫金宫方向前行；中途经过好汉坡，这里是整个武功山中最陡峭的地方，石怪峰奇，悬崖万丈。
+“加油！”，“一个也不能少呀！”我走在队伍的最前面，一路大声呼喊，说说笑笑，活跃着气氛，朋友们互相鼓劲、互相搀扶，一个台阶又一个台阶地努力向上；大约爬了2个半小时，我们到达了吊马桩。
+到达吊马桩之后，又有两种选择，一种是从吊马桩徒步朝万宝柜、白鹤峰方向前进，直至金顶。还有一种就是新手级路线，继续乘坐索道到达武功神拳后，然后再徒步前进，登向金顶。
+武功山的山顶真的是美得让人窒息。从吊马桩开始，沿途可以欣赏到壮丽的自然风光，郁郁葱葱的森林、巍峨壮丽的山峰，高山草甸在风中摇曳，蓝天白云仿佛触手可及；最终我们一行8人全都到达了金顶。
+太兴奋！太激动！虽然高山草甸已经泛黄，虽然没有邂逅缥缈的云海，但一路沐浴着冬日暖阳，领略着大自然的壮丽与神奇，感受着天地间的灵秀与奥秘，还有暖心相伴的挚爱亲朋，可以说是我人生中难以忘怀的奇妙之旅。
+站在武功山之巅，风非常大，但蓝天、白云与金黄的草甸，召唤着我们疲惫的灵魂，于山水草木间、于攀登跋涉中找寻生命的真谛。我情不自禁地脱口而出：“草已黄，人未老；武功山上见分晓！”。",1012,943,13,11,0.0682,2,0,0,0,站点噪声已清理,True,6bc812bd86fcbc543569ba19fd8e4031c5200a81
+WGS-T-08,武功山,游客游记,露营攻略,江西武功山金顶星空露营攻略：解锁高山云海的浪漫,小叮当微知著,2026-01-26,搜狐号,https://m.sohu.com/a/980145718_122593874,搜狐-article,"提起露营，多数人想到的是城市周边的公园营地，却少有人知道江西武功山的高山星空露营有多震撼。这里不仅有连绵的草甸、翻涌的云海，夜晚抬头就是璀璨星河，是小众露营爱好者的宝藏目的地，无需专业登山装备，新手也能轻松打卡。
+
+前往武功山建议选择春秋两季，避开夏季的暴雨和冬季的严寒。交通上可乘高铁到萍乡站，再转景区大巴直达山脚，徒步路线选择 “沈子村 - 金顶” 的轻装线，全程 6 公里左右，耗时 3-4 小时，沿途有补给点，不用担心体力不支。
+
+露营装备无需复杂，带好帐篷、睡袋、防潮垫即可，山顶有租赁点，省去负重烦恼。傍晚时分抵达金顶营地，搭好帐篷后静待日落，夕阳染红草甸的画面堪称一绝。夜晚气温较低，记得带件厚外套，躺在帐篷外看星星，银河清晰可见，偶尔还能遇到流星划过。
+
+第二天早起看日出云海是重头戏，建议定好闹钟，5 点左右前往观景台，当太阳冲破云层，金色的光芒洒在云海之上，随手一拍都是大片。
+
+游玩小贴士：山顶物资价格偏高，可自带一些零食和饮用水；徒步时穿防滑运动鞋，做好防晒措施；爱护环境，垃圾随身带走。
+
+来源网络","提起露营，多数人想到的是城市周边的公园营地，却少有人知道江西武功山的高山星空露营有多震撼。这里不仅有连绵的草甸、翻涌的云海，夜晚抬头就是璀璨星河，是小众露营爱好者的宝藏目的地，无需专业登山装备，新手也能轻松打卡。
+前往武功山建议选择春秋两季，避开夏季的暴雨和冬季的严寒。交通上可乘高铁到萍乡站，再转景区大巴直达山脚，徒步路线选择 “沈子村 - 金顶” 的轻装线，全程 6 公里左右，耗时 3-4 小时，沿途有补给点，不用担心体力不支。
+露营装备无需复杂，带好帐篷、睡袋、防潮垫即可，山顶有租赁点，省去负重烦恼。傍晚时分抵达金顶营地，搭好帐篷后静待日落，夕阳染红草甸的画面堪称一绝。夜晚气温较低，记得带件厚外套，躺在帐篷外看星星，银河清晰可见，偶尔还能遇到流星划过。
+第二天早起看日出云海是重头戏，建议定好闹钟，5 点左右前往观景台，当太阳冲破云层，金色的光芒洒在云海之上，随手一拍都是大片。
+游玩小贴士：山顶物资价格偏高，可自带一些零食和饮用水；徒步时穿防滑运动鞋，做好防晒措施；爱护环境，垃圾随身带走。",443,439,6,5,0.009,1,0,0,0,站点噪声已清理,True,7b0bda36cd4a6eda7f3bda6ac8603552b796d544
