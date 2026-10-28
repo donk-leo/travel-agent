@@ -1,0 +1,41 @@
+project: p03_routes
+title: 游览路线的层级结构挖掘
+owner: HappinessJo
+reviewer: T0coke
+status: planned
+version_tag: ""
+
+inputs:
+  - path: scenic/changlong/data/processed/changlong_guides.csv
+    column: clean_content
+    from_tag: v0.1-p01
+  - path: scenic/baiyunshan/data/processed/baiyunshan_guides.csv
+    column: clean_content
+    from_tag: v0.1-p01
+  - path: scenic/wugongshan/data/processed/wugongshan_guides.csv
+    column: clean_content
+    from_tag: v0.1-p01
+
+outputs:
+  - path: analysis/p03_routes/outputs/routes.jsonl
+    schema: standards/schema_routes.json
+  - path: analysis/p03_routes/outputs/hierarchy.json
+  - path: analysis/p03_routes/outputs/figures/route_structure.png
+  - path: analysis/p03_routes/outputs/compare_official_vs_user.csv   # 附加题
+  - path: analysis/p03_routes/config/alias.csv                        # 名称归一化表
+
+checks:
+  - python checks/check_routes.py analysis/p03_routes/outputs/routes.jsonl
+
+frozen:
+  - 步骤编号规则（同 route_id 内 step_no 从 1 连续递增）
+  - 时间层级口径（上午/中午/下午 的划分依据）
+
+acceptance:
+  - 至少 1–2 种格式可解析（箭头链路 / 编号列表 / 时间分段）
+  - 缺失时间标 time_source=absent，不得伪装为原文事实
+  - 名称归一化有规则表与局限说明
+  - 官方 vs 游客对比给两维度以上指标并分析原因
+
+notes: |
+  长隆 CHL-O02 官方页同时具备"箭头链路 + 第一站(时间)"两种格式，适合做解析样本。

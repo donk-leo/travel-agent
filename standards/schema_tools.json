@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "项目7 Agent 工具 Schema（图谱查询工具）",
+  "version": "1.0",
+  "file_convention": "analysis/p07_agent/src/tools.py",
+  "note": "工具只能查询项目6 的图谱文件，不直接读原文；LLM 密钥走 .env，不入库。",
+  "tools": [
+    {
+      "name": "search_poi",
+      "description": "按关键词/类型检索景区 POI 节点",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "keyword": {"type": "string"},
+          "scenic_area": {"type": "string"},
+          "node_type": {"type": "string", "enum": ["POI", "TRANSPORT", "TIME", "ACTIVITY", "CONDITION"]},
+          "limit": {"type": "integer", "default": 10}
+        },
+        "required": ["keyword"]
+      },
+      "returns": {"type": "array", "items": {"node_id": "string", "name": "string", "scenic_area": "string"}}
+    },
+    {
+      "name": "get_route",
+      "description": "查询某景区/某文档的步骤序列（NEXT 边）",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "scenic_area": {"type": "string"},
+          "max_steps": {"type": "integer", "default": 20}
+        },
+        "required": ["scenic_area"]
+      },
+      "returns": {"type": "array", "items": {"step_no": "integer", "poi": "string", "time": "string"}}
+    },
+    {
+      "name": "get_conditions",
+      "description": "查询满足某条件的建议（人群/天气/时间等）",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "condition_type": {"type": "string", "enum": ["天气", "人群", "时间", "体力", "预算", "交通", "其他"]},
+          "scenic_area": {"type": "string"}
+        },
+        "required": ["condition_type"]
+      },
+      "returns": {"type": "array", "items": {"condition_text": "string", "suggestion_text": "string"}}
+    },
+    {
+      "name": "neighbors",
+      "description": "查询某节点的邻居与关系类型，用于扩展探索",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "node_id": {"type": "string"},
+          "rel": {"type": "string", "enum": ["NEXT", "CONTAINS", "AT_TIME", "BY_TRANSPORT", "HAS_CONDITION", "SIMILAR_TO"]}
+        },
+        "required": ["node_id"]
+      },
+      "returns": {"type": "array", "items": {"rel": "string", "node_id": "string", "name": "string"}}
+    }
+  ],
+  "session_log": {
+    "path": "analysis/p07_agent/outputs/sessions/*.jsonl",
+    "fields": ["turn", "thought", "tool", "arguments", "observation", "final_answer"],
+    "rule": "每次工具调用必须留痕，便于证明回答基于图谱而非模型臆测"
+  }
+}

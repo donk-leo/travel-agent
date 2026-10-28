@@ -1,0 +1,40 @@
+project: p07_agent
+title: 程序性知识应用：旅游规划 Agent
+owner: HappinessJo
+reviewer: T0coke
+status: planned
+version_tag: ""
+
+inputs:
+  - path: analysis/p06_graph/outputs/graph_nodes.csv
+    schema: standards/schema_graph.json
+    from_tag: v0.6-p06
+  - path: analysis/p06_graph/outputs/graph_edges.csv
+    schema: standards/schema_graph.json
+    from_tag: v0.6-p06
+
+outputs:
+  - path: analysis/p07_agent/src/agent.py
+  - path: analysis/p07_agent/src/tools.py
+    schema: standards/schema_tools.json
+  - path: analysis/p07_agent/outputs/sessions/*.jsonl
+  - path: analysis/p07_agent/outputs/tests.md
+  - path: analysis/p07_agent/outputs/demo.md
+  - path: analysis/p07_agent/.env.example
+
+checks:
+  - python checks/check_agent.py analysis/p07_agent/
+
+frozen:
+  - 工具 Schema（名称/参数/返回）
+  - 系统 Prompt 的关键约束（必须基于图谱查询）
+
+acceptance:
+  - 回答基于图谱查询，轨迹中有 tool_call 与 observation
+  - 至少 3 类场景测试（老人/亲子/情侣 × 一天/两天）
+  - 无匹配/信息不足/冲突约束有回退或追问
+  - 提供一条完整示范（约束解析 → 工具调用 → 行程生成）
+  - 密钥走 .env，仓库只有 .env.example
+
+notes: |
+  不允许把整张图塞进 Prompt 代替工具调用——那是项目 7 明确的失分点。

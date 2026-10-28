@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "项目6 知识图谱（graph_nodes.csv + graph_edges.csv）",
+  "version": "1.0",
+  "file_convention": {
+    "nodes": "analysis/p06_graph/outputs/graph_nodes.csv",
+    "edges": "analysis/p06_graph/outputs/graph_edges.csv",
+    "graphml": "analysis/p06_graph/outputs/graph.graphml"
+  },
+  "encoding": "utf-8-sig",
+  "node_type_enum": ["POI", "TRANSPORT", "TIME", "ACTIVITY", "SCENIC_AREA", "CONDITION"],
+  "edge_type_enum": ["NEXT", "CONTAINS", "AT_TIME", "BY_TRANSPORT", "HAS_CONDITION", "SIMILAR_TO"],
+  "nodes": {
+    "fields": [
+      {"name": "node_id", "type": "string", "required": true, "desc": "稳定 ID，建议 <type>:<归一化名>"},
+      {"name": "node_type", "type": "string", "required": true, "enum": ["POI", "TRANSPORT", "TIME", "ACTIVITY", "SCENIC_AREA", "CONDITION"]},
+      {"name": "name", "type": "string", "required": true},
+      {"name": "scenic_area", "type": "string", "required": false},
+      {"name": "source_doc_ids", "type": "string", "required": false, "desc": "分号分隔，支持多来源溯源"},
+      {"name": "freq", "type": "integer", "required": false, "desc": "跨文档出现次数"},
+      {"name": "properties", "type": "string", "required": false, "desc": "JSON 字符串"}
+    ]
+  },
+  "edges": {
+    "fields": [
+      {"name": "src", "type": "string", "required": true, "desc": "node_id"},
+      {"name": "rel", "type": "string", "required": true, "enum": ["NEXT", "CONTAINS", "AT_TIME", "BY_TRANSPORT", "HAS_CONDITION", "SIMILAR_TO"]},
+      {"name": "dst", "type": "string", "required": true, "desc": "node_id"},
+      {"name": "weight", "type": "number", "required": false, "desc": "频次或置信度"},
+      {"name": "source_doc_ids", "type": "string", "required": false},
+      {"name": "properties", "type": "string", "required": false}
+    ]
+  },
+  "rules": [
+    "所有 src/dst 必须存在于 nodes",
+    "至少一个景区图的连通分量应覆盖该景区全部 POI",
+    "融合策略要能解释：为什么合并、为什么保留（写入 outputs/graph_qa.md）"
+  ]
+}

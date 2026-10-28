@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "项目1 景区指南主数据集（24 列）",
+  "version": "1.0",
+  "file_convention": "scenic/<area>/data/processed/<area>_guides.csv",
+  "encoding": "utf-8-sig",
+  "doc_id_pattern": "^[A-Z]{2,5}-[OT]-\\d{2}$",
+  "doc_type_enum": ["官方路线", "游客游记", "站点攻略"],
+  "required_for_merge": [
+    "doc_id", "scenic_area", "doc_type", "title",
+    "source_site", "source_url", "raw_content", "clean_content", "is_valid"
+  ],
+  "columns": [
+    {"name": "doc_id", "type": "string", "required": true, "desc": "唯一编号 <AREA>-<O|T>-<两位>，只增不减"},
+    {"name": "scenic_area", "type": "string", "required": true, "desc": "长隆 / 广州白云山 / 武功山"},
+    {"name": "doc_type", "type": "string", "required": true, "enum": ["官方路线", "游客游记", "站点攻略"]},
+    {"name": "subtype", "type": "string", "required": false, "desc": "一日游/两日游/亲子/夜爬/徒步"},
+    {"name": "title", "type": "string", "required": true},
+    {"name": "author", "type": "string", "required": false, "desc": "缺失写“未知”"},
+    {"name": "publish_date", "type": "string", "required": false, "pattern": "^\\d{4}-\\d{2}-\\d{2}$|^未知$"},
+    {"name": "source_site", "type": "string", "required": true},
+    {"name": "source_url", "type": "string", "required": true, "pattern": "^https?://"},
+    {"name": "extract_rule", "type": "string", "required": false, "desc": "正文定位规则"},
+    {"name": "raw_content", "type": "string", "required": true, "desc": "抽取后、清洗前"},
+    {"name": "clean_content", "type": "string", "required": true, "desc": "下游唯一可读文本"},
+    {"name": "char_raw", "type": "integer", "required": false},
+    {"name": "char_clean", "type": "integer", "required": false},
+    {"name": "para_raw", "type": "integer", "required": false},
+    {"name": "para_clean", "type": "integer", "required": false},
+    {"name": "removed_char_ratio", "type": "number", "required": false},
+    {"name": "noise_lines_removed", "type": "integer", "required": false},
+    {"name": "emoji_removed", "type": "integer", "required": false, "desc": "删除的符号字符数"},
+    {"name": "urls_removed", "type": "integer", "required": false},
+    {"name": "dup_paragraphs_removed", "type": "integer", "required": false},
+    {"name": "quality_flags", "type": "string", "required": false, "desc": "分号分隔"},
+    {"name": "is_valid", "type": "boolean", "required": true, "desc": "True/False"},
+    {"name": "clean_hash", "type": "string", "required": false, "pattern": "^[0-9a-f]{40}$", "desc": "sha1(去空白 clean_content)"}
+  ],
+  "acceptance": {
+    "per_area_min_official": 1,
+    "per_area_min_valid_notes": 3,
+    "min_clean_chars": 50,
+    "no_duplicate_clean_hash": true
+  }
+}

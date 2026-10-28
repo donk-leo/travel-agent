@@ -1,0 +1,43 @@
+project: p02_entities
+title: 游览步骤的实体识别（景点 POI / 交通方式 / 时间节点）
+owner: T0coke
+reviewer: HappinessJo
+status: planned
+version_tag: ""
+
+inputs:
+  - path: scenic/changlong/data/processed/changlong_guides.csv
+    column: clean_content
+    from_tag: v0.1-p01
+  - path: scenic/baiyunshan/data/processed/baiyunshan_guides.csv
+    column: clean_content
+    from_tag: v0.1-p01
+  - path: scenic/wugongshan/data/processed/wugongshan_guides.csv
+    column: clean_content
+    from_tag: v0.1-p01
+
+outputs:
+  - path: analysis/p02_entities/outputs/entities.jsonl
+    schema: standards/schema_entities.json
+  - path: analysis/p02_entities/outputs/entity_type_spec.md
+  - path: analysis/p02_entities/outputs/figures/wordfreq_*.png
+  - path: analysis/p02_entities/outputs/stopwords_iteration.md
+
+checks:
+  - python checks/check_entities.py analysis/p02_entities/outputs/entities.jsonl
+
+frozen:
+  - 实体类型枚举 POI / TRANSPORT / TIME
+  - span 口径：基于 clean_content，起点 0，结束不含
+  - entities.jsonl 字段名
+
+acceptance:
+  - 三景区各 POI ≥ 50 个、时间实体 ≥ 20 个
+  - 每个实体满足 clean_content[char_start:char_end] == entity_text
+  - 人工抽查 20 条，误识别率 < 15%，记录在 report/
+  - 词频图能看出噪声词，并给出停用词迭代前后差异
+  - 单景区失败可重试，不中断全批
+
+notes: |
+  方法可用 jieba+自定义词典 / 规则 / LLM，但必须写出参数与 Prompt。
+  多景区一致性：同一表达在三景区要映射到同一实体类型。

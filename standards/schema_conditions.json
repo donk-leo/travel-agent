@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "项目5 条件-建议输出（conditions.jsonl）",
+  "version": "1.0",
+  "file_convention": "analysis/p05_conditions/outputs/conditions.jsonl",
+  "encoding": "utf-8",
+  "format": "JSON Lines",
+  "condition_type_enum": ["天气", "人群", "时间", "体力", "预算", "交通", "其他"],
+  "fields": [
+    {"name": "cond_id", "type": "string", "required": true, "desc": "唯一编号，如 CND-0001"},
+    {"name": "doc_id", "type": "string", "required": true},
+    {"name": "scenic_area", "type": "string", "required": true},
+    {"name": "condition_type", "type": "string", "required": true, "enum": ["天气", "人群", "时间", "体力", "预算", "交通", "其他"]},
+    {"name": "condition_text", "type": "string", "required": true, "desc": "条件部分原文"},
+    {"name": "suggestion_text", "type": "string", "required": true, "desc": "建议部分原文"},
+    {"name": "trigger_word", "type": "string", "required": false, "desc": "如果/假如/若/建议/可以 等"},
+    {"name": "source_sentence", "type": "string", "required": true, "desc": "完整原句，供人工复核"},
+    {"name": "char_start", "type": "integer", "required": false},
+    {"name": "char_end", "type": "integer", "required": false},
+    {"name": "is_duplicate", "type": "boolean", "required": false, "desc": "去重时标记，保留不删"}
+  ],
+  "mapping_table": {
+    "path": "analysis/p05_conditions/outputs/映射表.xlsx",
+    "required_columns": ["cond_id", "scenic_area", "condition_type", "condition_text", "suggestion_text", "source_url"]
+  },
+  "rules": [
+    "条件与建议必须是原文片段，不得改写",
+    "同句多建议应拆成多条，共享同一 source_sentence",
+    "去重（同句/近重复/前后缀）保留统计前后数量"
+  ]
+}

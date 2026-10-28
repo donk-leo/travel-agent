@@ -1,36 +1,88 @@
-# 景区游览指南的程序性知识挖掘（项目1）
+# 景区游览指南的程序性知识挖掘
 
-《数据挖掘》探索性实验小组仓库。
+《数据挖掘》探索性实验 · 三人小组仓库 · 2026-2027-01
 
-## 目录
+从**景区官方攻略与游客游记**中抽取程序性知识（景点 POI、交通方式、时间节点、路线顺序、条件建议），
+构建知识图谱，最终实现旅游规划 Agent。共 7 个实验项目 + 总结反思，**2026-11-20 24:00 前提交**。
+
+> **新成员 / 新 Agent 请先读 [`AGENTS.md`](AGENTS.md)**，再读 [`docs/02_协作流程.md`](docs/02_协作流程.md)。
+> 每个项目的输入输出契约在 [`standards/handover/`](standards/handover/)。
+
+---
+
+## 项目状态
+
+| # | 项目 | 主责 | 状态 | 产出 | 交付 tag |
+|---|---|---|---|---|---|
+| 1 | 数据采集与预处理 | 三人各自负责一景区 | 武功山 ✅｜长隆 🚧｜白云山 ❌ | `scenic/*/data/processed/*_guides.csv` | `v0.1-p01`（待合并） |
+| 2 | 实体识别 | T0coke | 未开始 | `analysis/p02_entities/outputs/entities.jsonl` | — |
+| 3 | 路线层级结构 | HappinessJo | 未开始 | `analysis/p03_routes/outputs/routes.jsonl` | — |
+| 4 | 共指消解 | 成员3 | 未开始 | `analysis/p04_coref/outputs/coref.jsonl` | — |
+| 5 | 条件建议抽取 | T0coke | 未开始 | `analysis/p05_conditions/outputs/conditions.jsonl` | — |
+| 6 | 知识图谱 | T0coke | 未开始 | `analysis/p06_graph/outputs/graph_*.csv` | — |
+| 7 | 旅游规划 Agent | HappinessJo | 未开始 | `analysis/p07_agent/src/agent.py` | — |
+| — | 总结反思 | 三人 | 未开始 | `report/章节/总结反思.md` | — |
+
+图例：✅ 已交付并打 tag｜🚧 进行中｜❌ 缺数据｜未开始
+
+---
+
+## 目录结构
 
 | 路径 | 内容 |
-| --- | --- |
-| `采集.py`、`采集结果.csv/json`、`失败记录.json` | 组员完成的平台采集脚本与结果 |
-| `小红书登录采集.py`、`小红书采集结果.csv/json`、`小红书失败记录.json` | 小红书登录态采集脚本与结果 |
-| [`武功山/`](武功山/) | 武功山景区：官方路线 + 游客游记的采集、正文抽取、清洗、结构化数据集与实验报告 |
-| [`长隆/`](长隆/) | 长隆旅游度假区（广州长隆）：采集、清洗、结构化数据集与实验报告 |
-| [`docs/`](docs/) | **协作必读**：[统一规范](docs/统一规范.md)（目录、字段、doc_id、验收口径）、[协作流程](docs/协作流程.md)（Git 操作与分工） |
-| [`scripts/check_dataset.py`](scripts/check_dataset.py) | 交付前自检：列是否齐、能否直接参与三景区合并 |
+|---|---|
+| [`AGENTS.md`](AGENTS.md) | **共同行为准则**（Agent 与人都适用） |
+| [`docs/`](docs/) | 规范文档：统一规范、协作流程、**交接标准**、决策记录、迁移记录 |
+| [`standards/`](standards/) | 机器可读契约：各项目 schema + 交接卡 `handover/*.yaml` |
+| [`lib/`](lib/) | 共享代码（路径、读写、schema 校验、清洗原语） |
+| [`checks/`](checks/) | 质量门：`check_scenic.py` / `check_entities.py` / … |
+| [`scenic/`](scenic/) | 项目 1 数据层：`changlong/`、`baiyunshan/`、`wugongshan/` |
+| [`analysis/`](analysis/) | 项目 2–7 跨景区分析：`p02_entities/` … `p07_agent/` |
+| [`report/`](report/) | 章节模板与总报告装配区 |
+| [`archive/`](archive/) | 冻结归档（整理前的临时采集产物） |
 
-## 武功山部分
+---
 
-- 数据：14 条（官方路线 6 条、游客游记 8 篇），有效 13 条（有效游记 7 篇）
-- 来源：萍乡武功山景区官网、豆瓣小组、8264 户外论坛、简书、搜狐号
-- 产出：CSV / JSONL / Excel 数据集、质量检查报告、18 页实验报告（DOCX/PDF）
-- 复现：`cd 武功山 && pip install -r requirements.txt && python src/run_all.py`
+## 快速开始
 
-详见 [`武功山/README.md`](武功山/README.md)。
+```powershell
+git clone https://github.com/donk-leo/-.git 团队仓库
+cd 团队仓库
+python -m pip install -r requirements.txt
 
-## 协作约定（三人）
+# 1) 项目1 数据自检（三景区任一）
+python checks/check_scenic.py scenic/wugongshan/data/processed/wugongshan_guides.csv
 
-1. **一人一个目录**：`长隆/`、`白云山/`、`武功山/`，只改自己目录；`docs/`、`scripts/`、根 README 改动前在群里说一声。
-2. **字段与命名统一**：主数据集一律 `data/processed/<area>_guides.csv`，24 列字段与 `doc_id` 编码见 [docs/统一规范.md](docs/统一规范.md)（以武功山表结构为准）。
-3. **交付前自检**：`python scripts/check_dataset.py <你的csv>`，通过后才算可合并。
-4. **Git 流程**：开工先 `git pull`；只 `git add` 自己目录；commit 用 `景区: 动作`；详细步骤与冲突处理见 [docs/协作流程.md](docs/协作流程.md)。
-5. **报告各自独立**：每人交自己景区报告（放 `<景区>/report/`），总报告由组长拼装；二进制文件不允许多人同改。
+# 2) 武功山全链路重跑（复用已抓 HTML，约 10-20 秒）
+cd scenic/wugongshan
+python src/run_all.py
+```
 
-## 说明
+---
 
-- 数据仅用于课程实验，版权归原网站/作者所有；引用请标注来源链接。
-- 原始 HTML 快照未提交，`武功山/data/raw/manifest.csv` 保留了 URL 与 SHA256，可用采集脚本重新获取。
+## 三人分工
+
+| 成员 | 负责景区 | 项目主责 | 复核 |
+|---|---|---|---|
+| **HappinessJo** | 长隆旅游度假区 | P3 路线层级、P7 Agent、文档与准则 | P2 / P6 |
+| **T0coke** | 萍乡武功山 | P2 实体识别、P5 条件建议、P6 知识图谱、公共层 | P3 / P7 |
+| **成员3（待填）** | 广州白云山 | P4 共指消解 | P5 |
+
+规则：**一个项目只有一个 owner；owner 不同时做 reviewer。**
+
+---
+
+## 交接一句话
+
+> 产出写死文件名 → `checks/check_pNN_*.py` 跑绿 → 更新 `standards/handover/pNN_*.yaml` 的 `status` → 打 tag 推送。
+> 四条做完才算交付；tag 之后 `doc_id`、`clean_content`、枚举、span 口径即冻结。
+
+详见 [`docs/03_交接标准.md`](docs/03_交接标准.md)。
+
+---
+
+## 合规与版权
+
+- 仅采集公开可访问页面，遵守 robots.txt，请求间隔 ≥ 2 秒，不绕登录与验证码；
+- 数据仅用于课程实验，版权归原网站/作者所有，引用请标注来源链接；
+- 需登录态才能获取的数据（如小红书）在 `scenic/*/README.md` 中单独标注可复现性限制。
