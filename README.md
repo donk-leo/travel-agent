@@ -9,6 +9,9 @@
 | `采集.py`、`采集结果.csv/json`、`失败记录.json` | 组员完成的平台采集脚本与结果 |
 | `小红书登录采集.py`、`小红书采集结果.csv/json`、`小红书失败记录.json` | 小红书登录态采集脚本与结果 |
 | [`武功山/`](武功山/) | 武功山景区：官方路线 + 游客游记的采集、正文抽取、清洗、结构化数据集与实验报告 |
+| [`长隆/`](长隆/) | 长隆旅游度假区（广州长隆）：采集、清洗、结构化数据集与实验报告 |
+| [`docs/`](docs/) | **协作必读**：[统一规范](docs/统一规范.md)（目录、字段、doc_id、验收口径）、[协作流程](docs/协作流程.md)（Git 操作与分工） |
+| [`scripts/check_dataset.py`](scripts/check_dataset.py) | 交付前自检：列是否齐、能否直接参与三景区合并 |
 
 ## 武功山部分
 
@@ -18,6 +21,14 @@
 - 复现：`cd 武功山 && pip install -r requirements.txt && python src/run_all.py`
 
 详见 [`武功山/README.md`](武功山/README.md)。
+
+## 协作约定（三人）
+
+1. **一人一个目录**：`长隆/`、`白云山/`、`武功山/`，只改自己目录；`docs/`、`scripts/`、根 README 改动前在群里说一声。
+2. **字段与命名统一**：主数据集一律 `data/processed/<area>_guides.csv`，24 列字段与 `doc_id` 编码见 [docs/统一规范.md](docs/统一规范.md)（以武功山表结构为准）。
+3. **交付前自检**：`python scripts/check_dataset.py <你的csv>`，通过后才算可合并。
+4. **Git 流程**：开工先 `git pull`；只 `git add` 自己目录；commit 用 `景区: 动作`；详细步骤与冲突处理见 [docs/协作流程.md](docs/协作流程.md)。
+5. **报告各自独立**：每人交自己景区报告（放 `<景区>/report/`），总报告由组长拼装；二进制文件不允许多人同改。
 
 ## 说明
 
