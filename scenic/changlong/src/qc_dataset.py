@@ -125,8 +125,7 @@ def main() -> None:
     # 可用性标记
     flags = df["clean_text"].apply(usability_flags).apply(pd.Series)
     df_flags = pd.concat([df[["doc_id", "doc_type", "park"]], flags], axis=1)
-    df_flags.to_csv(OUT_DIR / "usability_flags.csv", index=False, encoding="utf-8-sig", lineterminator="
-")
+    df_flags.to_csv(OUT_DIR / "usability_flags.csv", index=False, encoding="utf-8-sig", lineterminator="\n")
     coverage = {c: f"{int(flags[c].sum())}/{len(df)}" for c in flags.columns}
 
     f1 = fig_length_compare(df)

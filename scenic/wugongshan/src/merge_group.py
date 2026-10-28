@@ -44,16 +44,14 @@ def main() -> None:
     data = data.drop_duplicates(subset=["clean_hash"] if "clean_hash" in data.columns else ["clean_content"])
     print(f"合并去重：{before} -> {len(data)} 条")
 
-    data.to_csv(OUTPUT_DIR / "三景区汇总数据集.csv", index=False, encoding="utf-8-sig", lineterminator="
-")
+    data.to_csv(OUTPUT_DIR / "三景区汇总数据集.csv", index=False, encoding="utf-8-sig", lineterminator="\n")
 
     stats = (data.assign(is_valid=data["is_valid"].astype(str).str.lower().isin(["true", "1", "yes"]))
                  .groupby(["scenic_area", "doc_type"])
                  .agg(记录数=("doc_id", "count"), 有效数=("is_valid", "sum"),
                       清洗后字数=("char_clean", "sum"))
                  .reset_index())
-    stats.to_csv(OUTPUT_DIR / "三景区汇总统计.csv", index=False, encoding="utf-8-sig", lineterminator="
-")
+    stats.to_csv(OUTPUT_DIR / "三景区汇总统计.csv", index=False, encoding="utf-8-sig", lineterminator="\n")
     print(stats.to_string(index=False))
 
     areas = data["scenic_area"].nunique()

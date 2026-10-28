@@ -60,8 +60,7 @@ def main() -> None:
     df["__type"] = df["doc_type"].map(order).fillna(9)
     df = df.sort_values(["__area", "__type", "doc_id"]).drop(columns=["__area", "__type"]).reset_index(drop=True)
 
-    df.to_csv(DATA / "三景区汇总数据集.csv", index=False, encoding="utf-8-sig", lineterminator="
-")
+    df.to_csv(DATA / "三景区汇总数据集.csv", index=False, encoding="utf-8-sig", lineterminator="\n")
 
     rows = []
     for area, _ in AREAS:
@@ -80,8 +79,7 @@ def main() -> None:
                               and ((g.doc_type == "游客游记") & g.is_valid).sum() >= 3),
         })
     stat = pd.DataFrame(rows)
-    stat.to_csv(DATA / "三景区汇总统计.csv", index=False, encoding="utf-8-sig", lineterminator="
-")
+    stat.to_csv(DATA / "三景区汇总统计.csv", index=False, encoding="utf-8-sig", lineterminator="\n")
     print(stat.to_string(index=False))
 
     summary = {
