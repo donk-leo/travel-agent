@@ -1,4 +1,4 @@
-# 景区游览指南的程序性知识挖掘
+﻿# 景区游览指南的程序性知识挖掘
 
 《数据挖掘》探索性实验 · 三人小组仓库 · 2026-2027-01
 
@@ -46,7 +46,7 @@
 ## 快速开始
 
 ```powershell
-git clone https://github.com/donk-leo/-.git 团队仓库
+git clone https://github.com/donk-leo/travel-agent.git 团队仓库
 cd 团队仓库
 python -m pip install -r requirements.txt
 
