@@ -1,0 +1,9 @@
+﻿doc_id,doc_type,park,has_time,has_arrow,has_numbering,has_poi_keyword
+CHL-N01,游客游记,欢乐世界,True,True,False,True
+CHL-N02,游客游记,度假区（多园区）,True,True,True,True
+CHL-N03,游客游记,野生动物世界,True,True,True,True
+CHL-N04,游客游记,欢乐世界,True,False,False,True
+CHL-N05,游客游记,水上乐园,False,False,False,True
+CHL-O01,官方路线,度假区（多园区）,True,False,True,True
+CHL-O02,官方路线,野生动物世界,True,False,True,True
+CHL-O03,官方路线,欢乐世界,True,False,False,True

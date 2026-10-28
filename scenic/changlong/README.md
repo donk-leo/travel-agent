@@ -31,24 +31,41 @@
 
 ```
 changlong/
-├─ src/export_standard.py         # 20 列 -> 24 列标准格式（本仓库唯一转换入口）
+├─ src/
+│  ├─ run_all.py                # ★一键流水线：清洗 → 质检 → 导出 → 自检（--refresh 重新采集）
+│  ├─ collect_pages.py          # 采集 8 个页面：落 HTML + raw_docs.jsonl + manifest(SHA256)
+│  ├─ clean_dataset.py          # R1–R10 十条清洗规则 → legacy_20col.csv + 质量指标
+│  ├─ qc_dataset.py             # 3 张图 + 质量检查报告 + 可用性标记
+│  ├─ export_standard.py        # 20 列 → 24 列标准格式（交付物）
+│  ├─ test_rules.py             # 清洗规则自测（11 项）
+│  └─ build_report.py           # 生成实验报告章节 docx
 ├─ data/
-│  ├─ raw/manifest.csv            # 8 个原始页面的 URL / 状态 / 字节 / SHA256 / 采集时间
-│  ├─ interim/legacy_20col.csv    # 转换前数据（含 raw_text/clean_text）
+│  ├─ raw/manifest.csv          # 8 个原始页面的 URL / 状态 / 字节 / SHA256 / 采集时间
+│  ├─ raw/*.html                # 原始快照（.gitignore 忽略，--refresh 可重取）
+│  ├─ interim/raw_docs.jsonl    # 采集结果（已提交，默认流水线从这里开始）
+│  ├─ interim/legacy_20col.csv  # 清洗后的 20 列中间表
 │  └─ processed/changlong_guides.csv   ★ 交付物（24 列，UTF-8-SIG）
-├─ outputs/                       # 质量报告、清洗前后对比（待补）
-└─ report/                        # 实验报告章节 docx（待放）
+├─ outputs/                     # 质量检查报告.md、清洗前后样例、quality_report.json、图表
+└─ report/                      # 实验报告章节 docx
 ```
 
-## 3. 复现
+## 3. 复现（一条命令）
 
 ```powershell
-# 从仓库根执行
-python scenic/changlong/src/export_standard.py
-python checks/check_scenic.py scenic/changlong/data/processed/changlong_guides.csv
+# 从仓库根执行：复用已提交的 raw_docs.jsonl，不联网
+python scenic/changlong/src/run_all.py
+
+# 完整重采集（8 个页面，请求间隔 1.2s，约 10 秒）
+python scenic/changlong/src/run_all.py --refresh
+
+# 可选：重新生成报告章节
+python scenic/changlong/src/build_report.py
 ```
 
-预期：8 条记录，`官方 3 / 有效游记 5`，检查通过。
+预期：`check_scenic` 输出 `8 条，官方 3 / 有效游记 5，通过`。
+`run_all.py` 会依次执行 clean → qc → export → check，任一步失败即中断并给退出码。
+
+> 已验证：从 `raw_docs.jsonl` 重跑得到的 `changlong_guides.csv` 与仓库中版本**逐字节一致**。
 
 ## 4. 原始 HTML 说明
 
