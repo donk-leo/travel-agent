@@ -1,0 +1,68 @@
+[
+  {
+    "景区": "萍乡武功山",
+    "类型": "官方路线",
+    "链接": "https://www.wugongshan.cn/page/strategyList%21info.htm?id=1228",
+    "原因": "robots.txt 无法读取：<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1129)>"
+  },
+  {
+    "景区": "广州白云山",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/guangzhou152/3991867.html",
+    "原因": "HTTP Error 432: Unknown"
+  },
+  {
+    "景区": "广州长隆欢乐世界",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/guangdong100051/4132637.html",
+    "原因": "HTTP Error 432: Unknown"
+  },
+  {
+    "景区": "广州长隆欢乐世界",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/PanyuDistrict120096/4011531.html",
+    "原因": "HTTP Error 432: Unknown"
+  },
+  {
+    "景区": "广州长隆欢乐世界",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/2020086/4004148.html",
+    "原因": "HTTP Error 432: Unknown"
+  },
+  {
+    "景区": "广州长隆欢乐世界",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/2044800/4123269.html",
+    "原因": "HTTP Error 432: Unknown"
+  },
+  {
+    "景区": "萍乡武功山",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/wugongshan1445145/4095641.html",
+    "原因": "HTTP Error 432: Unknown"
+  },
+  {
+    "景区": "萍乡武功山",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/WugongMountain1445145/4012298.html",
+    "原因": "HTTP Error 432: Unknown"
+  },
+  {
+    "景区": "萍乡武功山",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/wugongshan1445145/3975240.html",
+    "原因": "HTTP Error 432: Unknown"
+  },
+  {
+    "景区": "萍乡武功山",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/wugongshan1445145/4032753.html",
+    "原因": "HTTP Error 432: Unknown"
+  },
+  {
+    "景区": "萍乡武功山",
+    "类型": "游客游记",
+    "链接": "https://you.ctrip.com/travels/Pingxiang714/4142760.html",
+    "原因": "HTTP Error 432: Unknown"
+  }
+]

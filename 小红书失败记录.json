@@ -1,0 +1,14 @@
+[
+  {
+    "景区": "广州白云山",
+    "类型": "游客游记（小红书）",
+    "链接": "https://www.xiaohongshu.com/search_result/6abcbbbb000000000b006a27?xsec_token=AB4HWPb1VwzJu9m1sH9LSkZpIXjUFkhqLORWstNXvTeXY=&xsec_source=",
+    "原因": "Page.goto: net::ERR_CONNECTION_CLOSED at https://www.xiaohongshu.com/search_result/6abcbbbb000000000b006a27?xsec_token=AB4HWPb1VwzJu9m1sH9LSkZpIXjUFkhqLORWstNXvTeXY=&xsec_source=\nCall log:\n  - navigating to \"https://www.xiaohongshu.com/search_result/6abcbbbb000000000b006a27?xsec_token=AB4HWPb1VwzJu9m1sH9LSkZpIXjUFkhqLORWstNXvTeXY=&xsec_source=\", waiting until \"domcontentloaded\"\n"
+  },
+  {
+    "景区": "广州白云山",
+    "类型": "游客游记（小红书）",
+    "链接": "https://www.xiaohongshu.com/search_result/69f9b79f000000001f000c78?xsec_token=AB0Uai9ovGvNyddoLnuDIwCdr_dMKHp4SEOXZmuwn6Z-8=&xsec_source=",
+    "原因": "Page.goto: Navigation to \"https://www.xiaohongshu.com/search_result/69f9b79f000000001f000c78?xsec_token=AB0Uai9ovGvNyddoLnuDIwCdr_dMKHp4SEOXZmuwn6Z-8=&xsec_source=\" is interrupted by another navigation to \"chrome-error://chromewebdata/\"\nCall log:\n  - navigating to \"https://www.xiaohongshu.com/search_result/69f9b79f000000001f000c78?xsec_token=AB0Uai9ovGvNyddoLnuDIwCdr_dMKHp4SEOXZmuwn6Z-8=&xsec_source=\", waiting until \"domcontentloaded\"\n"
+  }
+]
