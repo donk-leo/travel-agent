@@ -1,0 +1,33 @@
+{
+  "method": "jieba_userdict + regex_time",
+  "areas_requested": [
+    "changlong",
+    "baiyunshan",
+    "wugongshan"
+  ],
+  "documents_processed": 29,
+  "entities": 1006,
+  "by_type": {
+    "TIME": 248,
+    "POI": 573,
+    "TRANSPORT": 185
+  },
+  "by_area": {
+    "长隆": {
+      "TIME": 98,
+      "POI": 133,
+      "TRANSPORT": 35
+    },
+    "广州白云山": {
+      "POI": 134,
+      "TRANSPORT": 65,
+      "TIME": 33
+    },
+    "武功山": {
+      "POI": 306,
+      "TRANSPORT": 85,
+      "TIME": 117
+    }
+  },
+  "failed_areas": []
+}

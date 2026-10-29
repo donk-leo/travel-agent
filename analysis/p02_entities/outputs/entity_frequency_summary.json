@@ -1,0 +1,170 @@
+{
+  "documents_processed": 29,
+  "before_lexicon_optimization": {
+    "TIME": 248,
+    "POI": 532,
+    "TRANSPORT": 185
+  },
+  "after_lexicon_optimization": {
+    "TIME": 248,
+    "POI": 573,
+    "TRANSPORT": 185
+  },
+  "delta": {
+    "TIME": 0,
+    "POI": 41,
+    "TRANSPORT": 0
+  },
+  "top_entities_by_type": {
+    "POI": [
+      {
+        "entity": "武功山",
+        "frequency": 83
+      },
+      {
+        "entity": "金顶",
+        "frequency": 38
+      },
+      {
+        "entity": "摩星岭",
+        "frequency": 26
+      },
+      {
+        "entity": "吊马桩",
+        "frequency": 20
+      },
+      {
+        "entity": "石鼓寺",
+        "frequency": 18
+      },
+      {
+        "entity": "长隆欢乐世界",
+        "frequency": 17
+      },
+      {
+        "entity": "广州白云山",
+        "frequency": 17
+      },
+      {
+        "entity": "观音宕",
+        "frequency": 17
+      },
+      {
+        "entity": "北门",
+        "frequency": 15
+      },
+      {
+        "entity": "紫极宫",
+        "frequency": 15
+      },
+      {
+        "entity": "南门",
+        "frequency": 13
+      },
+      {
+        "entity": "福星谷",
+        "frequency": 13
+      }
+    ],
+    "TRANSPORT": [
+      {
+        "entity": "索道",
+        "frequency": 55
+      },
+      {
+        "entity": "徒步",
+        "frequency": 44
+      },
+      {
+        "entity": "步行",
+        "frequency": 29
+      },
+      {
+        "entity": "小火车",
+        "frequency": 12
+      },
+      {
+        "entity": "缆车",
+        "frequency": 11
+      },
+      {
+        "entity": "观光车",
+        "frequency": 11
+      },
+      {
+        "entity": "地铁",
+        "frequency": 5
+      },
+      {
+        "entity": "公交",
+        "frequency": 4
+      },
+      {
+        "entity": "游览观光车",
+        "frequency": 3
+      },
+      {
+        "entity": "大巴",
+        "frequency": 3
+      },
+      {
+        "entity": "地铁3号线",
+        "frequency": 2
+      },
+      {
+        "entity": "地铁7号线",
+        "frequency": 2
+      }
+    ],
+    "TIME": [
+      {
+        "entity": "日出",
+        "frequency": 19
+      },
+      {
+        "entity": "晚上",
+        "frequency": 18
+      },
+      {
+        "entity": "下午",
+        "frequency": 10
+      },
+      {
+        "entity": "15分钟",
+        "frequency": 10
+      },
+      {
+        "entity": "日落",
+        "frequency": 9
+      },
+      {
+        "entity": "30分钟",
+        "frequency": 8
+      },
+      {
+        "entity": "10分钟",
+        "frequency": 8
+      },
+      {
+        "entity": "五一",
+        "frequency": 7
+      },
+      {
+        "entity": "第二天",
+        "frequency": 7
+      },
+      {
+        "entity": "上午",
+        "frequency": 6
+      },
+      {
+        "entity": "早上",
+        "frequency": 6
+      },
+      {
+        "entity": "中午",
+        "frequency": 5
+      }
+    ]
+  }
+}

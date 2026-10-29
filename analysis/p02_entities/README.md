@@ -16,21 +16,33 @@
 | `scenic/baiyunshan/data/processed/baiyunshan_guides.csv` | `clean_content` | v0.1-p01 |
 | `scenic/wugongshan/data/processed/wugongshan_guides.csv` | `clean_content` | v0.1-p01 |
 
-## 产出（文件名写死）
+## 产出
 
 ```
 analysis/p02_entities/outputs/
-├─ entities.jsonl            # 一行一个实体，字段见 schema_entities.json
-├─ entity_type_spec.md       # 定义/边界/示例/易混说明
-├─ stopwords_iteration.md    # 停用词调整前后对比
-└─ figures/wordfreq_*.png    # 词云或柱状图
+├─ entities.jsonl                    # 一行一个实体，字段见 schema_entities.json
+├─ entity_stats.json                  # 总数、类型分布、景区分布
+├─ entity_type_spec.md                # 定义/边界/示例/易混说明
+├─ manual_review_samples.csv          # 30 条分层抽检样本与原文配对
+├─ manual_review_report.md            # 人工抽检结论
+├─ stopwords_iteration.md             # 词典/停用词迭代记录
+├─ entity_frequency_poi.png           # POI 词频柱状图
+├─ entity_frequency_transport.png     # 交通方式词频柱状图
+├─ entity_frequency_time.png          # 时间节点词频柱状图
+├─ entity_count_before_after.png      # 词典优化前后对比图
+└─ entity_frequency_summary.json      # 图表的可复核统计数据
+
+analysis/p02_entities/report/
+└─ p02_experiment_report.md           # 实验报告与复现说明
 ```
 
 ## 运行
 
-```powershell
-python analysis/p02_entities/src/run_all.py       # 一键跑三景区
-python checks/check_entities.py                   # 自检（必须退出码 0）
+```bash
+python3 -m pip install jieba                        # 首次运行时安装
+python3 analysis/p02_entities/src/run_all.py       # 一键跑三景区
+python3 checks/check_entities.py analysis/p02_entities/outputs/entities.jsonl
+python3 analysis/p02_entities/src/visualize_entities.py
 ```
 
 ## 关键约束
@@ -44,12 +56,14 @@ python checks/check_entities.py                   # 自检（必须退出码 0�
 
 | 考核项 | 分值 | 证据 |
 |---|---|---|
-| 实体类型定义与规范 | 15 | `entity_type_spec.md` |
-| 识别方法实现 | 35 | `src/` + 参数/Prompt 说明 |
-| 结果与质量检查 | 20 | `entities.jsonl` + 抽查记录（≥20 条） |
-| 词频可视化与迭代 | 20 | `figures/*.png` + `stopwords_iteration.md` |
-| 报告与可复现 | 10 | `report/` + README |
+| 实体类型定义与规范 | 15 | `outputs/entity_type_spec.md` |
+| 识别方法实现 | 35 | `src/run_all.py` + `config/` |
+| 结果与质量检查 | 20 | `outputs/entities.jsonl` + 30 条抽查记录 |
+| 词频可视化与迭代 | 20 | `outputs/entity_frequency_*.png` + `outputs/stopwords_iteration.md` |
+| 报告与可复现 | 10 | `report/p02_experiment_report.md` + 本 README |
 
 ## 状态
 
-`planned` —— 未开始。开工前先确认 `v0.1-p01` tag 存在。
+`completed` —— 已完成三景区 29 篇文本的实体识别、人工抽检、词典迭代、词频可视化与复现说明。
+
+最终输出共 1006 条实体：POI 573、TRANSPORT 185、TIME 248。实体位置检查已通过。

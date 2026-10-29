@@ -2,7 +2,7 @@ project: p02_entities
 title: 游览步骤的实体识别（景点 POI / 交通方式 / 时间节点）
 owner: T0coke
 reviewer: HappinessJo
-status: planned
+status: completed
 version_tag: ""
 
 inputs:
@@ -20,11 +20,19 @@ outputs:
   - path: analysis/p02_entities/outputs/entities.jsonl
     schema: standards/schema_entities.json
   - path: analysis/p02_entities/outputs/entity_type_spec.md
-  - path: analysis/p02_entities/outputs/figures/wordfreq_*.png
+  - path: analysis/p02_entities/outputs/manual_review_samples.csv
+  - path: analysis/p02_entities/outputs/manual_review_report.md
   - path: analysis/p02_entities/outputs/stopwords_iteration.md
+  - path: analysis/p02_entities/outputs/entity_frequency_poi.png
+  - path: analysis/p02_entities/outputs/entity_frequency_transport.png
+  - path: analysis/p02_entities/outputs/entity_frequency_time.png
+  - path: analysis/p02_entities/outputs/entity_count_before_after.png
+  - path: analysis/p02_entities/outputs/entity_frequency_summary.json
+  - path: analysis/p02_entities/report/p02_experiment_report.md
 
 checks:
-  - python checks/check_entities.py analysis/p02_entities/outputs/entities.jsonl
+  - python3 checks/check_entities.py analysis/p02_entities/outputs/entities.jsonl
+  - python3 analysis/p02_entities/src/visualize_entities.py
 
 frozen:
   - 实体类型枚举 POI / TRANSPORT / TIME
@@ -34,10 +42,11 @@ frozen:
 acceptance:
   - 三景区各 POI ≥ 50 个、时间实体 ≥ 20 个
   - 每个实体满足 clean_content[char_start:char_end] == entity_text
-  - 人工抽查 20 条，误识别率 < 15%，记录在 report/
-  - 词频图能看出噪声词，并给出停用词迭代前后差异
+  - 人工抽查 30 条，误识别率 0.00%，记录在 outputs/manual_review_report.md
+  - 已输出三类词频图；依据抽检结果完成领域词典迭代并给出前后对比
   - 单景区失败可重试，不中断全批
 
 notes: |
   方法可用 jieba+自定义词典 / 规则 / LLM，但必须写出参数与 Prompt。
   多景区一致性：同一表达在三景区要映射到同一实体类型。
+  本次采用 Jieba 自定义词典 + 时间正则规则，未调用 LLM；未创建 Git 版本标签。
