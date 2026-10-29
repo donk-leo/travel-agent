@@ -2,8 +2,8 @@ project: p01_scenic
 title: 景区指南数据采集与预处理（三景区）
 owner: 三人各自负责一景区
 reviewer: 交叉复核（长隆↔武功山↔白云山）
-status: in_progress
-version_tag: ""          # 三份齐全后填 v0.1-p01
+status: done
+version_tag: v0.1-p01
 
 inputs:
   - source: 公开网页（官网 / 游记平台）
@@ -44,3 +44,8 @@ notes: |
   长隆由本地历史数据集转换（scenic/changlong/src/export_standard.py）。
   白云山官网游览路线在 https://www.baiyunshan.com.cn/bys/lytj/ （A/B/C 三线）。
   武功山已交付：14 条（官方 6 + 游记 8，1 篇图片帖标 is_valid=False）。
+  白云山脚本状态（2026-10-29 复核）：scenic/baiyunshan/src/ 仅有 README.md，无专属一键脚本；
+  数据依赖 archive/legacy_collect_2026-10-28/ 通用采集脚本 + 官网 A/B/C 线补采 + 人工筛选整理。
+  该脚本缺口属"过程可复现性"缺陷，不影响数据本身（三份 check_scenic 均 exit 0）；
+  补脚本若导致 clean_content 变化，按铁律 6 升 v0.1-p01.1 并通知全组重跑下游。
+  本 tag 冻结：三景区 doc_id 与 clean_content（含其内部换行符形态，长隆 LF、白云山/武功山 CRLF）。
