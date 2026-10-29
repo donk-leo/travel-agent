@@ -22,6 +22,7 @@ baiyunshan/
 ├─ data/
 │  ├─ processed/baiyunshan_guides.csv   ★ 交付物（24 列，UTF-8-SIG）
 │  └─ raw/sources.csv                   7 条记录的来源/URL/作者/日期/字数
+├─ src/README.md                         采集来源、处理过程与复现边界说明
 ├─ outputs/                             质量检查（待补）
 └─ report/                              实验报告章节（待补）
 ```
@@ -38,6 +39,11 @@ baiyunshan/
 4. **缺失值**：小红书/去哪儿页面未提供作者，发布日期也无法从页面确认，统一写“未知”，
    在 `quality_flags` 中标注，未伪造。
 
+5. **采集脚本归属**：白云山采集并非一套独立脚本完成。通用网页采集来自
+   `archive/legacy_collect_2026-10-28/采集.py`，3 篇小红书笔记来自同目录的
+   `小红书登录采集.py`；两者的白云山结果已在归档中保留。A/B/C 三条官方路线是后续根据官网“游览推荐”页面补采后纳入标准数据集。
+   详细来源映射和复现边界见 `src/README.md`。
+
 ## 4. 自检
 
 ```powershell
@@ -51,3 +57,4 @@ python checks/check_scenic.py scenic/baiyunshan/data/processed/baiyunshan_guides
 - 小红书采集依赖登录态，且部分笔记为纯图片/视频；本目录只保留有文字正文的 3 篇。
 - 官方 B/C 线很短，项目 3 做路线层级时信息量有限，A 线（395 字）更适合作为解析样本。
 - 小红书页面可能改版；`source_url` 中带 `xsec_token`，过期后需重新获取。
+- 当前没有白云山专属一键采集脚本；最终数据是归档采集结果、官网补采和人工标准化整理的合并结果。

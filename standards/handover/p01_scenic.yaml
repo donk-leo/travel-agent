@@ -38,6 +38,9 @@ acceptance:
   - 三份能被 scenic/wugongshan/src/merge_group.py 合并成功
 
 notes: |
+  白云山采集依据为 archive/legacy_collect_2026-10-28/ 下的通用采集.py 与小红书登录采集.py；
+  前者覆盖普通网页来源，后者在登录态下采集小红书公开分享链接。两者面向多个景区，
+  不作为白云山专属一键脚本；白云山 A/B/C 官方路线由后续官网补采，最终数据还经过人工筛选、正文截取与 24 列标准化。
   长隆由本地历史数据集转换（scenic/changlong/src/export_standard.py）。
   白云山官网游览路线在 https://www.baiyunshan.com.cn/bys/lytj/ （A/B/C 三线）。
   武功山已交付：14 条（官方 6 + 游记 8，1 篇图片帖标 is_valid=False）。
