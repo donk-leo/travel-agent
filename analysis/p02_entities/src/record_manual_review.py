@@ -59,7 +59,7 @@ def main() -> None:
         row["reviewer_note"] = note
 
     with SAMPLES.open("w", encoding="utf-8-sig", newline="") as fh:
-        writer = csv.DictWriter(fh, fieldnames=fields)
+        writer = csv.DictWriter(fh, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 

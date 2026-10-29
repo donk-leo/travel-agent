@@ -104,7 +104,7 @@ def main() -> None:
         "manual_verdict", "issue_type", "suggested_correction", "reviewer_note",
     ]
     with out.open("w", encoding="utf-8-sig", newline="") as fh:
-        writer = csv.DictWriter(fh, fieldnames=fields)
+        writer = csv.DictWriter(fh, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for index, entity in enumerate(samples, start=1):
             text = clean_texts[entity["doc_id"]]
