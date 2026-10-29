@@ -2,8 +2,8 @@ project: p02_entities
 title: 游览步骤的实体识别（景点 POI / 交通方式 / 时间节点）
 owner: T0coke
 reviewer: HappinessJo
-status: completed
-version_tag: ""
+status: done
+version_tag: v0.2-p02
 
 inputs:
   - path: scenic/changlong/data/processed/changlong_guides.csv

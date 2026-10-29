@@ -48,4 +48,7 @@ notes: |
   数据依赖 archive/legacy_collect_2026-10-28/ 通用采集脚本 + 官网 A/B/C 线补采 + 人工筛选整理。
   该脚本缺口属"过程可复现性"缺陷，不影响数据本身（三份 check_scenic 均 exit 0）；
   补脚本若导致 clean_content 变化，按铁律 6 升 v0.1-p01.1 并通知全组重跑下游。
-  本 tag 冻结：三景区 doc_id 与 clean_content（含其内部换行符形态，长隆 LF、白云山/武功山 CRLF）。
+  本 tag 冻结：三景区 doc_id 与 clean_content。仓库内三份 clean_content 统一为 LF；
+  若本机 core.autocrlf=true 且文件在 .gitattributes 生效前生成，工作区可能是 CRLF，
+  此时所有按字符位置取值的下游项目会整体错位（P2 曾因此误报 709 条 span 不一致）；
+  修复：删除该文件后执行 git checkout -- <路径> 重新物化，git status 仍显示干净。
