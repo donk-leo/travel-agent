@@ -2,8 +2,8 @@ project: p03_routes
 title: 游览路线的层级结构挖掘
 owner: HappinessJo
 reviewer: T0coke
-status: planned
-version_tag: ""
+status: done
+version_tag: v0.3-p03
 
 inputs:
   - path: scenic/changlong/data/processed/changlong_guides.csv
@@ -39,3 +39,10 @@ acceptance:
 
 notes: |
   长隆 CHL-O02 官方页同时具备"箭头链路 + 第一站(时间)"两种格式，适合做解析样本。
+  交付结果（v0.3-p03）：35 条路线 / 226 个步骤；长隆 8/52、白云山 11/61、武功山 16/113。
+  47 个步骤有显式时间（全部在长隆）；白云山、武功山原文只有时长没有时刻，时间层级在这两景区不成立，
+  已在 report 第 5.1 节列为上游数据问题（建议 P1 补采带时刻表的路线页）。
+  解析格式 6 种：chain / station(+chain) / time_leading / period / day_sequence / poi_list，散文兜底 prose；
+  29 篇中 17 篇拿到结构化路线，12 篇散文只记"存在路线"1 步。
+  时间口径：只认 explicit，absent 不填 time_norm、不推断；层级 上午 06–12 / 中午 12–14 / 下午 14–18 / 晚上 18–06。
+  复现：python analysis/p03_routes/src/run_all.py（输出确定性，两次重跑 SHA1 相同）。

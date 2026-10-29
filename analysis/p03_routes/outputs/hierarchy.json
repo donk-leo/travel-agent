@@ -1,0 +1,2846 @@
+{
+  "source": "analysis/p03_routes/outputs/routes.jsonl",
+  "period_rule": {
+    "上午": "06:00 ≤ 时间 < 12:00，或原文写上午/早上/清晨",
+    "中午": "12:00 ≤ 时间 < 14:00，或原文写中午",
+    "下午": "14:00 ≤ 时间 < 18:00，或原文写下午",
+    "晚上": "18:00 ≤ 时间 或 < 06:00，或原文写傍晚/晚上",
+    "未知": "time_source=absent，原文没有任何时间表达（不做推断）"
+  },
+  "time_norm_rule": {
+    "HH:MM": "原文显式时刻；时间段取起点（time_raw 保留完整区间）",
+    "AM": "原文显式写上午/早上/清晨/凌晨",
+    "NOON": "原文显式写中午/正午",
+    "PM": "原文显式写下午/傍晚/晚上",
+    "": "time_source=absent 时不填"
+  },
+  "frozen": [
+    "同 route_id 内 step_no 从 1 连续递增",
+    "本 period_rule 一旦交付即冻结"
+  ],
+  "totals": {
+    "routes": 35,
+    "steps": 226,
+    "timed_steps": 47,
+    "by_time_source": {
+      "absent": 179,
+      "explicit": 47
+    },
+    "by_period": {
+      "未知": 179,
+      "上午": 16,
+      "中午": 11,
+      "下午": 17,
+      "晚上": 3
+    },
+    "by_format": {
+      "poi_list": 2,
+      "prose": 12,
+      "chain": 12,
+      "day_sequence": 2,
+      "station": 1,
+      "station+chain": 1,
+      "period": 2,
+      "time_leading": 3
+    }
+  },
+  "by_area": {
+    "长隆": {
+      "routes": 8,
+      "steps": 52,
+      "timed_steps": 47,
+      "periods": {
+        "未知": 5,
+        "上午": 16,
+        "中午": 11,
+        "下午": 17,
+        "晚上": 3
+      }
+    },
+    "广州白云山": {
+      "routes": 11,
+      "steps": 61,
+      "timed_steps": 0,
+      "periods": {
+        "未知": 61
+      }
+    },
+    "武功山": {
+      "routes": 16,
+      "steps": 113,
+      "timed_steps": 0,
+      "periods": {
+        "未知": 113
+      }
+    }
+  },
+  "by_doc_type": {
+    "官方路线": {
+      "routes": 14,
+      "steps": 134,
+      "timed_steps": 14,
+      "periods": {
+        "未知": 120,
+        "上午": 4,
+        "中午": 3,
+        "下午": 7
+      }
+    },
+    "游客游记": {
+      "routes": 20,
+      "steps": 91,
+      "timed_steps": 33,
+      "periods": {
+        "未知": 58,
+        "上午": 12,
+        "中午": 8,
+        "下午": 10,
+        "晚上": 3
+      }
+    },
+    "站点攻略": {
+      "routes": 1,
+      "steps": 1,
+      "timed_steps": 0,
+      "periods": {
+        "未知": 1
+      }
+    }
+  },
+  "routes": [
+    {
+      "route_id": "BYS-O-01-r1",
+      "doc_id": "BYS-O-01",
+      "scenic_area": "广州白云山",
+      "doc_type": "官方路线",
+      "subtype": "官方线路-A线",
+      "title": "白云山游览线路（A线）",
+      "format": "poi_list",
+      "n_steps": 23,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 23
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "麓湖公园",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "鸿鹄楼",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "聚芳园",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "白云仙馆",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "星海园",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "蒲谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "能仁寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "世纪圆梦石",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 9,
+          "poi": "鸣春谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 10,
+          "poi": "山顶公园",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 11,
+          "poi": "两江情缘石",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 12,
+          "poi": "广州碑林",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 13,
+          "poi": "黄河石广场",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 14,
+          "poi": "锦绣南天",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 15,
+          "poi": "摩星岭",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 16,
+          "poi": "山庄旅舍",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 17,
+          "poi": "双溪别墅",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 18,
+          "poi": "白云松涛",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 19,
+          "poi": "桃花涧",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 20,
+          "poi": "明珠楼",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 21,
+          "poi": "梅花谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 22,
+          "poi": "黄婆洞水库",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 23,
+          "poi": "回归林",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-O-02-r1",
+      "doc_id": "BYS-O-02",
+      "scenic_area": "广州白云山",
+      "doc_type": "官方路线",
+      "subtype": "官方线路-B线",
+      "title": "白云山游览路线（B线）",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜白云山游览路线（B线）",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-O-03-r1",
+      "doc_id": "BYS-O-03",
+      "scenic_area": "广州白云山",
+      "doc_type": "官方路线",
+      "subtype": "官方线路-C线",
+      "title": "白云山游览路线（C线）",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜白云山游览路线（C线）",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-T-01-r1",
+      "doc_id": "BYS-T-01",
+      "scenic_area": "广州白云山",
+      "doc_type": "站点攻略",
+      "subtype": "攻略",
+      "title": "广州白云山游玩有哪些避雷攻略？ - 去哪儿",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜广州白云山游玩有哪些避雷攻略？ - 去哪儿",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-T-02-r1",
+      "doc_id": "BYS-T-02",
+      "scenic_area": "广州白云山",
+      "doc_type": "游客游记",
+      "subtype": "攻略",
+      "title": "5元爬5A景区？广州白云山保姆级攻略来了！ - 小红书",
+      "format": "chain",
+      "n_steps": 5,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 5
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "白云山南门",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "云台花园",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "",
+          "activity": "缆车上山",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "山顶广场",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "摩星岭",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-T-02-r2",
+      "doc_id": "BYS-T-02",
+      "scenic_area": "广州白云山",
+      "doc_type": "游客游记",
+      "subtype": "攻略",
+      "title": "5元爬5A景区？广州白云山保姆级攻略来了！ - 小红书",
+      "format": "chain",
+      "n_steps": 6,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 6
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "白云山西门",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "桃花涧",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "黄婆洞水库",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "明珠楼",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "摩星岭",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "白云山南门",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-T-02-r3",
+      "doc_id": "BYS-T-02",
+      "scenic_area": "广州白云山",
+      "doc_type": "游客游记",
+      "subtype": "攻略",
+      "title": "5元爬5A景区？广州白云山保姆级攻略来了！ - 小红书",
+      "format": "chain",
+      "n_steps": 5,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 5
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "白云山西门",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "黄婆洞水库",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "梅花谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "松涛别院",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "摩星岭",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-T-03-r1",
+      "doc_id": "BYS-T-03",
+      "scenic_area": "广州白云山",
+      "doc_type": "游客游记",
+      "subtype": "路线",
+      "title": "广州白云山｜3条精选路线 - 小红书",
+      "format": "chain",
+      "n_steps": 6,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 6
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "白云山南门",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "",
+          "activity": "索道上山",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "山顶广场",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "九龙泉",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "广州碑林",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "",
+          "activity": "索道下山",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-T-03-r2",
+      "doc_id": "BYS-T-03",
+      "scenic_area": "广州白云山",
+      "doc_type": "游客游记",
+      "subtype": "路线",
+      "title": "广州白云山｜3条精选路线 - 小红书",
+      "format": "chain",
+      "n_steps": 6,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 6
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "白云山南门",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "能仁寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "蒲谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "山顶广场",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "摩星岭",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "白云山南门",
+          "activity": "下山",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-T-03-r3",
+      "doc_id": "BYS-T-03",
+      "scenic_area": "广州白云山",
+      "doc_type": "游客游记",
+      "subtype": "路线",
+      "title": "广州白云山｜3条精选路线 - 小红书",
+      "format": "chain",
+      "n_steps": 6,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 6
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "白云山北门",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "黄婆洞水库",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "明珠楼",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "环湖栈道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "桃花涧",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "南门下山",
+          "activity": "观光车",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "BYS-T-04-r1",
+      "doc_id": "BYS-T-04",
+      "scenic_area": "广州白云山",
+      "doc_type": "游客游记",
+      "subtype": "攻略",
+      "title": "广州白云山徒步攻略｜南门—西门 10 公里整 - 小红书",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜广州白云山徒步攻略｜南门—西门 10 公里整 - 小红书",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-01-r1",
+      "doc_id": "WGS-O-01",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "徒步一日游",
+      "title": "户外体验一日游",
+      "format": "chain",
+      "n_steps": 16,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 16
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "石鼓寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "尽心桥",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "飙水岩瀑布",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "猴谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "紫极宫",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "吊马桩",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "武功山神",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 9,
+          "poi": "武功神拳",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 10,
+          "poi": "金顶索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 11,
+          "poi": "高空栈道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 12,
+          "poi": "许愿桥",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 13,
+          "poi": "福星谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 14,
+          "poi": "紫极宫",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 15,
+          "poi": "中庵索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 16,
+          "poi": "石鼓寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-02-r1",
+      "doc_id": "WGS-O-02",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "索道观光一日游",
+      "title": "休闲观光一日游",
+      "format": "chain",
+      "n_steps": 17,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 17
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "石鼓寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "中庵索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "紫极宫",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "福星谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "许愿桥",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "高空栈道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "金顶索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "武功神拳",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 9,
+          "poi": "武功山神",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 10,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 11,
+          "poi": "金顶索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 12,
+          "poi": "松园",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 13,
+          "poi": "",
+          "activity": "可选择乘坐高空滑索",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 14,
+          "poi": "福星谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 15,
+          "poi": "紫极宫",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 16,
+          "poi": "中庵索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 17,
+          "poi": "石鼓寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-03-r1",
+      "doc_id": "WGS-O-03",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "两日游",
+      "title": "生态武功山+红色安源两日游",
+      "format": "day_sequence",
+      "n_steps": 14,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 14
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "安源路矿工人运动纪念馆",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "秋收起义广场",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "中庵索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "紫极宫",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "福星谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "问道台",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "松涛阁",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "许愿石",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 9,
+          "poi": "福星谷栈道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 10,
+          "poi": "金顶索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 11,
+          "poi": "古祭坛群",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 12,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 13,
+          "poi": "中庵索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 14,
+          "poi": "金顶索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-04-r1",
+      "doc_id": "WGS-O-04",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "露营两日游",
+      "title": "武功山帐篷露营两日游",
+      "format": "day_sequence",
+      "n_steps": 18,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 18
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "石鼓寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "中庵索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "紫极宫",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "福星谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "许愿桥",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "玻璃眺台",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "金顶索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "武功神拳",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 9,
+          "poi": "武功山神",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 10,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 11,
+          "poi": "古祭坛群",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 12,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 13,
+          "poi": "吊马桩",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 14,
+          "poi": "中庵",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 15,
+          "poi": "七仙潭",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 16,
+          "poi": "红岩瀑",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 17,
+          "poi": "夫妻瀑",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 18,
+          "poi": "一木成林",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-05-r1",
+      "doc_id": "WGS-O-05",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "两日游攻略",
+      "title": "最强攻略 | 武功山两日游",
+      "format": "chain",
+      "n_steps": 9,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 9
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "紫极宫",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "福星谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "许愿桥",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "玻璃栈道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "回音谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "情人花廊",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "草甸之舟",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "古祭坛群",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 9,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-05-r2",
+      "doc_id": "WGS-O-05",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "两日游攻略",
+      "title": "最强攻略 | 武功山两日游",
+      "format": "chain",
+      "n_steps": 8,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 8
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "观音宕",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "吊马桩",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "好汉坡",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "滴水观音",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "猴谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "飙水岩瀑布",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "尽心瀑",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "石鼓寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-05-r3",
+      "doc_id": "WGS-O-05",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "两日游攻略",
+      "title": "最强攻略 | 武功山两日游",
+      "format": "chain",
+      "n_steps": 3,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 3
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "萍乡车站",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "观音宕",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-06-r1",
+      "doc_id": "WGS-O-06",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "两日游攻略",
+      "title": "干货！武功山两天怎么玩？这份攻略请收好！",
+      "format": "poi_list",
+      "n_steps": 6,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 6
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "许愿桥",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "玻璃眺台",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "回音谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "情人花廊",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "完玻璃栈道就可以下山了",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "途经好汉坡",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-T-01-r1",
+      "doc_id": "WGS-T-01",
+      "scenic_area": "武功山",
+      "doc_type": "游客游记",
+      "subtype": "徒步（雨天）",
+      "title": "端午之武功山徒步",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜端午之武功山徒步",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-T-02-r1",
+      "doc_id": "WGS-T-02",
+      "scenic_area": "武功山",
+      "doc_type": "游客游记",
+      "subtype": "徒步穿越",
+      "title": "武功山——偶遇游望，结缘酱瓜",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜武功山——偶遇游望，结缘酱瓜",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-T-03-r1",
+      "doc_id": "WGS-T-03",
+      "scenic_area": "武功山",
+      "doc_type": "游客游记",
+      "subtype": "交通门票攻略",
+      "title": "攻略｜武功山两天一夜攻略，建议收藏",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜攻略｜武功山两天一夜攻略，建议收藏",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-T-04-r1",
+      "doc_id": "WGS-T-04",
+      "scenic_area": "武功山",
+      "doc_type": "游客游记",
+      "subtype": "风光记录",
+      "title": "风光｜永远值得回忆的武功山！",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜风光｜永远值得回忆的武功山！",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-T-05-r1",
+      "doc_id": "WGS-T-05",
+      "scenic_area": "武功山",
+      "doc_type": "游客游记",
+      "subtype": "徒步穿越（沈明线）",
+      "title": "风雨赴山海，再徒武功山——沈明线47公里两日徒步游记",
+      "format": "chain",
+      "n_steps": 15,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 15
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "此次我们挑战经典的武功山沈明线",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "九龙客栈",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "铁蹄峰",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "吊马桩",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "观音宕",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "绝望坡",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "好汉坡",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 9,
+          "poi": "发云界",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 10,
+          "poi": "老鹰岩",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 11,
+          "poi": "沈家大院",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 12,
+          "poi": "羊狮慕小火车站",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 13,
+          "poi": "三县界碑",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 14,
+          "poi": "明月山6281梯",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 15,
+          "poi": "明月山景区大门终点",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-T-06-r1",
+      "doc_id": "WGS-T-06",
+      "scenic_area": "武功山",
+      "doc_type": "游客游记",
+      "subtype": "反穿徒步",
+      "title": "反穿武功山",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜反穿武功山",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-T-07-r1",
+      "doc_id": "WGS-T-07",
+      "scenic_area": "武功山",
+      "doc_type": "游客游记",
+      "subtype": "徒步",
+      "title": "草已黄，人未老，武功山上见分晓",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜草已黄，人未老，武功山上见分晓",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-T-08-r1",
+      "doc_id": "WGS-T-08",
+      "scenic_area": "武功山",
+      "doc_type": "游客游记",
+      "subtype": "露营攻略",
+      "title": "江西武功山金顶星空露营攻略：解锁高山云海的浪漫",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜江西武功山金顶星空露营攻略：解锁高山云海的浪漫",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "CL-O-01-r1",
+      "doc_id": "CL-O-01",
+      "scenic_area": "长隆",
+      "doc_type": "官方路线",
+      "subtype": "度假区（多园区）",
+      "title": "广州长隆3天2夜游玩攻略",
+      "format": "station",
+      "n_steps": 3,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 3
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "长隆欢乐世界",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "长隆野生动物世界",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "长隆水上乐园",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "CL-O-02-r1",
+      "doc_id": "CL-O-02",
+      "scenic_area": "长隆",
+      "doc_type": "官方路线",
+      "subtype": "野生动物世界",
+      "title": "广州长隆野生动物世界游玩攻略",
+      "format": "station+chain",
+      "n_steps": 12,
+      "n_timed": 11,
+      "periods": {
+        "上午": 3,
+        "中午": 2,
+        "下午": 6,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "北门",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "小火车游览区",
+          "activity": "",
+          "time_raw": "10:00",
+          "time_norm": "10:00",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 3,
+          "poi": "青龙山",
+          "activity": "",
+          "time_raw": "11:00",
+          "time_norm": "11:00",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 4,
+          "poi": "考拉园",
+          "activity": "",
+          "time_raw": "11:50",
+          "time_norm": "11:50",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 5,
+          "poi": "熊猫乐园",
+          "activity": "",
+          "time_raw": "12:10",
+          "time_norm": "12:10",
+          "time_source": "explicit",
+          "time_period": "中午"
+        },
+        {
+          "step_no": 6,
+          "poi": "熊猫餐厅",
+          "activity": "",
+          "time_raw": "12:30",
+          "time_norm": "12:30",
+          "time_source": "explicit",
+          "time_period": "中午"
+        },
+        {
+          "step_no": 7,
+          "poi": "4D影院",
+          "activity": "",
+          "time_raw": "14:00",
+          "time_norm": "14:00",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 8,
+          "poi": "亚洲象园",
+          "activity": "",
+          "time_raw": "15:00",
+          "time_norm": "15:00",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 9,
+          "poi": "长颈鹿广场",
+          "activity": "",
+          "time_raw": "15:30",
+          "time_norm": "15:30",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 10,
+          "poi": "空中缆车",
+          "activity": "",
+          "time_raw": "16:00",
+          "time_norm": "16:00",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 11,
+          "poi": "火烈鸟",
+          "activity": "",
+          "time_raw": "17:00",
+          "time_norm": "17:00",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 12,
+          "poi": "南门纪念品商店",
+          "activity": "",
+          "time_raw": "17:30",
+          "time_norm": "17:30",
+          "time_source": "explicit",
+          "time_period": "下午"
+        }
+      ]
+    },
+    {
+      "route_id": "CL-O-03-r1",
+      "doc_id": "CL-O-03",
+      "scenic_area": "长隆",
+      "doc_type": "官方路线",
+      "subtype": "欢乐世界",
+      "title": "广州长隆欢乐世界游玩攻略",
+      "format": "period",
+      "n_steps": 3,
+      "n_timed": 3,
+      "periods": {
+        "上午": 1,
+        "中午": 1,
+        "下午": 1,
+        "晚上": 0,
+        "未知": 0
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "尖叫地带",
+          "activity": "",
+          "time_raw": "尖叫地带",
+          "time_norm": "AM",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 2,
+          "poi": "椰林餐厅",
+          "activity": "",
+          "time_raw": "椰林餐厅+欢乐嘉年华",
+          "time_norm": "NOON",
+          "time_source": "explicit",
+          "time_period": "中午"
+        },
+        {
+          "step_no": 3,
+          "poi": "律动天地",
+          "activity": "",
+          "time_raw": "律动天地",
+          "time_norm": "PM",
+          "time_source": "explicit",
+          "time_period": "下午"
+        }
+      ]
+    },
+    {
+      "route_id": "CL-T-01-r1",
+      "doc_id": "CL-T-01",
+      "scenic_area": "长隆",
+      "doc_type": "游客游记",
+      "subtype": "欢乐世界",
+      "title": "五一長隆歡樂世界保姆級攻略｜避開人潮玩回票價！",
+      "format": "time_leading",
+      "n_steps": 3,
+      "n_timed": 3,
+      "periods": {
+        "上午": 1,
+        "中午": 2,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 0
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "刺激项目黄金时段",
+          "activity": "",
+          "time_raw": "09:00-12:00",
+          "time_norm": "09:00-12:00",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 2,
+          "poi": "错峰午餐",
+          "activity": "",
+          "time_raw": "12:00-13:30",
+          "time_norm": "12:00-13:30",
+          "time_source": "explicit",
+          "time_period": "中午"
+        },
+        {
+          "step_no": 3,
+          "poi": "沉浸体验",
+          "activity": "",
+          "time_raw": "13:30-17:30",
+          "time_norm": "13:30-17:30",
+          "time_source": "explicit",
+          "time_period": "中午"
+        }
+      ]
+    },
+    {
+      "route_id": "CL-T-02-r1",
+      "doc_id": "CL-T-02",
+      "scenic_area": "长隆",
+      "doc_type": "游客游记",
+      "subtype": "度假区（多园区）",
+      "title": "廣州長隆不繞路攻略，新手直接抄作業！",
+      "format": "time_leading",
+      "n_steps": 10,
+      "n_timed": 10,
+      "periods": {
+        "上午": 5,
+        "中午": 2,
+        "下午": 2,
+        "晚上": 1,
+        "未知": 0
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "安检入口",
+          "activity": "",
+          "time_raw": "09:00",
+          "time_norm": "09:00",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 2,
+          "poi": "欢乐主街区",
+          "activity": "",
+          "time_raw": "09:20",
+          "time_norm": "09:20",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 3,
+          "poi": "垂直过山车",
+          "activity": "",
+          "time_raw": "09:40",
+          "time_norm": "09:40",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 4,
+          "poi": "十环过山车",
+          "activity": "",
+          "time_raw": "10:30",
+          "time_norm": "10:30",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 5,
+          "poi": "超级大摆锤",
+          "activity": "",
+          "time_raw": "11:20",
+          "time_norm": "11:20",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 6,
+          "poi": "午餐休息区",
+          "activity": "",
+          "time_raw": "12:10",
+          "time_norm": "12:10",
+          "time_source": "explicit",
+          "time_period": "中午"
+        },
+        {
+          "step_no": 7,
+          "poi": "家庭亲子区",
+          "activity": "",
+          "time_raw": "13:10",
+          "time_norm": "13:10",
+          "time_source": "explicit",
+          "time_period": "中午"
+        },
+        {
+          "step_no": 8,
+          "poi": "欢乐剧场",
+          "activity": "",
+          "time_raw": "14:10",
+          "time_norm": "14:10",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 9,
+          "poi": "巡游主街段",
+          "activity": "",
+          "time_raw": "15:30",
+          "time_norm": "15:30",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 10,
+          "poi": "夜场演出",
+          "activity": "",
+          "time_raw": "19:00",
+          "time_norm": "19:00",
+          "time_source": "explicit",
+          "time_period": "晚上"
+        }
+      ]
+    },
+    {
+      "route_id": "CL-T-03-r1",
+      "doc_id": "CL-T-03",
+      "scenic_area": "长隆",
+      "doc_type": "游客游记",
+      "subtype": "野生动物世界",
+      "title": "🐼🐨長隆野生動物園 | 無回頭路旅遊指南",
+      "format": "time_leading",
+      "n_steps": 17,
+      "n_timed": 17,
+      "periods": {
+        "上午": 5,
+        "中午": 2,
+        "下午": 8,
+        "晚上": 2,
+        "未知": 0
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "南门",
+          "activity": "入园",
+          "time_raw": "09:30",
+          "time_norm": "09:30",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 2,
+          "poi": "熊猫乐园站",
+          "activity": "缆车",
+          "time_raw": "10:30",
+          "time_norm": "10:30",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 3,
+          "poi": "4D影院",
+          "activity": "",
+          "time_raw": "11:00",
+          "time_norm": "11:00",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 4,
+          "poi": "花果山",
+          "activity": "",
+          "time_raw": "11:00",
+          "time_norm": "11:00",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 5,
+          "poi": "金猴王国",
+          "activity": "",
+          "time_raw": "11:00",
+          "time_norm": "11:00",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 6,
+          "poi": "青龙山",
+          "activity": "",
+          "time_raw": "12:00",
+          "time_norm": "12:00",
+          "time_source": "explicit",
+          "time_period": "中午"
+        },
+        {
+          "step_no": 7,
+          "poi": "百虎山",
+          "activity": "",
+          "time_raw": "13:00",
+          "time_norm": "13:00",
+          "time_source": "explicit",
+          "time_period": "中午"
+        },
+        {
+          "step_no": 8,
+          "poi": "天鹅湖站",
+          "activity": "坐",
+          "time_raw": "14:00",
+          "time_norm": "14:00",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 9,
+          "poi": "动物幼儿园",
+          "activity": "",
+          "time_raw": "15:00",
+          "time_norm": "15:00",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 10,
+          "poi": "花车大巡游",
+          "activity": "",
+          "time_raw": "15:30",
+          "time_norm": "15:30",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 11,
+          "poi": "百虎山",
+          "activity": "",
+          "time_raw": "16:30",
+          "time_norm": "16:30",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 12,
+          "poi": "长颈鹿广场",
+          "activity": "",
+          "time_raw": "16:30",
+          "time_norm": "16:30",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 13,
+          "poi": "考拉园",
+          "activity": "",
+          "time_raw": "16:30",
+          "time_norm": "16:30",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 14,
+          "poi": "亚洲象园",
+          "activity": "",
+          "time_raw": "16:30",
+          "time_norm": "16:30",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 15,
+          "poi": "长隆大熊猫中心",
+          "activity": "",
+          "time_raw": "17:10",
+          "time_norm": "17:10",
+          "time_source": "explicit",
+          "time_period": "下午"
+        },
+        {
+          "step_no": 16,
+          "poi": "火烈鸟",
+          "activity": "",
+          "time_raw": "18:00",
+          "time_norm": "18:00",
+          "time_source": "explicit",
+          "time_period": "晚上"
+        },
+        {
+          "step_no": 17,
+          "poi": "南门",
+          "activity": "返回",
+          "time_raw": "18:00",
+          "time_norm": "18:00",
+          "time_source": "explicit",
+          "time_period": "晚上"
+        }
+      ]
+    },
+    {
+      "route_id": "CL-T-04-r1",
+      "doc_id": "CL-T-04",
+      "scenic_area": "长隆",
+      "doc_type": "游客游记",
+      "subtype": "欢乐世界",
+      "title": "廣東長隆歡樂世界旅遊攻略：高效玩轉華南王牌樂園，快樂不踩坑",
+      "format": "period",
+      "n_steps": 3,
+      "n_timed": 3,
+      "periods": {
+        "上午": 1,
+        "中午": 2,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 0
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "冲刺王牌刺激项",
+          "time_raw": "9:00–12:00",
+          "time_norm": "09:00",
+          "time_source": "explicit",
+          "time_period": "上午"
+        },
+        {
+          "step_no": 2,
+          "poi": "",
+          "activity": "错峰休整+特色午餐",
+          "time_raw": "12:00–13:30",
+          "time_norm": "12:00",
+          "time_source": "explicit",
+          "time_period": "中午"
+        },
+        {
+          "step_no": 3,
+          "poi": "",
+          "activity": "沉浸体验+亲子友好",
+          "time_raw": "13:30–17:30",
+          "time_norm": "13:30",
+          "time_source": "explicit",
+          "time_period": "中午"
+        }
+      ]
+    },
+    {
+      "route_id": "CL-T-05-r1",
+      "doc_id": "CL-T-05",
+      "scenic_area": "长隆",
+      "doc_type": "游客游记",
+      "subtype": "水上乐园",
+      "title": "廣州長隆度假區遊玩攻略 夏日必打卡！廣州長隆水上樂園，承包一整個夏天的快樂！過山車、造浪",
+      "format": "prose",
+      "n_steps": 1,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 1
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "",
+          "activity": "整篇路线概述（未结构化）｜廣州長隆度假區遊玩攻略 夏日必打卡！廣州長隆水上樂園，承包一整個夏天的快樂！過山車、造浪",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    }
+  ]
+}

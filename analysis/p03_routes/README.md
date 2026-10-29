@@ -27,9 +27,16 @@ analysis/p03_routes/
 ## 运行
 
 ```powershell
+# 一条命令重跑（解析 → 层级/对比/图 → 自检）
+python analysis/p03_routes/src/run_all.py
+
+# 或分步
 python analysis/p03_routes/src/parse_routes.py
+python analysis/p03_routes/src/build_hierarchy.py
 python checks/check_routes.py
 ```
+
+输出确定（两次重跑 SHA1 相同），无网络、无 LLM 调用。
 
 ## 关键约束
 
@@ -50,4 +57,6 @@ python checks/check_routes.py
 
 ## 状态
 
-`planned` —— 未开始。
+`done`（`v0.3-p03`）：35 条路线 / 226 个步骤（长隆 8/52、白云山 11/61、武功山 16/113），
+47 步有显式时间（全部在长隆），官方 vs 游客 4 个指标已出（覆盖度 / 顺序 τ / 步数 / 显式时间占比）。
+`checks/check_routes.py` 退出码 0。详见 `report/p03_experiment_report.md`。
