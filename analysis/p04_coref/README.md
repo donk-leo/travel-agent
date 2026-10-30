@@ -104,4 +104,4 @@ python checks/check_coref.py
 ## 状态
 
 `implemented` —— 本地实现、评估、报告与自检均完成（`checks/check_coref.py` 通过）；
-已提交并推送到分支 `t0coke-p04-coref`，**未合并 main、未打 tag**，待成员3/组长复核后转 `done` 并打 `v0.4-p04`。
+已合并到 `main`（合并提交 `4702304`），**未打 tag**，待成员3/组长复核后转 `done` 并打 `v0.4-p04`。
