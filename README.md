@@ -1,4 +1,4 @@
-﻿# 景区游览指南的程序性知识挖掘
+# 景区游览指南的程序性知识挖掘
 
 《数据挖掘》探索性实验 · 三人小组仓库 · 2026-2027-01
 
@@ -17,7 +17,7 @@
 | 1 | 数据采集与预处理 | 三人各自负责一景区 | 长隆 ✅（8 条）｜白云山 ✅（7 条）｜武功山 ✅（14 条）（白云山采集脚本待补） | `scenic/*/data/processed/*_guides.csv` + `scenic/summary/` | `v0.1-p01` |
 | 2 | 实体识别 | T0coke | ✅ 1006 实体（POI 573 / TIME 248 / TRANSPORT 185） | `analysis/p02_entities/outputs/entities.jsonl` | `v0.2-p02` |
 | 3 | 路线层级结构 | HappinessJo | ✅ 35 条路线 / 226 个步骤（长隆 8/52、白云山 11/61、武功山 16/113） | `analysis/p03_routes/outputs/routes.jsonl` | `v0.3-p03` |
-| 4 | 共指消解 | 成员3 | 未开始 | `analysis/p04_coref/outputs/coref.jsonl` | — |
+| 4 | 共指消解 | 成员3 | 🚧 进行中（本地实现完成，待成员3/组长复核） | `analysis/p04_coref/outputs/coref.jsonl` | — |
 | 5 | 条件建议抽取 | T0coke | 未开始 | `analysis/p05_conditions/outputs/conditions.jsonl` | — |
 | 6 | 知识图谱 | T0coke | 未开始 | `analysis/p06_graph/outputs/graph_*.csv` | — |
 | 7 | 旅游规划 Agent | HappinessJo | 未开始 | `analysis/p07_agent/src/agent.py` | — |

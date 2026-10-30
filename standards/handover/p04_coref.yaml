@@ -2,7 +2,7 @@ project: p04_coref
 title: 程序性知识的共指消解
 owner: 成员3
 reviewer: T0coke
-status: planned
+status: review
 version_tag: ""
 
 inputs:
@@ -38,3 +38,6 @@ acceptance:
 
 notes: |
   优先用游记（第一人称、代词密集）；官方文本代词少，可作为对照。
+  本地实现（T0coke 代做）已完成：140 候选 / 28 消解 / 20 标注；check_coref.py 通过，
+  报告与图已生成；已提交并推送到分支 t0coke-p04-coref，未合并 main、未打 tag，
+  待成员3/组长复核后转 done。

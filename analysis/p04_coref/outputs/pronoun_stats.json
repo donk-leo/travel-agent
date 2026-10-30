@@ -1,0 +1,33 @@
+{
+  "documents": 21,
+  "documents_with_pronoun": 21,
+  "candidates": 140,
+  "by_area": {
+    "changlong": 66,
+    "baiyunshan": 4,
+    "wugongshan": 70
+  },
+  "by_doc_type": {
+    "游客游记": 71,
+    "官方路线": 69
+  },
+  "by_pronoun": {
+    "这": 41,
+    "这里": 24,
+    "这个": 18,
+    "那": 12,
+    "它": 10,
+    "这样": 7,
+    "这条": 7,
+    "他们": 7,
+    "这次": 4,
+    "这些": 3,
+    "这时": 3,
+    "它们": 1,
+    "那些": 1,
+    "那个": 1,
+    "这座": 1
+  },
+  "same_sentence_repeated_groups": 5,
+  "note": "同句多个相同代词按 occurrence 分行，start 不同；此统计只用于报告。"
+}

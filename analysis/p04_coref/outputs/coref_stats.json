@@ -1,0 +1,108 @@
+{
+  "documents_with_pronoun": 21,
+  "candidates": 140,
+  "resolved": 28,
+  "unresolved": 112,
+  "resolution_rate": 0.2,
+  "by_area": {
+    "baiyunshan": {
+      "total": 4,
+      "resolved": 1,
+      "rate": 0.25
+    },
+    "changlong": {
+      "total": 66,
+      "resolved": 16,
+      "rate": 0.2424
+    },
+    "wugongshan": {
+      "total": 70,
+      "resolved": 11,
+      "rate": 0.1571
+    }
+  },
+  "by_pronoun": {
+    "这": {
+      "total": 41,
+      "resolved": 0
+    },
+    "这里": {
+      "total": 24,
+      "resolved": 15
+    },
+    "这个": {
+      "total": 18,
+      "resolved": 8
+    },
+    "那": {
+      "total": 12,
+      "resolved": 0
+    },
+    "它": {
+      "total": 10,
+      "resolved": 4
+    },
+    "他们": {
+      "total": 7,
+      "resolved": 0
+    },
+    "这条": {
+      "total": 7,
+      "resolved": 0
+    },
+    "这样": {
+      "total": 7,
+      "resolved": 0
+    },
+    "这次": {
+      "total": 4,
+      "resolved": 0
+    },
+    "这些": {
+      "total": 3,
+      "resolved": 0
+    },
+    "这时": {
+      "total": 3,
+      "resolved": 0
+    },
+    "它们": {
+      "total": 1,
+      "resolved": 0
+    },
+    "这座": {
+      "total": 1,
+      "resolved": 1
+    },
+    "那个": {
+      "total": 1,
+      "resolved": 0
+    },
+    "那些": {
+      "total": 1,
+      "resolved": 0
+    }
+  },
+  "by_antecedent_type": {
+    "POI": 28
+  },
+  "unresolved_reasons": {
+    "指示限定语（如“这份/这段”），不指向具体实体": 53,
+    "前文无同句/近邻 POI 候选": 8,
+    "前文无同句 POI 候选，或为时间/复数指代": 7,
+    "方式指代，不对应具体实体": 7,
+    "路线指代，schema 无 ROUTE 类型": 7,
+    "人物指代，schema 无 PERSON 类型": 7,
+    "前文无 POI/交通候选，或为人物/动物指代": 4,
+    "“这个/那个+时间词”是时间限定语，不是实体指代": 4,
+    "复数集合指代，不强行选单个实体": 4,
+    "整段行程/事件指代，无 EVENT 实体": 4,
+    "前文无时间候选": 3,
+    "“与/和/跟/给/让+它”多指人物或动物，不映射为 POI": 2,
+    "复数代词，指向多个对象": 1,
+    "“我/你/他/她+这里”是说话人位置，非实体指代": 1
+  },
+  "threshold": 0.6,
+  "max_distance": 100,
+  "method": "rule_nearest"
+}
