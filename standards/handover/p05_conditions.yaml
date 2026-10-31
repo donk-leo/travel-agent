@@ -2,7 +2,7 @@ project: p05_conditions
 title: 条件性游览建议的抽取
 owner: T0coke
 reviewer: 成员3
-status: planned
+status: review
 version_tag: ""
 
 inputs:
@@ -38,3 +38,7 @@ acceptance:
 
 notes: |
   官方文本的条件句密度低，游记里"带老人/下雨/夜爬"更常见，跨景区对比时要说明分布差异。
+  本次本地结果：36 条 / 33 唯一；13 篇文档有结果（覆盖率 46.43%）；人工抽查 20 条，
+  严格正确 14、部分正确 5、错误 1（严格 70%、宽松 95%）。
+  `checks/check_conditions.py` 已通过；报告在 report/ 下。已提交 main，
+  等待 reviewer 成员3复核；复核通过后再改 status: done 并打 v0.5-p05。

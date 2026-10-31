@@ -19,15 +19,29 @@ analysis/p05_conditions/
 ├─ config/triggers.csv                 # 触发词表（如果/假如/若/建议/可以…）
 ├─ outputs/conditions.jsonl            # 一行一条条件-建议
 ├─ outputs/映射表.xlsx                  # 条件类型/条件/建议/来源
-└─ outputs/figures/condition_stats.png  # 按游客类型（人群）分组统计
+├─ outputs/manual_review.csv            # 20 条人工抽查明细
+├─ outputs/eval_conditions.md           # 抽查评估报告
+├─ outputs/rejected.jsonl               # 被过滤候选及原因
+└─ outputs/figures/condition_stats.png  # 类型 / 景区 / 景区×类型 / 抽查结果
 ```
 
 ## 运行
 
 ```powershell
+# 一键跑完抽取、评估、映射表、图、报告和自检
+python analysis/p05_conditions/src/run_all.py
+
+# 或分步运行
 python analysis/p05_conditions/src/extract_conditions.py
+python analysis/p05_conditions/src/eval_conditions.py
+python analysis/p05_conditions/src/build_mapping.py
+python analysis/p05_conditions/src/make_figures.py
+python analysis/p05_conditions/src/build_report.py
 python checks/check_conditions.py
 ```
+
+> 本机系统 Python 若缺少 openpyxl/Pillow/python-docx，请改用课程环境的 python.exe；
+> 本次运行使用的是 `.dsh` 捆绑运行时。
 
 ## 关键约束
 
@@ -45,6 +59,14 @@ python checks/check_conditions.py
 | 映射表、分类与去重 | 25 | `映射表.xlsx` + 去重前后统计 |
 | 报告与可复现 | 10 | `report/` + README |
 
+## 结果
+
+- 29 条文档 / 28 有效；13 篇有结果，文档覆盖率 46.43%；
+- 36 条条件-建议，去重后 33 条（exact 2、prefix_suffix 1、near 0）；
+- 类型：交通 4、时间 13、人群 13、体力 2、天气 3、预算 1；
+- 景区：长隆 12、白云山 8、武功山 16；显式 10、隐式 26；
+- 人工抽查 20 条：正确 14、部分正确 5、错误 1；严格准确率 70.00%、宽松可用率 95.00%。
+
 ## 状态
 
-`planned` —— 未开始。
+`review` —— 已提交 main，等待成员3复核；复核通过后再改 `done` 并打 `v0.5-p05`。

@@ -1,0 +1,82 @@
+{
+  "reviewed": 20,
+  "correct": 14,
+  "partial": 5,
+  "wrong": 1,
+  "strict_accuracy": 0.7,
+  "lenient_accuracy": 0.95,
+  "by_area": {
+    "广州白云山": 7,
+    "武功山": 7,
+    "长隆": 6
+  },
+  "by_type": {
+    "交通": 2,
+    "时间": 6,
+    "人群": 9,
+    "体力": 2,
+    "天气": 1
+  },
+  "errors": [
+    {
+      "cond_id": "CND-0001",
+      "scenic_area": "广州白云山",
+      "doc_id": "BYS-T-01",
+      "condition_type": "交通",
+      "condition_text": "停车",
+      "suggestion_text": "可停在金贵村长腰岭停车场，收费8元/小时，位于白云索道对面，较为方便",
+      "label": "部分正确",
+      "reason": "conditions 是“停车”场景，suggestion 具体可用，但条件不是游客状态"
+    },
+    {
+      "cond_id": "CND-0016",
+      "scenic_area": "武功山",
+      "doc_id": "WGS-T-02",
+      "condition_type": "时间",
+      "condition_text": "如果时间差不多",
+      "suggestion_text": "坐火车也可以的",
+      "label": "部分正确",
+      "reason": "条件“时间差不多”指代不明，suggestion 本身可用"
+    },
+    {
+      "cond_id": "CND-0025",
+      "scenic_area": "长隆",
+      "doc_id": "CL-O-01",
+      "condition_type": "人群",
+      "condition_text": "小朋友",
+      "suggestion_text": "都可以进入梦幻童话世界，打卡到人生照片",
+      "label": "部分正确",
+      "reason": "条件明确，但 suggestion 只写“梦幻童话世界”，缺具体项目"
+    },
+    {
+      "cond_id": "CND-0027",
+      "scenic_area": "长隆",
+      "doc_id": "CL-O-01",
+      "condition_type": "人群",
+      "condition_text": "小朋友",
+      "suggestion_text": "记得来参加萌帅酷的十周岁生日呀",
+      "label": "错误",
+      "reason": "“十周岁生日”是时效性活动，不是稳定建议"
+    },
+    {
+      "cond_id": "CND-0028",
+      "scenic_area": "长隆",
+      "doc_id": "CL-O-03",
+      "condition_type": "人群",
+      "condition_text": "如果胆子小在体验前",
+      "suggestion_text": "做好心理建设工作，比如先跟对象打预防针：我等下要是叫出来，你可不能笑我",
+      "label": "部分正确",
+      "reason": "心理建设建议成立，但不属于景区游览操作建议"
+    },
+    {
+      "cond_id": "CND-0035",
+      "scenic_area": "长隆",
+      "doc_id": "CL-T-04",
+      "condition_type": "人群",
+      "condition_text": "儿童",
+      "suggestion_text": "家长可在「奇幻漂流」旁休息亭同步观景",
+      "label": "部分正确",
+      "reason": "条件为儿童，suggestion 面向家长，角色不一致"
+    }
+  ]
+}

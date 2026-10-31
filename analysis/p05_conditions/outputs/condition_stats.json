@@ -1,0 +1,277 @@
+{
+  "docs_total": 29,
+  "docs_valid": 28,
+  "docs_with_conditions": 13,
+  "coverage": 0.4643,
+  "total": 36,
+  "unique": 33,
+  "duplicates": {
+    "exact": 2,
+    "prefix_suffix": 1
+  },
+  "dedup": {
+    "exact": 2,
+    "prefix_suffix": 1,
+    "unique": 33,
+    "total": 36
+  },
+  "by_type": {
+    "交通": 4,
+    "时间": 13,
+    "人群": 13,
+    "体力": 2,
+    "天气": 3,
+    "预算": 1
+  },
+  "by_area": {
+    "广州白云山": 8,
+    "武功山": 16,
+    "长隆": 12
+  },
+  "by_area_type": {
+    "广州白云山": {
+      "交通": 1,
+      "时间": 4,
+      "人群": 1,
+      "体力": 1,
+      "天气": 1
+    },
+    "武功山": {
+      "人群": 5,
+      "时间": 7,
+      "体力": 1,
+      "天气": 1,
+      "预算": 1,
+      "交通": 1
+    },
+    "长隆": {
+      "人群": 7,
+      "交通": 2,
+      "时间": 2,
+      "天气": 1
+    }
+  },
+  "by_rule": {
+    "implicit_condition": 26,
+    "explicit_if": 10
+  },
+  "by_trigger": {
+    "建议": 9,
+    "如果": 9,
+    "可": 4,
+    "一定要": 3,
+    "记得": 2,
+    "提前": 2,
+    "带": 1,
+    "如": 1,
+    "乘坐": 1,
+    "可以": 1,
+    "别": 1,
+    "按": 1,
+    "备好": 1
+  },
+  "by_crowd": {
+    "情侣": 2,
+    "团队": 2,
+    "学生": 2,
+    "亲子": 7
+  },
+  "per_doc": [
+    {
+      "doc_id": "CL-T-01",
+      "scenic_area": "changlong",
+      "doc_type": "游客游记",
+      "sentences": 37,
+      "conditions": 1
+    },
+    {
+      "doc_id": "CL-T-02",
+      "scenic_area": "changlong",
+      "doc_type": "游客游记",
+      "sentences": 40,
+      "conditions": 1
+    },
+    {
+      "doc_id": "CL-T-03",
+      "scenic_area": "changlong",
+      "doc_type": "游客游记",
+      "sentences": 40,
+      "conditions": 1
+    },
+    {
+      "doc_id": "CL-T-04",
+      "scenic_area": "changlong",
+      "doc_type": "游客游记",
+      "sentences": 46,
+      "conditions": 4
+    },
+    {
+      "doc_id": "CL-T-05",
+      "scenic_area": "changlong",
+      "doc_type": "游客游记",
+      "sentences": 22,
+      "conditions": 0
+    },
+    {
+      "doc_id": "CL-O-01",
+      "scenic_area": "changlong",
+      "doc_type": "官方路线",
+      "sentences": 53,
+      "conditions": 3
+    },
+    {
+      "doc_id": "CL-O-02",
+      "scenic_area": "changlong",
+      "doc_type": "官方路线",
+      "sentences": 61,
+      "conditions": 0
+    },
+    {
+      "doc_id": "CL-O-03",
+      "scenic_area": "changlong",
+      "doc_type": "官方路线",
+      "sentences": 43,
+      "conditions": 2
+    },
+    {
+      "doc_id": "BYS-T-01",
+      "scenic_area": "baiyunshan",
+      "doc_type": "站点攻略",
+      "sentences": 75,
+      "conditions": 7
+    },
+    {
+      "doc_id": "BYS-T-02",
+      "scenic_area": "baiyunshan",
+      "doc_type": "游客游记",
+      "sentences": 28,
+      "conditions": 1
+    },
+    {
+      "doc_id": "BYS-T-03",
+      "scenic_area": "baiyunshan",
+      "doc_type": "游客游记",
+      "sentences": 21,
+      "conditions": 0
+    },
+    {
+      "doc_id": "BYS-T-04",
+      "scenic_area": "baiyunshan",
+      "doc_type": "游客游记",
+      "sentences": 24,
+      "conditions": 0
+    },
+    {
+      "doc_id": "BYS-O-01",
+      "scenic_area": "baiyunshan",
+      "doc_type": "官方路线",
+      "sentences": 2,
+      "conditions": 0
+    },
+    {
+      "doc_id": "BYS-O-02",
+      "scenic_area": "baiyunshan",
+      "doc_type": "官方路线",
+      "sentences": 2,
+      "conditions": 0
+    },
+    {
+      "doc_id": "BYS-O-03",
+      "scenic_area": "baiyunshan",
+      "doc_type": "官方路线",
+      "sentences": 2,
+      "conditions": 0
+    },
+    {
+      "doc_id": "WGS-O-01",
+      "scenic_area": "wugongshan",
+      "doc_type": "官方路线",
+      "sentences": 4,
+      "conditions": 0
+    },
+    {
+      "doc_id": "WGS-O-02",
+      "scenic_area": "wugongshan",
+      "doc_type": "官方路线",
+      "sentences": 4,
+      "conditions": 0
+    },
+    {
+      "doc_id": "WGS-O-03",
+      "scenic_area": "wugongshan",
+      "doc_type": "官方路线",
+      "sentences": 17,
+      "conditions": 0
+    },
+    {
+      "doc_id": "WGS-O-04",
+      "scenic_area": "wugongshan",
+      "doc_type": "官方路线",
+      "sentences": 16,
+      "conditions": 0
+    },
+    {
+      "doc_id": "WGS-O-05",
+      "scenic_area": "wugongshan",
+      "doc_type": "官方路线",
+      "sentences": 119,
+      "conditions": 2
+    },
+    {
+      "doc_id": "WGS-O-06",
+      "scenic_area": "wugongshan",
+      "doc_type": "官方路线",
+      "sentences": 64,
+      "conditions": 5
+    },
+    {
+      "doc_id": "WGS-T-01",
+      "scenic_area": "wugongshan",
+      "doc_type": "游客游记",
+      "sentences": 41,
+      "conditions": 0
+    },
+    {
+      "doc_id": "WGS-T-02",
+      "scenic_area": "wugongshan",
+      "doc_type": "游客游记",
+      "sentences": 29,
+      "conditions": 1
+    },
+    {
+      "doc_id": "WGS-T-03",
+      "scenic_area": "wugongshan",
+      "doc_type": "游客游记",
+      "sentences": 54,
+      "conditions": 7
+    },
+    {
+      "doc_id": "WGS-T-05",
+      "scenic_area": "wugongshan",
+      "doc_type": "游客游记",
+      "sentences": 92,
+      "conditions": 0
+    },
+    {
+      "doc_id": "WGS-T-06",
+      "scenic_area": "wugongshan",
+      "doc_type": "游客游记",
+      "sentences": 15,
+      "conditions": 0
+    },
+    {
+      "doc_id": "WGS-T-07",
+      "scenic_area": "wugongshan",
+      "doc_type": "游客游记",
+      "sentences": 19,
+      "conditions": 0
+    },
+    {
+      "doc_id": "WGS-T-08",
+      "scenic_area": "wugongshan",
+      "doc_type": "游客游记",
+      "sentences": 9,
+      "conditions": 1
+    }
+  ]
+}
