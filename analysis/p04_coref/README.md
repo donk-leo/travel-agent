@@ -1,7 +1,7 @@
 # 项目 4 · 程序性知识的共指消解
 
-> 负责人：成员3（本实现由 T0coke 代为完成，待负责人/复核确认）
-> 复核：T0coke（自检已通过）｜交接卡：`standards/handover/p04_coref.yaml`
+> 负责人：成员3（本实现由 T0coke 代为完成；按项目组决定，以自检结果交付）
+> 复核：T0coke（自检）｜交接卡：`standards/handover/p04_coref.yaml`
 > 输出 schema：`standards/schema_coref.json`
 
 ## 目标
@@ -103,5 +103,6 @@ python checks/check_coref.py
 
 ## 状态
 
-`implemented` —— 本地实现、评估、报告与自检均完成（`checks/check_coref.py` 通过）；
-已合并到 `main`（合并提交 `4702304`），**未打 tag**，待成员3/组长复核后转 `done` 并打 `v0.4-p04`。
+`done` —— 本地实现、评估、报告与自检均完成（`checks/check_coref.py` 通过）；
+已合并到 `main`（合并提交 `4702304`），tag `v0.4-p04`。本轮为 T0coke 自检交付，
+独立复核可在后续补充；已知局限（20 条标注、28/140 消解、评估集与调参集重叠）见报告第 6 章。

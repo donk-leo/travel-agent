@@ -17,6 +17,16 @@
 | `analysis/p03_routes/outputs/routes.jsonl` | v0.3-p03 |
 | `analysis/p05_conditions/outputs/conditions.jsonl` | v0.5-p05（可选） |
 
+## P5 条件接入（已冻结 v0.5-p05）
+
+P5 已交付，可直接消费，不必再猜锚点：
+
+- 条件：`analysis/p05_conditions/outputs/conditions.jsonl`，36 条 / 33 唯一，13 篇文档；
+- 锚点桥接：`analysis/p05_conditions/outputs/p6_condition_poi.csv`（36 行，8 条挂 POI、28 条挂景区）；
+- 规则与注意事项：`analysis/p05_conditions/outputs/P6_接入说明.md`；
+- 默认过滤 3 条 `is_duplicate=true`：`CND-0014`、`CND-0015`、`CND-0022`；
+- 若 P6 暂不做条件节点，可跳过 P5；P6 的必需输入仍只有 P2、P3。
+
 ## 产出
 
 ```
@@ -54,4 +64,5 @@ python checks/check_graph.py analysis/p06_graph/outputs
 
 ## 状态
 
-`planned` —— 依赖 P2、P3 交付；开工前确认 `v0.2-p02`、`v0.3-p03` 已存在。
+`planned` —— 上游 `v0.2-p02`、`v0.3-p03`、`v0.5-p05` 均已存在；P6 代码尚未开始。
+P5 的接入说明与锚点桥接表已就绪，开工时先读 `analysis/p05_conditions/outputs/P6_接入说明.md`。

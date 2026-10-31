@@ -475,6 +475,8 @@ def main():
         ["outputs/rejected.jsonl", "被过滤的候选及原因"],
         ["outputs/manual_review.csv", "20 条抽查明细"],
         ["outputs/映射表.xlsx", "条件-建议映射表（3 个工作表）"],
+        ["outputs/p6_condition_poi.csv", "P6 条件锚点桥接表（派生，不改变 schema）"],
+        ["outputs/P6_接入说明.md", "锚点规则、统计与 P6 注意事项"],
         ["outputs/figures/condition_stats.png", "统计图"],
         ["outputs/eval_conditions.md", "抽查评估报告"],
         ["report/项目5_条件建议抽取_实验报告.docx/.pdf", "本报告"],

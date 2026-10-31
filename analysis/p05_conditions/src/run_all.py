@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""项目5 一键运行：抽取 → 评估 → 映射表 → 图 → 报告 → 自检。
+"""项目5 一键运行：抽取 → 评估 → 映射表 → P6 锚点桥接 → 图 → 报告 → 自检。
 
 用法（仓库根目录）：
     python analysis/p05_conditions/src/run_all.py
@@ -18,6 +18,7 @@ STEPS = [
     ("抽取条件-建议", HERE / "extract_conditions.py"),
     ("人工抽查评估", HERE / "eval_conditions.py"),
     ("生成映射表", HERE / "build_mapping.py"),
+    ("生成P6锚点桥接表", HERE / "build_p6_bridge.py"),
     ("生成统计图", HERE / "make_figures.py"),
     ("生成报告", HERE / "build_report.py"),
 ]

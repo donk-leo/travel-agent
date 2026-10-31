@@ -2,8 +2,8 @@ project: p05_conditions
 title: 条件性游览建议的抽取
 owner: T0coke
 reviewer: 成员3
-status: review
-version_tag: ""
+status: done
+version_tag: v0.5-p05
 
 inputs:
   - path: scenic/changlong/data/processed/changlong_guides.csv
@@ -22,6 +22,9 @@ outputs:
   - path: analysis/p05_conditions/outputs/映射表.xlsx
   - path: analysis/p05_conditions/outputs/figures/condition_stats.png
   - path: analysis/p05_conditions/config/triggers.csv
+  - path: analysis/p05_conditions/outputs/p6_condition_poi.csv
+    note: P6 条件锚点桥接表（派生，不改变 P5 schema）
+  - path: analysis/p05_conditions/outputs/P6_接入说明.md
 
 checks:
   - python checks/check_conditions.py analysis/p05_conditions/outputs/conditions.jsonl
@@ -40,5 +43,6 @@ notes: |
   官方文本的条件句密度低，游记里"带老人/下雨/夜爬"更常见，跨景区对比时要说明分布差异。
   本次本地结果：36 条 / 33 唯一；13 篇文档有结果（覆盖率 46.43%）；人工抽查 20 条，
   严格正确 14、部分正确 5、错误 1（严格 70%、宽松 95%）。
-  `checks/check_conditions.py` 已通过；报告在 report/ 下。已提交 main，
-  等待 reviewer 成员3复核；复核通过后再改 status: done 并打 v0.5-p05。
+  `checks/check_conditions.py` 已通过；报告在 report/ 下。已提交 main，tag v0.5-p05。
+  本轮由 T0coke 自检后代为交付，成员3的独立复核可在后续补充；P6 可直接消费
+  outputs/conditions.jsonl 与 outputs/p6_condition_poi.csv（条件锚点桥接表）。
