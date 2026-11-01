@@ -1,0 +1,524 @@
+﻿src,rel,dst,weight,source_doc_ids,properties
+ACTIVITY|冲刺王牌刺激项,AT_TIME,TIME|09:00,1.0,CL-T-04,"{""time_period"": ""上午""}"
+ACTIVITY|刺激项目,AT_TIME,TIME|09:00-12:00,1.0,CL-T-01,"{""time_period"": ""上午""}"
+ACTIVITY|午餐休息,AT_TIME,TIME|12:10,1.0,CL-T-02,"{""time_period"": ""中午""}"
+ACTIVITY|夜场演出,AT_TIME,TIME|19:00,1.0,CL-T-02,"{""time_period"": ""晚上""}"
+ACTIVITY|沉浸体验,AT_TIME,TIME|13:30-17:30,1.0,CL-T-01,"{""time_period"": ""中午""}"
+ACTIVITY|沉浸体验+亲子友好,AT_TIME,TIME|13:30,1.0,CL-T-04,"{""time_period"": ""中午""}"
+ACTIVITY|错峰休整+特色午餐,AT_TIME,TIME|12:00,1.0,CL-T-04,"{""time_period"": ""中午""}"
+ACTIVITY|错峰午餐,AT_TIME,TIME|12:00-13:30,1.0,CL-T-01,"{""time_period"": ""中午""}"
+POI|长隆|4D影院,AT_TIME,TIME|11:00,1.0,CL-T-03,"{""time_period"": ""上午""}"
+POI|长隆|4D影院,AT_TIME,TIME|14:00,1.0,CL-O-02,"{""time_period"": ""下午""}"
+POI|长隆|亚洲象园,AT_TIME,TIME|15:00,1.0,CL-O-02,"{""time_period"": ""下午""}"
+POI|长隆|亚洲象园,AT_TIME,TIME|16:30,1.0,CL-T-03,"{""time_period"": ""下午""}"
+POI|长隆|动物幼儿园,AT_TIME,TIME|15:00,1.0,CL-T-03,"{""time_period"": ""下午""}"
+POI|长隆|十环过山车,AT_TIME,TIME|10:30,1.0,CL-T-02,"{""time_period"": ""上午""}"
+POI|长隆|南门,AT_TIME,TIME|09:30,1.0,CL-T-03,"{""time_period"": ""上午""}"
+POI|长隆|南门,AT_TIME,TIME|18:00,1.0,CL-T-03,"{""time_period"": ""晚上""}"
+POI|长隆|南门纪念品商店,AT_TIME,TIME|17:30,1.0,CL-O-02,"{""time_period"": ""下午""}"
+POI|长隆|垂直过山车,AT_TIME,TIME|09:40,1.0,CL-T-02,"{""time_period"": ""上午""}"
+POI|长隆|天鹅湖站,AT_TIME,TIME|14:00,1.0,CL-T-03,"{""time_period"": ""下午""}"
+POI|长隆|安检入口,AT_TIME,TIME|09:00,1.0,CL-T-02,"{""time_period"": ""上午""}"
+POI|长隆|家庭亲子区,AT_TIME,TIME|13:10,1.0,CL-T-02,"{""time_period"": ""中午""}"
+POI|长隆|小火车游览区,AT_TIME,TIME|10:00,1.0,CL-O-02,"{""time_period"": ""上午""}"
+POI|长隆|尖叫地带,AT_TIME,TIME|AM,1.0,CL-O-03,"{""time_period"": ""上午""}"
+POI|长隆|巡游主街段,AT_TIME,TIME|15:30,1.0,CL-T-02,"{""time_period"": ""下午""}"
+POI|长隆|律动天地,AT_TIME,TIME|PM,1.0,CL-O-03,"{""time_period"": ""下午""}"
+POI|长隆|椰林餐厅,AT_TIME,TIME|NOON,1.0,CL-O-03,"{""time_period"": ""中午""}"
+POI|长隆|欢乐主街区,AT_TIME,TIME|09:20,1.0,CL-T-02,"{""time_period"": ""上午""}"
+POI|长隆|欢乐剧场,AT_TIME,TIME|14:10,1.0,CL-T-02,"{""time_period"": ""下午""}"
+POI|长隆|火烈鸟,AT_TIME,TIME|17:00,1.0,CL-O-02,"{""time_period"": ""下午""}"
+POI|长隆|火烈鸟,AT_TIME,TIME|18:00,1.0,CL-T-03,"{""time_period"": ""晚上""}"
+POI|长隆|熊猫乐园,AT_TIME,TIME|12:10,1.0,CL-O-02,"{""time_period"": ""中午""}"
+POI|长隆|熊猫乐园站,AT_TIME,TIME|10:30,1.0,CL-T-03,"{""time_period"": ""上午""}"
+POI|长隆|熊猫餐厅,AT_TIME,TIME|12:30,1.0,CL-O-02,"{""time_period"": ""中午""}"
+POI|长隆|百虎山,AT_TIME,TIME|13:00,1.0,CL-T-03,"{""time_period"": ""中午""}"
+POI|长隆|百虎山,AT_TIME,TIME|16:30,1.0,CL-T-03,"{""time_period"": ""下午""}"
+POI|长隆|空中缆车,AT_TIME,TIME|16:00,1.0,CL-O-02,"{""time_period"": ""下午""}"
+POI|长隆|考拉园,AT_TIME,TIME|11:50,1.0,CL-O-02,"{""time_period"": ""上午""}"
+POI|长隆|考拉园,AT_TIME,TIME|16:30,1.0,CL-T-03,"{""time_period"": ""下午""}"
+POI|长隆|花果山,AT_TIME,TIME|11:00,1.0,CL-T-03,"{""time_period"": ""上午""}"
+POI|长隆|花车大巡游,AT_TIME,TIME|15:30,1.0,CL-T-03,"{""time_period"": ""下午""}"
+POI|长隆|超级大摆锤,AT_TIME,TIME|11:20,1.0,CL-T-02,"{""time_period"": ""上午""}"
+POI|长隆|金猴王国,AT_TIME,TIME|11:00,1.0,CL-T-03,"{""time_period"": ""上午""}"
+POI|长隆|长隆大熊猫中心,AT_TIME,TIME|17:10,1.0,CL-T-03,"{""time_period"": ""下午""}"
+POI|长隆|长颈鹿广场,AT_TIME,TIME|15:30,1.0,CL-O-02,"{""time_period"": ""下午""}"
+POI|长隆|长颈鹿广场,AT_TIME,TIME|16:30,1.0,CL-T-03,"{""time_period"": ""下午""}"
+POI|长隆|青龙山,AT_TIME,TIME|11:00,1.0,CL-O-02,"{""time_period"": ""上午""}"
+POI|长隆|青龙山,AT_TIME,TIME|12:00,1.0,CL-T-03,"{""time_period"": ""中午""}"
+POI|广州白云山|世纪圆梦石,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|世纪圆梦石,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|两江情缘石,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|两江情缘石,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|九龙泉,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|九龙泉,BY_TRANSPORT,TRANSPORT|索道,1.0,BYS-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|九龙泉,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|云台景区,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|云台花园,BY_TRANSPORT,TRANSPORT|地铁,2.0,BYS-T-01;BYS-T-02,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|云台花园,BY_TRANSPORT,TRANSPORT|徒步,1.0,BYS-T-04,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|云台花园,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|云台花园,BY_TRANSPORT,TRANSPORT|索道,1.0,BYS-T-02,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|云台花园,BY_TRANSPORT,TRANSPORT|缆车,1.0,BYS-T-02,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|回归林,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|回归林,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|姑嫂坟,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|山顶公园,BY_TRANSPORT,TRANSPORT|徒步,1.0,BYS-T-04,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|山顶公园,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|山顶公园,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|岩石园,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|广州碑林,BY_TRANSPORT,TRANSPORT|步行,2.0,BYS-O-01;BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|广州碑林,BY_TRANSPORT,TRANSPORT|索道,1.0,BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|广州碑林,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|摩星岭,BY_TRANSPORT,TRANSPORT|徒步,2.0,BYS-T-01;BYS-T-04,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|摩星岭,BY_TRANSPORT,TRANSPORT|步行,4.0,BYS-O-01;BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|摩星岭,BY_TRANSPORT,TRANSPORT|索道,3.0,BYS-T-01;BYS-T-02,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|摩星岭,BY_TRANSPORT,TRANSPORT|缆车,1.0,BYS-T-02,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|摩星岭,BY_TRANSPORT,TRANSPORT|观光车,2.0,BYS-O-01;BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|摩星岭景区,BY_TRANSPORT,TRANSPORT|步行,3.0,BYS-O-01;BYS-O-03,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|摩星岭景区,BY_TRANSPORT,TRANSPORT|观光车,2.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|明珠楼,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|明珠楼,BY_TRANSPORT,TRANSPORT|索道,1.0,BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|明珠楼,BY_TRANSPORT,TRANSPORT|观光车,2.0,BYS-O-01;BYS-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|明珠楼景区,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|明珠楼景区,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|星海园,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|桃花涧,BY_TRANSPORT,TRANSPORT|步行,2.0,BYS-O-01;BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|桃花涧,BY_TRANSPORT,TRANSPORT|索道,1.0,BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|桃花涧,BY_TRANSPORT,TRANSPORT|观光车,3.0,BYS-O-01;BYS-T-01;BYS-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|梅花谷,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|梅花谷,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|玫瑰园,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|玻璃温室,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|白云仙馆,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|聚芳园,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|能仁寺,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|能仁寺,BY_TRANSPORT,TRANSPORT|索道,2.0,BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|能仁寺,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|蒲谷,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|蒲谷,BY_TRANSPORT,TRANSPORT|索道,2.0,BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|蒲谷,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|谊园,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|锦绣南天,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|锦绣南天,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|飞瀑流彩,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|鸣春谷,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|鸣春谷,BY_TRANSPORT,TRANSPORT|索道,1.0,BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|鸣春谷,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|鸣春谷景区,BY_TRANSPORT,TRANSPORT|步行,3.0,BYS-O-01;BYS-O-02,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|鸣春谷景区,BY_TRANSPORT,TRANSPORT|观光车,2.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|鸿鹄楼,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|麓湖公园,BY_TRANSPORT,TRANSPORT|步行,2.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|麓湖景区,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|黄婆洞水库,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|黄婆洞水库,BY_TRANSPORT,TRANSPORT|索道,1.0,BYS-T-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|黄婆洞水库,BY_TRANSPORT,TRANSPORT|观光车,3.0,BYS-O-01;BYS-T-01;BYS-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|黄河石广场,BY_TRANSPORT,TRANSPORT|步行,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|广州白云山|黄河石广场,BY_TRANSPORT,TRANSPORT|观光车,1.0,BYS-O-01,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|中庵,BY_TRANSPORT,TRANSPORT|徒步,1.0,WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|中庵,BY_TRANSPORT,TRANSPORT|步行,2.0,WGS-O-03;WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|中庵,BY_TRANSPORT,TRANSPORT|索道,6.0,WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|中庵,BY_TRANSPORT,TRANSPORT|观光车,1.0,WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|中庵索道,BY_TRANSPORT,TRANSPORT|徒步,1.0,WGS-O-05,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|中庵索道,BY_TRANSPORT,TRANSPORT|索道,3.0,WGS-O-03;WGS-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|吊马桩,BY_TRANSPORT,TRANSPORT|徒步,1.0,WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|尽心瀑,BY_TRANSPORT,TRANSPORT|索道,1.0,WGS-O-06,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|情人花廊,BY_TRANSPORT,TRANSPORT|徒步,1.0,WGS-O-06,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|武功山神,BY_TRANSPORT,TRANSPORT|步行,1.0,WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|武功山神,BY_TRANSPORT,TRANSPORT|索道,1.0,WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|武功神拳,BY_TRANSPORT,TRANSPORT|徒步,1.0,WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|武功神拳,BY_TRANSPORT,TRANSPORT|步行,1.0,WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|武功神拳,BY_TRANSPORT,TRANSPORT|索道,2.0,WGS-O-04;WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|石鼓寺,BY_TRANSPORT,TRANSPORT|徒步,2.0,WGS-O-05;WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|石鼓寺,BY_TRANSPORT,TRANSPORT|索道,4.0,WGS-O-05;WGS-T-03;WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|石鼓寺,BY_TRANSPORT,TRANSPORT|观光车,2.0,WGS-O-04;WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|福星谷,BY_TRANSPORT,TRANSPORT|徒步,1.0,WGS-O-06,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|福星谷,BY_TRANSPORT,TRANSPORT|步行,2.0,WGS-O-03;WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|福星谷,BY_TRANSPORT,TRANSPORT|索道,2.0,WGS-O-03;WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|紫极宫,BY_TRANSPORT,TRANSPORT|徒步,4.0,WGS-O-05;WGS-O-06,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|紫极宫,BY_TRANSPORT,TRANSPORT|步行,3.0,WGS-O-03;WGS-O-04;WGS-O-06,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|紫极宫,BY_TRANSPORT,TRANSPORT|索道,4.0,WGS-O-03;WGS-O-04;WGS-O-06,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|观音宕,BY_TRANSPORT,TRANSPORT|徒步,2.0,WGS-O-05,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|许愿桥,BY_TRANSPORT,TRANSPORT|徒步,1.0,WGS-O-06,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|许愿桥,BY_TRANSPORT,TRANSPORT|步行,1.0,WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|许愿桥,BY_TRANSPORT,TRANSPORT|索道,1.0,WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|金顶,BY_TRANSPORT,TRANSPORT|巴士,1.0,WGS-T-08,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|金顶,BY_TRANSPORT,TRANSPORT|徒步,7.0,WGS-O-05;WGS-O-06;WGS-T-06;WGS-T-07;WGS-T-08,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|金顶,BY_TRANSPORT,TRANSPORT|步行,1.0,WGS-O-06,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|金顶,BY_TRANSPORT,TRANSPORT|索道,1.0,WGS-T-07,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|金顶索道,BY_TRANSPORT,TRANSPORT|步行,2.0,WGS-O-03;WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|武功山|金顶索道,BY_TRANSPORT,TRANSPORT|索道,3.0,WGS-O-03;WGS-O-04,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|北门,BY_TRANSPORT,TRANSPORT|小火车,4.0,CL-O-02;CL-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|北门,BY_TRANSPORT,TRANSPORT|巴士,1.0,CL-O-02,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|北门,BY_TRANSPORT,TRANSPORT|步行,1.0,CL-O-03,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|北门,BY_TRANSPORT,TRANSPORT|缆车,1.0,CL-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|南门,BY_TRANSPORT,TRANSPORT|地铁,1.0,CL-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|南门,BY_TRANSPORT,TRANSPORT|小火车,1.0,CL-O-02,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|垂直过山车,BY_TRANSPORT,TRANSPORT|步行,1.0,CL-T-02,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|天鹅湖,BY_TRANSPORT,TRANSPORT|小火车,2.0,CL-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|天鹅湖,BY_TRANSPORT,TRANSPORT|缆车,2.0,CL-O-02;CL-T-03,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|考拉园,BY_TRANSPORT,TRANSPORT|小火车,1.0,CL-O-02,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|长隆欢乐世界,BY_TRANSPORT,TRANSPORT|步行,1.0,CL-O-03,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|长隆熊猫酒店,BY_TRANSPORT,TRANSPORT|地铁,1.0,CL-O-03,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|长隆熊猫酒店,BY_TRANSPORT,TRANSPORT|巴士,1.0,CL-O-03,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|长隆熊猫酒店,BY_TRANSPORT,TRANSPORT|步行,2.0,CL-O-03;CL-T-04,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|长隆野生动物世界,BY_TRANSPORT,TRANSPORT|小火车,1.0,CL-O-02,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|长隆野生动物世界,BY_TRANSPORT,TRANSPORT|巴士,1.0,CL-O-02,"{""evidence"": ""P2 同句共现""}"
+POI|长隆|长颈鹿广场,BY_TRANSPORT,TRANSPORT|小火车,1.0,CL-O-02,"{""evidence"": ""P2 同句共现""}"
+SCENIC_AREA|广州白云山,CONTAINS,ACTIVITY|索道上山,1.0,BYS-T-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,ACTIVITY|索道下山,1.0,BYS-T-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,ACTIVITY|缆车上山,1.0,BYS-T-02,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|世纪圆梦石,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|两江情缘石,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|九龙泉,1.0,BYS-O-01;BYS-T-03;BYS-T-04,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|云台景区,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|云台花园,1.0,BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|双溪别墅,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|回归林,1.0,BYS-O-01;BYS-T-04,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|姑嫂坟,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|山庄旅舍,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|山顶公园,1.0,BYS-O-01;BYS-T-04,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|山顶广场,1.0,BYS-T-02;BYS-T-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|岩石园,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|广州碑林,1.0,BYS-O-01;BYS-T-01;BYS-T-03;BYS-T-04,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|摩星岭,1.0,BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|摩星岭景区,1.0,BYS-O-01;BYS-O-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|明珠楼,1.0,BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|明珠楼景区,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|星海园,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|松涛别院,1.0,BYS-T-02,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|桃花涧,1.0,BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|梅花谷,1.0,BYS-O-01;BYS-T-02,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|玫瑰园,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|环湖栈道,1.0,BYS-T-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|玻璃温室,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|白云仙馆,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|白云山北门,1.0,BYS-T-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|白云山南门,1.0,BYS-T-02;BYS-T-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|白云山西门,1.0,BYS-T-02,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|白云松涛,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|聚芳园,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|能仁寺,1.0,BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|蒲谷,1.0,BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|谊园,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|锦绣南天,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|飞瀑流彩,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|鸣春谷,1.0,BYS-O-01;BYS-T-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|鸣春谷景区,1.0,BYS-O-01;BYS-O-02,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|鸿鹄楼,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|麓湖公园,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|麓湖景区,1.0,BYS-O-01,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|黄婆洞水库,1.0,BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03,{}
+SCENIC_AREA|广州白云山,CONTAINS,POI|广州白云山|黄河石广场,1.0,BYS-O-01,{}
+SCENIC_AREA|武功山,CONTAINS,ACTIVITY|可选择乘坐高空滑索,1.0,WGS-O-02,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|一木成林,1.0,WGS-O-04,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|七仙潭,1.0,WGS-O-04,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|三县界碑,1.0,WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|中庵,1.0,WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-07,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|中庵索道,1.0,WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-T-03,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|九龙客栈,1.0,WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|发云界,1.0,WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|古祭坛群,1.0,WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|吊马桩,1.0,WGS-O-01;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-07,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|回音谷,1.0,WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|夫妻瀑,1.0,WGS-O-04,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|好汉坡,1.0,WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-06;WGS-T-07,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|安源路矿工人运动纪念馆,1.0,WGS-O-03,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|尽心桥,1.0,WGS-O-01,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|尽心瀑,1.0,WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|情人花廊,1.0,WGS-O-01;WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|明月山6281梯,1.0,WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|松园,1.0,WGS-O-02,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|松涛阁,1.0,WGS-O-03,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|武功山神,1.0,WGS-O-01;WGS-O-02;WGS-O-04,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|武功泉,1.0,WGS-O-01,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|武功神拳,1.0,WGS-O-01;WGS-O-02;WGS-O-04;WGS-T-07,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|沈家大院,1.0,WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|滴水观音,1.0,WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|狮象峰,1.0,WGS-O-01,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|猴谷,1.0,WGS-O-01;WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|环形栈道,1.0,WGS-O-01;WGS-O-02,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|玻璃栈道,1.0,WGS-O-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|玻璃眺台,1.0,WGS-O-04;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|石鼓寺,1.0,WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03;WGS-T-07,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|福星谷,1.0,WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|福星谷栈道,1.0,WGS-O-03,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|秋收起义广场,1.0,WGS-O-03,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|紫极宫,1.0,WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|红岩瀑,1.0,WGS-O-04,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|绝望坡,1.0,WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|羊狮慕小火车站,1.0,WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|老鹰岩,1.0,WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|草甸之舟,1.0,WGS-O-01;WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|萍乡车站,1.0,WGS-O-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|观音宕,1.0,WGS-O-05;WGS-O-06;WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|许愿桥,1.0,WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|许愿石,1.0,WGS-O-03,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|途经好汉坡,1.0,WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|金顶,1.0,WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|金顶索道,1.0,WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-T-03,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|铁蹄峰,1.0,WGS-T-05,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|问道台,1.0,WGS-O-03,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|飙水岩瀑布,1.0,WGS-O-01;WGS-O-05;WGS-O-06,{}
+SCENIC_AREA|武功山,CONTAINS,POI|武功山|高空栈道,1.0,WGS-O-01;WGS-O-02,{}
+SCENIC_AREA|长隆,CONTAINS,ACTIVITY|冲刺王牌刺激项,1.0,CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,ACTIVITY|刺激项目,1.0,CL-T-01,{}
+SCENIC_AREA|长隆,CONTAINS,ACTIVITY|午餐休息,1.0,CL-T-02,{}
+SCENIC_AREA|长隆,CONTAINS,ACTIVITY|夜场演出,1.0,CL-T-02,{}
+SCENIC_AREA|长隆,CONTAINS,ACTIVITY|沉浸体验,1.0,CL-T-01,{}
+SCENIC_AREA|长隆,CONTAINS,ACTIVITY|沉浸体验+亲子友好,1.0,CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,ACTIVITY|错峰休整+特色午餐,1.0,CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,ACTIVITY|错峰午餐,1.0,CL-T-01,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|4D影院,1.0,CL-O-02;CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|U型滑板,1.0,CL-T-01;CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|亚洲象园,1.0,CL-O-02;CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|动物幼儿园,1.0,CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|北门,1.0,CL-O-02;CL-O-03;CL-T-01;CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|十环过山车,1.0,CL-T-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|南国茶餐厅,1.0,CL-T-01;CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|南门,1.0,CL-O-02;CL-O-03;CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|南门纪念品商店,1.0,CL-O-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|垂直过山车,1.0,CL-O-01;CL-O-03;CL-T-01;CL-T-02;CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|天鹅湖,1.0,CL-O-02;CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|天鹅湖站,1.0,CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|奇妙岛,1.0,CL-T-01;CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|安检入口,1.0,CL-T-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|家庭亲子区,1.0,CL-T-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|小火车游览区,1.0,CL-O-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|尖叫地带,1.0,CL-O-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|巡游主街段,1.0,CL-T-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|弹射过山车,1.0,CL-T-01,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|律动天地,1.0,CL-O-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|梦幻转马,1.0,CL-O-01;CL-O-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|椰林餐厅,1.0,CL-O-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|欢乐主街区,1.0,CL-T-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|欢乐剧场,1.0,CL-T-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|火烈鸟,1.0,CL-O-02;CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|熊猫乐园,1.0,CL-O-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|熊猫乐园站,1.0,CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|熊猫村,1.0,CL-O-01,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|熊猫餐厅,1.0,CL-O-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|百虎山,1.0,CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|空中缆车,1.0,CL-O-02,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|考拉园,1.0,CL-O-01;CL-O-02;CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|花果山,1.0,CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|花车大巡游,1.0,CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|超级大摆锤,1.0,CL-O-01;CL-O-03;CL-T-01;CL-T-02;CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|超级海盗船,1.0,CL-T-01,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|超级激流,1.0,CL-T-01,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|金猴王国,1.0,CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|长隆国际大马戏,1.0,CL-O-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|长隆大熊猫中心,1.0,CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|长隆旅游度假区,1.0,CL-O-01;CL-T-05,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|长隆欢乐世界,1.0,CL-O-01;CL-O-03;CL-T-01;CL-T-02;CL-T-04;CL-T-05,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|长隆水上乐园,1.0,CL-O-01;CL-T-05,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|长隆熊猫酒店,1.0,CL-O-01;CL-O-03;CL-T-01;CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|长隆野生动物世界,1.0,CL-O-01;CL-O-02;CL-T-05,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|长颈鹿广场,1.0,CL-O-01;CL-O-02;CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|青龙山,1.0,CL-O-02;CL-T-03,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|飞虎跳,1.0,CL-T-01;CL-T-04,{}
+SCENIC_AREA|长隆,CONTAINS,POI|长隆|飞马家庭过山车,1.0,CL-O-01;CL-T-02,{}
+POI|广州白云山|摩星岭,HAS_CONDITION,CONDITION|CND-0007,0.65,BYS-T-01,"{""match_type"": ""poi_suggestion""}"
+POI|武功山|石鼓寺,HAS_CONDITION,CONDITION|CND-0021,0.65,WGS-T-03,"{""match_type"": ""poi_suggestion""}"
+POI|武功山|观音宕,HAS_CONDITION,CONDITION|CND-0011,0.65,WGS-O-06,"{""match_type"": ""poi_suggestion""}"
+POI|长隆|北门,HAS_CONDITION,CONDITION|CND-0030,0.65,CL-T-01,"{""match_type"": ""poi_suggestion""}"
+POI|长隆|北门,HAS_CONDITION,CONDITION|CND-0032,0.65,CL-T-03,"{""match_type"": ""poi_suggestion""}"
+POI|长隆|南门,HAS_CONDITION,CONDITION|CND-0029,0.95,CL-O-03,"{""match_type"": ""poi_overlap""}"
+POI|长隆|熊猫村,HAS_CONDITION,CONDITION|CND-0026,0.65,CL-O-01,"{""match_type"": ""poi_suggestion""}"
+POI|长隆|飞马家庭过山车,HAS_CONDITION,CONDITION|CND-0031,0.65,CL-T-02,"{""match_type"": ""poi_suggestion""}"
+SCENIC_AREA|广州白云山,HAS_CONDITION,CONDITION|CND-0001,0.3,BYS-T-01,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|广州白云山,HAS_CONDITION,CONDITION|CND-0002,0.3,BYS-T-01,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|广州白云山,HAS_CONDITION,CONDITION|CND-0003,0.3,BYS-T-01,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|广州白云山,HAS_CONDITION,CONDITION|CND-0004,0.3,BYS-T-01,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|广州白云山,HAS_CONDITION,CONDITION|CND-0005,0.3,BYS-T-01,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|广州白云山,HAS_CONDITION,CONDITION|CND-0006,0.3,BYS-T-01,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|广州白云山,HAS_CONDITION,CONDITION|CND-0008,0.3,BYS-T-02,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0009,0.3,WGS-O-05,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0010,0.3,WGS-O-05,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0012,0.3,WGS-O-06,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0013,0.3,WGS-O-06,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0016,0.3,WGS-T-02,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0017,0.3,WGS-T-03,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0018,0.3,WGS-T-03,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0019,0.3,WGS-T-03,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0020,0.3,WGS-T-03,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0023,0.3,WGS-T-03,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|武功山,HAS_CONDITION,CONDITION|CND-0024,0.3,WGS-T-08,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|长隆,HAS_CONDITION,CONDITION|CND-0025,0.3,CL-O-01,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|长隆,HAS_CONDITION,CONDITION|CND-0027,0.3,CL-O-01,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|长隆,HAS_CONDITION,CONDITION|CND-0028,0.3,CL-O-03,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|长隆,HAS_CONDITION,CONDITION|CND-0033,0.3,CL-T-04,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|长隆,HAS_CONDITION,CONDITION|CND-0034,0.3,CL-T-04,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|长隆,HAS_CONDITION,CONDITION|CND-0035,0.3,CL-T-04,"{""match_type"": ""area_fallback""}"
+SCENIC_AREA|长隆,HAS_CONDITION,CONDITION|CND-0036,0.3,CL-T-04,"{""match_type"": ""area_fallback""}"
+ACTIVITY|冲刺王牌刺激项,NEXT,ACTIVITY|错峰休整+特色午餐,1.0,CL-T-04,{}
+ACTIVITY|刺激项目,NEXT,ACTIVITY|错峰午餐,1.0,CL-T-01,{}
+ACTIVITY|午餐休息,NEXT,POI|长隆|家庭亲子区,1.0,CL-T-02,{}
+ACTIVITY|可选择乘坐高空滑索,NEXT,POI|武功山|福星谷,1.0,WGS-O-02,{}
+ACTIVITY|索道上山,NEXT,POI|广州白云山|山顶广场,1.0,BYS-T-03,{}
+ACTIVITY|缆车上山,NEXT,POI|广州白云山|山顶广场,1.0,BYS-T-02,{}
+ACTIVITY|错峰休整+特色午餐,NEXT,ACTIVITY|沉浸体验+亲子友好,1.0,CL-T-04,{}
+ACTIVITY|错峰午餐,NEXT,ACTIVITY|沉浸体验,1.0,CL-T-01,{}
+POI|广州白云山|世纪圆梦石,NEXT,POI|广州白云山|鸣春谷,1.0,BYS-O-01,{}
+POI|广州白云山|两江情缘石,NEXT,POI|广州白云山|广州碑林,1.0,BYS-O-01,{}
+POI|广州白云山|九龙泉,NEXT,POI|广州白云山|广州碑林,1.0,BYS-T-03,{}
+POI|广州白云山|云台花园,NEXT,ACTIVITY|缆车上山,1.0,BYS-T-02,{}
+POI|广州白云山|双溪别墅,NEXT,POI|广州白云山|白云松涛,1.0,BYS-O-01,{}
+POI|广州白云山|山庄旅舍,NEXT,POI|广州白云山|双溪别墅,1.0,BYS-O-01,{}
+POI|广州白云山|山顶公园,NEXT,POI|广州白云山|两江情缘石,1.0,BYS-O-01,{}
+POI|广州白云山|山顶广场,NEXT,POI|广州白云山|九龙泉,1.0,BYS-T-03,{}
+POI|广州白云山|山顶广场,NEXT,POI|广州白云山|摩星岭,2.0,BYS-T-02;BYS-T-03,{}
+POI|广州白云山|广州碑林,NEXT,ACTIVITY|索道下山,1.0,BYS-T-03,{}
+POI|广州白云山|广州碑林,NEXT,POI|广州白云山|黄河石广场,1.0,BYS-O-01,{}
+POI|广州白云山|摩星岭,NEXT,POI|广州白云山|山庄旅舍,1.0,BYS-O-01,{}
+POI|广州白云山|摩星岭,NEXT,POI|广州白云山|白云山南门,2.0,BYS-T-02;BYS-T-03,{}
+POI|广州白云山|明珠楼,NEXT,POI|广州白云山|摩星岭,1.0,BYS-T-02,{}
+POI|广州白云山|明珠楼,NEXT,POI|广州白云山|梅花谷,1.0,BYS-O-01,{}
+POI|广州白云山|明珠楼,NEXT,POI|广州白云山|环湖栈道,1.0,BYS-T-03,{}
+POI|广州白云山|星海园,NEXT,POI|广州白云山|蒲谷,1.0,BYS-O-01,{}
+POI|广州白云山|松涛别院,NEXT,POI|广州白云山|摩星岭,1.0,BYS-T-02,{}
+POI|广州白云山|桃花涧,NEXT,POI|广州白云山|明珠楼,1.0,BYS-O-01,{}
+POI|广州白云山|桃花涧,NEXT,POI|广州白云山|黄婆洞水库,1.0,BYS-T-02,{}
+POI|广州白云山|梅花谷,NEXT,POI|广州白云山|松涛别院,1.0,BYS-T-02,{}
+POI|广州白云山|梅花谷,NEXT,POI|广州白云山|黄婆洞水库,1.0,BYS-O-01,{}
+POI|广州白云山|环湖栈道,NEXT,POI|广州白云山|桃花涧,1.0,BYS-T-03,{}
+POI|广州白云山|白云仙馆,NEXT,POI|广州白云山|星海园,1.0,BYS-O-01,{}
+POI|广州白云山|白云山北门,NEXT,POI|广州白云山|黄婆洞水库,1.0,BYS-T-03,{}
+POI|广州白云山|白云山南门,NEXT,ACTIVITY|索道上山,1.0,BYS-T-03,{}
+POI|广州白云山|白云山南门,NEXT,POI|广州白云山|云台花园,1.0,BYS-T-02,{}
+POI|广州白云山|白云山南门,NEXT,POI|广州白云山|能仁寺,1.0,BYS-T-03,{}
+POI|广州白云山|白云山西门,NEXT,POI|广州白云山|桃花涧,1.0,BYS-T-02,{}
+POI|广州白云山|白云山西门,NEXT,POI|广州白云山|黄婆洞水库,1.0,BYS-T-02,{}
+POI|广州白云山|白云松涛,NEXT,POI|广州白云山|桃花涧,1.0,BYS-O-01,{}
+POI|广州白云山|聚芳园,NEXT,POI|广州白云山|白云仙馆,1.0,BYS-O-01,{}
+POI|广州白云山|能仁寺,NEXT,POI|广州白云山|世纪圆梦石,1.0,BYS-O-01,{}
+POI|广州白云山|能仁寺,NEXT,POI|广州白云山|蒲谷,1.0,BYS-T-03,{}
+POI|广州白云山|蒲谷,NEXT,POI|广州白云山|山顶广场,1.0,BYS-T-03,{}
+POI|广州白云山|蒲谷,NEXT,POI|广州白云山|能仁寺,1.0,BYS-O-01,{}
+POI|广州白云山|锦绣南天,NEXT,POI|广州白云山|摩星岭,1.0,BYS-O-01,{}
+POI|广州白云山|鸣春谷,NEXT,POI|广州白云山|山顶公园,1.0,BYS-O-01,{}
+POI|广州白云山|鸿鹄楼,NEXT,POI|广州白云山|聚芳园,1.0,BYS-O-01,{}
+POI|广州白云山|麓湖公园,NEXT,POI|广州白云山|鸿鹄楼,1.0,BYS-O-01,{}
+POI|广州白云山|黄婆洞水库,NEXT,POI|广州白云山|回归林,1.0,BYS-O-01,{}
+POI|广州白云山|黄婆洞水库,NEXT,POI|广州白云山|明珠楼,2.0,BYS-T-02;BYS-T-03,{}
+POI|广州白云山|黄婆洞水库,NEXT,POI|广州白云山|梅花谷,1.0,BYS-T-02,{}
+POI|广州白云山|黄河石广场,NEXT,POI|广州白云山|锦绣南天,1.0,BYS-O-01,{}
+POI|武功山|七仙潭,NEXT,POI|武功山|红岩瀑,1.0,WGS-O-04,{}
+POI|武功山|三县界碑,NEXT,POI|武功山|明月山6281梯,1.0,WGS-T-05,{}
+POI|武功山|中庵,NEXT,POI|武功山|七仙潭,1.0,WGS-O-04,{}
+POI|武功山|中庵索道,NEXT,POI|武功山|石鼓寺,2.0,WGS-O-01;WGS-O-02,{}
+POI|武功山|中庵索道,NEXT,POI|武功山|紫极宫,3.0,WGS-O-02;WGS-O-03;WGS-O-04,{}
+POI|武功山|中庵索道,NEXT,POI|武功山|金顶索道,1.0,WGS-O-03,{}
+POI|武功山|九龙客栈,NEXT,POI|武功山|铁蹄峰,1.0,WGS-T-05,{}
+POI|武功山|发云界,NEXT,POI|武功山|老鹰岩,1.0,WGS-T-05,{}
+POI|武功山|古祭坛群,NEXT,POI|武功山|金顶,3.0,WGS-O-03;WGS-O-04;WGS-O-05,{}
+POI|武功山|吊马桩,NEXT,POI|武功山|中庵,1.0,WGS-O-04,{}
+POI|武功山|吊马桩,NEXT,POI|武功山|好汉坡,1.0,WGS-O-05,{}
+POI|武功山|吊马桩,NEXT,POI|武功山|观音宕,1.0,WGS-T-05,{}
+POI|武功山|吊马桩,NEXT,POI|武功山|金顶,1.0,WGS-O-01,{}
+POI|武功山|回音谷,NEXT,POI|武功山|情人花廊,2.0,WGS-O-05;WGS-O-06,{}
+POI|武功山|夫妻瀑,NEXT,POI|武功山|一木成林,1.0,WGS-O-04,{}
+POI|武功山|好汉坡,NEXT,POI|武功山|发云界,1.0,WGS-T-05,{}
+POI|武功山|好汉坡,NEXT,POI|武功山|滴水观音,1.0,WGS-O-05,{}
+POI|武功山|安源路矿工人运动纪念馆,NEXT,POI|武功山|秋收起义广场,1.0,WGS-O-03,{}
+POI|武功山|尽心桥,NEXT,POI|武功山|飙水岩瀑布,1.0,WGS-O-01,{}
+POI|武功山|尽心瀑,NEXT,POI|武功山|石鼓寺,1.0,WGS-O-05,{}
+POI|武功山|情人花廊,NEXT,POI|武功山|草甸之舟,1.0,WGS-O-05,{}
+POI|武功山|情人花廊,NEXT,POI|武功山|途经好汉坡,1.0,WGS-O-06,{}
+POI|武功山|松园,NEXT,ACTIVITY|可选择乘坐高空滑索,1.0,WGS-O-02,{}
+POI|武功山|松涛阁,NEXT,POI|武功山|许愿石,1.0,WGS-O-03,{}
+POI|武功山|武功山神,NEXT,POI|武功山|武功神拳,1.0,WGS-O-01,{}
+POI|武功山|武功山神,NEXT,POI|武功山|金顶,2.0,WGS-O-02;WGS-O-04,{}
+POI|武功山|武功神拳,NEXT,POI|武功山|武功山神,2.0,WGS-O-02;WGS-O-04,{}
+POI|武功山|武功神拳,NEXT,POI|武功山|金顶索道,1.0,WGS-O-01,{}
+POI|武功山|沈家大院,NEXT,POI|武功山|羊狮慕小火车站,1.0,WGS-T-05,{}
+POI|武功山|滴水观音,NEXT,POI|武功山|猴谷,1.0,WGS-O-05,{}
+POI|武功山|猴谷,NEXT,POI|武功山|紫极宫,1.0,WGS-O-01,{}
+POI|武功山|猴谷,NEXT,POI|武功山|飙水岩瀑布,1.0,WGS-O-05,{}
+POI|武功山|玻璃栈道,NEXT,POI|武功山|回音谷,1.0,WGS-O-05,{}
+POI|武功山|玻璃眺台,NEXT,POI|武功山|回音谷,1.0,WGS-O-06,{}
+POI|武功山|玻璃眺台,NEXT,POI|武功山|金顶索道,1.0,WGS-O-04,{}
+POI|武功山|石鼓寺,NEXT,POI|武功山|中庵索道,2.0,WGS-O-02;WGS-O-04,{}
+POI|武功山|石鼓寺,NEXT,POI|武功山|尽心桥,1.0,WGS-O-01,{}
+POI|武功山|福星谷,NEXT,POI|武功山|紫极宫,2.0,WGS-O-01;WGS-O-02,{}
+POI|武功山|福星谷,NEXT,POI|武功山|许愿桥,3.0,WGS-O-02;WGS-O-04;WGS-O-05,{}
+POI|武功山|福星谷,NEXT,POI|武功山|问道台,1.0,WGS-O-03,{}
+POI|武功山|福星谷栈道,NEXT,POI|武功山|金顶索道,1.0,WGS-O-03,{}
+POI|武功山|秋收起义广场,NEXT,POI|武功山|中庵索道,1.0,WGS-O-03,{}
+POI|武功山|紫极宫,NEXT,POI|武功山|中庵索道,2.0,WGS-O-01;WGS-O-02,{}
+POI|武功山|紫极宫,NEXT,POI|武功山|吊马桩,1.0,WGS-O-01,{}
+POI|武功山|紫极宫,NEXT,POI|武功山|福星谷,4.0,WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05,{}
+POI|武功山|红岩瀑,NEXT,POI|武功山|夫妻瀑,1.0,WGS-O-04,{}
+POI|武功山|绝望坡,NEXT,POI|武功山|好汉坡,1.0,WGS-T-05,{}
+POI|武功山|羊狮慕小火车站,NEXT,POI|武功山|三县界碑,1.0,WGS-T-05,{}
+POI|武功山|老鹰岩,NEXT,POI|武功山|沈家大院,1.0,WGS-T-05,{}
+POI|武功山|草甸之舟,NEXT,POI|武功山|古祭坛群,1.0,WGS-O-05,{}
+POI|武功山|萍乡车站,NEXT,POI|武功山|金顶,1.0,WGS-O-05,{}
+POI|武功山|观音宕,NEXT,POI|武功山|吊马桩,1.0,WGS-O-05,{}
+POI|武功山|观音宕,NEXT,POI|武功山|绝望坡,1.0,WGS-T-05,{}
+POI|武功山|许愿桥,NEXT,POI|武功山|玻璃栈道,1.0,WGS-O-05,{}
+POI|武功山|许愿桥,NEXT,POI|武功山|玻璃眺台,2.0,WGS-O-04;WGS-O-06,{}
+POI|武功山|许愿桥,NEXT,POI|武功山|福星谷,1.0,WGS-O-01,{}
+POI|武功山|许愿桥,NEXT,POI|武功山|高空栈道,1.0,WGS-O-02,{}
+POI|武功山|许愿石,NEXT,POI|武功山|福星谷栈道,1.0,WGS-O-03,{}
+POI|武功山|金顶,NEXT,POI|武功山|中庵索道,1.0,WGS-O-03,{}
+POI|武功山|金顶,NEXT,POI|武功山|古祭坛群,1.0,WGS-O-04,{}
+POI|武功山|金顶,NEXT,POI|武功山|吊马桩,2.0,WGS-O-04;WGS-T-05,{}
+POI|武功山|金顶,NEXT,POI|武功山|武功山神,1.0,WGS-O-01,{}
+POI|武功山|金顶,NEXT,POI|武功山|观音宕,1.0,WGS-O-05,{}
+POI|武功山|金顶,NEXT,POI|武功山|金顶索道,1.0,WGS-O-02,{}
+POI|武功山|金顶索道,NEXT,POI|武功山|古祭坛群,1.0,WGS-O-03,{}
+POI|武功山|金顶索道,NEXT,POI|武功山|松园,1.0,WGS-O-02,{}
+POI|武功山|金顶索道,NEXT,POI|武功山|武功神拳,2.0,WGS-O-02;WGS-O-04,{}
+POI|武功山|金顶索道,NEXT,POI|武功山|高空栈道,1.0,WGS-O-01,{}
+POI|武功山|铁蹄峰,NEXT,POI|武功山|金顶,1.0,WGS-T-05,{}
+POI|武功山|问道台,NEXT,POI|武功山|松涛阁,1.0,WGS-O-03,{}
+POI|武功山|飙水岩瀑布,NEXT,POI|武功山|尽心瀑,1.0,WGS-O-05,{}
+POI|武功山|飙水岩瀑布,NEXT,POI|武功山|猴谷,1.0,WGS-O-01,{}
+POI|武功山|高空栈道,NEXT,POI|武功山|许愿桥,1.0,WGS-O-01,{}
+POI|武功山|高空栈道,NEXT,POI|武功山|金顶索道,1.0,WGS-O-02,{}
+POI|长隆|4D影院,NEXT,POI|长隆|亚洲象园,1.0,CL-O-02,{}
+POI|长隆|4D影院,NEXT,POI|长隆|花果山,1.0,CL-T-03,{}
+POI|长隆|亚洲象园,NEXT,POI|长隆|长隆大熊猫中心,1.0,CL-T-03,{}
+POI|长隆|亚洲象园,NEXT,POI|长隆|长颈鹿广场,1.0,CL-O-02,{}
+POI|长隆|动物幼儿园,NEXT,POI|长隆|花车大巡游,1.0,CL-T-03,{}
+POI|长隆|北门,NEXT,POI|长隆|小火车游览区,1.0,CL-O-02,{}
+POI|长隆|十环过山车,NEXT,POI|长隆|超级大摆锤,1.0,CL-T-02,{}
+POI|长隆|南门,NEXT,POI|长隆|熊猫乐园站,1.0,CL-T-03,{}
+POI|长隆|垂直过山车,NEXT,POI|长隆|十环过山车,1.0,CL-T-02,{}
+POI|长隆|天鹅湖站,NEXT,POI|长隆|动物幼儿园,1.0,CL-T-03,{}
+POI|长隆|安检入口,NEXT,POI|长隆|欢乐主街区,1.0,CL-T-02,{}
+POI|长隆|家庭亲子区,NEXT,POI|长隆|欢乐剧场,1.0,CL-T-02,{}
+POI|长隆|小火车游览区,NEXT,POI|长隆|青龙山,1.0,CL-O-02,{}
+POI|长隆|尖叫地带,NEXT,POI|长隆|椰林餐厅,1.0,CL-O-03,{}
+POI|长隆|巡游主街段,NEXT,ACTIVITY|夜场演出,1.0,CL-T-02,{}
+POI|长隆|椰林餐厅,NEXT,POI|长隆|律动天地,1.0,CL-O-03,{}
+POI|长隆|欢乐主街区,NEXT,POI|长隆|垂直过山车,1.0,CL-T-02,{}
+POI|长隆|欢乐剧场,NEXT,POI|长隆|巡游主街段,1.0,CL-T-02,{}
+POI|长隆|火烈鸟,NEXT,POI|长隆|南门,1.0,CL-T-03,{}
+POI|长隆|火烈鸟,NEXT,POI|长隆|南门纪念品商店,1.0,CL-O-02,{}
+POI|长隆|熊猫乐园,NEXT,POI|长隆|熊猫餐厅,1.0,CL-O-02,{}
+POI|长隆|熊猫乐园站,NEXT,POI|长隆|4D影院,1.0,CL-T-03,{}
+POI|长隆|熊猫餐厅,NEXT,POI|长隆|4D影院,1.0,CL-O-02,{}
+POI|长隆|百虎山,NEXT,POI|长隆|天鹅湖站,1.0,CL-T-03,{}
+POI|长隆|百虎山,NEXT,POI|长隆|长颈鹿广场,1.0,CL-T-03,{}
+POI|长隆|空中缆车,NEXT,POI|长隆|火烈鸟,1.0,CL-O-02,{}
+POI|长隆|考拉园,NEXT,POI|长隆|亚洲象园,1.0,CL-T-03,{}
+POI|长隆|考拉园,NEXT,POI|长隆|熊猫乐园,1.0,CL-O-02,{}
+POI|长隆|花果山,NEXT,POI|长隆|金猴王国,1.0,CL-T-03,{}
+POI|长隆|花车大巡游,NEXT,POI|长隆|百虎山,1.0,CL-T-03,{}
+POI|长隆|超级大摆锤,NEXT,ACTIVITY|午餐休息,1.0,CL-T-02,{}
+POI|长隆|金猴王国,NEXT,POI|长隆|青龙山,1.0,CL-T-03,{}
+POI|长隆|长隆大熊猫中心,NEXT,POI|长隆|火烈鸟,1.0,CL-T-03,{}
+POI|长隆|长隆欢乐世界,NEXT,POI|长隆|长隆野生动物世界,1.0,CL-O-01,{}
+POI|长隆|长隆野生动物世界,NEXT,POI|长隆|长隆水上乐园,1.0,CL-O-01,{}
+POI|长隆|长颈鹿广场,NEXT,POI|长隆|空中缆车,1.0,CL-O-02,{}
+POI|长隆|长颈鹿广场,NEXT,POI|长隆|考拉园,1.0,CL-T-03,{}
+POI|长隆|青龙山,NEXT,POI|长隆|百虎山,1.0,CL-T-03,{}
+POI|长隆|青龙山,NEXT,POI|长隆|考拉园,1.0,CL-O-02,{}
+POI|广州白云山|云台景区,SIMILAR_TO,POI|广州白云山|云台花园,0.6,,"{""basis"": ""花园位于景区内"", ""decision"": ""保留双节点（父子关系不合并）""}"
+POI|广州白云山|山顶公园,SIMILAR_TO,POI|广州白云山|山顶广场,0.6,,"{""basis"": ""同一山顶片区的两种叫法"", ""decision"": ""保留双节点（父子关系不合并）""}"
+POI|广州白云山|摩星岭,SIMILAR_TO,POI|广州白云山|摩星岭景区,0.6,,"{""basis"": ""层级写法：景区 vs 主峰"", ""decision"": ""保留双节点（父子关系不合并）""}"
+POI|广州白云山|明珠楼,SIMILAR_TO,POI|广州白云山|明珠楼景区,0.6,,"{""basis"": ""层级写法：景区 vs 楼"", ""decision"": ""保留双节点（父子关系不合并）""}"
+POI|广州白云山|鸣春谷,SIMILAR_TO,POI|广州白云山|鸣春谷景区,0.6,,"{""basis"": ""层级写法：景区 vs 谷"", ""decision"": ""保留双节点（父子关系不合并）""}"
+POI|广州白云山|麓湖景区,SIMILAR_TO,POI|广州白云山|麓湖公园,0.6,,"{""basis"": ""同一片区的两种叫法"", ""decision"": ""保留双节点（父子关系不合并）""}"
+POI|长隆|熊猫村,SIMILAR_TO,POI|长隆|长隆大熊猫中心,0.6,,"{""basis"": ""同一游览对象的不同命名，待人工确认"", ""decision"": ""保留双节点（父子关系不合并）""}"

@@ -2,8 +2,8 @@ project: p06_graph
 title: 多源程序性知识融合与图谱可视化
 owner: HappinessJo
 reviewer: T0coke
-status: planned
-version_tag: ""
+status: done
+version_tag: v0.6-p06
 
 inputs:
   - path: analysis/p02_entities/outputs/entities.jsonl
@@ -42,3 +42,6 @@ acceptance:
 
 notes: |
   只读 P2/P3（+P5）的产出，不得回头改上游；发现上游问题 → 联系 owner 升 tag。
+  2026-11-01 交付：229 节点 / 523 边，最大连通分量 229/229（100%），check exit 0。
+  复核：reviewer T0coke 尚未复核（owner 自检 + check 通过后先打 tag）；如需调整融合规则或
+  SIMILAR_TO 清单，按仓库规则升 tag，不静默改冻结项。

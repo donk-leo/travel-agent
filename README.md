@@ -19,7 +19,7 @@
 | 3 | 路线层级结构 | HappinessJo | ✅ 35 条路线 / 226 个步骤（长隆 8/52、白云山 11/61、武功山 16/113） | `analysis/p03_routes/outputs/routes.jsonl` | `v0.3-p03` |
 | 4 | 共指消解 | 成员3 | ✅ 140 候选 / 28 消解 / 20 标注（自检交付） | `analysis/p04_coref/outputs/coref.jsonl` | `v0.4-p04` |
 | 5 | 条件建议抽取 | T0coke | ✅ 36 条 / 33 唯一；13 篇文档（自检交付） | `analysis/p05_conditions/outputs/conditions.jsonl` | `v0.5-p05` |
-| 6 | 知识图谱 | HappinessJo | 未开始 | `analysis/p06_graph/outputs/graph_*.csv` | — |
+| 6 | 知识图谱 | HappinessJo | ✅ 229 节点 / 523 边；最大连通分量 229/229（100%）（自检交付） | `analysis/p06_graph/outputs/graph_nodes.csv` + `graph_edges.csv` | `v0.6-p06` |
 | 7 | 旅游规划 Agent | 成员3 | 未开始 | `analysis/p07_agent/src/agent.py` | — |
 | — | 总结反思 | 三人 | 未开始 | `report/章节/总结反思.md` | — |
 

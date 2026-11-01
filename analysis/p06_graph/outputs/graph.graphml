@@ -1,0 +1,4982 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d9" for="edge" attr.name="properties" attr.type="string"/>
+<key id="d8" for="edge" attr.name="source_doc_ids" attr.type="string"/>
+<key id="d7" for="edge" attr.name="weight" attr.type="double"/>
+<key id="d6" for="edge" attr.name="rel" attr.type="string"/>
+<key id="d5" for="node" attr.name="properties" attr.type="string"/>
+<key id="d4" for="node" attr.name="source_doc_ids" attr.type="string"/>
+<key id="d3" for="node" attr.name="freq" attr.type="long"/>
+<key id="d2" for="node" attr.name="scenic_area" attr.type="string"/>
+<key id="d1" for="node" attr.name="name" attr.type="string"/>
+<key id="d0" for="node" attr.name="node_type" attr.type="string"/>
+<graph edgedefault="directed"><node id="SCENIC_AREA|长隆">
+  <data key="d0">SCENIC_AREA</data>
+  <data key="d1">长隆</data>
+  <data key="d2">长隆</data>
+  <data key="d3">8</data>
+  <data key="d4">CL-O-01;CL-O-02;CL-O-03;CL-T-01;CL-T-02;CL-T-03;CL-T-04;CL-T-05</data>
+  <data key="d5">{"source": "P2/P3 doc_id 前缀"}</data>
+</node>
+<node id="SCENIC_AREA|广州白云山">
+  <data key="d0">SCENIC_AREA</data>
+  <data key="d1">广州白云山</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">7</data>
+  <data key="d4">BYS-O-01;BYS-O-02;BYS-O-03;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04</data>
+  <data key="d5">{"source": "P2/P3 doc_id 前缀"}</data>
+</node>
+<node id="SCENIC_AREA|武功山">
+  <data key="d0">SCENIC_AREA</data>
+  <data key="d1">武功山</data>
+  <data key="d2">武功山</data>
+  <data key="d3">14</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-04;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
+  <data key="d5">{"source": "P2/P3 doc_id 前缀"}</data>
+</node>
+<node id="POI|长隆|U型滑板">
+  <data key="d0">POI</data>
+  <data key="d1">U型滑板</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-T-01;CL-T-04</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|北门">
+  <data key="d0">POI</data>
+  <data key="d1">北门</data>
+  <data key="d2">长隆</data>
+  <data key="d3">4</data>
+  <data key="d4">CL-O-02;CL-O-03;CL-T-01;CL-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|南国茶餐厅">
+  <data key="d0">POI</data>
+  <data key="d1">南国茶餐厅</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-T-01;CL-T-04</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|南门">
+  <data key="d0">POI</data>
+  <data key="d1">南门</data>
+  <data key="d2">长隆</data>
+  <data key="d3">3</data>
+  <data key="d4">CL-O-02;CL-O-03;CL-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2", "activities": ["入园", "返回"]}</data>
+</node>
+<node id="POI|长隆|垂直过山车">
+  <data key="d0">POI</data>
+  <data key="d1">垂直过山车</data>
+  <data key="d2">长隆</data>
+  <data key="d3">5</data>
+  <data key="d4">CL-O-01;CL-O-03;CL-T-01;CL-T-02;CL-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|天鹅湖">
+  <data key="d0">POI</data>
+  <data key="d1">天鹅湖</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-02;CL-T-03</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|奇妙岛">
+  <data key="d0">POI</data>
+  <data key="d1">奇妙岛</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-T-01;CL-T-04</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|弹射过山车">
+  <data key="d0">POI</data>
+  <data key="d1">弹射过山车</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|梦幻转马">
+  <data key="d0">POI</data>
+  <data key="d1">梦幻转马</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-01;CL-O-03</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|熊猫村">
+  <data key="d0">POI</data>
+  <data key="d1">熊猫村</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|百虎山">
+  <data key="d0">POI</data>
+  <data key="d1">百虎山</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|考拉园">
+  <data key="d0">POI</data>
+  <data key="d1">考拉园</data>
+  <data key="d2">长隆</data>
+  <data key="d3">3</data>
+  <data key="d4">CL-O-01;CL-O-02;CL-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|超级大摆锤">
+  <data key="d0">POI</data>
+  <data key="d1">超级大摆锤</data>
+  <data key="d2">长隆</data>
+  <data key="d3">5</data>
+  <data key="d4">CL-O-01;CL-O-03;CL-T-01;CL-T-02;CL-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|超级海盗船">
+  <data key="d0">POI</data>
+  <data key="d1">超级海盗船</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|超级激流">
+  <data key="d0">POI</data>
+  <data key="d1">超级激流</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|长隆国际大马戏">
+  <data key="d0">POI</data>
+  <data key="d1">长隆国际大马戏</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-03</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|长隆旅游度假区">
+  <data key="d0">POI</data>
+  <data key="d1">长隆旅游度假区</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-01;CL-T-05</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|长隆欢乐世界">
+  <data key="d0">POI</data>
+  <data key="d1">长隆欢乐世界</data>
+  <data key="d2">长隆</data>
+  <data key="d3">6</data>
+  <data key="d4">CL-O-01;CL-O-03;CL-T-01;CL-T-02;CL-T-04;CL-T-05</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|长隆水上乐园">
+  <data key="d0">POI</data>
+  <data key="d1">长隆水上乐园</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-01;CL-T-05</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|长隆熊猫酒店">
+  <data key="d0">POI</data>
+  <data key="d1">长隆熊猫酒店</data>
+  <data key="d2">长隆</data>
+  <data key="d3">4</data>
+  <data key="d4">CL-O-01;CL-O-03;CL-T-01;CL-T-04</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|长隆野生动物世界">
+  <data key="d0">POI</data>
+  <data key="d1">长隆野生动物世界</data>
+  <data key="d2">长隆</data>
+  <data key="d3">3</data>
+  <data key="d4">CL-O-01;CL-O-02;CL-T-05</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|长颈鹿广场">
+  <data key="d0">POI</data>
+  <data key="d1">长颈鹿广场</data>
+  <data key="d2">长隆</data>
+  <data key="d3">3</data>
+  <data key="d4">CL-O-01;CL-O-02;CL-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|飞虎跳">
+  <data key="d0">POI</data>
+  <data key="d1">飞虎跳</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-T-01;CL-T-04</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|飞马家庭过山车">
+  <data key="d0">POI</data>
+  <data key="d1">飞马家庭过山车</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-01;CL-T-02</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|长隆|4D影院">
+  <data key="d0">POI</data>
+  <data key="d1">4D影院</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-02;CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|亚洲象园">
+  <data key="d0">POI</data>
+  <data key="d1">亚洲象园</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-02;CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|动物幼儿园">
+  <data key="d0">POI</data>
+  <data key="d1">动物幼儿园</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|十环过山车">
+  <data key="d0">POI</data>
+  <data key="d1">十环过山车</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|南门纪念品商店">
+  <data key="d0">POI</data>
+  <data key="d1">南门纪念品商店</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|天鹅湖站">
+  <data key="d0">POI</data>
+  <data key="d1">天鹅湖站</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3", "activities": ["坐"]}</data>
+</node>
+<node id="POI|长隆|安检入口">
+  <data key="d0">POI</data>
+  <data key="d1">安检入口</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|家庭亲子区">
+  <data key="d0">POI</data>
+  <data key="d1">家庭亲子区</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|小火车游览区">
+  <data key="d0">POI</data>
+  <data key="d1">小火车游览区</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|尖叫地带">
+  <data key="d0">POI</data>
+  <data key="d1">尖叫地带</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|巡游主街段">
+  <data key="d0">POI</data>
+  <data key="d1">巡游主街段</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|律动天地">
+  <data key="d0">POI</data>
+  <data key="d1">律动天地</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|椰林餐厅">
+  <data key="d0">POI</data>
+  <data key="d1">椰林餐厅</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|欢乐主街区">
+  <data key="d0">POI</data>
+  <data key="d1">欢乐主街区</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|欢乐剧场">
+  <data key="d0">POI</data>
+  <data key="d1">欢乐剧场</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|火烈鸟">
+  <data key="d0">POI</data>
+  <data key="d1">火烈鸟</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-02;CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|熊猫乐园">
+  <data key="d0">POI</data>
+  <data key="d1">熊猫乐园</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|熊猫乐园站">
+  <data key="d0">POI</data>
+  <data key="d1">熊猫乐园站</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3", "activities": ["缆车"]}</data>
+</node>
+<node id="POI|长隆|熊猫餐厅">
+  <data key="d0">POI</data>
+  <data key="d1">熊猫餐厅</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|空中缆车">
+  <data key="d0">POI</data>
+  <data key="d1">空中缆车</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|花果山">
+  <data key="d0">POI</data>
+  <data key="d1">花果山</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|花车大巡游">
+  <data key="d0">POI</data>
+  <data key="d1">花车大巡游</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|金猴王国">
+  <data key="d0">POI</data>
+  <data key="d1">金猴王国</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|长隆大熊猫中心">
+  <data key="d0">POI</data>
+  <data key="d1">长隆大熊猫中心</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|长隆|青龙山">
+  <data key="d0">POI</data>
+  <data key="d1">青龙山</data>
+  <data key="d2">长隆</data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-02;CL-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|广州白云山|世纪圆梦石">
+  <data key="d0">POI</data>
+  <data key="d1">世纪圆梦石</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|两江情缘石">
+  <data key="d0">POI</data>
+  <data key="d1">两江情缘石</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|九龙泉">
+  <data key="d0">POI</data>
+  <data key="d1">九龙泉</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">3</data>
+  <data key="d4">BYS-O-01;BYS-T-03;BYS-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|云台景区">
+  <data key="d0">POI</data>
+  <data key="d1">云台景区</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|云台花园">
+  <data key="d0">POI</data>
+  <data key="d1">云台花园</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">5</data>
+  <data key="d4">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|回归林">
+  <data key="d0">POI</data>
+  <data key="d1">回归林</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">2</data>
+  <data key="d4">BYS-O-01;BYS-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|姑嫂坟">
+  <data key="d0">POI</data>
+  <data key="d1">姑嫂坟</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|山顶公园">
+  <data key="d0">POI</data>
+  <data key="d1">山顶公园</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">2</data>
+  <data key="d4">BYS-O-01;BYS-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|岩石园">
+  <data key="d0">POI</data>
+  <data key="d1">岩石园</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|广州碑林">
+  <data key="d0">POI</data>
+  <data key="d1">广州碑林</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">4</data>
+  <data key="d4">BYS-O-01;BYS-T-01;BYS-T-03;BYS-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|摩星岭">
+  <data key="d0">POI</data>
+  <data key="d1">摩星岭</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">5</data>
+  <data key="d4">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|摩星岭景区">
+  <data key="d0">POI</data>
+  <data key="d1">摩星岭景区</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">2</data>
+  <data key="d4">BYS-O-01;BYS-O-03</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|明珠楼">
+  <data key="d0">POI</data>
+  <data key="d1">明珠楼</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">5</data>
+  <data key="d4">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|明珠楼景区">
+  <data key="d0">POI</data>
+  <data key="d1">明珠楼景区</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|星海园">
+  <data key="d0">POI</data>
+  <data key="d1">星海园</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|桃花涧">
+  <data key="d0">POI</data>
+  <data key="d1">桃花涧</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">5</data>
+  <data key="d4">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|梅花谷">
+  <data key="d0">POI</data>
+  <data key="d1">梅花谷</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">2</data>
+  <data key="d4">BYS-O-01;BYS-T-02</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|玫瑰园">
+  <data key="d0">POI</data>
+  <data key="d1">玫瑰园</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|玻璃温室">
+  <data key="d0">POI</data>
+  <data key="d1">玻璃温室</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|白云仙馆">
+  <data key="d0">POI</data>
+  <data key="d1">白云仙馆</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|聚芳园">
+  <data key="d0">POI</data>
+  <data key="d1">聚芳园</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|能仁寺">
+  <data key="d0">POI</data>
+  <data key="d1">能仁寺</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">4</data>
+  <data key="d4">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|蒲谷">
+  <data key="d0">POI</data>
+  <data key="d1">蒲谷</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">4</data>
+  <data key="d4">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|谊园">
+  <data key="d0">POI</data>
+  <data key="d1">谊园</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|锦绣南天">
+  <data key="d0">POI</data>
+  <data key="d1">锦绣南天</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|飞瀑流彩">
+  <data key="d0">POI</data>
+  <data key="d1">飞瀑流彩</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|鸣春谷">
+  <data key="d0">POI</data>
+  <data key="d1">鸣春谷</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">2</data>
+  <data key="d4">BYS-O-01;BYS-T-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|鸣春谷景区">
+  <data key="d0">POI</data>
+  <data key="d1">鸣春谷景区</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">2</data>
+  <data key="d4">BYS-O-01;BYS-O-02</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|鸿鹄楼">
+  <data key="d0">POI</data>
+  <data key="d1">鸿鹄楼</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|麓湖公园">
+  <data key="d0">POI</data>
+  <data key="d1">麓湖公园</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|麓湖景区">
+  <data key="d0">POI</data>
+  <data key="d1">麓湖景区</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|黄婆洞水库">
+  <data key="d0">POI</data>
+  <data key="d1">黄婆洞水库</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">4</data>
+  <data key="d4">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|黄河石广场">
+  <data key="d0">POI</data>
+  <data key="d1">黄河石广场</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|广州白云山|双溪别墅">
+  <data key="d0">POI</data>
+  <data key="d1">双溪别墅</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|广州白云山|山庄旅舍">
+  <data key="d0">POI</data>
+  <data key="d1">山庄旅舍</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|广州白云山|山顶广场">
+  <data key="d0">POI</data>
+  <data key="d1">山顶广场</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">2</data>
+  <data key="d4">BYS-T-02;BYS-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|广州白云山|松涛别院">
+  <data key="d0">POI</data>
+  <data key="d1">松涛别院</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|广州白云山|环湖栈道">
+  <data key="d0">POI</data>
+  <data key="d1">环湖栈道</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|广州白云山|白云山北门">
+  <data key="d0">POI</data>
+  <data key="d1">白云山北门</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|广州白云山|白云山南门">
+  <data key="d0">POI</data>
+  <data key="d1">白云山南门</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">2</data>
+  <data key="d4">BYS-T-02;BYS-T-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3", "activities": ["下山"]}</data>
+</node>
+<node id="POI|广州白云山|白云山西门">
+  <data key="d0">POI</data>
+  <data key="d1">白云山西门</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|广州白云山|白云松涛">
+  <data key="d0">POI</data>
+  <data key="d1">白云松涛</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-O-01</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|中庵">
+  <data key="d0">POI</data>
+  <data key="d1">中庵</data>
+  <data key="d2">武功山</data>
+  <data key="d3">7</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-07</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|中庵索道">
+  <data key="d0">POI</data>
+  <data key="d1">中庵索道</data>
+  <data key="d2">武功山</data>
+  <data key="d3">6</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|古祭坛群">
+  <data key="d0">POI</data>
+  <data key="d1">古祭坛群</data>
+  <data key="d2">武功山</data>
+  <data key="d3">6</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|吊马桩">
+  <data key="d0">POI</data>
+  <data key="d1">吊马桩</data>
+  <data key="d2">武功山</data>
+  <data key="d3">6</data>
+  <data key="d4">WGS-O-01;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-07</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|好汉坡">
+  <data key="d0">POI</data>
+  <data key="d1">好汉坡</data>
+  <data key="d2">武功山</data>
+  <data key="d3">5</data>
+  <data key="d4">WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-06;WGS-T-07</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|尽心桥">
+  <data key="d0">POI</data>
+  <data key="d1">尽心桥</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-01</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|尽心瀑">
+  <data key="d0">POI</data>
+  <data key="d1">尽心瀑</data>
+  <data key="d2">武功山</data>
+  <data key="d3">2</data>
+  <data key="d4">WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|情人花廊">
+  <data key="d0">POI</data>
+  <data key="d1">情人花廊</data>
+  <data key="d2">武功山</data>
+  <data key="d3">3</data>
+  <data key="d4">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|武功山神">
+  <data key="d0">POI</data>
+  <data key="d1">武功山神</data>
+  <data key="d2">武功山</data>
+  <data key="d3">3</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-04</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|武功泉">
+  <data key="d0">POI</data>
+  <data key="d1">武功泉</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|武功神拳">
+  <data key="d0">POI</data>
+  <data key="d1">武功神拳</data>
+  <data key="d2">武功山</data>
+  <data key="d3">4</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-04;WGS-T-07</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|滴水观音">
+  <data key="d0">POI</data>
+  <data key="d1">滴水观音</data>
+  <data key="d2">武功山</data>
+  <data key="d3">2</data>
+  <data key="d4">WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|狮象峰">
+  <data key="d0">POI</data>
+  <data key="d1">狮象峰</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-01</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|猴谷">
+  <data key="d0">POI</data>
+  <data key="d1">猴谷</data>
+  <data key="d2">武功山</data>
+  <data key="d3">3</data>
+  <data key="d4">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|环形栈道">
+  <data key="d0">POI</data>
+  <data key="d1">环形栈道</data>
+  <data key="d2">武功山</data>
+  <data key="d3">2</data>
+  <data key="d4">WGS-O-01;WGS-O-02</data>
+  <data key="d5">{"merge_rule": "P2_only", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|石鼓寺">
+  <data key="d0">POI</data>
+  <data key="d1">石鼓寺</data>
+  <data key="d2">武功山</data>
+  <data key="d3">7</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03;WGS-T-07</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|福星谷">
+  <data key="d0">POI</data>
+  <data key="d1">福星谷</data>
+  <data key="d2">武功山</data>
+  <data key="d3">7</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|紫极宫">
+  <data key="d0">POI</data>
+  <data key="d1">紫极宫</data>
+  <data key="d2">武功山</data>
+  <data key="d3">6</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|草甸之舟">
+  <data key="d0">POI</data>
+  <data key="d1">草甸之舟</data>
+  <data key="d2">武功山</data>
+  <data key="d3">3</data>
+  <data key="d4">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|观音宕">
+  <data key="d0">POI</data>
+  <data key="d1">观音宕</data>
+  <data key="d2">武功山</data>
+  <data key="d3">3</data>
+  <data key="d4">WGS-O-05;WGS-O-06;WGS-T-05</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|许愿桥">
+  <data key="d0">POI</data>
+  <data key="d1">许愿桥</data>
+  <data key="d2">武功山</data>
+  <data key="d3">5</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|金顶">
+  <data key="d0">POI</data>
+  <data key="d1">金顶</data>
+  <data key="d2">武功山</data>
+  <data key="d3">13</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|金顶索道">
+  <data key="d0">POI</data>
+  <data key="d1">金顶索道</data>
+  <data key="d2">武功山</data>
+  <data key="d3">5</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-T-03</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|飙水岩瀑布">
+  <data key="d0">POI</data>
+  <data key="d1">飙水岩瀑布</data>
+  <data key="d2">武功山</data>
+  <data key="d3">3</data>
+  <data key="d4">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|高空栈道">
+  <data key="d0">POI</data>
+  <data key="d1">高空栈道</data>
+  <data key="d2">武功山</data>
+  <data key="d3">2</data>
+  <data key="d4">WGS-O-01;WGS-O-02</data>
+  <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
+</node>
+<node id="POI|武功山|一木成林">
+  <data key="d0">POI</data>
+  <data key="d1">一木成林</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-04</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|七仙潭">
+  <data key="d0">POI</data>
+  <data key="d1">七仙潭</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-04</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|三县界碑">
+  <data key="d0">POI</data>
+  <data key="d1">三县界碑</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|九龙客栈">
+  <data key="d0">POI</data>
+  <data key="d1">九龙客栈</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|发云界">
+  <data key="d0">POI</data>
+  <data key="d1">发云界</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|回音谷">
+  <data key="d0">POI</data>
+  <data key="d1">回音谷</data>
+  <data key="d2">武功山</data>
+  <data key="d3">2</data>
+  <data key="d4">WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|夫妻瀑">
+  <data key="d0">POI</data>
+  <data key="d1">夫妻瀑</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-04</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|安源路矿工人运动纪念馆">
+  <data key="d0">POI</data>
+  <data key="d1">安源路矿工人运动纪念馆</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|明月山6281梯">
+  <data key="d0">POI</data>
+  <data key="d1">明月山6281梯</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|松园">
+  <data key="d0">POI</data>
+  <data key="d1">松园</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-02</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|松涛阁">
+  <data key="d0">POI</data>
+  <data key="d1">松涛阁</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|沈家大院">
+  <data key="d0">POI</data>
+  <data key="d1">沈家大院</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|玻璃栈道">
+  <data key="d0">POI</data>
+  <data key="d1">玻璃栈道</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|玻璃眺台">
+  <data key="d0">POI</data>
+  <data key="d1">玻璃眺台</data>
+  <data key="d2">武功山</data>
+  <data key="d3">2</data>
+  <data key="d4">WGS-O-04;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|福星谷栈道">
+  <data key="d0">POI</data>
+  <data key="d1">福星谷栈道</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|秋收起义广场">
+  <data key="d0">POI</data>
+  <data key="d1">秋收起义广场</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|红岩瀑">
+  <data key="d0">POI</data>
+  <data key="d1">红岩瀑</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-04</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|绝望坡">
+  <data key="d0">POI</data>
+  <data key="d1">绝望坡</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|羊狮慕小火车站">
+  <data key="d0">POI</data>
+  <data key="d1">羊狮慕小火车站</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|老鹰岩">
+  <data key="d0">POI</data>
+  <data key="d1">老鹰岩</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|萍乡车站">
+  <data key="d0">POI</data>
+  <data key="d1">萍乡车站</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|许愿石">
+  <data key="d0">POI</data>
+  <data key="d1">许愿石</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|途经好汉坡">
+  <data key="d0">POI</data>
+  <data key="d1">途经好汉坡</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-06</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|铁蹄峰">
+  <data key="d0">POI</data>
+  <data key="d1">铁蹄峰</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|问道台">
+  <data key="d0">POI</data>
+  <data key="d1">问道台</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="TRANSPORT|步行">
+  <data key="d0">TRANSPORT</data>
+  <data key="d1">步行</data>
+  <data key="d2">跨景区</data>
+  <data key="d3">13</data>
+  <data key="d4">BYS-O-01;BYS-O-02;BYS-O-03;BYS-T-01;BYS-T-02;BYS-T-04;CL-O-03;CL-T-02;CL-T-04;WGS-O-03;WGS-O-04;WGS-O-06;WGS-T-03</data>
+  <data key="d5">{"raw_names": ["步行"], "areas": "广州白云山、武功山、长隆"}</data>
+</node>
+<node id="TRANSPORT|缆车">
+  <data key="d0">TRANSPORT</data>
+  <data key="d1">缆车</data>
+  <data key="d2">跨景区</data>
+  <data key="d3">5</data>
+  <data key="d4">BYS-T-02;CL-O-01;CL-O-02;CL-T-03;WGS-T-06</data>
+  <data key="d5">{"raw_names": ["缆车"], "areas": "广州白云山、武功山、长隆"}</data>
+</node>
+<node id="TRANSPORT|小火车">
+  <data key="d0">TRANSPORT</data>
+  <data key="d1">小火车</data>
+  <data key="d2">长隆</data>
+  <data key="d3">3</data>
+  <data key="d4">CL-O-01;CL-O-02;CL-T-03</data>
+  <data key="d5">{"raw_names": ["小火车"], "areas": "长隆"}</data>
+</node>
+<node id="TRANSPORT|地铁">
+  <data key="d0">TRANSPORT</data>
+  <data key="d1">地铁</data>
+  <data key="d2">跨景区</data>
+  <data key="d3">6</data>
+  <data key="d4">BYS-T-01;BYS-T-02;CL-O-01;CL-O-03;CL-T-03;CL-T-04</data>
+  <data key="d5">{"raw_names": ["地铁", "地铁11号线", "地铁3号线", "地铁5号线", "地铁7号线"], "areas": "广州白云山、长隆", "lines": ["11号线", "3号线", "5号线", "7号线"]}</data>
+</node>
+<node id="TRANSPORT|巴士">
+  <data key="d0">TRANSPORT</data>
+  <data key="d1">巴士</data>
+  <data key="d2">跨景区</data>
+  <data key="d3">8</data>
+  <data key="d4">CL-O-01;CL-O-02;CL-O-03;WGS-O-05;WGS-O-06;WGS-T-01;WGS-T-02;WGS-T-08</data>
+  <data key="d5">{"raw_names": ["免费巴士", "公交", "大巴"], "areas": "武功山、长隆"}</data>
+</node>
+<node id="TRANSPORT|索道">
+  <data key="d0">TRANSPORT</data>
+  <data key="d1">索道</data>
+  <data key="d2">跨景区</data>
+  <data key="d3">12</data>
+  <data key="d4">BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03;WGS-T-05;WGS-T-07</data>
+  <data key="d5">{"raw_names": ["索道"], "areas": "广州白云山、武功山"}</data>
+</node>
+<node id="TRANSPORT|观光车">
+  <data key="d0">TRANSPORT</data>
+  <data key="d1">观光车</data>
+  <data key="d2">跨景区</data>
+  <data key="d3">5</data>
+  <data key="d4">BYS-O-01;BYS-T-01;BYS-T-03;WGS-O-04;WGS-T-07</data>
+  <data key="d5">{"raw_names": ["游览观光车", "观光车"], "areas": "广州白云山、武功山"}</data>
+</node>
+<node id="TRANSPORT|徒步">
+  <data key="d0">TRANSPORT</data>
+  <data key="d1">徒步</data>
+  <data key="d2">跨景区</data>
+  <data key="d3">13</data>
+  <data key="d4">BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04;WGS-O-01;WGS-O-05;WGS-O-06;WGS-T-01;WGS-T-02;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
+  <data key="d5">{"raw_names": ["徒步"], "areas": "广州白云山、武功山"}</data>
+</node>
+<node id="TIME|09:00">
+  <data key="d0">TIME</data>
+  <data key="d1">09:00</data>
+  <data key="d2"></data>
+  <data key="d3">2</data>
+  <data key="d4">CL-T-02;CL-T-04</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|09:00-12:00">
+  <data key="d0">TIME</data>
+  <data key="d1">09:00-12:00</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|09:20">
+  <data key="d0">TIME</data>
+  <data key="d1">09:20</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|09:30">
+  <data key="d0">TIME</data>
+  <data key="d1">09:30</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|09:40">
+  <data key="d0">TIME</data>
+  <data key="d1">09:40</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|10:00">
+  <data key="d0">TIME</data>
+  <data key="d1">10:00</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|10:30">
+  <data key="d0">TIME</data>
+  <data key="d1">10:30</data>
+  <data key="d2"></data>
+  <data key="d3">2</data>
+  <data key="d4">CL-T-02;CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|11:00">
+  <data key="d0">TIME</data>
+  <data key="d1">11:00</data>
+  <data key="d2"></data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-02;CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|11:20">
+  <data key="d0">TIME</data>
+  <data key="d1">11:20</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|11:50">
+  <data key="d0">TIME</data>
+  <data key="d1">11:50</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|12:00">
+  <data key="d0">TIME</data>
+  <data key="d1">12:00</data>
+  <data key="d2"></data>
+  <data key="d3">2</data>
+  <data key="d4">CL-T-03;CL-T-04</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|12:00-13:30">
+  <data key="d0">TIME</data>
+  <data key="d1">12:00-13:30</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|12:10">
+  <data key="d0">TIME</data>
+  <data key="d1">12:10</data>
+  <data key="d2"></data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-02;CL-T-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|12:30">
+  <data key="d0">TIME</data>
+  <data key="d1">12:30</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|13:00">
+  <data key="d0">TIME</data>
+  <data key="d1">13:00</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|13:10">
+  <data key="d0">TIME</data>
+  <data key="d1">13:10</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|13:30">
+  <data key="d0">TIME</data>
+  <data key="d1">13:30</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-04</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|13:30-17:30">
+  <data key="d0">TIME</data>
+  <data key="d1">13:30-17:30</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|14:00">
+  <data key="d0">TIME</data>
+  <data key="d1">14:00</data>
+  <data key="d2"></data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-02;CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|14:10">
+  <data key="d0">TIME</data>
+  <data key="d1">14:10</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|15:00">
+  <data key="d0">TIME</data>
+  <data key="d1">15:00</data>
+  <data key="d2"></data>
+  <data key="d3">2</data>
+  <data key="d4">CL-O-02;CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|15:30">
+  <data key="d0">TIME</data>
+  <data key="d1">15:30</data>
+  <data key="d2"></data>
+  <data key="d3">3</data>
+  <data key="d4">CL-O-02;CL-T-02;CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|16:00">
+  <data key="d0">TIME</data>
+  <data key="d1">16:00</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|16:30">
+  <data key="d0">TIME</data>
+  <data key="d1">16:30</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|17:00">
+  <data key="d0">TIME</data>
+  <data key="d1">17:00</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|17:10">
+  <data key="d0">TIME</data>
+  <data key="d1">17:10</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|17:30">
+  <data key="d0">TIME</data>
+  <data key="d1">17:30</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|18:00">
+  <data key="d0">TIME</data>
+  <data key="d1">18:00</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|19:00">
+  <data key="d0">TIME</data>
+  <data key="d1">19:00</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|AM">
+  <data key="d0">TIME</data>
+  <data key="d1">AM</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|NOON">
+  <data key="d0">TIME</data>
+  <data key="d1">NOON</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="TIME|PM">
+  <data key="d0">TIME</data>
+  <data key="d1">PM</data>
+  <data key="d2"></data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-03</data>
+  <data key="d5">{"source": "P3 time_norm（time_source=explicit）"}</data>
+</node>
+<node id="ACTIVITY|刺激项目">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">刺激项目</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|错峰午餐">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">错峰午餐</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|沉浸体验">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">沉浸体验</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|午餐休息">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">午餐休息</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|夜场演出">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">夜场演出</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|冲刺王牌刺激项">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">冲刺王牌刺激项</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-04</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|错峰休整+特色午餐">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">错峰休整+特色午餐</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-04</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|沉浸体验+亲子友好">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">沉浸体验+亲子友好</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-04</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|缆车上山">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">缆车上山</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-02</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|索道上山">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">索道上山</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-03</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|索道下山">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">索道下山</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-03</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="ACTIVITY|可选择乘坐高空滑索">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">可选择乘坐高空滑索</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-02</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
+<node id="CONDITION|CND-0001">
+  <data key="d0">CONDITION</data>
+  <data key="d1">停车</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-01</data>
+  <data key="d5">{"cond_id": "CND-0001", "condition_type": "交通", "suggestion": "可停在金贵村长腰岭停车场，收费8元/小时，位于白云索道对面，较为方便", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0002">
+  <data key="d0">CONDITION</data>
+  <data key="d1">节假日</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-01</data>
+  <data key="d5">{"cond_id": "CND-0002", "condition_type": "时间", "suggestion": "建议早点排队避开高峰期", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0003">
+  <data key="d0">CONDITION</data>
+  <data key="d1">节假日</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-01</data>
+  <data key="d5">{"cond_id": "CND-0003", "condition_type": "时间", "suggestion": "建议提前确认末班车时间，夜间无观光车", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0004">
+  <data key="d0">CONDITION</data>
+  <data key="d1">节假日</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-01</data>
+  <data key="d5">{"cond_id": "CND-0004", "condition_type": "时间", "suggestion": "建议错峰出行", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0005">
+  <data key="d0">CONDITION</data>
+  <data key="d1">情侣</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-01</data>
+  <data key="d5">{"cond_id": "CND-0005", "condition_type": "人群", "suggestion": "可坐同一侧方便自拍", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0006">
+  <data key="d0">CONDITION</data>
+  <data key="d1">膝盖负担较大</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-01</data>
+  <data key="d5">{"cond_id": "CND-0006", "condition_type": "体力", "suggestion": "建议穿鞋底柔软的运动鞋", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0007">
+  <data key="d0">CONDITION</data>
+  <data key="d1">拍日落</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-01</data>
+  <data key="d5">{"cond_id": "CND-0007", "condition_type": "时间", "suggestion": "建议下午4点半左右到达山顶广场或摩星岭", "match_type": "poi_suggestion", "anchor_confidence": "0.65"}</data>
+</node>
+<node id="CONDITION|CND-0008">
+  <data key="d0">CONDITION</data>
+  <data key="d1">夏天</data>
+  <data key="d2">广州白云山</data>
+  <data key="d3">1</data>
+  <data key="d4">BYS-T-02</data>
+  <data key="d5">{"cond_id": "CND-0008", "condition_type": "天气", "suggestion": "带驱蚊水+防晒", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0009">
+  <data key="d0">CONDITION</data>
+  <data key="d1">如果特别爱干净的朋友</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-05</data>
+  <data key="d5">{"cond_id": "CND-0009", "condition_type": "人群", "suggestion": "建议携带自己的睡袋，这样晚上住宿的会舒服一些", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0010">
+  <data key="d0">CONDITION</data>
+  <data key="d1">看日出</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-05</data>
+  <data key="d5">{"cond_id": "CND-0010", "condition_type": "时间", "suggestion": "厚衣服一定要带上", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0011">
+  <data key="d0">CONDITION</data>
+  <data key="d1">如想看日出又喜欢氛围热闹</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-06</data>
+  <data key="d5">{"cond_id": "CND-0011", "condition_type": "时间", "suggestion": "可以选择观音宕", "match_type": "poi_suggestion", "anchor_confidence": "0.65"}</data>
+</node>
+<node id="CONDITION|CND-0012">
+  <data key="d0">CONDITION</data>
+  <data key="d1">看日出</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-06</data>
+  <data key="d5">{"cond_id": "CND-0012", "condition_type": "时间", "suggestion": "记得调好闹钟，现在日出大概在6点钟左右", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0013">
+  <data key="d0">CONDITION</data>
+  <data key="d1">如果体力不佳</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-06</data>
+  <data key="d5">{"cond_id": "CND-0013", "condition_type": "体力", "suggestion": "乘坐第一级索道返回，如体力充足也可选择徒步下山，全程大概需花费3-4个小时", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0016">
+  <data key="d0">CONDITION</data>
+  <data key="d1">如果时间差不多</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-02</data>
+  <data key="d5">{"cond_id": "CND-0016", "condition_type": "时间", "suggestion": "坐火车也可以的", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0017">
+  <data key="d0">CONDITION</data>
+  <data key="d1">如果只玩两天</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-03</data>
+  <data key="d5">{"cond_id": "CND-0017", "condition_type": "时间", "suggestion": "直接背书包就行，一般大家都是从江西南昌过去，或者湖南长沙过去", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0018">
+  <data key="d0">CONDITION</data>
+  <data key="d1">学生</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-03</data>
+  <data key="d5">{"cond_id": "CND-0018", "condition_type": "人群", "suggestion": "提前一天预约可免门票（一定要提前预约）", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0019">
+  <data key="d0">CONDITION</data>
+  <data key="d1">冬天</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-03</data>
+  <data key="d5">{"cond_id": "CND-0019", "condition_type": "天气", "suggestion": "厚外套一定要带", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0020">
+  <data key="d0">CONDITION</data>
+  <data key="d1">如果拼车的价格超过30</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-03</data>
+  <data key="d5">{"cond_id": "CND-0020", "condition_type": "预算", "suggestion": "没有必要坐了，价格在30左右就是合理的", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0021">
+  <data key="d0">CONDITION</data>
+  <data key="d1">停车</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-03</data>
+  <data key="d5">{"cond_id": "CND-0021", "condition_type": "交通", "suggestion": "必须乘坐免费转运车上索道口（石鼓寺）", "match_type": "poi_suggestion", "anchor_confidence": "0.65"}</data>
+</node>
+<node id="CONDITION|CND-0023">
+  <data key="d0">CONDITION</data>
+  <data key="d1">儿童</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-03</data>
+  <data key="d5">{"cond_id": "CND-0023", "condition_type": "人群", "suggestion": "可免门票和索道票", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0024">
+  <data key="d0">CONDITION</data>
+  <data key="d1">看日出</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-T-08</data>
+  <data key="d5">{"cond_id": "CND-0024", "condition_type": "时间", "suggestion": "建议定好闹钟，5 点左右前往观景台，当太阳冲破云层，金色的光芒洒在云海之上，随手一拍都是大片", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0025">
+  <data key="d0">CONDITION</data>
+  <data key="d1">小朋友</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-01</data>
+  <data key="d5">{"cond_id": "CND-0025", "condition_type": "人群", "suggestion": "都可以进入梦幻童话世界，打卡到人生照片", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0026">
+  <data key="d0">CONDITION</data>
+  <data key="d1">小朋友</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-01</data>
+  <data key="d5">{"cond_id": "CND-0026", "condition_type": "人群", "suggestion": "别错过，拥有全球唯一大熊猫三胞胎的熊猫村", "match_type": "poi_suggestion", "anchor_confidence": "0.65"}</data>
+</node>
+<node id="CONDITION|CND-0027">
+  <data key="d0">CONDITION</data>
+  <data key="d1">小朋友</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-01</data>
+  <data key="d5">{"cond_id": "CND-0027", "condition_type": "人群", "suggestion": "记得来参加萌帅酷的十周岁生日呀", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0028">
+  <data key="d0">CONDITION</data>
+  <data key="d1">如果胆子小在体验前</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-03</data>
+  <data key="d5">{"cond_id": "CND-0028", "condition_type": "人群", "suggestion": "做好心理建设工作，比如先跟对象打预防针：我等下要是叫出来，你可不能笑我", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0029">
+  <data key="d0">CONDITION</data>
+  <data key="d1">如果想从南门出</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-O-03</data>
+  <data key="d5">{"cond_id": "CND-0029", "condition_type": "交通", "suggestion": "坐地铁的话，超方便的", "match_type": "poi_overlap", "anchor_confidence": "0.95"}</data>
+</node>
+<node id="CONDITION|CND-0030">
+  <data key="d0">CONDITION</data>
+  <data key="d1">五一</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-01</data>
+  <data key="d5">{"cond_id": "CND-0030", "condition_type": "时间", "suggestion": "建议7:30就要到北门排队哦~带上这份攻略，分分钟值回票价", "match_type": "poi_suggestion", "anchor_confidence": "0.65"}</data>
+</node>
+<node id="CONDITION|CND-0031">
+  <data key="d0">CONDITION</data>
+  <data key="d1">如果你带了小朋友</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-02</data>
+  <data key="d5">{"cond_id": "CND-0031", "condition_type": "人群", "suggestion": "可以来这里玩飞马家庭过山车", "match_type": "poi_suggestion", "anchor_confidence": "0.65"}</data>
+</node>
+<node id="CONDITION|CND-0032">
+  <data key="d0">CONDITION</data>
+  <data key="d1">自驾</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-03</data>
+  <data key="d5">{"cond_id": "CND-0032", "condition_type": "交通", "suggestion": "建议停北门坐接驳车过来", "match_type": "poi_suggestion", "anchor_confidence": "0.65"}</data>
+</node>
+<node id="CONDITION|CND-0033">
+  <data key="d0">CONDITION</data>
+  <data key="d1">儿童</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-04</data>
+  <data key="d5">{"cond_id": "CND-0033", "condition_type": "人群", "suggestion": "按规则带证件核验", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0034">
+  <data key="d0">CONDITION</data>
+  <data key="d1">旺季</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-04</data>
+  <data key="d5">{"cond_id": "CND-0034", "condition_type": "时间", "suggestion": "建议早于9:00抵达", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0035">
+  <data key="d0">CONDITION</data>
+  <data key="d1">儿童</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-04</data>
+  <data key="d5">{"cond_id": "CND-0035", "condition_type": "人群", "suggestion": "家长可在「奇幻漂流」旁休息亭同步观景", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0036">
+  <data key="d0">CONDITION</data>
+  <data key="d1">雨天</data>
+  <data key="d2">长隆</data>
+  <data key="d3">1</data>
+  <data key="d4">CL-T-04</data>
+  <data key="d5">{"cond_id": "CND-0036", "condition_type": "天气", "suggestion": "备好轻便雨衣更从容", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|U型滑板" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01;CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|北门" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02;CL-O-03;CL-T-01;CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|南国茶餐厅" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01;CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|南门" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02;CL-O-03;CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|垂直过山车" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-O-03;CL-T-01;CL-T-02;CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|天鹅湖" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02;CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|奇妙岛" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01;CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|弹射过山车" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|梦幻转马" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|熊猫村" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|百虎山" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|考拉园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-O-02;CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|超级大摆锤" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-O-03;CL-T-01;CL-T-02;CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|超级海盗船" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|超级激流" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|长隆国际大马戏" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|长隆旅游度假区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|长隆欢乐世界" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-O-03;CL-T-01;CL-T-02;CL-T-04;CL-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|长隆水上乐园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|长隆熊猫酒店" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-O-03;CL-T-01;CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|长隆野生动物世界" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-O-02;CL-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|长颈鹿广场" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-O-02;CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|飞虎跳" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01;CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|飞马家庭过山车" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01;CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|4D影院" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02;CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|亚洲象园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02;CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|动物幼儿园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|十环过山车" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|南门纪念品商店" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|天鹅湖站" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|安检入口" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|家庭亲子区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|小火车游览区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|尖叫地带" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|巡游主街段" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|律动天地" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|椰林餐厅" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|欢乐主街区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|欢乐剧场" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|火烈鸟" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02;CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|熊猫乐园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|熊猫乐园站" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|熊猫餐厅" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|空中缆车" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|花果山" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|花车大巡游" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|金猴王国" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|长隆大熊猫中心" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="POI|长隆|青龙山" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02;CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="ACTIVITY|刺激项目" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="ACTIVITY|错峰午餐" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="ACTIVITY|沉浸体验" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="ACTIVITY|午餐休息" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="ACTIVITY|夜场演出" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="ACTIVITY|冲刺王牌刺激项" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="ACTIVITY|错峰休整+特色午餐" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="ACTIVITY|沉浸体验+亲子友好" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="CONDITION|CND-0025" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">CL-O-01</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="CONDITION|CND-0027" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">CL-O-01</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="CONDITION|CND-0028" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="CONDITION|CND-0033" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="CONDITION|CND-0034" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="CONDITION|CND-0035" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|长隆" target="CONDITION|CND-0036" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|世纪圆梦石" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|两江情缘石" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|九龙泉" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-03;BYS-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|云台景区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|云台花园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|回归林" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|姑嫂坟" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|山顶公园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|岩石园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|广州碑林" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-03;BYS-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|摩星岭" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|摩星岭景区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|明珠楼" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|明珠楼景区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|星海园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|桃花涧" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|梅花谷" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|玫瑰园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|玻璃温室" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|白云仙馆" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|聚芳园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|能仁寺" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|蒲谷" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|谊园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|锦绣南天" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|飞瀑流彩" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|鸣春谷" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|鸣春谷景区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|鸿鹄楼" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|麓湖公园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|麓湖景区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|黄婆洞水库" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-02;BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|黄河石广场" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|双溪别墅" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|山庄旅舍" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|山顶广场" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02;BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|松涛别院" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|环湖栈道" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|白云山北门" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|白云山南门" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02;BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|白云山西门" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="POI|广州白云山|白云松涛" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="ACTIVITY|缆车上山" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="ACTIVITY|索道上山" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="ACTIVITY|索道下山" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="CONDITION|CND-0001" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="CONDITION|CND-0002" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="CONDITION|CND-0003" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="CONDITION|CND-0004" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="CONDITION|CND-0005" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="CONDITION|CND-0006" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|广州白云山" target="CONDITION|CND-0008" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|中庵" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|中庵索道" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|古祭坛群" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|吊马桩" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|好汉坡" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-06;WGS-T-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|尽心桥" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|尽心瀑" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|情人花廊" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|武功山神" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|武功泉" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|武功神拳" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-04;WGS-T-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|滴水观音" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|狮象峰" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|猴谷" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|环形栈道" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|石鼓寺" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03;WGS-T-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|福星谷" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|紫极宫" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|草甸之舟" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|观音宕" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05;WGS-O-06;WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|许愿桥" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|金顶" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|金顶索道" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|飙水岩瀑布" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|高空栈道" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|一木成林" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|七仙潭" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|三县界碑" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|九龙客栈" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|发云界" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|回音谷" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|夫妻瀑" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|安源路矿工人运动纪念馆" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|明月山6281梯" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|松园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|松涛阁" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|沈家大院" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|玻璃栈道" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|玻璃眺台" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|福星谷栈道" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|秋收起义广场" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|红岩瀑" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|绝望坡" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|羊狮慕小火车站" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|老鹰岩" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|萍乡车站" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|许愿石" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|途经好汉坡" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|铁蹄峰" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|问道台" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="ACTIVITY|可选择乘坐高空滑索" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0009" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0010" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0012" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0013" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0016" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-T-02</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0017" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-T-03</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0018" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-T-03</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0019" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-T-03</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0020" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-T-03</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0023" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-T-03</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0024" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-T-08</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="POI|长隆|北门" target="POI|长隆|小火车游览区" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|北门" target="TRANSPORT|小火车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">4.0</data>
+  <data key="d8">CL-O-02;CL-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|北门" target="TRANSPORT|缆车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|北门" target="TRANSPORT|巴士" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|北门" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|北门" target="CONDITION|CND-0030" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.65</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{"match_type": "poi_suggestion"}</data>
+</edge>
+<edge source="POI|长隆|北门" target="CONDITION|CND-0032" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.65</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"match_type": "poi_suggestion"}</data>
+</edge>
+<edge source="POI|长隆|南门" target="POI|长隆|熊猫乐园站" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|南门" target="TIME|09:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|南门" target="TIME|18:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "晚上"}</data>
+</edge>
+<edge source="POI|长隆|南门" target="TRANSPORT|地铁" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|南门" target="TRANSPORT|小火车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|南门" target="CONDITION|CND-0029" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.95</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{"match_type": "poi_overlap"}</data>
+</edge>
+<edge source="POI|长隆|垂直过山车" target="POI|长隆|十环过山车" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|垂直过山车" target="TIME|09:40" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|垂直过山车" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|天鹅湖" target="TRANSPORT|小火车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|天鹅湖" target="TRANSPORT|缆车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">CL-O-02;CL-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|熊猫村" target="CONDITION|CND-0026" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.65</data>
+  <data key="d8">CL-O-01</data>
+  <data key="d9">{"match_type": "poi_suggestion"}</data>
+</edge>
+<edge source="POI|长隆|熊猫村" target="POI|长隆|长隆大熊猫中心" id="SIMILAR_TO">
+  <data key="d6">SIMILAR_TO</data>
+  <data key="d7">0.6</data>
+  <data key="d8"></data>
+  <data key="d9">{"basis": "同一游览对象的不同命名，待人工确认", "decision": "保留双节点（父子关系不合并）"}</data>
+</edge>
+<edge source="POI|长隆|百虎山" target="POI|长隆|天鹅湖站" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|百虎山" target="POI|长隆|长颈鹿广场" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|百虎山" target="TIME|13:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="POI|长隆|百虎山" target="TIME|16:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|考拉园" target="POI|长隆|熊猫乐园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|考拉园" target="TIME|11:50" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|考拉园" target="POI|长隆|亚洲象园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|考拉园" target="TIME|16:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|考拉园" target="TRANSPORT|小火车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|超级大摆锤" target="ACTIVITY|午餐休息" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|超级大摆锤" target="TIME|11:20" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|长隆欢乐世界" target="POI|长隆|长隆野生动物世界" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|长隆欢乐世界" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|长隆熊猫酒店" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">CL-O-03;CL-T-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|长隆熊猫酒店" target="TRANSPORT|巴士" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|长隆熊猫酒店" target="TRANSPORT|地铁" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|长隆野生动物世界" target="POI|长隆|长隆水上乐园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|长隆野生动物世界" target="TRANSPORT|小火车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|长隆野生动物世界" target="TRANSPORT|巴士" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|长颈鹿广场" target="POI|长隆|空中缆车" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|长颈鹿广场" target="TIME|15:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|长颈鹿广场" target="POI|长隆|考拉园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|长颈鹿广场" target="TIME|16:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|长颈鹿广场" target="TRANSPORT|小火车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|长隆|飞马家庭过山车" target="CONDITION|CND-0031" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.65</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"match_type": "poi_suggestion"}</data>
+</edge>
+<edge source="POI|长隆|4D影院" target="POI|长隆|亚洲象园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|4D影院" target="TIME|14:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|4D影院" target="POI|长隆|花果山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|4D影院" target="TIME|11:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|亚洲象园" target="POI|长隆|长颈鹿广场" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|亚洲象园" target="TIME|15:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|亚洲象园" target="POI|长隆|长隆大熊猫中心" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|亚洲象园" target="TIME|16:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|动物幼儿园" target="POI|长隆|花车大巡游" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|动物幼儿园" target="TIME|15:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|十环过山车" target="POI|长隆|超级大摆锤" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|十环过山车" target="TIME|10:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|南门纪念品商店" target="TIME|17:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|天鹅湖站" target="POI|长隆|动物幼儿园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|天鹅湖站" target="TIME|14:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|安检入口" target="POI|长隆|欢乐主街区" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|安检入口" target="TIME|09:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|家庭亲子区" target="POI|长隆|欢乐剧场" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|家庭亲子区" target="TIME|13:10" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="POI|长隆|小火车游览区" target="POI|长隆|青龙山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|小火车游览区" target="TIME|10:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|尖叫地带" target="POI|长隆|椰林餐厅" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|尖叫地带" target="TIME|AM" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|巡游主街段" target="ACTIVITY|夜场演出" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|巡游主街段" target="TIME|15:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|律动天地" target="TIME|PM" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|椰林餐厅" target="POI|长隆|律动天地" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|椰林餐厅" target="TIME|NOON" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-03</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="POI|长隆|欢乐主街区" target="POI|长隆|垂直过山车" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|欢乐主街区" target="TIME|09:20" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|欢乐剧场" target="POI|长隆|巡游主街段" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|欢乐剧场" target="TIME|14:10" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|火烈鸟" target="POI|长隆|南门纪念品商店" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|火烈鸟" target="TIME|17:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|火烈鸟" target="POI|长隆|南门" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|火烈鸟" target="TIME|18:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "晚上"}</data>
+</edge>
+<edge source="POI|长隆|熊猫乐园" target="POI|长隆|熊猫餐厅" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|熊猫乐园" target="TIME|12:10" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="POI|长隆|熊猫乐园站" target="POI|长隆|4D影院" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|熊猫乐园站" target="TIME|10:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|熊猫餐厅" target="POI|长隆|4D影院" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|熊猫餐厅" target="TIME|12:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="POI|长隆|空中缆车" target="POI|长隆|火烈鸟" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|空中缆车" target="TIME|16:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|花果山" target="POI|长隆|金猴王国" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|花果山" target="TIME|11:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|花车大巡游" target="POI|长隆|百虎山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|花车大巡游" target="TIME|15:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|金猴王国" target="POI|长隆|青龙山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|金猴王国" target="TIME|11:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|长隆大熊猫中心" target="POI|长隆|火烈鸟" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|长隆大熊猫中心" target="TIME|17:10" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "下午"}</data>
+</edge>
+<edge source="POI|长隆|青龙山" target="POI|长隆|考拉园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|青龙山" target="TIME|11:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-O-02</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="POI|长隆|青龙山" target="POI|长隆|百虎山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|长隆|青龙山" target="TIME|12:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-03</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="POI|广州白云山|世纪圆梦石" target="POI|广州白云山|鸣春谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|世纪圆梦石" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|世纪圆梦石" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|两江情缘石" target="POI|广州白云山|广州碑林" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|两江情缘石" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|两江情缘石" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|九龙泉" target="POI|广州白云山|广州碑林" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|九龙泉" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|九龙泉" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|九龙泉" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|云台景区" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|云台景区" target="POI|广州白云山|云台花园" id="SIMILAR_TO">
+  <data key="d6">SIMILAR_TO</data>
+  <data key="d7">0.6</data>
+  <data key="d8"></data>
+  <data key="d9">{"basis": "花园位于景区内", "decision": "保留双节点（父子关系不合并）"}</data>
+</edge>
+<edge source="POI|广州白云山|云台花园" target="ACTIVITY|缆车上山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|云台花园" target="TRANSPORT|地铁" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-T-01;BYS-T-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|云台花园" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|云台花园" target="TRANSPORT|缆车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|云台花园" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|云台花园" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|回归林" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|回归林" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|姑嫂坟" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|山顶公园" target="POI|广州白云山|两江情缘石" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|山顶公园" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|山顶公园" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|山顶公园" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|山顶公园" target="POI|广州白云山|山顶广场" id="SIMILAR_TO">
+  <data key="d6">SIMILAR_TO</data>
+  <data key="d7">0.6</data>
+  <data key="d8"></data>
+  <data key="d9">{"basis": "同一山顶片区的两种叫法", "decision": "保留双节点（父子关系不合并）"}</data>
+</edge>
+<edge source="POI|广州白云山|岩石园" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|广州碑林" target="POI|广州白云山|黄河石广场" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|广州碑林" target="ACTIVITY|索道下山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|广州碑林" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|广州碑林" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|广州碑林" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="POI|广州白云山|山庄旅舍" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="POI|广州白云山|白云山南门" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-T-02;BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">BYS-T-01;BYS-T-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">4.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-T-01;BYS-T-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="TRANSPORT|缆车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="CONDITION|CND-0007" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.65</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"match_type": "poi_suggestion"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="POI|广州白云山|摩星岭景区" id="SIMILAR_TO">
+  <data key="d6">SIMILAR_TO</data>
+  <data key="d7">0.6</data>
+  <data key="d8"></data>
+  <data key="d9">{"basis": "层级写法：景区 vs 主峰", "decision": "保留双节点（父子关系不合并）"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭景区" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">BYS-O-01;BYS-O-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭景区" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|明珠楼" target="POI|广州白云山|梅花谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|明珠楼" target="POI|广州白云山|摩星岭" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|明珠楼" target="POI|广州白云山|环湖栈道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|明珠楼" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|明珠楼" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-O-01;BYS-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|明珠楼" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|明珠楼" target="POI|广州白云山|明珠楼景区" id="SIMILAR_TO">
+  <data key="d6">SIMILAR_TO</data>
+  <data key="d7">0.6</data>
+  <data key="d8"></data>
+  <data key="d9">{"basis": "层级写法：景区 vs 楼", "decision": "保留双节点（父子关系不合并）"}</data>
+</edge>
+<edge source="POI|广州白云山|明珠楼景区" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|明珠楼景区" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|星海园" target="POI|广州白云山|蒲谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|星海园" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|桃花涧" target="POI|广州白云山|明珠楼" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|桃花涧" target="POI|广州白云山|黄婆洞水库" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|桃花涧" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|桃花涧" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|桃花涧" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|梅花谷" target="POI|广州白云山|黄婆洞水库" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|梅花谷" target="POI|广州白云山|松涛别院" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|梅花谷" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|梅花谷" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|玫瑰园" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|玻璃温室" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|白云仙馆" target="POI|广州白云山|星海园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|白云仙馆" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|聚芳园" target="POI|广州白云山|白云仙馆" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|聚芳园" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|能仁寺" target="POI|广州白云山|世纪圆梦石" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|能仁寺" target="POI|广州白云山|蒲谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|能仁寺" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|能仁寺" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|能仁寺" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|蒲谷" target="POI|广州白云山|能仁寺" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|蒲谷" target="POI|广州白云山|山顶广场" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|蒲谷" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|蒲谷" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|蒲谷" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|谊园" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|锦绣南天" target="POI|广州白云山|摩星岭" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|锦绣南天" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|锦绣南天" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|飞瀑流彩" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|鸣春谷" target="POI|广州白云山|山顶公园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|鸣春谷" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|鸣春谷" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|鸣春谷" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|鸣春谷" target="POI|广州白云山|鸣春谷景区" id="SIMILAR_TO">
+  <data key="d6">SIMILAR_TO</data>
+  <data key="d7">0.6</data>
+  <data key="d8"></data>
+  <data key="d9">{"basis": "层级写法：景区 vs 谷", "decision": "保留双节点（父子关系不合并）"}</data>
+</edge>
+<edge source="POI|广州白云山|鸣春谷景区" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">BYS-O-01;BYS-O-02</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|鸣春谷景区" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|鸿鹄楼" target="POI|广州白云山|聚芳园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|鸿鹄楼" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|麓湖公园" target="POI|广州白云山|鸿鹄楼" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|麓湖公园" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|麓湖景区" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|麓湖景区" target="POI|广州白云山|麓湖公园" id="SIMILAR_TO">
+  <data key="d6">SIMILAR_TO</data>
+  <data key="d7">0.6</data>
+  <data key="d8"></data>
+  <data key="d9">{"basis": "同一片区的两种叫法", "decision": "保留双节点（父子关系不合并）"}</data>
+</edge>
+<edge source="POI|广州白云山|黄婆洞水库" target="POI|广州白云山|回归林" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|黄婆洞水库" target="POI|广州白云山|明珠楼" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-T-02;BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|黄婆洞水库" target="POI|广州白云山|梅花谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|黄婆洞水库" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|黄婆洞水库" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">BYS-O-01;BYS-T-01;BYS-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|黄婆洞水库" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|黄河石广场" target="POI|广州白云山|锦绣南天" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|黄河石广场" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|黄河石广场" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|双溪别墅" target="POI|广州白云山|白云松涛" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|山庄旅舍" target="POI|广州白云山|双溪别墅" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|山顶广场" target="POI|广州白云山|摩星岭" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-T-02;BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|山顶广场" target="POI|广州白云山|九龙泉" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|松涛别院" target="POI|广州白云山|摩星岭" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|环湖栈道" target="POI|广州白云山|桃花涧" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|白云山北门" target="POI|广州白云山|黄婆洞水库" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|白云山南门" target="POI|广州白云山|云台花园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|白云山南门" target="ACTIVITY|索道上山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|白云山南门" target="POI|广州白云山|能仁寺" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|白云山西门" target="POI|广州白云山|桃花涧" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|白云山西门" target="POI|广州白云山|黄婆洞水库" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|广州白云山|白云松涛" target="POI|广州白云山|桃花涧" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|中庵" target="POI|武功山|七仙潭" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|中庵" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|中庵" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">6.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|中庵" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|中庵" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|中庵索道" target="POI|武功山|石鼓寺" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|中庵索道" target="POI|武功山|紫极宫" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-02;WGS-O-03;WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|中庵索道" target="POI|武功山|金顶索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|中庵索道" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-03;WGS-T-03</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|中庵索道" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|古祭坛群" target="POI|武功山|金顶" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|吊马桩" target="POI|武功山|金顶" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|吊马桩" target="POI|武功山|中庵" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|吊马桩" target="POI|武功山|好汉坡" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|吊马桩" target="POI|武功山|观音宕" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|吊马桩" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|好汉坡" target="POI|武功山|滴水观音" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|好汉坡" target="POI|武功山|发云界" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|尽心桥" target="POI|武功山|飙水岩瀑布" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|尽心瀑" target="POI|武功山|石鼓寺" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|尽心瀑" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|情人花廊" target="POI|武功山|草甸之舟" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|情人花廊" target="POI|武功山|途经好汉坡" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|情人花廊" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|武功山神" target="POI|武功山|武功神拳" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|武功山神" target="POI|武功山|金顶" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-02;WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|武功山神" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|武功山神" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|武功神拳" target="POI|武功山|金顶索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|武功神拳" target="POI|武功山|武功山神" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-02;WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|武功神拳" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|武功神拳" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-04;WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|武功神拳" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|滴水观音" target="POI|武功山|猴谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|猴谷" target="POI|武功山|紫极宫" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|猴谷" target="POI|武功山|飙水岩瀑布" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|石鼓寺" target="POI|武功山|尽心桥" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|石鼓寺" target="POI|武功山|中庵索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-02;WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|石鼓寺" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-04;WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|石鼓寺" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">4.0</data>
+  <data key="d8">WGS-O-05;WGS-T-03;WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|石鼓寺" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-05;WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|石鼓寺" target="CONDITION|CND-0021" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.65</data>
+  <data key="d8">WGS-T-03</data>
+  <data key="d9">{"match_type": "poi_suggestion"}</data>
+</edge>
+<edge source="POI|武功山|福星谷" target="POI|武功山|紫极宫" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|福星谷" target="POI|武功山|许愿桥" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-02;WGS-O-04;WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|福星谷" target="POI|武功山|问道台" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|福星谷" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|福星谷" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|福星谷" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|紫极宫" target="POI|武功山|吊马桩" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|紫极宫" target="POI|武功山|中庵索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-01;WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|紫极宫" target="POI|武功山|福星谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">4.0</data>
+  <data key="d8">WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|紫极宫" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-06</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|紫极宫" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">4.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-06</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|紫极宫" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">4.0</data>
+  <data key="d8">WGS-O-05;WGS-O-06</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|草甸之舟" target="POI|武功山|古祭坛群" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|观音宕" target="POI|武功山|吊马桩" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|观音宕" target="POI|武功山|绝望坡" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|观音宕" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|观音宕" target="CONDITION|CND-0011" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.65</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{"match_type": "poi_suggestion"}</data>
+</edge>
+<edge source="POI|武功山|许愿桥" target="POI|武功山|福星谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|许愿桥" target="POI|武功山|高空栈道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|许愿桥" target="POI|武功山|玻璃眺台" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-04;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|许愿桥" target="POI|武功山|玻璃栈道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|许愿桥" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|许愿桥" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|许愿桥" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="POI|武功山|武功山神" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="POI|武功山|金顶索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="POI|武功山|中庵索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="POI|武功山|古祭坛群" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="POI|武功山|吊马桩" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-04;WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="POI|武功山|观音宕" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">7.0</data>
+  <data key="d8">WGS-O-05;WGS-O-06;WGS-T-06;WGS-T-07;WGS-T-08</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|金顶" target="TRANSPORT|巴士" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-08</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|金顶索道" target="POI|武功山|高空栈道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶索道" target="POI|武功山|武功神拳" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-02;WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶索道" target="POI|武功山|松园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶索道" target="POI|武功山|古祭坛群" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|金顶索道" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|金顶索道" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|飙水岩瀑布" target="POI|武功山|猴谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|飙水岩瀑布" target="POI|武功山|尽心瀑" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|高空栈道" target="POI|武功山|许愿桥" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|高空栈道" target="POI|武功山|金顶索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|七仙潭" target="POI|武功山|红岩瀑" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|三县界碑" target="POI|武功山|明月山6281梯" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|九龙客栈" target="POI|武功山|铁蹄峰" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|发云界" target="POI|武功山|老鹰岩" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|回音谷" target="POI|武功山|情人花廊" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|夫妻瀑" target="POI|武功山|一木成林" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|安源路矿工人运动纪念馆" target="POI|武功山|秋收起义广场" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|松园" target="ACTIVITY|可选择乘坐高空滑索" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|松涛阁" target="POI|武功山|许愿石" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|沈家大院" target="POI|武功山|羊狮慕小火车站" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|玻璃栈道" target="POI|武功山|回音谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|玻璃眺台" target="POI|武功山|金顶索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|玻璃眺台" target="POI|武功山|回音谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|福星谷栈道" target="POI|武功山|金顶索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|秋收起义广场" target="POI|武功山|中庵索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|红岩瀑" target="POI|武功山|夫妻瀑" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|绝望坡" target="POI|武功山|好汉坡" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|羊狮慕小火车站" target="POI|武功山|三县界碑" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|老鹰岩" target="POI|武功山|沈家大院" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|萍乡车站" target="POI|武功山|金顶" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|许愿石" target="POI|武功山|福星谷栈道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|铁蹄峰" target="POI|武功山|金顶" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|问道台" target="POI|武功山|松涛阁" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="ACTIVITY|刺激项目" target="ACTIVITY|错峰午餐" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="ACTIVITY|刺激项目" target="TIME|09:00-12:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="ACTIVITY|错峰午餐" target="ACTIVITY|沉浸体验" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="ACTIVITY|错峰午餐" target="TIME|12:00-13:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="ACTIVITY|沉浸体验" target="TIME|13:30-17:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-01</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="ACTIVITY|午餐休息" target="POI|长隆|家庭亲子区" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="ACTIVITY|午餐休息" target="TIME|12:10" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="ACTIVITY|夜场演出" target="TIME|19:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-02</data>
+  <data key="d9">{"time_period": "晚上"}</data>
+</edge>
+<edge source="ACTIVITY|冲刺王牌刺激项" target="ACTIVITY|错峰休整+特色午餐" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="ACTIVITY|冲刺王牌刺激项" target="TIME|09:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{"time_period": "上午"}</data>
+</edge>
+<edge source="ACTIVITY|错峰休整+特色午餐" target="ACTIVITY|沉浸体验+亲子友好" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="ACTIVITY|错峰休整+特色午餐" target="TIME|12:00" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="ACTIVITY|沉浸体验+亲子友好" target="TIME|13:30" id="AT_TIME">
+  <data key="d6">AT_TIME</data>
+  <data key="d7">1.0</data>
+  <data key="d8">CL-T-04</data>
+  <data key="d9">{"time_period": "中午"}</data>
+</edge>
+<edge source="ACTIVITY|缆车上山" target="POI|广州白云山|山顶广场" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="ACTIVITY|索道上山" target="POI|广州白云山|山顶广场" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">BYS-T-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="ACTIVITY|可选择乘坐高空滑索" target="POI|武功山|福星谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+</graph></graphml>
