@@ -19,8 +19,8 @@
 | 3 | 路线层级结构 | HappinessJo | ✅ 35 条路线 / 226 个步骤（长隆 8/52、白云山 11/61、武功山 16/113） | `analysis/p03_routes/outputs/routes.jsonl` | `v0.3-p03` |
 | 4 | 共指消解 | 成员3 | ✅ 140 候选 / 28 消解 / 20 标注（自检交付） | `analysis/p04_coref/outputs/coref.jsonl` | `v0.4-p04` |
 | 5 | 条件建议抽取 | T0coke | ✅ 36 条 / 33 唯一；13 篇文档（自检交付） | `analysis/p05_conditions/outputs/conditions.jsonl` | `v0.5-p05` |
-| 6 | 知识图谱 | T0coke | 未开始 | `analysis/p06_graph/outputs/graph_*.csv` | — |
-| 7 | 旅游规划 Agent | HappinessJo | 未开始 | `analysis/p07_agent/src/agent.py` | — |
+| 6 | 知识图谱 | HappinessJo | 未开始 | `analysis/p06_graph/outputs/graph_*.csv` | — |
+| 7 | 旅游规划 Agent | 成员3 | 未开始 | `analysis/p07_agent/src/agent.py` | — |
 | — | 总结反思 | 三人 | 未开始 | `report/章节/总结反思.md` | — |
 
 图例：✅ 已交付并打 tag｜🚧 进行中｜❌ 缺数据｜未开始
@@ -62,11 +62,15 @@ python src/run_all.py
 
 ## 三人分工
 
-| 成员 | 负责景区 | 项目主责 | 复核 |
+| 成员 | 数据范围 | 项目主责 | 复核 |
 |---|---|---|---|
-| **HappinessJo** | 长隆旅游度假区 | P3 路线层级、P7 Agent、文档与准则 | P2 / P6 |
-| **T0coke** | 萍乡武功山 | P2 实体识别、P5 条件建议、P6 知识图谱、公共层 | P3 / P7 |
-| **成员3（待填）** | 广州白云山 | P4 共指消解 | P5 |
+| **HappinessJo** | 三景区 | P3 路线层级、P6 知识图谱、文档与准则 | P2 / P7 |
+| **T0coke** | 三景区 | P2 实体识别、P5 条件建议、公共层 | P3 / P4 / P6 |
+| **成员3（待填）** | 三景区 | P4 共指消解、P7 Agent | P5 |
+
+> **按项目分工**（2026-11-01 起）：每个项目都覆盖长隆 / 广州白云山 / 武功山三个景区的数据，
+> 不再"一人负责一个景区"。上表"数据范围"三行相同即为此意；数据目录的维护责任另见
+> [`AGENTS.md`](AGENTS.md) §4（仍按景区划分，本次未改）。
 
 规则：**一个项目只有一个 owner；owner 不同时做 reviewer。**
 

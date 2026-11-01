@@ -80,9 +80,9 @@
 | `scenic/changlong/` | HappinessJo | 只读 |
 | `scenic/wugongshan/` | T0coke | 只读 |
 | `scenic/baiyunshan/` | 成员3（待填） | 只读 |
-| `analysis/p02_entities/`、`p05_conditions/`、`p06_graph/` | T0coke | 主责以外只读 |
-| `analysis/p03_routes/`、`p07_agent/` | HappinessJo | 只读 |
-| `analysis/p04_coref/` | 成员3 | 只读 |
+| `analysis/p02_entities/`、`p05_conditions/` | T0coke | 主责以外只读 |
+| `analysis/p03_routes/`、`p06_graph/` | HappinessJo | 只读 |
+| `analysis/p04_coref/`、`p07_agent/` | 成员3 | 只读 |
 | `report/总报告_*.docx` | 组长（待定） | 只读 |
 
 **项目分工见 `docs/03_交接标准.md` 第 1 节矩阵；一个项目只有一个 owner，owner 不能兼 reviewer。**
@@ -210,8 +210,8 @@ python src/merge_group.py ..\changlong\data\processed\changlong_guides.csv `
 | P3 路线层级 | HappinessJo | ✅ 35 条路线 / 226 个步骤（长隆 8/52、白云山 11/61、武功山 16/113） | `v0.3-p03` |
 | P4 共指消解 | 成员3 | ✅ 140 候选 / 28 消解 / 20 标注；准确率 80%、精确率/召回率 75%（自检交付） | `v0.4-p04` |
 | P5 条件建议 | T0coke | ✅ 36 条 / 33 唯一；13 篇文档；抽查严格 70%、宽松 95%（自检交付） | `v0.5-p05` |
-| P6 知识图谱 | T0coke | 未开始 | — |
-| P7 Agent | HappinessJo | 未开始 | — |
+| P6 知识图谱 | HappinessJo | 未开始 | — |
+| P7 Agent | 成员3 | 未开始 | — |
 | 总结反思 | 三人 | 未开始 | — |
 
 > 图例：✅ 已交付并打 tag｜🚧 进行中｜❌ 缺数据｜未开始

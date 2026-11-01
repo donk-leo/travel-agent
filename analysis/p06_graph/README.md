@@ -1,6 +1,6 @@
 # 项目 6 · 多源程序性知识融合与图谱可视化
 
-> 负责人：**T0coke**｜复核：HappinessJo
+> 负责人：**HappinessJo**｜复核：T0coke
 > 交接卡：`standards/handover/p06_graph.yaml`｜输出 schema：`standards/schema_graph.json`
 
 ## 目标
