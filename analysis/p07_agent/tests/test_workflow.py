@@ -119,6 +119,29 @@ class AgentFlowTests(unittest.TestCase):
         self.assertTrue(result["needs_followup"])
         selector.assert_not_called()
 
+    def test_plan_request_queries_route_if_model_omits_it(self):
+        plan = {"decision": "query_graph", "request_type": "plan", "reason": "需要规划", "response": ""}
+        selection = {"tools": ["get_conditions", "search_poi"], "search_mode": "all_pois",
+                     "search_keyword": "", "reason": "查询建议和景点"}
+        stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
+        route = {"proposal": {"node_ids": ["a", "b"], "explanation": "路线", "uncertainties": []},
+                 "validation": {"valid": True, "segments": [], "missing_connections": []}, "message": "通过"}
+        with patch.object(agent, "parse_intent", return_value={**self.intent, "duration_days": 1}), \
+             patch.object(agent, "decide_next_step", return_value=plan), \
+             patch.object(agent, "check_constraints", return_value=self.ok), \
+             patch.object(agent, "check_plan", return_value=self.ok), \
+             patch.object(agent, "select_tools", side_effect=[selection, stop]), \
+             patch.object(agent, "find_relevant_conditions", return_value=[]), \
+             patch.object(agent, "search_poi", return_value=[]), \
+             patch.object(agent, "plan_route", return_value=route) as planner:
+            result = agent.run_agent("我和父母去长隆玩一天")
+        self.assertEqual(result["status"], "complete")
+        self.assertIsNotNone(result["route"])
+        planner.assert_called_once()
+        events = [json.loads(line) for line in (Path(self.temp.name) / result["trace_file"]).read_text(encoding="utf-8").splitlines()]
+        self.assertTrue(any(e.get("event_type") == "decision_adjustment" for e in events))
+
+
     def test_unknown_place_is_checked_against_graph(self):
         choices = [
             {"tools": ["search_poi"], "search_mode": "keyword", "search_keyword": "虚构地点", "reason": "查询"},

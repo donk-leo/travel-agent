@@ -132,6 +132,19 @@ def _query_graph(result, trace, user_text, area, days):
             not isinstance(name, str) or name not in ALLOWED_TOOLS for name in tool_names
         ):
             raise ValueError("工具选择器返回了无效工具。")
+        # A planning request needs route evidence even if the model omitted it.
+        # Keep the model's original choice in the trace and record this addition separately.
+        if (result["decision"]["request_type"] == "plan"
+                and "get_route_candidates" not in tool_names
+                and not any(key[0] == "get_route_candidates" for key in executed)):
+            tool_names = [*tool_names, "get_route_candidates"]
+            adjustment = {
+                "kind": "system_adjustment",
+                "tools": ["get_route_candidates"],
+                "reason": "行程规划需要图谱路线连接，系统补充路线查询。"
+            }
+            result["tool_decisions"].append(adjustment)
+            trace.record_event("decision_adjustment", decision=adjustment)
         if not tool_names:
             if not executed:
                 result.update(status="clarify", needs_followup=True,

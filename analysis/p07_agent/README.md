@@ -49,7 +49,7 @@ python3 checks/check_agent.py analysis/p07_agent/
 
 ## 流程和输入
 
-`src/agent.py` 是主流程：需求解析 → 决定追问/回复/查图谱 → 需求检查 → 模型选择工具 → 读取工具结果并决定是否补查（最多 3 轮）→ 方案检查 → 返回结果及会话记录。模型只看到本次工具返回的相关数据和摘要，不把整个图谱直接写入提示词。
+`src/agent.py` 是主流程：需求解析 → 决定追问/回复/查图谱 → 需求检查 → 模型选择工具 → 读取工具结果并决定是否补查（最多 3 轮）→ 方案检查 → 返回结果及会话记录。行程规划需要路线证据；如果模型漏选路线查询，系统会补充调用并单独记录。模型只看到本次工具返回的相关数据和摘要，不把整个图谱直接写入提示词。
 
 - 图谱只读：`analysis/p06_graph/outputs/graph_nodes.csv`、`graph_edges.csv`，来源标签 `v0.6-p06`。
 - `tools.py` 提供 `search_poi`、`get_route`、`get_conditions`、`neighbors` 及按来源分组的 `get_route_candidates`。

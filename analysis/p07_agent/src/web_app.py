@@ -39,7 +39,7 @@ PAGE = """
   <details>
     <summary>查看图谱工具选择</summary>
     {% for selection in tool_decisions %}
-      <p>第 {{ loop.index }} 轮：{{ selection.tools|join('、')|e if selection.tools else '不再查询' }}</p>
+      <p>{% if selection.kind == 'system_adjustment' %}系统补充{% else %}模型选择{% endif %}：{{ selection.tools|join('、')|e if selection.tools else '不再查询' }}</p>
       <p>理由：{{ selection.reason|e }}</p>
     {% endfor %}
   </details>
