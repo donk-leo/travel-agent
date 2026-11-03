@@ -1,0 +1,94 @@
+import json
+import urllib.error
+import urllib.request
+
+
+from config import MODEL, OLLAMA_URL
+
+INTENT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "scenic_area": {"type": ["string", "null"]},
+        "duration_days": {"type": ["integer", "null"]},
+        "traveler_profiles": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "preferences": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "constraints": {
+            "type": "array",
+            "items": {"type": "string"}
+        }
+    },
+    "required": [
+        "scenic_area",
+        "duration_days",
+        "traveler_profiles",
+        "preferences",
+        "constraints"
+    ]
+}
+
+SYSTEM_PROMPT = """
+你是旅游规划系统的需求解析器。阅读用户的完整需求，提取以下字段：
+如果用户后续明确更正先前的要求，以后续更正为准。
+
+- scenic_area：用户提到的景区名称。
+- duration_days：游玩天数。
+- traveler_profiles：同行人群。
+- preferences：想体验的活动或喜欢的游玩方式。
+- constraints：用户对行程提出的限制或希望尽量做到的条件，
+  例如步行强度、预算、时间安排、无障碍需求等。
+
+注意区分明确的硬性要求和“尽量”“希望”等弹性要求；
+提取时保留原有语气，不要把弹性要求改成强制要求。
+对于用户明确表达的限制或希望，请放入 constraints，不要遗漏。
+
+景区或天数没有明确提到时填 null；其他列表没有内容时填空列表。
+不要猜测用户没有说的信息。
+只返回符合给定 JSON Schema 的结果。
+"""
+
+
+def parse_intent(user_text):
+    payload = {
+        "model": MODEL,
+        "messages": [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": user_text}
+        ],
+        "format": INTENT_SCHEMA,
+        "think": False,
+        "options": {"temperature": 0},
+        "stream": False
+    }
+
+    request = urllib.request.Request(
+        OLLAMA_URL,
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST"
+    )
+
+    try:
+        with urllib.request.urlopen(request, timeout=180) as response:
+            result = json.load(response)
+    except urllib.error.URLError as exc:
+        raise RuntimeError("无法连接本地 Ollama，请确认 Ollama 正在运行。") from exc
+
+    content = result.get("message", {}).get("content", "")
+    intent = json.loads(content)
+
+    expected_fields = set(INTENT_SCHEMA["required"])
+    if set(intent) != expected_fields:
+        raise ValueError("模型返回的字段与意图结构不一致。")
+
+    return intent
+
+
+if __name__ == "__main__":
+    sample = "带孩子和老人去长隆玩一天，游乐项目为主，尽量少走路。"
+    print(json.dumps(parse_intent(sample), ensure_ascii=False, indent=2))

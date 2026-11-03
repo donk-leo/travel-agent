@@ -1,0 +1,63 @@
+import json
+import uuid
+from pathlib import Path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+SESSION_DIR = PROJECT_ROOT / "analysis" / "p07_agent" / "outputs" / "sessions"
+
+
+class SessionTrace:
+    def __init__(self):
+        self.events = []
+
+    def record_event(self, event_type, **data):
+        """记录可检查的状态摘要，不保存模型内部思维过程。"""
+        self.events.append({
+            "turn": len(self.events) + 1,
+            "event_type": event_type,
+            **data
+        })
+
+    def call_tool(self, name, function, **arguments):
+        """执行工具并记录真实输入、输出或错误。"""
+        try:
+            result = function(**arguments)
+        except Exception as exc:
+            self.events.append({
+                "turn": len(self.events) + 1,
+                "event_type": "tool_call",
+                "tool": name,
+                "arguments": arguments,
+                "observation": {
+                    "status": "error",
+                    "message": str(exc)
+                }
+            })
+            raise
+
+        self.events.append({
+            "turn": len(self.events) + 1,
+            "event_type": "tool_call",
+            "tool": name,
+            "arguments": arguments,
+            "observation": {
+                "status": "ok",
+                "result": result
+            }
+        })
+        return result
+
+    def save(self):
+        """将本次工具调用记录保存为 JSONL。"""
+        if not self.events:
+            raise ValueError("没有工具调用记录，无法保存。")
+
+        SESSION_DIR.mkdir(parents=True, exist_ok=True)
+        path = SESSION_DIR / f"session_{uuid.uuid4().hex}.jsonl"
+
+        with path.open("w", encoding="utf-8") as file:
+            for event in self.events:
+                file.write(json.dumps(event, ensure_ascii=False) + "\n")
+
+        return path

@@ -2,7 +2,7 @@ project: p07_agent
 title: 程序性知识应用：旅游规划 Agent
 owner: 成员3
 reviewer: HappinessJo
-status: planned
+status: review
 version_tag: ""
 
 inputs:
@@ -20,13 +20,16 @@ outputs:
   - path: analysis/p07_agent/outputs/sessions/*.jsonl
   - path: analysis/p07_agent/outputs/tests.md
   - path: analysis/p07_agent/outputs/demo.md
+  - path: analysis/p07_agent/outputs/evaluation_results.json
+  - path: analysis/p07_agent/report/p07_experiment_report.md
+  - path: analysis/p07_agent/requirements.txt
   - path: analysis/p07_agent/.env.example
 
 checks:
   - python checks/check_agent.py analysis/p07_agent/
 
 frozen:
-  - 工具 Schema（名称/参数/返回）
+  - 工具 Schema（待复核 schema_tools.json v1.2；get_route 返回 NEXT 连接及来源文档）
   - 系统 Prompt 的关键约束（必须基于图谱查询）
 
 acceptance:
@@ -38,3 +41,7 @@ acceptance:
 
 notes: |
   不允许把整张图塞进 Prompt 代替工具调用——那是项目 7 明确的失分点。
+  真实模型 8 个案例与流程回归结果见项目七 outputs/tests.md；已有失败现象和限制需复核。
+  v1.2 明确 get_route_candidates 分组接口及返回字段格式，需组内确认；P6 图谱未修改。
+  景区简称、子园区范围、重复路线、多日分天与实时信息为待优化项，详见实验报告。
+  reviewer HappinessJo 尚未确认；复核完成前不得标为 done 或创建正式交付标签。

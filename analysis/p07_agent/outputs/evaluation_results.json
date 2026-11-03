@@ -1,0 +1,1432 @@
+{
+  "generated_at_utc": "2026-11-03T09:16:46.634136+00:00",
+  "model": "qwen3:8b",
+  "ollama_url": "http://localhost:11434/api/chat",
+  "cases": [
+    {
+      "case_id": "family_elder_one_day",
+      "label": "亲子与老人一日游",
+      "query": "我想带孩子和老人去长隆玩一天，喜欢游乐项目，尽量少走路。",
+      "status": "complete",
+      "message": "",
+      "error": "",
+      "intent": {
+        "scenic_area": "长隆",
+        "duration_days": 1,
+        "traveler_profiles": [
+          "孩子",
+          "老人"
+        ],
+        "preferences": [
+          "游乐项目"
+        ],
+        "constraints": [
+          "尽量少走路"
+        ]
+      },
+      "decision": {
+        "decision": "query_graph",
+        "request_type": "plan",
+        "reason": "行程规划的景区和天数都明确，可以开始查询图谱进行路线规划。",
+        "response": ""
+      },
+      "tool_decisions": [
+        {
+          "tools": [
+            "get_conditions",
+            "get_route_candidates"
+          ],
+          "search_mode": "none",
+          "search_keyword": "",
+          "reason": "需要查询适合孩子和老人的条件建议，并规划适合的路线。"
+        },
+        {
+          "tools": [],
+          "search_mode": "none",
+          "search_keyword": "",
+          "reason": "已获取适合带孩子和老人的游玩建议，并确认路线连接有效，无需进一步查询。"
+        }
+      ],
+      "route_valid": true,
+      "route_nodes": [
+        "POI|长隆|熊猫乐园",
+        "POI|长隆|熊猫餐厅",
+        "POI|长隆|4D影院",
+        "POI|长隆|亚洲象园",
+        "POI|长隆|长颈鹿广场",
+        "POI|长隆|考拉园",
+        "POI|长隆|亚洲象园",
+        "POI|长隆|长颈鹿广场",
+        "POI|长隆|考拉园",
+        "POI|长隆|熊猫乐园",
+        "POI|长隆|熊猫餐厅",
+        "POI|长隆|4D影院",
+        "POI|长隆|花果山",
+        "POI|长隆|金猴王国",
+        "POI|长隆|青龙山",
+        "POI|长隆|百虎山",
+        "POI|长隆|天鹅湖站",
+        "POI|长隆|动物幼儿园",
+        "POI|长隆|花车大巡游"
+      ],
+      "route_segments": [
+        {
+          "from_name": "熊猫乐园",
+          "to_name": "熊猫餐厅",
+          "source_doc_ids": [
+            "CL-O-02"
+          ]
+        },
+        {
+          "from_name": "熊猫餐厅",
+          "to_name": "4D影院",
+          "source_doc_ids": [
+            "CL-O-02"
+          ]
+        },
+        {
+          "from_name": "4D影院",
+          "to_name": "亚洲象园",
+          "source_doc_ids": [
+            "CL-O-02"
+          ]
+        },
+        {
+          "from_name": "亚洲象园",
+          "to_name": "长颈鹿广场",
+          "source_doc_ids": [
+            "CL-O-02"
+          ]
+        },
+        {
+          "from_name": "长颈鹿广场",
+          "to_name": "考拉园",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        },
+        {
+          "from_name": "考拉园",
+          "to_name": "亚洲象园",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        },
+        {
+          "from_name": "亚洲象园",
+          "to_name": "长颈鹿广场",
+          "source_doc_ids": [
+            "CL-O-02"
+          ]
+        },
+        {
+          "from_name": "长颈鹿广场",
+          "to_name": "考拉园",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        },
+        {
+          "from_name": "考拉园",
+          "to_name": "熊猫乐园",
+          "source_doc_ids": [
+            "CL-O-02"
+          ]
+        },
+        {
+          "from_name": "熊猫乐园",
+          "to_name": "熊猫餐厅",
+          "source_doc_ids": [
+            "CL-O-02"
+          ]
+        },
+        {
+          "from_name": "熊猫餐厅",
+          "to_name": "4D影院",
+          "source_doc_ids": [
+            "CL-O-02"
+          ]
+        },
+        {
+          "from_name": "4D影院",
+          "to_name": "花果山",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        },
+        {
+          "from_name": "花果山",
+          "to_name": "金猴王国",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        },
+        {
+          "from_name": "金猴王国",
+          "to_name": "青龙山",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        },
+        {
+          "from_name": "青龙山",
+          "to_name": "百虎山",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        },
+        {
+          "from_name": "百虎山",
+          "to_name": "天鹅湖站",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        },
+        {
+          "from_name": "天鹅湖站",
+          "to_name": "动物幼儿园",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        },
+        {
+          "from_name": "动物幼儿园",
+          "to_name": "花车大巡游",
+          "source_doc_ids": [
+            "CL-T-03"
+          ]
+        }
+      ],
+      "route_uncertainties": [
+        "部分节点之间的步行距离和游玩时长未明确，需进一步确认。",
+        "某些节点的连接是否适合带孩子和老人，需进一步确认。",
+        "补全路径的实际步行距离、坡度和游玩时长需要进一步确认。",
+        "路线会重复经过：亚洲象园、长颈鹿广场、考拉园、熊猫乐园、熊猫餐厅、4D影院；返回分岔点可能是合理的，实际步行距离和坡度仍需确认。"
+      ],
+      "suggestions": [
+        {
+          "condition": {
+            "condition_text": "小朋友",
+            "suggestion_text": "都可以进入梦幻童话世界，打卡到人生照片"
+          },
+          "reason": "可能让小朋友和老人在梦幻童话世界中轻松打卡，满足拍照需求，同时减少步行量。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0025",
+              "anchor_node_id": "SCENIC_AREA|长隆",
+              "anchor_name": "长隆",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "CL-O-01"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "小朋友",
+            "suggestion_text": "别错过，拥有全球唯一大熊猫三胞胎的熊猫村"
+          },
+          "reason": "可能让小朋友和老人在观赏熊猫的同时，减少步行距离，因为熊猫村可能提供较为集中的观赏区域。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0026",
+              "anchor_node_id": "POI|长隆|熊猫村",
+              "anchor_name": "熊猫村",
+              "match_type": "poi_suggestion",
+              "source_doc_ids": [
+                "CL-O-01"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "如果你带了小朋友",
+            "suggestion_text": "可以来这里玩飞马家庭过山车"
+          },
+          "reason": "可能让小朋友和老人在体验游乐项目的同时，减少步行带来的疲劳。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0031",
+              "anchor_node_id": "POI|长隆|飞马家庭过山车",
+              "anchor_name": "飞马家庭过山车",
+              "match_type": "poi_suggestion",
+              "source_doc_ids": [
+                "CL-T-02"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "儿童",
+            "suggestion_text": "家长可在「奇幻漂流」旁休息亭同步观景"
+          },
+          "reason": "可能让家长在观景的同时照顾孩子和老人，减少步行距离。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0035",
+              "anchor_node_id": "SCENIC_AREA|长隆",
+              "anchor_name": "长隆",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "CL-T-04"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "自驾",
+            "suggestion_text": "建议停北门坐接驳车过来"
+          },
+          "reason": "可能减少步行距离，方便带孩子和老人出行。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0032",
+              "anchor_node_id": "POI|长隆|北门",
+              "anchor_name": "北门",
+              "match_type": "poi_suggestion",
+              "source_doc_ids": [
+                "CL-T-03"
+              ]
+            }
+          ]
+        }
+      ],
+      "poi_results": null,
+      "trace_file": "session_3629eec0861b48b58a5743f824bac6d8.jsonl",
+      "seconds": 22.4
+    },
+    {
+      "case_id": "friends_one_day",
+      "label": "朋友白云山一日游",
+      "query": "我和朋友去广州白云山玩一天，喜欢自然风景和拍照，希望少爬坡。",
+      "status": "complete",
+      "message": "",
+      "error": "",
+      "intent": {
+        "scenic_area": "广州白云山",
+        "duration_days": 1,
+        "traveler_profiles": [],
+        "preferences": [
+          "自然风景",
+          "拍照"
+        ],
+        "constraints": [
+          "希望少爬坡"
+        ]
+      },
+      "decision": {
+        "decision": "query_graph",
+        "request_type": "plan",
+        "reason": "行程规划的景区和天数都明确，可以开始查询相关景点信息并规划路线。",
+        "response": ""
+      },
+      "tool_decisions": [
+        {
+          "tools": [
+            "get_conditions",
+            "get_route_candidates"
+          ],
+          "search_mode": "none",
+          "search_keyword": "",
+          "reason": "需要根据偏好和体力条件规划路线，同时寻找适合的路线连接。"
+        },
+        {
+          "tools": [],
+          "search_mode": "none",
+          "search_keyword": "",
+          "reason": "已获取条件建议和路线连接，信息足够规划行程。"
+        }
+      ],
+      "route_valid": true,
+      "route_nodes": [
+        "POI|广州白云山|白云山南门",
+        "ACTIVITY|索道上山",
+        "POI|广州白云山|山顶广场",
+        "POI|广州白云山|摩星岭",
+        "POI|广州白云山|山庄旅舍",
+        "POI|广州白云山|双溪别墅",
+        "POI|广州白云山|白云松涛",
+        "POI|广州白云山|桃花涧",
+        "POI|广州白云山|黄婆洞水库",
+        "POI|广州白云山|明珠楼",
+        "POI|广州白云山|梅花谷",
+        "POI|广州白云山|松涛别院",
+        "POI|广州白云山|摩星岭",
+        "POI|广州白云山|山庄旅舍",
+        "POI|广州白云山|双溪别墅",
+        "POI|广州白云山|白云松涛",
+        "POI|广州白云山|桃花涧",
+        "POI|广州白云山|黄婆洞水库",
+        "POI|广州白云山|回归林"
+      ],
+      "route_segments": [
+        {
+          "from_name": "白云山南门",
+          "to_name": "索道上山",
+          "source_doc_ids": [
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "索道上山",
+          "to_name": "山顶广场",
+          "source_doc_ids": [
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "山顶广场",
+          "to_name": "摩星岭",
+          "source_doc_ids": [
+            "BYS-T-02",
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "摩星岭",
+          "to_name": "山庄旅舍",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "山庄旅舍",
+          "to_name": "双溪别墅",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "双溪别墅",
+          "to_name": "白云松涛",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "白云松涛",
+          "to_name": "桃花涧",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "桃花涧",
+          "to_name": "黄婆洞水库",
+          "source_doc_ids": [
+            "BYS-T-02"
+          ]
+        },
+        {
+          "from_name": "黄婆洞水库",
+          "to_name": "明珠楼",
+          "source_doc_ids": [
+            "BYS-T-02",
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "明珠楼",
+          "to_name": "梅花谷",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "梅花谷",
+          "to_name": "松涛别院",
+          "source_doc_ids": [
+            "BYS-T-02"
+          ]
+        },
+        {
+          "from_name": "松涛别院",
+          "to_name": "摩星岭",
+          "source_doc_ids": [
+            "BYS-T-02"
+          ]
+        },
+        {
+          "from_name": "摩星岭",
+          "to_name": "山庄旅舍",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "山庄旅舍",
+          "to_name": "双溪别墅",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "双溪别墅",
+          "to_name": "白云松涛",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "白云松涛",
+          "to_name": "桃花涧",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "桃花涧",
+          "to_name": "黄婆洞水库",
+          "source_doc_ids": [
+            "BYS-T-02"
+          ]
+        },
+        {
+          "from_name": "黄婆洞水库",
+          "to_name": "回归林",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        }
+      ],
+      "route_uncertainties": [
+        "黄婆洞水库到回归林的步行距离和游玩时长未明确说明，需进一步确认。",
+        "部分节点之间的具体步行距离和游玩时长未明确说明，需进一步确认。",
+        "补全路径的实际步行距离、坡度和游玩时长需要进一步确认。",
+        "路线会重复经过：摩星岭、山庄旅舍、双溪别墅、白云松涛、桃花涧、黄婆洞水库；返回分岔点可能是合理的，实际步行距离和坡度仍需确认。"
+      ],
+      "suggestions": [
+        {
+          "condition": {
+            "condition_text": "拍日落",
+            "suggestion_text": "建议下午4点半左右到达山顶广场或摩星岭"
+          },
+          "reason": "可能有助于在日落前到达较高位置，便于拍摄日落景色。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0007",
+              "anchor_node_id": "POI|广州白云山|摩星岭",
+              "anchor_name": "摩星岭",
+              "match_type": "poi_suggestion",
+              "source_doc_ids": [
+                "BYS-T-01"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "膝盖负担较大",
+            "suggestion_text": "建议穿鞋底柔软的运动鞋"
+          },
+          "reason": "可能穿鞋底柔软的运动鞋有助于减少膝盖负担，让爬行更舒适，适合喜欢拍照和自然风景的行程。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0006",
+              "anchor_node_id": "SCENIC_AREA|广州白云山",
+              "anchor_name": "广州白云山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "BYS-T-01"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "停车",
+            "suggestion_text": "可停在金贵村长腰岭停车场，收费8元/小时，位于白云索道对面，较为方便"
+          },
+          "reason": "可能方便您和朋友在前往白云山时停车，减少步行距离，同时靠近白云索道，便于上下山。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0001",
+              "anchor_node_id": "SCENIC_AREA|广州白云山",
+              "anchor_name": "广州白云山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "BYS-T-01"
+              ]
+            }
+          ]
+        }
+      ],
+      "poi_results": null,
+      "trace_file": "session_a6928a80dfb74539b610e991271cf114.jsonl",
+      "seconds": 21.9
+    },
+    {
+      "case_id": "couple_two_days",
+      "label": "伴侣武功山两日游",
+      "query": "我和伴侣去武功山玩两天，想看日出、欣赏自然风景，预算有限，希望行程不要太累。",
+      "status": "complete",
+      "message": "",
+      "error": "",
+      "intent": {
+        "scenic_area": "武功山",
+        "duration_days": 2,
+        "traveler_profiles": [
+          "伴侣"
+        ],
+        "preferences": [
+          "看日出",
+          "欣赏自然风景"
+        ],
+        "constraints": [
+          "预算有限",
+          "行程不要太累"
+        ]
+      },
+      "decision": {
+        "decision": "query_graph",
+        "request_type": "plan",
+        "reason": "行程规划的景区和天数都明确，可以开始查询相关信息并规划行程。",
+        "response": ""
+      },
+      "tool_decisions": [
+        {
+          "tools": [
+            "get_conditions",
+            "get_route_candidates"
+          ],
+          "search_mode": "none",
+          "search_keyword": "",
+          "reason": "需要根据预算和体力条件规划轻松行程，并查找武功山周边的路线连接。"
+        },
+        {
+          "tools": [],
+          "search_mode": "none",
+          "search_keyword": "",
+          "reason": "已获取条件建议和路线连接信息，信息足够规划行程。"
+        }
+      ],
+      "route_valid": true,
+      "route_nodes": [
+        "POI|武功山|观音宕",
+        "POI|武功山|吊马桩",
+        "POI|武功山|金顶",
+        "POI|武功山|中庵索道",
+        "POI|武功山|石鼓寺",
+        "POI|武功山|中庵索道"
+      ],
+      "route_segments": [
+        {
+          "from_name": "观音宕",
+          "to_name": "吊马桩",
+          "source_doc_ids": [
+            "WGS-O-05"
+          ]
+        },
+        {
+          "from_name": "吊马桩",
+          "to_name": "金顶",
+          "source_doc_ids": [
+            "WGS-O-01"
+          ]
+        },
+        {
+          "from_name": "金顶",
+          "to_name": "中庵索道",
+          "source_doc_ids": [
+            "WGS-O-03"
+          ]
+        },
+        {
+          "from_name": "中庵索道",
+          "to_name": "石鼓寺",
+          "source_doc_ids": [
+            "WGS-O-01",
+            "WGS-O-02"
+          ]
+        },
+        {
+          "from_name": "石鼓寺",
+          "to_name": "中庵索道",
+          "source_doc_ids": [
+            "WGS-O-02",
+            "WGS-O-04"
+          ]
+        }
+      ],
+      "route_uncertainties": [
+        "金顶到石鼓寺的连接未在图谱中找到，需确认是否可行。",
+        "具体步行距离和游玩时长未明确，需根据实际情况调整。",
+        "是否需要额外准备保暖衣物，根据冬季或早起气温决定。",
+        "是否需要乘坐索道或徒步下山，根据体力情况决定。",
+        "补全路径的实际步行距离、坡度和游玩时长需要进一步确认。",
+        "路线会重复经过：中庵索道；返回分岔点可能是合理的，实际步行距离和坡度仍需确认。"
+      ],
+      "suggestions": [
+        {
+          "condition": {
+            "condition_text": "冬天",
+            "suggestion_text": "厚外套一定要带"
+          },
+          "reason": "可能帮助您在冬天的武功山保持温暖，提升户外活动的舒适度。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0019",
+              "anchor_node_id": "SCENIC_AREA|武功山",
+              "anchor_name": "武功山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "WGS-T-03"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "看日出",
+            "suggestion_text": "厚衣服一定要带上"
+          },
+          "reason": "可能早上看日出时气温较低，厚衣服可以帮助保暖，提升体验。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0010",
+              "anchor_node_id": "SCENIC_AREA|武功山",
+              "anchor_name": "武功山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "WGS-O-05"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "如想看日出又喜欢氛围热闹",
+            "suggestion_text": "可以选择观音宕"
+          },
+          "reason": "可能观音宕适合想看日出又喜欢氛围热闹的游客，且相比其他观景点行程相对轻松，符合预算有限且希望行程不太累的需求。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0011",
+              "anchor_node_id": "POI|武功山|观音宕",
+              "anchor_name": "观音宕",
+              "match_type": "poi_suggestion",
+              "source_doc_ids": [
+                "WGS-O-06"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "看日出",
+            "suggestion_text": "记得调好闹钟，现在日出大概在6点钟左右"
+          },
+          "reason": "可能帮助你及时起床观看日出，确保不错过武功山的日出景观。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0012",
+              "anchor_node_id": "SCENIC_AREA|武功山",
+              "anchor_name": "武功山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "WGS-O-06"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "如果只玩两天",
+            "suggestion_text": "直接背书包就行，一般大家都是从江西南昌过去，或者湖南长沙过去"
+          },
+          "reason": "可能减少行李负担，方便灵活出行，且从南昌或长沙出发的路线可能更符合预算有限和行程轻松的需求。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0017",
+              "anchor_node_id": "SCENIC_AREA|武功山",
+              "anchor_name": "武功山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "WGS-T-03"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "看日出",
+            "suggestion_text": "建议定好闹钟，5 点左右前往观景台，当太阳冲破云层，金色的光芒洒在云海之上，随手一拍都是大片"
+          },
+          "reason": "可能帮助您在清晨准时到达观景台，抓住日出的最佳观赏时机，拍到满意的照片。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0024",
+              "anchor_node_id": "SCENIC_AREA|武功山",
+              "anchor_name": "武功山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "WGS-T-08"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "如果体力不佳",
+            "suggestion_text": "乘坐第一级索道返回，如体力充足也可选择徒步下山，全程大概需花费3-4个小时"
+          },
+          "reason": "这条建议可能帮助你们根据体力情况选择更轻松的下山方式，从而在两天行程中更好地欣赏自然风景并观看日出。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0013",
+              "anchor_node_id": "SCENIC_AREA|武功山",
+              "anchor_name": "武功山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "WGS-O-06"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "停车",
+            "suggestion_text": "必须乘坐免费转运车上索道口（石鼓寺）"
+          },
+          "reason": "乘坐免费转运车可能帮助减少停车带来的麻烦，使行程更轻松。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0021",
+              "anchor_node_id": "POI|武功山|石鼓寺",
+              "anchor_name": "石鼓寺",
+              "match_type": "poi_suggestion",
+              "source_doc_ids": [
+                "WGS-T-03"
+              ]
+            }
+          ]
+        }
+      ],
+      "poi_results": null,
+      "trace_file": "session_d15f7c63bfd24240b42cd0c2ad00f14c.jsonl",
+      "seconds": 23.9
+    },
+    {
+      "case_id": "missing_information",
+      "label": "缺少景区与天数",
+      "query": "我想和父母出去玩，希望行程轻松一点。",
+      "status": "clarify",
+      "message": "您希望去哪些地方玩？计划游玩几天呢？",
+      "error": "",
+      "intent": {
+        "scenic_area": null,
+        "duration_days": null,
+        "traveler_profiles": [
+          "父母"
+        ],
+        "preferences": [],
+        "constraints": [
+          "希望行程轻松一点"
+        ]
+      },
+      "decision": {
+        "decision": "clarify",
+        "request_type": "plan",
+        "reason": "未明确景区和天数，需要补充信息以规划行程。",
+        "response": "您希望去哪些地方玩？计划游玩几天呢？"
+      },
+      "tool_decisions": [],
+      "route_valid": null,
+      "route_nodes": [],
+      "route_segments": [],
+      "route_uncertainties": [],
+      "suggestions": [],
+      "poi_results": null,
+      "trace_file": "session_4954f7276e564ce8b475a7e6e5280511.jsonl",
+      "seconds": 2.0
+    },
+    {
+      "case_id": "followup_combined",
+      "label": "追问后补充",
+      "query": "我想和父母出去玩，希望行程轻松一点。\n广州白云山，一天。",
+      "status": "complete",
+      "message": "",
+      "error": "",
+      "intent": {
+        "scenic_area": "广州白云山",
+        "duration_days": 1,
+        "traveler_profiles": [
+          "父母"
+        ],
+        "preferences": [],
+        "constraints": [
+          "希望行程轻松一点"
+        ]
+      },
+      "decision": {
+        "decision": "query_graph",
+        "request_type": "plan",
+        "reason": "行程规划的景区和天数都明确，可以开始查询图谱进行路线规划。",
+        "response": ""
+      },
+      "tool_decisions": [
+        {
+          "tools": [
+            "get_conditions",
+            "get_route_candidates"
+          ],
+          "search_mode": "none",
+          "search_keyword": "",
+          "reason": "需要查询行程轻松的条件建议，并规划白云山的路线。"
+        },
+        {
+          "tools": [],
+          "search_mode": "none",
+          "search_keyword": "",
+          "reason": "已获取条件建议和路线连接信息，信息足够规划行程。"
+        }
+      ],
+      "route_valid": true,
+      "route_nodes": [
+        "POI|广州白云山|白云山南门",
+        "ACTIVITY|索道上山",
+        "POI|广州白云山|山顶广场",
+        "POI|广州白云山|摩星岭",
+        "POI|广州白云山|白云山南门",
+        "ACTIVITY|索道上山",
+        "POI|广州白云山|山顶广场",
+        "POI|广州白云山|摩星岭",
+        "POI|广州白云山|山庄旅舍",
+        "POI|广州白云山|双溪别墅",
+        "POI|广州白云山|白云松涛",
+        "POI|广州白云山|桃花涧",
+        "POI|广州白云山|明珠楼",
+        "POI|广州白云山|梅花谷",
+        "POI|广州白云山|黄婆洞水库"
+      ],
+      "route_segments": [
+        {
+          "from_name": "白云山南门",
+          "to_name": "索道上山",
+          "source_doc_ids": [
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "索道上山",
+          "to_name": "山顶广场",
+          "source_doc_ids": [
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "山顶广场",
+          "to_name": "摩星岭",
+          "source_doc_ids": [
+            "BYS-T-02",
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "摩星岭",
+          "to_name": "白云山南门",
+          "source_doc_ids": [
+            "BYS-T-02",
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "白云山南门",
+          "to_name": "索道上山",
+          "source_doc_ids": [
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "索道上山",
+          "to_name": "山顶广场",
+          "source_doc_ids": [
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "山顶广场",
+          "to_name": "摩星岭",
+          "source_doc_ids": [
+            "BYS-T-02",
+            "BYS-T-03"
+          ]
+        },
+        {
+          "from_name": "摩星岭",
+          "to_name": "山庄旅舍",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "山庄旅舍",
+          "to_name": "双溪别墅",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "双溪别墅",
+          "to_name": "白云松涛",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "白云松涛",
+          "to_name": "桃花涧",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "桃花涧",
+          "to_name": "明珠楼",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "明珠楼",
+          "to_name": "梅花谷",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        },
+        {
+          "from_name": "梅花谷",
+          "to_name": "黄婆洞水库",
+          "source_doc_ids": [
+            "BYS-O-01"
+          ]
+        }
+      ],
+      "route_uncertainties": [
+        "具体步行距离和时间未明确，需根据实际情况调整。",
+        "是否需要使用交通工具或缆车未明确，需根据实际情况决定。",
+        "是否需要额外休息时间未明确，需根据实际情况调整。",
+        "补全路径的实际步行距离、坡度和游玩时长需要进一步确认。",
+        "路线会重复经过：白云山南门、索道上山、山顶广场、摩星岭；返回分岔点可能是合理的，实际步行距离和坡度仍需确认。"
+      ],
+      "suggestions": [
+        {
+          "condition": {
+            "condition_text": "拍日落",
+            "suggestion_text": "建议下午4点半左右到达山顶广场或摩星岭"
+          },
+          "reason": "可能帮助您在山顶广场或摩星岭及时捕捉到日落景象，同时为行程留出充足的时间安排其他轻松活动。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0007",
+              "anchor_node_id": "POI|广州白云山|摩星岭",
+              "anchor_name": "摩星岭",
+              "match_type": "poi_suggestion",
+              "source_doc_ids": [
+                "BYS-T-01"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "膝盖负担较大",
+            "suggestion_text": "建议穿鞋底柔软的运动鞋"
+          },
+          "reason": "可能穿鞋底柔软的运动鞋有助于减轻膝盖负担，让行程更轻松。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0006",
+              "anchor_node_id": "SCENIC_AREA|广州白云山",
+              "anchor_name": "广州白云山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "BYS-T-01"
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "condition_text": "停车",
+            "suggestion_text": "可停在金贵村长腰岭停车场，收费8元/小时，位于白云索道对面，较为方便"
+          },
+          "reason": "可能方便您和父母在一天内轻松游览白云山，因为停车位置靠近索道，节省了寻找停车位的时间。",
+          "needs_verification": false,
+          "evidence": [
+            {
+              "condition_node_id": "CONDITION|CND-0001",
+              "anchor_node_id": "SCENIC_AREA|广州白云山",
+              "anchor_name": "广州白云山",
+              "match_type": "area_fallback",
+              "source_doc_ids": [
+                "BYS-T-01"
+              ]
+            }
+          ]
+        }
+      ],
+      "poi_results": null,
+      "trace_file": "session_0c47b5f59f0446e6986f5eaee272d0f9.jsonl",
+      "seconds": 21.3
+    },
+    {
+      "case_id": "conflicting_constraints",
+      "label": "冲突需求",
+      "query": "我想一天游遍武功山的所有景点，但不能步行，也不能乘坐任何交通工具。",
+      "status": "clarify",
+      "message": "您希望一天内游遍武功山的所有景点，但不步行也不乘坐交通工具，这在实际操作中存在较大困难。是否需要调整行程或考虑其他方式？",
+      "error": "",
+      "intent": {
+        "scenic_area": "武功山",
+        "duration_days": 1,
+        "traveler_profiles": [],
+        "preferences": [],
+        "constraints": [
+          "不能步行",
+          "不能乘坐任何交通工具"
+        ]
+      },
+      "decision": {
+        "decision": "clarify",
+        "request_type": "plan",
+        "reason": "在一天内游遍武功山的所有景点且不步行、不乘坐交通工具存在物理限制，需进一步确认是否可行或调整行程安排。",
+        "response": "您希望一天内游遍武功山的所有景点，但不步行也不乘坐交通工具，这在实际操作中存在较大困难。是否需要调整行程或考虑其他方式？"
+      },
+      "tool_decisions": [],
+      "route_valid": null,
+      "route_nodes": [],
+      "route_segments": [],
+      "route_uncertainties": [],
+      "suggestions": [],
+      "poi_results": null,
+      "trace_file": "session_fdf93c705afe439a8932db7259417c2d.jsonl",
+      "seconds": 3.0
+    },
+    {
+      "case_id": "no_match",
+      "label": "图谱无匹配（人工虚构的名称）",
+      "query": "广州白云山有没有叫火星大峡谷的景点？",
+      "status": "complete",
+      "message": "图谱中没有找到匹配地点，请确认名称或尝试其他关键词。",
+      "error": "",
+      "intent": {
+        "scenic_area": "广州白云山",
+        "duration_days": null,
+        "traveler_profiles": [],
+        "preferences": [],
+        "constraints": []
+      },
+      "decision": {
+        "decision": "query_graph",
+        "request_type": "info",
+        "reason": "景区已明确为广州白云山，需查询是否存在名为火星大峡谷的景点。",
+        "response": ""
+      },
+      "tool_decisions": [
+        {
+          "tools": [
+            "search_poi"
+          ],
+          "search_mode": "keyword",
+          "search_keyword": "火星大峡谷",
+          "reason": "用户询问是否有名称包含'火星大峡谷'的景点，需使用关键词搜索模式进行查询。"
+        },
+        {
+          "tools": [
+            "search_poi"
+          ],
+          "search_mode": "keyword",
+          "search_keyword": "火星大峡谷",
+          "reason": "需要进一步确认是否有名称包含‘火星大峡谷’的景点。"
+        }
+      ],
+      "route_valid": null,
+      "route_nodes": [],
+      "route_segments": [],
+      "route_uncertainties": [],
+      "suggestions": [],
+      "poi_results": [],
+      "trace_file": "session_1036c022300c423a95fa8f7386ef9e2d.jsonl",
+      "seconds": 3.8
+    },
+    {
+      "case_id": "list_pois",
+      "label": "查询白云山地点",
+      "query": "广州白云山有哪些景点？",
+      "status": "complete",
+      "message": "",
+      "error": "",
+      "intent": {
+        "scenic_area": "广州白云山",
+        "duration_days": null,
+        "traveler_profiles": [],
+        "preferences": [],
+        "constraints": []
+      },
+      "decision": {
+        "decision": "query_graph",
+        "request_type": "info",
+        "reason": "景区已明确，可以查询景点信息。",
+        "response": ""
+      },
+      "tool_decisions": [
+        {
+          "tools": [
+            "search_poi"
+          ],
+          "search_mode": "all_pois",
+          "search_keyword": "",
+          "reason": "用户询问广州白云山景区内的景点，选择 all_pois 模式以获取景区内所有景点信息。"
+        },
+        {
+          "tools": [],
+          "search_mode": "all_pois",
+          "search_keyword": "",
+          "reason": "已通过 search_poi 查询到广州白云山的景点列表，信息充足。"
+        }
+      ],
+      "route_valid": null,
+      "route_nodes": [],
+      "route_segments": [],
+      "route_uncertainties": [],
+      "suggestions": [],
+      "poi_results": [
+        {
+          "node_id": "POI|广州白云山|世纪圆梦石",
+          "name": "世纪圆梦石",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|两江情缘石",
+          "name": "两江情缘石",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|九龙泉",
+          "name": "九龙泉",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|云台景区",
+          "name": "云台景区",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|云台花园",
+          "name": "云台花园",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|双溪别墅",
+          "name": "双溪别墅",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|回归林",
+          "name": "回归林",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|姑嫂坟",
+          "name": "姑嫂坟",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|山庄旅舍",
+          "name": "山庄旅舍",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|山顶公园",
+          "name": "山顶公园",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|山顶广场",
+          "name": "山顶广场",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|岩石园",
+          "name": "岩石园",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|广州碑林",
+          "name": "广州碑林",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|摩星岭",
+          "name": "摩星岭",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|摩星岭景区",
+          "name": "摩星岭景区",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|明珠楼",
+          "name": "明珠楼",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|明珠楼景区",
+          "name": "明珠楼景区",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|星海园",
+          "name": "星海园",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|松涛别院",
+          "name": "松涛别院",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|桃花涧",
+          "name": "桃花涧",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|梅花谷",
+          "name": "梅花谷",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|玫瑰园",
+          "name": "玫瑰园",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|环湖栈道",
+          "name": "环湖栈道",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|玻璃温室",
+          "name": "玻璃温室",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|白云仙馆",
+          "name": "白云仙馆",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|白云山北门",
+          "name": "白云山北门",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|白云山南门",
+          "name": "白云山南门",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|白云山西门",
+          "name": "白云山西门",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|白云松涛",
+          "name": "白云松涛",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|聚芳园",
+          "name": "聚芳园",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|能仁寺",
+          "name": "能仁寺",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|蒲谷",
+          "name": "蒲谷",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|谊园",
+          "name": "谊园",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|锦绣南天",
+          "name": "锦绣南天",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|飞瀑流彩",
+          "name": "飞瀑流彩",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|鸣春谷",
+          "name": "鸣春谷",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|鸣春谷景区",
+          "name": "鸣春谷景区",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|鸿鹄楼",
+          "name": "鸿鹄楼",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|麓湖公园",
+          "name": "麓湖公园",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|麓湖景区",
+          "name": "麓湖景区",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|黄婆洞水库",
+          "name": "黄婆洞水库",
+          "scenic_area": "广州白云山"
+        },
+        {
+          "node_id": "POI|广州白云山|黄河石广场",
+          "name": "黄河石广场",
+          "scenic_area": "广州白云山"
+        }
+      ],
+      "trace_file": "session_5aa092241931485da235215a9397e695.jsonl",
+      "seconds": 3.7
+    }
+  ]
+}

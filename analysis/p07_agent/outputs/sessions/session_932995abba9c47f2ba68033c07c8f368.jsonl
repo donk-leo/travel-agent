@@ -1,0 +1,4 @@
+{"turn": 1, "event_type": "user_input", "user_request": "我想和父母出去玩，希望行程轻松一点。"}
+{"turn": 2, "event_type": "intent", "observation": {"scenic_area": null, "duration_days": null, "traveler_profiles": ["父母"], "preferences": [], "constraints": ["希望行程轻松一点"]}}
+{"turn": 3, "event_type": "decision", "decision": {"decision": "clarify", "request_type": "plan", "reason": "未明确景区和天数，需要补充信息以规划行程。", "response": "您希望去哪些地方玩？计划游玩几天呢？"}}
+{"turn": 4, "event_type": "final_answer", "final_answer": {"status": "clarify", "message": "您希望去哪些地方玩？计划游玩几天呢？", "error": "", "route": null, "suggestions": [], "poi_results": null}}
