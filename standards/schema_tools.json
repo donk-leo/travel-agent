@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "项目7 Agent 工具 Schema（图谱查询工具）",
-  "version": "1.0",
+  "version": "1.2",
   "file_convention": "analysis/p07_agent/src/tools.py",
   "note": "工具只能查询项目6 的图谱文件，不直接读原文；LLM 密钥走 .env，不入库。",
   "tools": [
@@ -11,27 +11,174 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "keyword": {"type": "string"},
-          "scenic_area": {"type": "string"},
-          "node_type": {"type": "string", "enum": ["POI", "TRANSPORT", "TIME", "ACTIVITY", "CONDITION"]},
-          "limit": {"type": "integer", "default": 10}
+          "keyword": {
+            "type": "string"
+          },
+          "scenic_area": {
+            "type": "string"
+          },
+          "node_type": {
+            "type": "string",
+            "enum": [
+              "POI",
+              "TRANSPORT",
+              "TIME",
+              "ACTIVITY",
+              "CONDITION"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "default": 10
+          }
         },
-        "required": ["keyword"]
+        "required": [
+          "keyword"
+        ]
       },
-      "returns": {"type": "array", "items": {"node_id": "string", "name": "string", "scenic_area": "string"}}
+      "returns": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "node_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "scenic_area": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "node_id",
+            "name",
+            "scenic_area"
+          ]
+        }
+      }
     },
     {
       "name": "get_route",
-      "description": "查询某景区/某文档的步骤序列（NEXT 边）",
+      "description": "查询景区中有 NEXT 关系的路线连接，可按来源文档筛选",
       "parameters": {
         "type": "object",
         "properties": {
-          "scenic_area": {"type": "string"},
-          "max_steps": {"type": "integer", "default": 20}
+          "scenic_area": {
+            "type": "string",
+            "description": "景区名称"
+          },
+          "source_doc_id": {
+            "type": "string",
+            "description": "可选，只查询该来源文档中的路线连接"
+          },
+          "max_steps": {
+            "type": "integer",
+            "default": 20,
+            "description": "最多返回的 NEXT 连接数"
+          }
         },
-        "required": ["scenic_area"]
+        "required": [
+          "scenic_area"
+        ]
       },
-      "returns": {"type": "array", "items": {"step_no": "integer", "poi": "string", "time": "string"}}
+      "returns": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "from_node_id": {
+              "type": "string"
+            },
+            "from_name": {
+              "type": "string"
+            },
+            "to_node_id": {
+              "type": "string"
+            },
+            "to_name": {
+              "type": "string"
+            },
+            "source_doc_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "from_node_id",
+            "from_name",
+            "to_node_id",
+            "to_name",
+            "source_doc_ids"
+          ]
+        }
+      }
+    },
+    {
+      "name": "get_route_candidates",
+      "description": "按来源文档分组查询景区内 NEXT 路线连接，供 Agent 规划及逐段核验",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "scenic_area": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "scenic_area"
+        ]
+      },
+      "returns": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "source_doc_id": {
+              "type": "string"
+            },
+            "connections": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "from_node_id": {
+                    "type": "string"
+                  },
+                  "from_name": {
+                    "type": "string"
+                  },
+                  "to_node_id": {
+                    "type": "string"
+                  },
+                  "to_name": {
+                    "type": "string"
+                  },
+                  "source_doc_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "from_node_id",
+                  "from_name",
+                  "to_node_id",
+                  "to_name",
+                  "source_doc_ids"
+                ]
+              }
+            }
+          },
+          "required": [
+            "source_doc_id",
+            "connections"
+          ]
+        }
+      }
     },
     {
       "name": "get_conditions",
@@ -39,12 +186,44 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "condition_type": {"type": "string", "enum": ["天气", "人群", "时间", "体力", "预算", "交通", "其他"]},
-          "scenic_area": {"type": "string"}
+          "condition_type": {
+            "type": "string",
+            "enum": [
+              "天气",
+              "人群",
+              "时间",
+              "体力",
+              "预算",
+              "交通",
+              "其他"
+            ]
+          },
+          "scenic_area": {
+            "type": "string"
+          }
         },
-        "required": ["condition_type"]
+        "required": [
+          "condition_type"
+        ]
       },
-      "returns": {"type": "array", "items": {"condition_text": "string", "suggestion_text": "string"}}
+      "returns": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "condition_text": {
+              "type": "string"
+            },
+            "suggestion_text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "condition_text",
+            "suggestion_text"
+          ]
+        }
+      }
     },
     {
       "name": "neighbors",
@@ -52,17 +231,61 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "node_id": {"type": "string"},
-          "rel": {"type": "string", "enum": ["NEXT", "CONTAINS", "AT_TIME", "BY_TRANSPORT", "HAS_CONDITION", "SIMILAR_TO"]}
+          "node_id": {
+            "type": "string"
+          },
+          "rel": {
+            "type": "string",
+            "enum": [
+              "NEXT",
+              "CONTAINS",
+              "AT_TIME",
+              "BY_TRANSPORT",
+              "HAS_CONDITION",
+              "SIMILAR_TO"
+            ]
+          }
         },
-        "required": ["node_id"]
+        "required": [
+          "node_id"
+        ]
       },
-      "returns": {"type": "array", "items": {"rel": "string", "node_id": "string", "name": "string"}}
+      "returns": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "rel": {
+              "type": "string"
+            },
+            "node_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "rel",
+            "node_id",
+            "name"
+          ]
+        }
+      }
     }
   ],
   "session_log": {
     "path": "analysis/p07_agent/outputs/sessions/*.jsonl",
-    "fields": ["turn", "thought", "tool", "arguments", "observation", "final_answer"],
-    "rule": "每次工具调用必须留痕，便于证明回答基于图谱而非模型臆测"
+    "fields": [
+      "turn",
+      "event_type",
+      "user_request",
+      "decision",
+      "tool",
+      "arguments",
+      "observation",
+      "final_answer"
+    ],
+    "rule": "新版按事件类型记录实际输入、决策摘要、工具调用和最终结果；旧版轨迹可能只有工具调用。"
   }
 }
