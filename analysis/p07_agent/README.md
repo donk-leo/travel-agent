@@ -1,6 +1,6 @@
 # 项目 7：旅游规划 Agent
 
-项目 7 读取项目 6 的图谱，结合本地 Ollama 模型，提供旅游需求理解、图谱查询、路线建议及来源展示。项目处于**待复核**阶段；最终交付以交接卡、检查结果和组员复核为准。
+项目 7 读取项目 6 的图谱，结合本地 Ollama 模型，提供旅游需求理解、图谱查询、路线建议及来源展示。项目已通过用户审核，交付版本为 `v0.7-p07`；已知限制留待后续优化。
 
 ## 环境
 
@@ -67,4 +67,4 @@ python3 checks/check_agent.py analysis/p07_agent/
 - 图谱地点列表基于既有抽取，可能包含车站、餐厅、噪声或遗漏，不是官方完整景点名录。
 - 模型工具选择、理由生成和冲突检查可能误判；无匹配只说明图谱中没有查到，不能断言现实中不存在。
 
-当前实验记录、示范及报告分别见 `outputs/tests.md`、`outputs/demo.md`、`report/p07_experiment_report.md`。正式完成要求独立 reviewer 复核并按仓库流程打标签。
+当前实验记录、示范及报告分别见 `outputs/tests.md`、`outputs/demo.md`、`report/p07_experiment_report.md`。审核结论及 reviewer 字段的说明见 `standards/handover/p07_agent.yaml`。
