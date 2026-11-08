@@ -6,6 +6,7 @@ from condition_selector import find_relevant_conditions
 from constraint_checker import check_constraints, check_plan
 from intent_parser import parse_intent
 from route_planner import plan_route
+from scenic_aliases import CANONICAL_AREAS, canonicalize_scenic_area
 from tool_decider import decide_next_step
 from tool_selector import select_tools
 from tools import search_poi
@@ -40,13 +41,39 @@ def run_agent(user_text):
         result["intent"] = intent
         trace.record_event("intent", observation=intent)
 
+        # 解析器已经做过一次归一化；这里再兜一层，兼容直接调用 run_agent
+        # 或测试中传入旧版解析器结果的情况。
+        raw_area = intent.get("scenic_area")
+        resolved_area = canonicalize_scenic_area(raw_area)
+        area = resolved_area or raw_area
+        if resolved_area and resolved_area != raw_area:
+            intent["scenic_area"] = resolved_area
+            result["intent"] = intent
+            trace.record_event("scenic_area_canonicalized", observation={
+                "raw": raw_area, "canonical": resolved_area
+            })
+
         decision = decide_next_step(user_text, intent)
         if decision.get("decision") not in {"clarify", "query_graph", "reply"}:
             raise ValueError("决策器返回了无效的下一步。")
         if decision.get("request_type") not in {"plan", "info", "other"}:
             raise ValueError("决策器返回了无效的需求类型。")
 
-        area = intent.get("scenic_area")
+        # 不在图谱覆盖范围内的名称不能当成“查到了但结果为空”。直接追问，
+        # 避免用户看到 complete + 空路线却不知道是名称写法的问题。
+        if decision["decision"] == "query_graph" and raw_area and not resolved_area:
+            display_area = str(raw_area).strip()[:30]
+            decision = {
+                "decision": "clarify",
+                "request_type": decision["request_type"],
+                "reason": "景区名称不在当前图谱覆盖范围内。",
+                "response": (
+                    f"目前图谱只覆盖{'、'.join(CANONICAL_AREAS)}；"
+                    f"没有识别出“{display_area}”对应的景区。"
+                    "请确认景区名称，或换用图谱中的名称。"
+                )
+            }
+
         days = intent.get("duration_days")
         missing = not area or (decision["request_type"] == "plan" and not days)
         if decision["decision"] == "query_graph" and missing:

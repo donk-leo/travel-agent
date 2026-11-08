@@ -1,10 +1,19 @@
 import csv
 from pathlib import Path
 
+from scenic_aliases import canonicalize_scenic_area
+
 
 # 从当前文件的位置找到项目根目录
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 GRAPH_DIR = PROJECT_ROOT / "analysis" / "p06_graph" / "outputs"
+
+
+def _canonical_area(scenic_area):
+    """查询前把“广州长隆旅游度假区”等写法归一化。"""
+    if not scenic_area:
+        return scenic_area
+    return canonicalize_scenic_area(scenic_area) or scenic_area
 
 
 def load_graph():
@@ -25,6 +34,7 @@ def get_route(scenic_area, source_doc_id=None, max_steps=20):
     if max_steps < 1:
         raise ValueError("max_steps 必须大于 0")
 
+    scenic_area = _canonical_area(scenic_area)
     nodes, edges = load_graph()
     nodes_by_id = {node["node_id"]: node for node in nodes}
 
@@ -142,6 +152,7 @@ def search_poi(keyword, scenic_area="",
     if limit<1:
         raise ValueError("limit必须大于0")
 
+    scenic_area = _canonical_area(scenic_area)
     nodes, _=load_graph()
     results=[]
 
@@ -188,6 +199,7 @@ def get_conditions(condition_type, scenic_area=""):
     """查询图谱中指定类型的条件和建议。"""
     import json
 
+    scenic_area = _canonical_area(scenic_area)
     nodes, _ = load_graph()
     results = []
 
@@ -214,6 +226,7 @@ def get_condition_evidence(condition_text, suggestion_text, scenic_area):
     """查找一条条件建议对应的图谱来源。"""
     import json
 
+    scenic_area = _canonical_area(scenic_area)
     nodes, edges = load_graph()
     nodes_by_id = {node["node_id"]: node for node in nodes}
 
@@ -261,6 +274,7 @@ def get_condition_evidence(condition_text, suggestion_text, scenic_area):
 
 def list_route_sources(scenic_area):
     """列出景区中包含next连接的来源文档以及链接数量"""
+    scenic_area = _canonical_area(scenic_area)
     nodes, edges=load_graph()
 
     scenic_node=next(
@@ -290,6 +304,7 @@ def list_route_sources(scenic_area):
 
 def get_route_candidates(scenic_area):
     """按来源文档整理景区路线链接"""
+    scenic_area = _canonical_area(scenic_area)
     sources=list_route_sources(scenic_area)
     candidates=[]
     for source in sources:

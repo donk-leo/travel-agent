@@ -4,6 +4,7 @@ import urllib.request
 
 
 from config import MODEL, OLLAMA_URL
+from scenic_aliases import canonicalize_scenic_area
 
 INTENT_SCHEMA = {
     "type": "object",
@@ -85,6 +86,13 @@ def parse_intent(user_text):
     expected_fields = set(INTENT_SCHEMA["required"])
     if set(intent) != expected_fields:
         raise ValueError("模型返回的字段与意图结构不一致。")
+
+    # 模型通常保留用户原话里的景区写法，这里统一成图谱里的标准名。
+    # 无法确认的写法保留原值，由主流程追问，而不是拿去做精确匹配。
+    raw_area = intent.get("scenic_area")
+    canonical_area = canonicalize_scenic_area(raw_area)
+    if canonical_area:
+        intent["scenic_area"] = canonical_area
 
     return intent
 
