@@ -51,6 +51,8 @@ python3 checks/check_agent.py analysis/p07_agent/
 
 `src/agent.py` 是主流程：需求解析 → 决定追问/回复/查图谱 → 需求检查 → 模型选择工具 → 读取工具结果并决定是否补查（最多 3 轮）→ 方案检查 → 返回结果及会话记录。行程规划需要路线证据；如果模型漏选路线查询，系统会补充调用并单独记录。模型只看到本次工具返回的相关数据和摘要，不把整个图谱直接写入提示词。
 
+规划请求的 POI 关键词没有名称匹配时，系统会改为列出该景区全部 POI，并在页面提示“没有名称匹配”；但这只是把已有图谱地点摊开，不代表用户偏好一定有对应标签。路线存在但图谱连接核验不通过时，状态为 `partial`（不是 `complete`），保留路线供参考并提示调整需求或改用官方路线。
+
 - 图谱只读：`analysis/p06_graph/outputs/graph_nodes.csv`、`graph_edges.csv`，来源标签 `v0.6-p06`。
 - `tools.py` 提供 `search_poi`、`get_route`、`get_conditions`、`neighbors` 及按来源分组的 `get_route_candidates`。
 - `route_planner.py` 根据候选图谱连接规划，使用 `validate_route` 检查方向；直接连接缺失时可搜索间接 `NEXT` 路径。返回分岔点可以重复，并给出提示。

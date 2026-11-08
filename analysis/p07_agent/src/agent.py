@@ -113,15 +113,28 @@ def run_agent(user_text):
                                       message=_check_message(plan_check, "方案与需求可能存在冲突，请补充或调整。"),
                                       suggestions=[], route=None, poi_results=None)
                     else:
-                        result.update(status="complete", needs_followup=False)
-                        if result["poi_results"] == [] and not result["suggestions"] and result["route"] is None:
-                            result["message"] = " ".join(filter(None, [
-                                result["message"], "图谱中没有找到匹配地点，请确认名称或尝试其他关键词。"
-                            ]))
-                        elif not result["suggestions"] and result["route"] is None and result["poi_results"] is None:
-                            result["message"] = " ".join(filter(None, [
-                                result["message"], "暂时没有找到匹配的条件建议。"
-                            ]))
+                        validation = (result["route"] or {}).get("validation") or {}
+                        if result["route"] is not None and validation and validation.get("valid") is not True:
+                            missing = validation.get("missing_connections") or []
+                            result.update(
+                                status="partial",
+                                needs_followup=True,
+                                message=" ".join(filter(None, [
+                                    result["message"],
+                                    f"路线连接未通过图谱核验（{len(missing)} 处缺失），已保留路线供参考；"
+                                    "请调整需求，或改用景区官方路线。"
+                                ]))
+                            )
+                        else:
+                            result.update(status="complete", needs_followup=False)
+                            if result["poi_results"] == [] and not result["suggestions"] and result["route"] is None:
+                                result["message"] = " ".join(filter(None, [
+                                    result["message"], "图谱中没有找到匹配地点，请确认名称或尝试其他关键词。"
+                                ]))
+                            elif not result["suggestions"] and result["route"] is None and result["poi_results"] is None:
+                                result["message"] = " ".join(filter(None, [
+                                    result["message"], "暂时没有找到匹配的条件建议。"
+                                ]))
     except Exception as exc:
         result.update(status="error", error=str(exc), needs_followup=True)
     finally:
@@ -210,12 +223,24 @@ def _query_graph(result, trace, user_text, area, days):
                 observations.append({"tool": name, "count": len(result["suggestions"]),
                                      "examples": [x["condition"] for x in result["suggestions"][:5]]})
             elif name == "search_poi":
-                result["poi_results"] = trace.call_tool(
+                poi_results = trace.call_tool(
                     "search_poi", search_poi, keyword=keyword, scenic_area=area, limit=limit)
-                result["poi_list_all"] = mode == "all_pois"
+                fallback_used = False
+                # 行程规划里的“儿童友好/刺激”等偏好常被当作 POI 关键词，
+                # 直接返回空会让页面误以为景区没有地点；此时列出全景区地点供选择。
+                if (not poi_results and mode == "keyword"
+                        and result["decision"].get("request_type") == "plan" and area):
+                    fallback_results = trace.call_tool(
+                        "search_poi", search_poi, keyword="", scenic_area=area, limit=10000)
+                    if fallback_results:
+                        poi_results = fallback_results
+                        fallback_used = True
+                        result["message"] = "没有找到名称匹配的地点，已改为列出该景区全部地点，供你判断。"
+                result["poi_results"] = poi_results
+                result["poi_list_all"] = mode == "all_pois" or fallback_used
                 observations.append({"tool": name, "keyword": keyword,
-                                     "count": len(result["poi_results"]),
-                                     "examples": result["poi_results"][:5]})
+                                     "count": len(poi_results), "fallback": fallback_used,
+                                     "examples": poi_results[:5]})
             else:
                 result["route"] = plan_route(user_text, area, conditions=result["suggestions"], trace=trace)
                 validation = result["route"].get("validation") or {}

@@ -174,6 +174,54 @@ class AgentFlowTests(unittest.TestCase):
             result = agent.run_agent("查景点")
         self.assertIn("轮次上限", result["message"])
 
+    def test_plan_poi_keyword_falls_back_to_area_pois(self):
+        plan = {"decision": "query_graph", "request_type": "plan", "reason": "规划", "response": ""}
+        selection = {"tools": ["search_poi"], "search_mode": "keyword",
+                     "search_keyword": "儿童友好", "reason": "查儿童项目"}
+        stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
+        route = {"proposal": {"node_ids": ["a", "b"], "explanation": "路线", "uncertainties": []},
+                 "validation": {"valid": True, "segments": [], "missing_connections": []}, "message": "通过"}
+        fallback = [{"name": "熊猫村", "node_id": "P", "scenic_area": "长隆"}]
+        with patch.object(agent, "parse_intent", return_value={**self.intent, "duration_days": 1}), \
+             patch.object(agent, "decide_next_step", return_value=plan), \
+             patch.object(agent, "check_constraints", return_value=self.ok), \
+             patch.object(agent, "check_plan", return_value=self.ok), \
+             patch.object(agent, "select_tools", side_effect=[selection, stop]), \
+             patch.object(agent, "search_poi", side_effect=[[], fallback]) as search, \
+             patch.object(agent, "plan_route", return_value=route):
+            result = agent.run_agent("带孩子去长隆玩一天，儿童友好")
+        self.assertEqual(result["status"], "complete")
+        self.assertTrue(result["poi_list_all"])
+        self.assertEqual([item["name"] for item in result["poi_results"]], ["熊猫村"])
+        self.assertIn("全部地点", result["message"])
+        self.assertEqual(search.call_count, 2)
+
+    def test_invalid_route_is_partial_not_complete(self):
+        plan = {"decision": "query_graph", "request_type": "plan", "reason": "规划", "response": ""}
+        selection = {"tools": ["get_conditions", "search_poi"], "search_mode": "all_pois",
+                     "search_keyword": "", "reason": "查建议和地点"}
+        stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
+        route = {"proposal": {"node_ids": ["a", "b"], "explanation": "路线", "uncertainties": []},
+                 "validation": {"valid": False, "segments": [],
+                                "missing_connections": [{"from": "a", "to": "b"}] * 12},
+                 "message": "路线连接缺失"}
+        with patch.object(agent, "parse_intent", return_value={**self.intent, "duration_days": 1}), \
+             patch.object(agent, "decide_next_step", return_value=plan), \
+             patch.object(agent, "check_constraints", return_value=self.ok), \
+             patch.object(agent, "check_plan", return_value=self.ok), \
+             patch.object(agent, "select_tools", side_effect=[selection, stop]), \
+             patch.object(agent, "find_relevant_conditions",
+                          return_value=[{"condition": "带孩子", "suggestion": "去熊猫村"}]), \
+             patch.object(agent, "search_poi", return_value=[]), \
+             patch.object(agent, "plan_route", return_value=route):
+            result = agent.run_agent("带孩子去长隆玩一天")
+        self.assertEqual(result["status"], "partial")
+        self.assertTrue(result["needs_followup"])
+        self.assertIsNotNone(result["route"])
+        self.assertEqual(len(result["suggestions"]), 1)
+        self.assertIn("12 处缺失", result["message"])
+        self.assertIn("未通过图谱核验", result["message"])
+
     def test_followup_context_is_preserved(self):
         first = {"query": "和父母轻松出游", "intent": None, "decision": None, "tool_decisions": [],
                  "suggestions": [], "route": None, "poi_results": None, "poi_list_all": False,

@@ -63,8 +63,11 @@ def main():
         "ollama_url": OLLAMA_URL,
         "cases": records
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    failures = sum(record["status"] == "error" or not record["trace_file"] for record in records)
-    print(f"结果：{OUTPUT}；执行错误或记录缺失：{failures}。")
+    failures = sum(
+        record["status"] in {"error", "partial"} or not record["trace_file"]
+        for record in records
+    )
+    print(f"结果：{OUTPUT}；执行错误、路线未通过核验或记录缺失：{failures}。")
     return 1 if failures else 0
 
 
