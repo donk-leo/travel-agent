@@ -48,6 +48,8 @@ def main():
             "route_valid": validation.get("valid"),
             "route_nodes": proposal.get("node_ids", []),
             "route_segments": validation.get("segments", []),
+            "route_metrics": route.get("metrics"),
+            "scope": result.get("scope"),
             "route_uncertainties": proposal.get("uncertainties", []),
             "suggestions": result["suggestions"],
             "poi_results": result["poi_results"],

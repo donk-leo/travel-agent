@@ -7,6 +7,7 @@ from constraint_checker import check_constraints, check_plan
 from intent_parser import parse_intent
 from route_planner import plan_route
 from scenic_aliases import CANONICAL_AREAS, canonicalize_scenic_area
+from sub_area_scope import detect_sub_area, filter_poi_results
 from tool_decider import decide_next_step
 from tool_selector import select_tools
 from tools import search_poi
@@ -27,7 +28,7 @@ def run_agent(user_text):
         "status": "working", "query": user_text, "intent": None,
         "decision": None, "tool_selection": None, "tool_decisions": [],
         "suggestions": [], "route": None, "poi_results": None,
-        "poi_list_all": False, "message": "", "error": "",
+        "poi_list_all": False, "message": "", "error": "", "scope": None,
         "needs_followup": False, "trace_file": "", "trace_json": ""
     }
     trace = SessionTrace()
@@ -52,6 +53,25 @@ def run_agent(user_text):
             trace.record_event("scenic_area_canonicalized", observation={
                 "raw": raw_area, "canonical": resolved_area
             })
+
+        # 子园区范围：用户说“长隆欢乐世界”时，景区名归一为“长隆”，这里再把
+        # 子园区单独记下来，后续查询优先限制在对应园区。
+        sub_area = intent.get("sub_area")
+        scope_note = ""
+        if area == "长隆":
+            if not sub_area:
+                sub_area, scope_note = detect_sub_area(user_text)
+            intent["sub_area"] = sub_area
+            if sub_area or scope_note:
+                trace.record_event("sub_area_scope", observation={
+                    "scenic_area": area, "sub_area": sub_area, "note": scope_note
+                })
+        else:
+            sub_area = None
+            intent["sub_area"] = None
+        result["scope"] = {"scenic_area": area, "sub_area": sub_area, "note": scope_note}
+        if scope_note:
+            result["message"] = scope_note
 
         decision = decide_next_step(user_text, intent)
         if decision.get("decision") not in {"clarify", "query_graph", "reply"}:
@@ -100,7 +120,7 @@ def run_agent(user_text):
                 result.update(status="clarify", message=_check_message(
                     requirement_check, "需求需要进一步确认，请补充或调整。"))
             else:
-                _query_graph(result, trace, user_text, area, days)
+                _query_graph(result, trace, user_text, area, days, sub_area)
                 if result["status"] == "working":
                     if result["route"] is None and not result["suggestions"]:
                         # 仅展示图谱原始名称匹配，没有生成行动建议。
@@ -153,7 +173,7 @@ def run_agent(user_text):
     return result
 
 
-def _query_graph(result, trace, user_text, area, days):
+def _query_graph(result, trace, user_text, area, days, sub_area=None):
     """按有限轮次选择工具，基于真实返回结果决定是否补查。"""
     observations = []
     executed = set()
@@ -223,8 +243,20 @@ def _query_graph(result, trace, user_text, area, days):
                 observations.append({"tool": name, "count": len(result["suggestions"]),
                                      "examples": [x["condition"] for x in result["suggestions"][:5]]})
             elif name == "search_poi":
+                # 指定子园区时先放宽取数上限，筛选后再截断，避免截断在园区外地点上。
+                scoped_limit = 10000 if sub_area else limit
                 poi_results = trace.call_tool(
-                    "search_poi", search_poi, keyword=keyword, scenic_area=area, limit=limit)
+                    "search_poi", search_poi, keyword=keyword, scenic_area=area, limit=scoped_limit)
+                poi_scope_note = ""
+                if sub_area:
+                    raw_count = len(poi_results)
+                    poi_results, poi_scope_note = filter_poi_results(poi_results, sub_area, area)
+                    if mode == "keyword" and len(poi_results) > 10:
+                        poi_results = poi_results[:10]
+                    trace.record_event("sub_area_filter", observation={
+                        "sub_area": sub_area, "raw_count": raw_count,
+                        "kept": len(poi_results), "note": poi_scope_note,
+                    })
                 fallback_used = False
                 # 行程规划里的“儿童友好/刺激”等偏好常被当作 POI 关键词，
                 # 直接返回空会让页面误以为景区没有地点；此时列出全景区地点供选择。
@@ -232,17 +264,28 @@ def _query_graph(result, trace, user_text, area, days):
                         and result["decision"].get("request_type") == "plan" and area):
                     fallback_results = trace.call_tool(
                         "search_poi", search_poi, keyword="", scenic_area=area, limit=10000)
+                    if sub_area:
+                        fallback_results, fallback_note = filter_poi_results(
+                            fallback_results, sub_area, area)
+                        poi_scope_note = " ".join(filter(None, [poi_scope_note, fallback_note]))
                     if fallback_results:
                         poi_results = fallback_results
                         fallback_used = True
                         result["message"] = "没有找到名称匹配的地点，已改为列出该景区全部地点，供你判断。"
                 result["poi_results"] = poi_results
                 result["poi_list_all"] = mode == "all_pois" or fallback_used
+                if poi_scope_note:
+                    result["message"] = " ".join(filter(None, [result["message"], poi_scope_note]))
                 observations.append({"tool": name, "keyword": keyword,
                                      "count": len(poi_results), "fallback": fallback_used,
                                      "examples": poi_results[:5]})
             else:
-                result["route"] = plan_route(user_text, area, conditions=result["suggestions"], trace=trace)
+                result["route"] = plan_route(
+                    user_text, area, conditions=result["suggestions"],
+                    trace=trace, sub_area=sub_area)
+                route_scope = result["route"].get("scope") or {}
+                if route_scope.get("note"):
+                    result["message"] = " ".join(filter(None, [result["message"], route_scope["note"]]))
                 validation = result["route"].get("validation") or {}
                 observations.append({"tool": name, "valid": validation.get("valid", False),
                                      "missing_connections": validation.get("missing_connections", []),
@@ -257,4 +300,9 @@ def _query_graph(result, trace, user_text, area, days):
         })
 
     if route_needs_refresh and result["route"] is not None:
-        result["route"] = plan_route(user_text, area, conditions=result["suggestions"], trace=trace)
+        result["route"] = plan_route(
+            user_text, area, conditions=result["suggestions"],
+            trace=trace, sub_area=sub_area)
+        route_scope = result["route"].get("scope") or {}
+        if route_scope.get("note"):
+            result["message"] = " ".join(filter(None, [result["message"], route_scope["note"]]))

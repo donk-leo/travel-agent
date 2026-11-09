@@ -1,7 +1,15 @@
 import json
 import urllib.request
+
 from condition_selector import find_relevant_conditions
-from tools import get_route_candidates, validate_route, repair_route
+from sub_area_scope import filter_route_candidates
+from tools import (
+    get_route_candidates,
+    optimize_route,
+    repair_route,
+    route_metrics,
+    validate_route,
+)
 
 
 from config import MODEL, OLLAMA_URL
@@ -36,29 +44,48 @@ SYSTEM_PROMPT = """
 4. 无法确认的适用条件或信息写入 uncertainties。
 5. 如果无法规划出至少两个节点的路线，node_ids 返回空列表，
    并在 explanation 中说明原因。
-6.参考 condition_suggestions 里的条件建议及其来源。
+6. 参考 condition_suggestions 里的条件建议及其来源。
+7. 如果 scope.sub_area 不为空，说明用户指定了子园区：只使用该范围内的
+   地点规划，不要把其它子园区的地点加进来。
+8. 尽量让路线少走回头路：同一段连接不要重复走；确实需要返回分岔点时，
+   在 explanation 里说明原因。
 可以提出合理推测；对于图谱中没有明确提供的步行距离、游玩时长或
 适用条件，不要直接说已经确定，请在 uncertainties 中说明需要确认的内容。
 """
 
 
-def plan_route(user_text, scenic_area, conditions=None, trace=None):
+def plan_route(user_text, scenic_area, conditions=None, trace=None, sub_area=None):
     def call_tool(name, function, **arguments):
         if trace is None:
             return function(**arguments)
         return trace.call_tool(name, function, **arguments)
-    candidates = call_tool(
+
+    all_candidates = call_tool(
         "get_route_candidates",
         get_route_candidates,
         scenic_area=scenic_area
     )
 
-    if not candidates:
+    empty_scope = {
+        "requested": sub_area,
+        "applied": False,
+        "note": "",
+        "kept_docs": [],
+        "dropped_docs": [],
+    }
+
+    if not all_candidates:
         return {
             "proposal": None,
             "validation": None,
-            "message": "该景区没有查询到路线连接。"
+            "message": "该景区没有查询到路线连接。",
+            "scope": empty_scope,
+            "metrics": None,
         }
+
+    # 用户指定子园区时，只保留该园区的来源文档；连接不足会回退整个景区。
+    scope = filter_route_candidates(all_candidates, sub_area, scenic_area)
+    candidates = scope["candidates"]
 
     if conditions is None:
         conditions = find_relevant_conditions(
@@ -73,8 +100,13 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None):
                 "content": json.dumps(
                     {
                         "user_request": user_text,
+                        "scope": {
+                            "scenic_area": scenic_area,
+                            "sub_area": sub_area if scope["applied"] else None,
+                            "note": scope["note"],
+                        },
                         "route_candidates": candidates,
-                        "condition_suggestions":conditions
+                        "condition_suggestions": conditions
                     },
                     ensure_ascii=False
                 )
@@ -86,7 +118,8 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None):
         "stream": False
     }
 
-        # 最多尝试两次：首次规划，失败后根据核验结果重新规划
+    # 最多尝试两次：首次规划，失败后根据核验结果重新规划
+    validation = None
     for attempt in range(2):
         request = urllib.request.Request(
             OLLAMA_URL,
@@ -131,7 +164,6 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None):
                 "role": "user",
                 "content": json.dumps(feedback, ensure_ascii=False)
             })
-        repair_info = None
 
     if not validation["valid"]:
         repair_info = call_tool(
@@ -154,20 +186,48 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None):
                 "补全路径的实际步行距离、坡度和游玩时长需要进一步确认。"
             )
 
-    if validation["valid"]:
-        seen = set()
-        repeated = []
-        for node_id in proposal["node_ids"]:
-            if node_id in seen and node_id not in repeated:
-                repeated.append(node_id)
-            seen.add(node_id)
+    metrics = route_metrics(proposal["node_ids"], candidates)
 
-        if repeated:
-            names = [node_id.split("|")[-1] for node_id in repeated]
+    # 图谱连接核验通过后，再做一次确定性整理：在保留起点（和返程终点）的
+    # 前提下重排目标地点，减少同一批景点被反复经过的情况。
+    if validation["valid"]:
+        optimization = optimize_route(proposal["node_ids"], candidates)
+        if trace is not None:
+            trace.record_event("route_optimization", observation={
+                "method": optimization["method"],
+                "optimized": optimization["optimized"],
+                "before": optimization["original_metrics"],
+                "after": optimization["metrics"],
+            })
+
+        metrics = optimization["metrics"]
+        if optimization["optimized"]:
+            proposal["node_ids"] = optimization["node_ids"]
+            validation = optimization["validation"]
+            proposal["uncertainties"].append(optimization["note"])
+            proposal["explanation"] = (
+                (proposal.get("explanation") or "").strip()
+                + "（程序已按图谱 NEXT 连接重排地点顺序以减少重复经过，"
+                  "逐段来源见核验结果。）"
+            ).strip()
+
+    if validation["valid"]:
+        repeated_names = [
+            node_id.split("|")[-1] for node_id in metrics["repeated_node_ids"]
+        ]
+        if repeated_names:
             proposal["uncertainties"].append(
-                "路线会重复经过：" + "、".join(names)
-                + "；返回分岔点可能是合理的，实际步行距离和坡度仍需确认。"
+                "路线仍会重复经过：" + "、".join(repeated_names)
+                + "；返回分岔点可能是合理的。"
+                "图谱没有实际距离、坡度和通行情况数据，"
+                "不能据此比较实际体力消耗。"
             )
+        else:
+            proposal["uncertainties"].append(
+                "图谱没有实际距离、坡度和通行情况数据，"
+                "不能据此比较实际体力消耗。"
+            )
+
     print(
         "模型提出的路线：",
         json.dumps(proposal, ensure_ascii=False),
@@ -178,16 +238,25 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None):
         json.dumps(validation, ensure_ascii=False),
         flush=True
     )
+    print(
+        "路线结构指标：",
+        json.dumps(metrics, ensure_ascii=False),
+        flush=True
+    )
 
     if validation["valid"]:
         message = "路线连接已通过图谱核验。"
+        if scope["applied"]:
+            message += f"（查询范围：{scenic_area} · {sub_area}）"
     else:
         message = "路线连接未通过图谱核验，需要重新规划。"
 
     return {
         "proposal": proposal,
         "validation": validation,
-        "message": message
+        "message": message,
+        "scope": scope,
+        "metrics": metrics,
     }
 
 
