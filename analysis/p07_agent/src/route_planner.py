@@ -21,6 +21,20 @@ ROUTE_SCHEMA = {
             "type": "array",
             "items": {"type": "string"}
         },
+        "day_plan": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "day": {"type": "integer"},
+                    "node_ids": {
+                        "type": "array",
+                        "items": {"type": "string"}
+                    }
+                },
+                "required": ["day", "node_ids"]
+            }
+        },
         "explanation": {"type": "string"},
         "uncertainties": {
             "type": "array",
@@ -49,12 +63,91 @@ SYSTEM_PROMPT = """
    地点规划，不要把其它子园区的地点加进来。
 8. 尽量让路线少走回头路：同一段连接不要重复走；确实需要返回分岔点时，
    在 explanation 里说明原因。
+9. 如果输入的 duration_days >= 2，必须同时返回 day_plan：按天分组，
+   每天至少一个节点，day 从 1 开始连续编号，所有 node_ids 按原顺序
+   恰好覆盖一次；每天只能包含整体路线中的连续片段。
 可以提出合理推测；对于图谱中没有明确提供的步行距离、游玩时长或
 适用条件，不要直接说已经确定，请在 uncertainties 中说明需要确认的内容。
 """
 
 
-def plan_route(user_text, scenic_area, conditions=None, trace=None, sub_area=None):
+def _coerce_days(value):
+    """把意图里的天数转成正整数；没有天数或格式不对时返回 None。"""
+    try:
+        days = int(value)
+    except (TypeError, ValueError):
+        return None
+    return days if days >= 1 else None
+
+
+def _node_names(candidates):
+    """从候选连接里收集节点 ID 到名称的映射，供页面按天展示。"""
+    names = {}
+    for group in candidates or []:
+        for connection in group.get("connections", []):
+            names[connection.get("from_node_id")] = connection.get("from_name", "")
+            names[connection.get("to_node_id")] = connection.get("to_name", "")
+    return names
+
+
+def _normalize_day_plan(node_ids, raw_plan, days):
+    """校验模型给的分天方案；不合法时按节点数均分，并返回是否回退。"""
+    node_ids = list(node_ids or [])
+    if not node_ids:
+        return [], False
+    if days <= 1:
+        return [{"day": 1, "node_ids": node_ids}], False
+
+    if isinstance(raw_plan, list):
+        groups = []
+        flattened = []
+        valid = True
+        for item in raw_plan:
+            if not isinstance(item, dict):
+                valid = False
+                break
+            day = item.get("day")
+            ids = item.get("node_ids")
+            if (not isinstance(day, int) or isinstance(day, bool)
+                    or not isinstance(ids, list) or not ids
+                    or not all(isinstance(node_id, str) for node_id in ids)):
+                valid = False
+                break
+            groups.append({"day": day, "node_ids": ids})
+            flattened.extend(ids)
+        if (valid and flattened == node_ids and len(groups) == days
+                and sorted(group["day"] for group in groups) == list(range(1, days + 1))):
+            groups.sort(key=lambda group: group["day"])
+            return groups, False
+
+    # 模型没有按天分组，或分组与 node_ids 对不上时，按节点数均分。
+    # 这只是展示分组，不代表每日强度合理；调用方会写入 uncertainties。
+    group_count = min(days, len(node_ids))
+    base, extra = divmod(len(node_ids), group_count)
+    groups = []
+    start = 0
+    for index in range(group_count):
+        size = base + (1 if index < extra else 0)
+        groups.append({
+            "day": index + 1,
+            "node_ids": node_ids[start:start + size]
+        })
+        start += size
+    for day in range(group_count + 1, days + 1):
+        groups.append({"day": day, "node_ids": []})
+    return groups, True
+
+
+def plan_route(user_text, scenic_area, conditions=None, trace=None,
+               sub_area=None, days=None):
+    days = _coerce_days(days)
+    system_prompt = SYSTEM_PROMPT
+    if days and days > 1:
+        system_prompt += (
+            f"\n本次 duration_days={days}，请把 node_ids 分成 {days} 天，"
+            "并在 day_plan 中逐天列出连续节点。"
+        )
+
     def call_tool(name, function, **arguments):
         if trace is None:
             return function(**arguments)
@@ -94,12 +187,13 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None, sub_area=Non
     payload = {
         "model": MODEL,
         "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": system_prompt},
             {
                 "role": "user",
                 "content": json.dumps(
                     {
                         "user_request": user_text,
+                        "duration_days": days,
                         "scope": {
                             "scenic_area": scenic_area,
                             "sub_area": sub_area if scope["applied"] else None,
@@ -226,6 +320,24 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None, sub_area=Non
             proposal["uncertainties"].append(
                 "图谱没有实际距离、坡度和通行情况数据，"
                 "不能据此比较实际体力消耗。"
+            )
+
+    if days:
+        names = _node_names(candidates)
+        node_ids = proposal.get("node_ids") or []
+        day_plan, day_plan_fallback = _normalize_day_plan(
+            node_ids, proposal.get("day_plan"), days
+        )
+        proposal["duration_days"] = days
+        proposal["day_plan"] = day_plan
+        proposal["node_names"] = {
+            node_id: names.get(node_id) or node_id.split("|")[-1]
+            for node_id in node_ids
+        }
+        if days > 1 and day_plan_fallback:
+            proposal.setdefault("uncertainties", []).append(
+                "天数分组按节点数均分，仅用于展示，未考虑每日步行强度、"
+                "住宿点和开放时间；请结合实际情况调整。"
             )
 
     print(

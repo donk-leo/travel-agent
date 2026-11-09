@@ -17,6 +17,18 @@ from trace_log import SessionTrace
 MAX_DECISION_ROUNDS = 3
 ALLOWED_TOOLS = {"get_conditions", "get_route_candidates", "search_poi"}
 
+# 这些词描述的是人群或体验偏好，不是地点名称；拿去做 POI 名称搜索必然为空。
+PREFERENCE_KEYWORDS = (
+    "儿童", "孩子", "小朋友", "亲子", "宝宝", "幼儿", "带娃", "遛娃",
+    "老人", "长辈", "父母", "情侣", "朋友", "年轻人",
+    "刺激", "轻松", "少走路", "省力",
+)
+
+
+def _is_preference_keyword(value):
+    text = str(value or "").strip()
+    return bool(text) and any(token in text for token in PREFERENCE_KEYWORDS)
+
 
 def _check_message(check, fallback):
     return " ".join(filter(None, [check.get("explanation"), check.get("question")])) or fallback
@@ -218,7 +230,14 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
                 continue
             mode = selection.get("search_mode") if name == "search_poi" else ""
             keyword = selection.get("search_keyword") if name == "search_poi" else ""
+            preference_note = ""
             if name == "search_poi":
+                if mode == "keyword" and _is_preference_keyword(keyword):
+                    preference_note = (
+                        f"“{str(keyword).strip()}”是人群或体验偏好，不是地点名称；"
+                        "已改为列出当前范围全部地点，未按偏好过滤。"
+                    )
+                    mode, keyword = "all_pois", ""
                 if mode == "all_pois":
                     keyword, limit = "", 10000
                 elif mode == "keyword" and isinstance(keyword, str) and keyword.strip():
@@ -271,9 +290,11 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
                     if fallback_results:
                         poi_results = fallback_results
                         fallback_used = True
-                        result["message"] = "没有找到名称匹配的地点，已改为列出该景区全部地点，供你判断。"
+                        result["message"] = "没有找到名称匹配的地点，已改为列出当前范围全部地点，供你判断。"
                 result["poi_results"] = poi_results
                 result["poi_list_all"] = mode == "all_pois" or fallback_used
+                if preference_note:
+                    result["message"] = " ".join(filter(None, [result["message"], preference_note]))
                 if poi_scope_note:
                     result["message"] = " ".join(filter(None, [result["message"], poi_scope_note]))
                 observations.append({"tool": name, "keyword": keyword,
@@ -282,7 +303,7 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
             else:
                 result["route"] = plan_route(
                     user_text, area, conditions=result["suggestions"],
-                    trace=trace, sub_area=sub_area)
+                    trace=trace, sub_area=sub_area, days=days)
                 route_scope = result["route"].get("scope") or {}
                 if route_scope.get("note"):
                     result["message"] = " ".join(filter(None, [result["message"], route_scope["note"]]))
@@ -302,7 +323,7 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
     if route_needs_refresh and result["route"] is not None:
         result["route"] = plan_route(
             user_text, area, conditions=result["suggestions"],
-            trace=trace, sub_area=sub_area)
+            trace=trace, sub_area=sub_area, days=days)
         route_scope = result["route"].get("scope") or {}
         if route_scope.get("note"):
             result["message"] = " ".join(filter(None, [result["message"], route_scope["note"]]))

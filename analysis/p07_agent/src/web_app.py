@@ -54,8 +54,8 @@ PAGE = """
   <p>{{ message|e }}</p>
 {% endif %}
 {% if poi_results is not none %}
-  <h2>{% if poi_list_all %}图谱收录的景区地点{% else %}图谱名称匹配结果{% endif %}</h2>
-  <p>结果来自已采集的图谱，可能包含餐厅、车站等地点，也可能不完整。</p>
+  <h2>{% if poi_list_all %}当前范围地点{% else %}图谱名称匹配结果{% endif %}</h2>
+  <p>结果来自已采集的图谱，可能包含餐厅、车站等地点，也可能不完整{% if poi_list_all %}；列表未按“儿童/亲子/老人”等偏好过滤。{% else %}。{% endif %}</p>
   {% if poi_list_all %}
     {% if poi_results|length >= 10000 %}
       <p>当前显示前 10000 条记录，可能还有更多。</p>
@@ -76,17 +76,40 @@ PAGE = """
 {% if route %}
   <h2>路线顺序示意</h2>
 
-  {% if route.validation and route.validation.valid %}
-    {% set segments = route.validation.segments %}
+  {% if route.proposal and route.proposal.node_ids %}
+    {% set names = route.proposal.node_names or {} %}
+    {% set day_plan = route.proposal.day_plan or [] %}
+    {% if route.proposal.duration_days %}
+      <p>游玩天数：{{ route.proposal.duration_days }} 天</p>
+    {% endif %}
 
-    <p>
-      {{ segments[0].from_name|e }}
-      {% for segment in segments %}
-        → {{ segment.to_name|e }}
+    {% if day_plan|length > 1 %}
+      {% for day in day_plan %}
+        <p>
+          <strong>第 {{ day.day }} 天：</strong>
+          {% if day.node_ids %}
+            {% for node_id in day.node_ids %}
+              {{ names.get(node_id, node_id)|e }}{% if not loop.last %} → {% endif %}
+            {% endfor %}
+          {% else %}
+            暂无节点
+          {% endif %}
+        </p>
       {% endfor %}
-    </p>
+    {% else %}
+      <p>
+        {% for node_id in route.proposal.node_ids %}
+          {{ names.get(node_id, node_id)|e }}{% if not loop.last %} → {% endif %}
+        {% endfor %}
+      </p>
+    {% endif %}
 
-    <p>{{ route.proposal.explanation|e }}</p>
+    {% if route.validation and route.validation.valid %}
+      <p>{{ route.proposal.explanation|e }}</p>
+    {% else %}
+      <p><strong>提示：</strong>{{ route.message|e }}</p>
+      <p>{{ route.proposal.explanation|e }}</p>
+    {% endif %}
 
     {% if route.metrics %}
       <p>
@@ -105,15 +128,17 @@ PAGE = """
       </ul>
     {% endif %}
 
-    <details>
-      <summary>查看每段路线的图谱来源</summary>
-      {% for segment in segments %}
-        <p>
-          {{ segment.from_name|e }} → {{ segment.to_name|e }}：
-          {{ segment.source_doc_ids|join("、")|e }}
-        </p>
-      {% endfor %}
-    </details>
+    {% if route.validation and route.validation.valid %}
+      <details>
+        <summary>查看每段路线的图谱来源</summary>
+        {% for segment in route.validation.segments %}
+          <p>
+            {{ segment.from_name|e }} → {{ segment.to_name|e }}：
+            {{ segment.source_doc_ids|join("、")|e }}
+          </p>
+        {% endfor %}
+      </details>
+    {% endif %}
   {% else %}
     <p>{{ route.message|e }}</p>
   {% endif %}

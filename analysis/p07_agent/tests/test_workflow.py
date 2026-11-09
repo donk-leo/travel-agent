@@ -2,6 +2,7 @@
 
 import json
 import inspect
+import re
 import sys
 import tempfile
 import unittest
@@ -14,6 +15,7 @@ import agent
 import trace_log
 import web_app
 import tools
+from route_planner import _coerce_days, _normalize_day_plan
 from tools import get_route_candidates, neighbors, repair_route, validate_route
 
 
@@ -74,6 +76,37 @@ class GraphToolTests(unittest.TestCase):
         self.assertEqual(repaired["node_ids"][0], start)
         self.assertEqual(repaired["node_ids"][-1], end)
         self.assertTrue(all(s["source_doc_ids"] for s in repaired["validation"]["segments"]))
+
+
+class RouteDayPlanTests(unittest.TestCase):
+    def test_days_are_coerced_to_positive_integer(self):
+        self.assertEqual(_coerce_days("3"), 3)
+        self.assertEqual(_coerce_days(2), 2)
+        self.assertIsNone(_coerce_days(0))
+        self.assertIsNone(_coerce_days("abc"))
+        self.assertIsNone(_coerce_days(None))
+
+    def test_model_day_plan_is_kept_when_valid(self):
+        node_ids = ["a", "b", "c", "d", "e"]
+        raw = [
+            {"day": 1, "node_ids": ["a", "b"]},
+            {"day": 2, "node_ids": ["c", "d", "e"]},
+        ]
+        plan, fallback = _normalize_day_plan(node_ids, raw, 2)
+        self.assertFalse(fallback)
+        self.assertEqual([group["node_ids"] for group in plan], [["a", "b"], ["c", "d", "e"]])
+
+    def test_invalid_day_plan_falls_back_to_even_split(self):
+        node_ids = ["a", "b", "c", "d", "e"]
+        raw = [{"day": 1, "node_ids": ["a"]}, {"day": 2, "node_ids": ["b"]}]
+        plan, fallback = _normalize_day_plan(node_ids, raw, 3)
+        self.assertTrue(fallback)
+        self.assertEqual([group["node_ids"] for group in plan], [["a", "b"], ["c", "d"], ["e"]])
+
+    def test_one_day_is_a_single_group(self):
+        plan, fallback = _normalize_day_plan(["a", "b"], None, 1)
+        self.assertFalse(fallback)
+        self.assertEqual(plan, [{"day": 1, "node_ids": ["a", "b"]}])
 
 
 class AgentFlowTests(unittest.TestCase):
@@ -138,8 +171,30 @@ class AgentFlowTests(unittest.TestCase):
         self.assertEqual(result["status"], "complete")
         self.assertIsNotNone(result["route"])
         planner.assert_called_once()
+        self.assertEqual(planner.call_args.kwargs["days"], 1)
         events = [json.loads(line) for line in (Path(self.temp.name) / result["trace_file"]).read_text(encoding="utf-8").splitlines()]
         self.assertTrue(any(e.get("event_type") == "decision_adjustment" for e in events))
+
+    def test_plan_request_passes_multi_day_count_to_route_planner(self):
+        plan = {"decision": "query_graph", "request_type": "plan", "reason": "需要规划", "response": ""}
+        selection = {"tools": ["get_conditions"], "search_mode": "all_pois",
+                     "search_keyword": "", "reason": "查询建议"}
+        stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
+        route = {"proposal": {"node_ids": ["a", "b", "c"], "explanation": "路线",
+                              "uncertainties": [], "day_plan": []},
+                 "validation": {"valid": True, "segments": [], "missing_connections": []}, "message": "通过"}
+        with patch.object(agent, "parse_intent", return_value={**self.intent, "duration_days": 3}), \
+             patch.object(agent, "decide_next_step", return_value=plan), \
+             patch.object(agent, "check_constraints", return_value=self.ok), \
+             patch.object(agent, "check_plan", return_value=self.ok), \
+             patch.object(agent, "select_tools", side_effect=[selection, stop]), \
+             patch.object(agent, "find_relevant_conditions", return_value=[]), \
+             patch.object(agent, "search_poi", return_value=[]), \
+             patch.object(agent, "plan_route", return_value=route) as planner:
+            result = agent.run_agent("带孩子去武功山玩三天")
+        self.assertEqual(result["status"], "complete")
+        self.assertIsNotNone(result["route"])
+        self.assertEqual(planner.call_args.kwargs["days"], 3)
 
 
     def test_unknown_place_is_checked_against_graph(self):
@@ -177,7 +232,7 @@ class AgentFlowTests(unittest.TestCase):
     def test_plan_poi_keyword_falls_back_to_area_pois(self):
         plan = {"decision": "query_graph", "request_type": "plan", "reason": "规划", "response": ""}
         selection = {"tools": ["search_poi"], "search_mode": "keyword",
-                     "search_keyword": "儿童友好", "reason": "查儿童项目"}
+                     "search_keyword": "不存在", "reason": "查地点"}
         stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
         route = {"proposal": {"node_ids": ["a", "b"], "explanation": "路线", "uncertainties": []},
                  "validation": {"valid": True, "segments": [], "missing_connections": []}, "message": "通过"}
@@ -189,12 +244,36 @@ class AgentFlowTests(unittest.TestCase):
              patch.object(agent, "select_tools", side_effect=[selection, stop]), \
              patch.object(agent, "search_poi", side_effect=[[], fallback]) as search, \
              patch.object(agent, "plan_route", return_value=route):
-            result = agent.run_agent("带孩子去长隆玩一天，儿童友好")
+            result = agent.run_agent("带孩子去长隆玩一天")
         self.assertEqual(result["status"], "complete")
         self.assertTrue(result["poi_list_all"])
         self.assertEqual([item["name"] for item in result["poi_results"]], ["熊猫村"])
-        self.assertIn("全部地点", result["message"])
+        self.assertIn("当前范围全部地点", result["message"])
         self.assertEqual(search.call_count, 2)
+
+    def test_preference_keyword_uses_all_pois_without_name_search(self):
+        plan = {"decision": "query_graph", "request_type": "plan", "reason": "规划", "response": ""}
+        selection = {"tools": ["search_poi"], "search_mode": "keyword",
+                     "search_keyword": "儿童", "reason": "查儿童项目"}
+        stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
+        route = {"proposal": {"node_ids": ["a", "b"], "explanation": "路线", "uncertainties": []},
+                 "validation": {"valid": True, "segments": [], "missing_connections": []}, "message": "通过"}
+        all_pois = [{"name": "熊猫村", "node_id": "P", "scenic_area": "长隆"}]
+        with patch.object(agent, "parse_intent", return_value={**self.intent, "duration_days": 3}), \
+             patch.object(agent, "decide_next_step", return_value=plan), \
+             patch.object(agent, "check_constraints", return_value=self.ok), \
+             patch.object(agent, "check_plan", return_value=self.ok), \
+             patch.object(agent, "select_tools", side_effect=[selection, stop]), \
+             patch.object(agent, "search_poi", return_value=all_pois) as search, \
+             patch.object(agent, "plan_route", return_value=route):
+            result = agent.run_agent("带孩子去长隆欢乐世界玩三天")
+        self.assertEqual(result["status"], "complete")
+        self.assertTrue(result["poi_list_all"])
+        self.assertEqual(search.call_args.kwargs["keyword"], "")
+        self.assertEqual(search.call_args.kwargs["limit"], 10000)
+        self.assertEqual(search.call_count, 1)
+        self.assertIn("偏好", result["message"])
+        self.assertIn("未按偏好过滤", result["message"])
 
     def test_invalid_route_is_partial_not_complete(self):
         plan = {"decision": "query_graph", "request_type": "plan", "reason": "规划", "response": ""}
@@ -221,6 +300,53 @@ class AgentFlowTests(unittest.TestCase):
         self.assertEqual(len(result["suggestions"]), 1)
         self.assertIn("12 处缺失", result["message"])
         self.assertIn("未通过图谱核验", result["message"])
+
+    def test_day_plan_is_rendered_by_day(self):
+        result = {
+            "query": "武功山两天", "intent": {"scenic_area": "武功山", "duration_days": 2},
+            "decision": None, "tool_decisions": [], "suggestions": [],
+            "route": {
+                "proposal": {
+                    "node_ids": ["a", "b", "c"],
+                    "node_names": {"a": "金顶", "b": "吊马桩", "c": "发云界"},
+                    "duration_days": 2,
+                    "day_plan": [
+                        {"day": 1, "node_ids": ["a", "b"]},
+                        {"day": 2, "node_ids": ["c"]},
+                    ],
+                    "explanation": "按两天安排", "uncertainties": []
+                },
+                "validation": {"valid": True, "segments": [], "missing_connections": []},
+                "message": "通过"
+            },
+            "poi_results": None, "poi_list_all": False, "needs_followup": False,
+            "message": "", "error": "", "trace_file": "", "trace_json": ""
+        }
+        with patch.object(web_app, "run_agent", return_value=result), web_app.app.test_client() as client:
+            response = client.post("/", data={"query": "武功山两天"})
+            html = response.get_data(as_text=True)
+        html = re.sub(r"\s+", " ", html)
+        self.assertIn("游玩天数：2 天", html)
+        self.assertIn("第 1 天", html)
+        self.assertIn("第 2 天", html)
+        self.assertIn("金顶 → 吊马桩", html)
+        self.assertIn("发云界", html)
+
+    def test_poi_list_heading_does_not_claim_name_match(self):
+        result = {
+            "query": "孩子在长隆", "intent": {"scenic_area": "长隆", "duration_days": 1},
+            "decision": None, "tool_decisions": [], "suggestions": [], "route": None,
+            "poi_results": [{"name": "熊猫村", "scenic_area": "长隆"}],
+            "poi_list_all": True, "needs_followup": False,
+            "message": "“儿童”是人群或体验偏好，不是地点名称；已改为列出当前范围全部地点，未按偏好过滤。",
+            "error": "", "trace_file": "", "trace_json": ""
+        }
+        with patch.object(web_app, "run_agent", return_value=result), web_app.app.test_client() as client:
+            response = client.post("/", data={"query": "孩子在长隆"})
+            html = response.get_data(as_text=True)
+        self.assertIn("当前范围地点", html)
+        self.assertIn("未按“儿童/亲子/老人”等偏好过滤", html)
+        self.assertNotIn("图谱名称匹配结果", html)
 
     def test_followup_context_is_preserved(self):
         first = {"query": "和父母轻松出游", "intent": None, "decision": None, "tool_decisions": [],
