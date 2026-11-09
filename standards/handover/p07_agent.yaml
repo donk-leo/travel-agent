@@ -12,11 +12,17 @@ inputs:
   - path: analysis/p06_graph/outputs/graph_edges.csv
     schema: standards/schema_graph.json
     from_tag: v0.6-p06
+  - path: scenic/changlong/data/processed/changlong_guides.csv
+    schema: standards/schema_scenic.json
+    from_tag: v0.1-p01
+    usage: 仅取 doc_id / subtype 两列生成子园区标签常量，运行时不读正文；常量在测试中与 P1 对照
 
 outputs:
   - path: analysis/p07_agent/src/agent.py
   - path: analysis/p07_agent/src/tools.py
     schema: standards/schema_tools.json
+  - path: analysis/p07_agent/src/sub_area_scope.py
+  - path: analysis/p07_agent/src/analyze_route_optimization.py
   - path: analysis/p07_agent/outputs/sessions/*.jsonl
   - path: analysis/p07_agent/outputs/tests.md
   - path: analysis/p07_agent/outputs/demo.md
@@ -41,8 +47,11 @@ acceptance:
 
 notes: |
   不允许把整张图塞进 Prompt 代替工具调用——那是项目 7 明确的失分点。
-  真实模型 8 个案例与流程回归结果见项目七 outputs/tests.md；已知限制留待后续优化。
+  真实模型 8 个案例与流程回归结果见项目七 outputs/tests.md；多日分天与实时信息仍为待优化项。
   v1.2 明确 get_route_candidates 分组接口及返回字段格式；P6 图谱未修改。
-  景区简称、子园区范围、重复路线、多日分天与实时信息为待优化项，详见实验报告。
+  景区简称已由 scenic_aliases 归一；子园区范围（src/sub_area_scope.py，文档标签取自 P1 subtype，
+  测试对照 P1）与重复路线整理（src/tools.py optimize_route）于 2026-11-09 完成，待复核后升版本 tag。
+  路线整理离线复算见 src/analyze_route_optimization.py；图谱无距离/坡度字段，结构指标不可换算为体力消耗。
+  系统 Prompt 的“必须基于图谱查询”约束未放宽，仅补充子园区范围与少走回头路的提示。
   用户于 2026-11-03 在对话中以审核人身份确认审核通过；按用户要求保留原 reviewer 字段。
   此记录不声称原 reviewer 字段中的姓名本人已单独签署审核结论。
