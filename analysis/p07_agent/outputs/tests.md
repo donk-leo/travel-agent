@@ -26,8 +26,26 @@
 - 曾出现“拍日落”的建议配上“错峰出行”理由：已改为每条建议单独生成理由，但模型仍可能生成不准确内容；失败现象和后续方案见章节报告。
 - 曾出现模型在图谱查询前断言陌生景点不存在；现在对没有约束的普通信息查询直接查图谱。前后真实轨迹可分别查看 [修正前](sessions/session_5d34a42ed29948c8a4219b0ed5a79615.jsonl) 和 [修正后](sessions/session_1036c022300c423a95fa8f7386ef9e2d.jsonl)。
 
+## 路线整理与子园区范围（2026-11-09 离线复算）
+
+以下数字由 `python3 analysis/p07_agent/src/analyze_route_optimization.py` 从 `evaluation_results.json` 中的模型原始路线确定性复算得到，**不重新调用模型**：
+
+| 案例 | 景区 | 模型原始路线 | 整理后 | 是否变化 | 算法 |
+|---|---|---|---|---|---|
+| 亲子与老人一日游（`family_elder_one_day`） | 长隆 | 18 步 / 重复 6 | 13 步 / 重复 1 | 是 | held_karp |
+| 朋友白云山一日游（`friends_one_day`） | 广州白云山 | 18 步 / 重复 6 | 17 步 / 重复 5 | 是 | held_karp |
+| 伴侣武功山两日游（`couple_two_days`） | 武功山 | 5 步 / 重复 1 | 5 步 / 重复 1 | 否 | original |
+| 追问后补充（`followup_combined`） | 广州白云山 | 14 步 / 重复 4 | 10 步 / 重复 0 | 是 | held_karp |
+
+- 步数指图谱 `NEXT` 连接的段数，不是实际步行距离；“重复”指同一地点在路线中再次出现。整理只改变顺序与连接方式，目标地点集合不变，逐段来源仍可核验；武功山案例的返程终点（中庵索道）被保留。
+- `evaluation_results.json` 仍是 2026-11-03 优化前的真实运行记录。本次没有重跑本地模型（当前机器未运行 Ollama），因此没有把离线复算结果伪装成新的模型输出。
+- 子园区范围由 `tests/test_sub_area_scope.py` 覆盖（19 条）：别名识别、与 P1 `subtype` 对照、景点归属（含跨园区记为未知）、候选与景点筛选、回退说明、agent 透传。
+- 路线整理由 `tests/test_route_optimization.py` 覆盖（8 条）：指标统计、重复循环整理、返程终点保留、补全绕开已访问节点、`plan_route` 集成（模拟模型）与子园区候选过滤。
+
 ## 离线检查与复现
 
-`python3 -m unittest discover -s analysis/p07_agent/tests -v` 使用真实 P6 图谱与模拟模型/工具，检查连接核验、补全、追问上下文、矛盾拦截、无匹配与决策轮次。模拟案例不作为真实模型表现。
+`python3 -m unittest discover -s analysis/p07_agent/tests -v` 使用真实 P6 图谱与模拟模型/工具，检查连接核验、补全、追问上下文、矛盾拦截、无匹配、决策轮次、子园区范围与路线整理（共 43 条）。模拟案例不作为真实模型表现。
+
+`python3 analysis/p07_agent/src/analyze_route_optimization.py` 读取已有真实模型路线，离线输出整理前后对照，不调用模型、不改原始结果。
 
 `python3 analysis/p07_agent/src/run_evaluation.py` 用本地 Ollama 重跑上述人工设计的真实模型请求，生成新的 `evaluation_results.json` 和会话轨迹。模型输出、用时及文件名可能变化；本报告是本次运行的人工记录，重跑后应重新核对。

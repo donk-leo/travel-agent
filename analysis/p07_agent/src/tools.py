@@ -1,4 +1,7 @@
 import csv
+import json
+from collections import Counter, deque
+from heapq import heappop, heappush
 from pathlib import Path
 
 from scenic_aliases import canonicalize_scenic_area
@@ -7,6 +10,11 @@ from scenic_aliases import canonicalize_scenic_area
 # 从当前文件的位置找到项目根目录
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 GRAPH_DIR = PROJECT_ROOT / "analysis" / "p06_graph" / "outputs"
+
+# 路线重排的上限：地点数超过该值时改用贪心最近邻，避免指数级搜索。
+ROUTE_STOP_LIMIT = 14
+# 补全断开路线时，进入已访问节点要付出的代价（相当于“多走一步”之外再罚 20 步）。
+REPEAT_PENALTY = 20
 
 
 def _canonical_area(scenic_area):
@@ -380,48 +388,316 @@ def validate_route(node_ids, candidates):
         "message": "检查完成"
     }
 
-def find_indirect_route(start_id, end_id, candidates):
-    """沿 NEXT 连接查找从起点到终点的路径。"""
-    from collections import defaultdict, deque
-
-    # 建立每个节点可以前往哪些下一节点的表
-    next_nodes = defaultdict(list)
-
+def _next_edges(candidates):
+    """把按文档分组的连接展开成 node_id -> {next_id: {来源文档}}。"""
+    edges = {}
     for candidate in candidates:
         for connection in candidate["connections"]:
-            next_nodes[connection["from_node_id"]].append(
-                connection["to_node_id"]
+            edges.setdefault(connection["from_node_id"], {})
+            targets = edges[connection["from_node_id"]]
+            targets.setdefault(connection["to_node_id"], set()).update(
+                connection["source_doc_ids"]
             )
+    return edges
 
-    queue = deque([start_id])
+
+def _bfs_path(edges, start_id, end_id):
+    """沿 NEXT 连接做不加权的 BFS，返回节点序列；不可达返回 None。"""
+    if start_id == end_id:
+        return [start_id]
+
     previous = {start_id: None}
+    queue = deque([start_id])
 
     while queue:
         current = queue.popleft()
+        for next_id in edges.get(current, {}):
+            if next_id in previous:
+                continue
+            previous[next_id] = current
+            if next_id == end_id:
+                path = [end_id]
+                node = end_id
+                while previous[node] is not None:
+                    node = previous[node]
+                    path.append(node)
+                return list(reversed(path))
+            queue.append(next_id)
 
-        if current == end_id:
-            break
+    return None
 
-        for next_id in next_nodes[current]:
-            if next_id not in previous:
-                previous[next_id] = current
-                queue.append(next_id)
 
-    if end_id not in previous:
-        return None
+def _is_chain(node_ids, edges):
+    """每一对相邻节点都必须有图谱 NEXT 证据。"""
+    return all(next_id in edges.get(node_id, {})
+               for node_id, next_id in zip(node_ids, node_ids[1:]))
 
-    # 从终点回溯，得到起点到终点的节点顺序
-    path = []
-    current = end_id
 
-    while current is not None:
-        path.append(current)
-        current = previous[current]
+def route_metrics(node_ids, candidates=None, edges=None):
+    """统计路线的结构指标：步数、重复经过次数、缺失路段。
 
-    return list(reversed(path))
+    这里的“步数”是图谱 NEXT 连接的段数，不是实际步行距离；图谱没有
+    距离、坡度和通行情况字段，不能把它换算成体力消耗。
+    """
+    if edges is None:
+        edges = _next_edges(candidates or [])
+
+    duplicates = [node_id for node_id, count in Counter(node_ids).items() if count > 1]
+    missing = sum(1 for start_id, end_id in zip(node_ids, node_ids[1:])
+                  if end_id not in edges.get(start_id, {}))
+
+    return {
+        "visits": len(node_ids),
+        "steps": max(len(node_ids) - 1, 0),
+        "unique_nodes": len(set(node_ids)),
+        "repeats": max(len(node_ids) - len(set(node_ids)), 0),
+        "repeated_node_ids": duplicates,
+        "missing_segments": missing,
+        # 结构成本：多走一步记 1，重复经过一个地点记 2；不是实际体力消耗。
+        "structural_score": max(len(node_ids) - 1, 0) + 2 * max(len(node_ids) - len(set(node_ids)), 0),
+        "note": "图谱 NEXT 步数，不是实际步行距离。",
+    }
+
+
+def _pairwise_paths(stops, edges):
+    """计算目标地点两两之间的最短 NEXT 路径。"""
+    count = len(stops)
+    lengths = [[None] * count for _ in range(count)]
+    paths = [[None] * count for _ in range(count)]
+
+    for index, stop in enumerate(stops):
+        for other_index, other in enumerate(stops):
+            if index == other_index:
+                continue
+            path = _bfs_path(edges, stop, other)
+            if path:
+                lengths[index][other_index] = len(path) - 1
+                paths[index][other_index] = path
+
+    return lengths, paths
+
+
+def _held_karp_route(stops, edges, fixed_end, closed):
+    """在固定起点（以及可选固定终点）的前提下，重排目标地点使总步数最少。
+
+    使用 Held-Karp 动态规划；地点数超过 ROUTE_STOP_LIMIT 时由调用方改用贪心。
+    """
+    count = len(stops)
+    if count <= 1:
+        return list(stops)
+
+    lengths, paths = _pairwise_paths(stops, edges)
+    full = (1 << count) - 1
+    best = {(1, 0): 0}
+    parent = {}
+
+    for mask in sorted((value for value in range(1 << count) if value & 1),
+                       key=lambda value: bin(value).count("1")):
+        for last in range(count):
+            cost = best.get((mask, last))
+            if cost is None:
+                continue
+            for next_index in range(count):
+                if mask & (1 << next_index) or lengths[last][next_index] is None:
+                    continue
+                state = (mask | (1 << next_index), next_index)
+                value = cost + lengths[last][next_index]
+                if value < best.get(state, float("inf")):
+                    best[state] = value
+                    parent[state] = last
+
+    if closed:
+        finals = [
+            (best[(full, index)] + lengths[index][0], index)
+            for index in range(1, count)
+            if (full, index) in best and lengths[index][0] is not None
+        ]
+        if not finals:
+            return None
+        _, end = min(finals)
+    elif fixed_end:
+        end = count - 1
+        if (full, end) not in best:
+            return None
+    else:
+        finals = [(best[(full, index)], index)
+                  for index in range(count) if (full, index) in best]
+        if not finals:
+            return None
+        _, end = min(finals)
+
+    order = []
+    mask, current = full, end
+    while mask != 1 or current != 0:
+        order.append(current)
+        previous = parent[(mask, current)]
+        mask ^= (1 << current)
+        current = previous
+    order.append(0)
+    order.reverse()
+
+    route = [stops[0]]
+    for start_index, end_index in zip(order, order[1:]):
+        route.extend(paths[start_index][end_index][1:])
+    if closed:
+        route.extend(paths[end][0][1:])
+    return route
+
+
+def _greedy_route(stops, edges, fixed_end):
+    """贪心最近邻：每次挑最近、且能顺路覆盖的地点，用于地点较多时。"""
+    route = [stops[0]]
+    remaining = list(range(1, len(stops)))
+
+    while remaining:
+        choice = None
+        for index in remaining:
+            path = _bfs_path(edges, route[-1], stops[index])
+            if path is None:
+                continue
+            key = (len(path) - 1, index)
+            if choice is None or key < choice[0]:
+                choice = (key, path)
+        if choice is None:
+            return None
+        path = choice[1]
+        route.extend(path[1:])
+        covered = set(path)
+        remaining = [index for index in remaining if stops[index] not in covered]
+
+    if fixed_end and route[-1] != stops[-1]:
+        path = _bfs_path(edges, route[-1], stops[-1])
+        if path is None:
+            return None
+        route.extend(path[1:])
+
+    return route
+
+
+def optimize_route(node_ids, candidates):
+    """按图谱 NEXT 连接重排目标地点，减少不必要的重复经过。
+
+    保留模型的起点；如果模型最后停在之前走过的地点（通常表示返程），
+    也保留这个终点。其余地点用 Held-Karp（地点 ≤14）或贪心求最短总步数。
+    只在结构成本（步数 + 2×重复次数）下降且逐段核验通过时采用新路线。
+    """
+    edges = _next_edges(candidates)
+    original = list(node_ids)
+    original_metrics = route_metrics(original, edges=edges)
+    base = {
+        "optimized": False,
+        "node_ids": original,
+        "original_metrics": original_metrics,
+        "metrics": original_metrics,
+        "method": "none",
+        "reordered": False,
+        "validation": None,
+        "note": "保留模型原顺序：没有找到更短且逐段可核验的整理方案。",
+    }
+
+    if len(original) < 3:
+        return base
+
+    stops = list(dict.fromkeys(original))
+    first, last = original[0], original[-1]
+    closed = last == first and len(stops) > 1
+    fixed_end = (not closed) and last in original[:-1]
+
+    if fixed_end:
+        stops.remove(last)
+        stops.append(last)
+    if len(stops) < 2:
+        return base
+
+    options = [("original", original)]
+    if len(stops) <= ROUTE_STOP_LIMIT:
+        route = _held_karp_route(stops, edges, fixed_end, closed)
+        if route:
+            options.append(("held_karp", route))
+    # 闭合路线（起点=终点）要求回到起点，贪心版本不保证这一点，直接跳过。
+    if not closed:
+        route = _greedy_route(stops, edges, fixed_end)
+        if route:
+            options.append(("greedy", route))
+
+    best = None
+    for method, route in options:
+        if not _is_chain(route, edges):
+            continue
+        metrics = route_metrics(route, edges=edges)
+        # 同等成本时保留原顺序，减少与模型意图的冲突。
+        key = (metrics["structural_score"], 0 if method == "original" else 1)
+        if best is None or key < best[0]:
+            best = (key, method, route, metrics)
+
+    if best is None:
+        return base
+
+    _, method, route, metrics = best
+    if route == original:
+        return {**base, "metrics": metrics, "method": method}
+
+    validation = validate_route(route, candidates)
+    if not validation["valid"]:
+        return base
+
+    return {
+        "optimized": True,
+        "node_ids": route,
+        "original_metrics": original_metrics,
+        "metrics": metrics,
+        "method": method,
+        "reordered": True,
+        "validation": validation,
+        "note": (
+            f"已按图谱 NEXT 连接重排顺序：步数 {original_metrics['steps']} → "
+            f"{metrics['steps']}，重复经过 {original_metrics['repeats']} → "
+            f"{metrics['repeats']} 次。"
+        ),
+    }
+
+
+def find_indirect_route(start_id, end_id, candidates, visited=None):
+    """沿 NEXT 连接查找从起点到终点的路径。
+
+    传入 ``visited``（已走过的节点）时，进入这些节点会有额外代价，从而优先
+    选择不重复经过已访问地点的走法；确实没有别的路时才重复。
+    """
+    edges = _next_edges(candidates)
+    blocked = set(visited or ()) - {start_id, end_id}
+    infinity = (float("inf"), float("inf"))
+
+    best = {start_id: (0, 0)}
+    previous = {start_id: None}
+    heap = [(0, 0, start_id)]
+
+    while heap:
+        cost, steps, node = heappop(heap)
+        if best.get(node) != (cost, steps):
+            continue
+        if node == end_id:
+            path = [node]
+            current = node
+            while previous[current] is not None:
+                current = previous[current]
+                path.append(current)
+            return list(reversed(path))
+
+        for next_id in edges.get(node, {}):
+            penalty = REPEAT_PENALTY if next_id in blocked else 0
+            value = (cost + 1 + penalty, steps + 1)
+            if value < best.get(next_id, infinity):
+                best[next_id] = value
+                previous[next_id] = node
+                heappush(heap, (value[0], value[1], next_id))
+
+    return None
 
 def repair_route(node_ids, candidates):
-    """用图谱中的间接路径补全断开的路线。"""
+    """用图谱中的间接路径补全断开的路线。
+
+    补全时把已走过的节点传给路径搜索，优先绕开它们，减少“补出来的重复绕行”。
+    """
     if len(node_ids) < 2:
         return {
             "repaired": False,
@@ -430,6 +706,7 @@ def repair_route(node_ids, candidates):
 
     repaired_nodes = [node_ids[0]]
     inserted_paths = []
+    visited = {node_ids[0]}
 
     for start_id, end_id in zip(node_ids, node_ids[1:]):
         direct_check = validate_route([start_id, end_id], candidates)
@@ -437,7 +714,7 @@ def repair_route(node_ids, candidates):
         if direct_check["valid"]:
             path = [start_id, end_id]
         else:
-            path = find_indirect_route(start_id, end_id, candidates)
+            path = find_indirect_route(start_id, end_id, candidates, visited=visited)
 
             if not path or len(path) < 2:
                 return {
@@ -453,6 +730,7 @@ def repair_route(node_ids, candidates):
 
         # 路径起点已经在结果中，只追加后续节点
         repaired_nodes.extend(path[1:])
+        visited.update(path)
 
     validation = validate_route(repaired_nodes, candidates)
 
@@ -497,5 +775,14 @@ if __name__ == "__main__":
 
         print("补全路线：", " → ".join(names))
         print("重复经过：", repeated)
+
+        optimized = optimize_route(result["node_ids"], candidates)
+        print("整理后：", " → ".join(
+            node_id.split("|")[-1] for node_id in optimized["node_ids"]
+        ))
+        print("指标：", json.dumps({
+            "before": optimized["original_metrics"],
+            "after": optimized["metrics"],
+        }, ensure_ascii=False))
     else:
         print(result)

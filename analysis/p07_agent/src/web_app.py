@@ -24,6 +24,12 @@ PAGE = """
   <p>{{ query|e }}</p>
 {% endif %}
 
+{% if scope and scope.sub_area %}
+  <p>查询范围：{{ scope.scenic_area|e }} · {{ scope.sub_area|e }}</p>
+{% elif scope and scope.note %}
+  <p>范围说明：{{ scope.note|e }}</p>
+{% endif %}
+
 {% if intent_json %}
   <h2>提取出的旅行约束</h2>
   <pre>{{ intent_json|e }}</pre>
@@ -81,6 +87,14 @@ PAGE = """
     </p>
 
     <p>{{ route.proposal.explanation|e }}</p>
+
+    {% if route.metrics %}
+      <p>
+        路线结构：{{ route.metrics.visits }} 个地点、{{ route.metrics.steps }} 段 NEXT 连接、
+        重复经过 {{ route.metrics.repeats }} 次。
+        这是图谱连接步数，不是实际步行距离。
+      </p>
+    {% endif %}
 
     {% if route.proposal.uncertainties %}
       <p><strong>需要进一步确认：</strong></p>
@@ -159,7 +173,7 @@ def home():
     result = {
         "query": "", "intent": None, "decision": None,
         "tool_decisions": [], "suggestions": [], "route": None,
-        "poi_results": None, "poi_list_all": False,
+        "poi_results": None, "poi_list_all": False, "scope": None,
         "message": "", "error": "", "trace_file": "", "trace_json": ""
     }
 
@@ -195,6 +209,7 @@ def home():
         route=result["route"],
         poi_results=result["poi_results"],
         poi_list_all=result["poi_list_all"],
+        scope=result.get("scope"),
         message=result["message"],
         error=result["error"],
         trace_file=result["trace_file"],

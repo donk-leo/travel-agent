@@ -5,6 +5,7 @@ import urllib.request
 
 from config import MODEL, OLLAMA_URL
 from scenic_aliases import canonicalize_scenic_area
+from sub_area_scope import detect_sub_area
 
 INTENT_SCHEMA = {
     "type": "object",
@@ -93,6 +94,11 @@ def parse_intent(user_text):
     canonical_area = canonicalize_scenic_area(raw_area)
     if canonical_area:
         intent["scenic_area"] = canonical_area
+
+    # 景区名标准化后，再单独识别子园区（如“长隆欢乐世界”）。
+    # 子园区不是景区，不能覆盖 scenic_area；仅在长隆下生效。
+    sub_area, _ = detect_sub_area(user_text)
+    intent["sub_area"] = sub_area if intent.get("scenic_area") == "长隆" else None
 
     return intent
 
