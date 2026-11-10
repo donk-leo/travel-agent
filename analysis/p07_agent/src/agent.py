@@ -34,6 +34,45 @@ def _check_message(check, fallback):
     return " ".join(filter(None, [check.get("explanation"), check.get("question")])) or fallback
 
 
+def _route_problem(route, days):
+    """返回路线不可直接标 complete 的原因；空字符串表示可用。"""
+    if route is None:
+        return ""
+    proposal = route.get("proposal") or {}
+    validation = route.get("validation") or {}
+    if not proposal.get("node_ids"):
+        return route.get("message") or "没有生成可用的路线节点。"
+
+    if validation.get("valid") is not True or validation.get("fully_verified") is False:
+        missing = validation.get("missing_connections") or []
+        cross_doc = validation.get("cross_doc_transitions") or 0
+        if missing:
+            return (
+                f"路线连接未通过图谱核验（{len(missing)} 处缺失），"
+                "已保留路线供参考；请调整需求，或改用景区官方路线。"
+            )
+        if cross_doc:
+            return (
+                f"路线有 {cross_doc} 处跨来源文档跳转，"
+                "这些分段不能证明属于同一条连续路线；"
+                "已保留路线供参考，请改用单一来源的官方路线或调整需求。"
+            )
+        return "路线未通过图谱核验，已保留路线供参考；请调整需求。"
+
+    if days and days > 1 and proposal.get("day_plan_fallback"):
+        return (
+            "多日行程的天数分组是按节点数均分的展示结果，"
+            "没有校验每日步行强度、住宿点和开放时间；请按实际体力重新分配。"
+        )
+
+    scope = route.get("scope") or {}
+    if scope.get("requested") and not scope.get("applied"):
+        return scope.get("note") or (
+            f"子园区「{scope.get('requested')}」未应用，路线可能包含其他园区的地点。"
+        )
+    return ""
+
+
 def run_agent(user_text):
     """执行一次请求；追问上下文由调用方传入完整文本。"""
     result = {
@@ -134,29 +173,29 @@ def run_agent(user_text):
             else:
                 _query_graph(result, trace, user_text, area, days, sub_area)
                 if result["status"] == "working":
-                    if result["route"] is None and not result["suggestions"]:
+                    route_problem = _route_problem(result["route"], days)
+                    if route_problem:
+                        result.update(
+                            status="partial",
+                            needs_followup=True,
+                            message=" ".join(filter(None, [result["message"], route_problem]))
+                        )
+                    elif result["route"] is None and not result["suggestions"]:
                         # 仅展示图谱原始名称匹配，没有生成行动建议。
                         plan_check = {"status": "ok", "explanation": "仅展示图谱查询结果。", "question": ""}
+                        trace.record_event("plan_check", observation=plan_check)
+                        result.update(status="complete", needs_followup=False)
+                        if result["poi_results"] == []:
+                            result["message"] = " ".join(filter(None, [
+                                result["message"], "图谱中没有找到匹配地点，请确认名称或尝试其他关键词。"
+                            ]))
                     else:
                         plan_check = check_plan(user_text, result["route"], result["suggestions"])
-                    trace.record_event("plan_check", observation=plan_check)
-                    if plan_check["status"] != "ok":
-                        result.update(status="clarify", needs_followup=True,
-                                      message=_check_message(plan_check, "方案与需求可能存在冲突，请补充或调整。"),
-                                      suggestions=[], route=None, poi_results=None)
-                    else:
-                        validation = (result["route"] or {}).get("validation") or {}
-                        if result["route"] is not None and validation and validation.get("valid") is not True:
-                            missing = validation.get("missing_connections") or []
-                            result.update(
-                                status="partial",
-                                needs_followup=True,
-                                message=" ".join(filter(None, [
-                                    result["message"],
-                                    f"路线连接未通过图谱核验（{len(missing)} 处缺失），已保留路线供参考；"
-                                    "请调整需求，或改用景区官方路线。"
-                                ]))
-                            )
+                        trace.record_event("plan_check", observation=plan_check)
+                        if plan_check["status"] != "ok":
+                            result.update(status="clarify", needs_followup=True,
+                                          message=_check_message(plan_check, "方案与需求可能存在冲突，请补充或调整。"),
+                                          suggestions=[], route=None, poi_results=None)
                         else:
                             result.update(status="complete", needs_followup=False)
                             if result["poi_results"] == [] and not result["suggestions"] and result["route"] is None:

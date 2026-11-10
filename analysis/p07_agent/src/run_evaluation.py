@@ -46,9 +46,14 @@ def main():
             "decision": result["decision"],
             "tool_decisions": result["tool_decisions"],
             "route_valid": validation.get("valid"),
+            "route_fully_verified": validation.get("fully_verified"),
+            "route_cross_doc_transitions": validation.get("cross_doc_transitions"),
+            "route_message": route.get("message"),
             "route_nodes": proposal.get("node_ids", []),
             "route_segments": validation.get("segments", []),
             "route_metrics": route.get("metrics"),
+            "day_plan": proposal.get("day_plan"),
+            "day_plan_fallback": proposal.get("day_plan_fallback"),
             "scope": result.get("scope"),
             "route_uncertainties": proposal.get("uncertainties", []),
             "suggestions": result["suggestions"],
@@ -65,10 +70,13 @@ def main():
         "ollama_url": OLLAMA_URL,
         "cases": records
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    failures = sum(
-        record["status"] in {"error", "partial"} or not record["trace_file"]
-        for record in records
-    )
+    def failed(record):
+        if record["status"] in {"error", "partial"} or not record["trace_file"]:
+            return True
+        # 有路线时，必须逐段同来源连续；valid=True 但跨文档仍不能算通过。
+        return bool(record["route_nodes"]) and record["route_fully_verified"] is not True
+
+    failures = sum(failed(record) for record in records)
     print(f"结果：{OUTPUT}；执行错误、路线未通过核验或记录缺失：{failures}。")
     return 1 if failures else 0
 

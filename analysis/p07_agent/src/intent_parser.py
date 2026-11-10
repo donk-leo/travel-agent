@@ -55,6 +55,22 @@ SYSTEM_PROMPT = """
 """
 
 
+PROFILE_KEYWORDS = (
+    "孩子", "儿童", "小朋友", "宝宝", "幼儿", "亲子", "带娃",
+    "老人", "长辈", "父母", "爸妈", "爷爷", "奶奶", "外公", "外婆",
+    "情侣", "伴侣", "爱人", "对象", "朋友", "同学", "同事", "闺蜜",
+)
+
+
+def _merge_profiles(text, profiles):
+    """模型偶尔漏掉“朋友”等同行人；用原文关键词做确定性补全。"""
+    merged = list(dict.fromkeys(profiles or []))
+    for keyword in PROFILE_KEYWORDS:
+        if keyword in text and keyword not in merged:
+            merged.append(keyword)
+    return merged
+
+
 def parse_intent(user_text):
     payload = {
         "model": MODEL,
@@ -87,6 +103,12 @@ def parse_intent(user_text):
     expected_fields = set(INTENT_SCHEMA["required"])
     if set(intent) != expected_fields:
         raise ValueError("模型返回的字段与意图结构不一致。")
+
+    # 模型偶尔只保留“朋友/老人”在正文里，不写入 profiles；这里做确定性补全，
+    # 避免后续路线规划看不到同行人。
+    intent["traveler_profiles"] = _merge_profiles(
+        user_text, intent.get("traveler_profiles")
+    )
 
     # 模型通常保留用户原话里的景区写法，这里统一成图谱里的标准名。
     # 无法确认的写法保留原值，由主流程追问，而不是拿去做精确匹配。

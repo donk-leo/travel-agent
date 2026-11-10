@@ -31,6 +31,9 @@ data/raw/html/*.html
 analysis/*/data/*.tmp
 analysis/*/outputs/**/*.log
 
+# P7 会话含用户原话，默认写到系统临时目录；仓库内旧目录也不纳入版本控制
+analysis/p07_agent/outputs/sessions/
+
 # 系统文件
 .DS_Store
 Thumbs.db

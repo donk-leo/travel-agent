@@ -48,8 +48,10 @@ SYSTEM_PROMPT = """
 你是旅游路线规划助手。
 
 根据用户需求，从提供的图谱连接中规划一条可能合适的路线。
-可以结合不同来源文档的连接，但路线中相邻两个节点必须存在
-从前一个节点指向后一个节点的 NEXT 连接。
+优先在同一来源文档内规划，不要把不同来源文档的片段拼成一条“连续”路线；
+如果无法避免跨文档，必须在 explanation/uncertainties 中明确说明缺环，
+不能声称已经核验通过。路线中相邻两个节点必须存在从前一个节点指向
+后一个节点的 NEXT 连接。
 
 要求：
 1. node_ids 按游览顺序填写，节点 ID 必须来自候选连接。
@@ -162,7 +164,8 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
     empty_scope = {
         "requested": sub_area,
         "applied": False,
-        "note": "",
+        "fallback": bool(sub_area),
+        "note": "该景区没有查询到路线连接。",
         "kept_docs": [],
         "dropped_docs": [],
     }
@@ -232,11 +235,10 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
             node_ids=proposal["node_ids"],
             candidates=candidates
         )
-        print(
-            f"第 {attempt + 1} 次路线核验：",
-            json.dumps(validation, ensure_ascii=False),
-            flush=True
-        )
+        if sub_area and not scope["applied"]:
+            proposal.setdefault("uncertainties", []).append(
+                scope["note"] or f"子园区「{sub_area}」未应用，路线可能包含其他园区的地点。"
+            )
         if validation["valid"]:
             break
 
@@ -330,6 +332,8 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
         )
         proposal["duration_days"] = days
         proposal["day_plan"] = day_plan
+        proposal["day_plan_fallback"] = bool(days > 1 and day_plan_fallback)
+        proposal["day_plan_source"] = "even_split" if proposal["day_plan_fallback"] else "model"
         proposal["node_names"] = {
             node_id: names.get(node_id) or node_id.split("|")[-1]
             for node_id in node_ids
@@ -340,24 +344,11 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
                 "住宿点和开放时间；请结合实际情况调整。"
             )
 
-    print(
-        "模型提出的路线：",
-        json.dumps(proposal, ensure_ascii=False),
-        flush=True
-    )
-    print(
-        "路线核验结果：",
-        json.dumps(validation, ensure_ascii=False),
-        flush=True
-    )
-    print(
-        "路线结构指标：",
-        json.dumps(metrics, ensure_ascii=False),
-        flush=True
-    )
-
     if validation["valid"]:
-        message = "路线连接已通过图谱核验。"
+        if validation.get("fully_verified") is False:
+            message = "路线逐段连接存在，但跨来源文档无法证明连续。"
+        else:
+            message = "路线连接已通过图谱核验。"
         if scope["applied"]:
             message += f"（查询范围：{scenic_area} · {sub_area}）"
     else:

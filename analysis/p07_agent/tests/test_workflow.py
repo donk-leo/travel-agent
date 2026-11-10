@@ -12,9 +12,12 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 import agent
+import condition_selector
+import constraint_checker
 import trace_log
 import web_app
 import tools
+from intent_parser import _merge_profiles
 from route_planner import _coerce_days, _normalize_day_plan
 from tools import get_route_candidates, neighbors, repair_route, validate_route
 
@@ -357,6 +360,154 @@ class AgentFlowTests(unittest.TestCase):
             client.post("/", data={"query": "和父母轻松出游"})
             client.post("/", data={"query": "广州白云山，一天"})
         self.assertEqual(runner.call_args_list[1].args[0], "和父母轻松出游\n广州白云山，一天")
+
+
+class HardeningTests(unittest.TestCase):
+    def test_cross_document_route_is_valid_but_not_fully_verified(self):
+        candidates = [
+            {"source_doc_id": "CL-T-01", "connections": [{
+                "from_node_id": "a", "to_node_id": "b",
+                "from_name": "A", "to_name": "B", "source_doc_ids": ["CL-T-01"],
+            }]},
+            {"source_doc_id": "CL-T-02", "connections": [{
+                "from_node_id": "b", "to_node_id": "c",
+                "from_name": "B", "to_name": "C", "source_doc_ids": ["CL-T-02"],
+            }]},
+        ]
+        validation = validate_route(["a", "b", "c"], candidates)
+        self.assertTrue(validation["valid"])
+        self.assertFalse(validation["fully_verified"])
+        self.assertEqual(validation["cross_doc_transitions"], 1)
+
+    def test_agent_marks_missing_route_as_partial(self):
+        plan = {"decision": "query_graph", "request_type": "plan", "reason": "规划", "response": ""}
+        selection = {"tools": ["get_conditions"], "search_mode": "none",
+                     "search_keyword": "", "reason": "查建议"}
+        stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
+        route = {"proposal": {"node_ids": [], "explanation": "", "uncertainties": []},
+                 "validation": None, "message": "该景区没有查询到路线连接。"}
+        intent = {"scenic_area": "长隆", "duration_days": 1}
+        ok = {"status": "ok", "explanation": "", "question": ""}
+        with patch.object(agent, "parse_intent", return_value=intent), \
+             patch.object(agent, "decide_next_step", return_value=plan), \
+             patch.object(agent, "check_constraints", return_value=ok), \
+             patch.object(agent, "check_plan", return_value=ok), \
+             patch.object(agent, "select_tools", side_effect=[selection, stop]), \
+             patch.object(agent, "find_relevant_conditions", return_value=[]), \
+             patch.object(agent, "plan_route", return_value=route):
+            result = agent.run_agent("我和父母去长隆玩一天")
+        self.assertEqual(result["status"], "partial")
+        self.assertIn("没有查询到路线连接", result["message"])
+
+    def test_agent_marks_cross_document_route_as_partial(self):
+        plan = {"decision": "query_graph", "request_type": "plan", "reason": "规划", "response": ""}
+        selection = {"tools": ["get_conditions"], "search_mode": "none",
+                     "search_keyword": "", "reason": "查建议"}
+        stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
+        route = {"proposal": {"node_ids": ["a", "b"], "explanation": "", "uncertainties": []},
+                 "validation": {"valid": True, "fully_verified": False, "segments": [],
+                                "missing_connections": [], "cross_doc_transitions": 2},
+                 "message": "跨来源"}
+        intent = {"scenic_area": "长隆", "duration_days": 1}
+        ok = {"status": "ok", "explanation": "", "question": ""}
+        with patch.object(agent, "parse_intent", return_value=intent), \
+             patch.object(agent, "decide_next_step", return_value=plan), \
+             patch.object(agent, "check_constraints", return_value=ok), \
+             patch.object(agent, "check_plan", return_value=ok), \
+             patch.object(agent, "select_tools", side_effect=[selection, stop]), \
+             patch.object(agent, "find_relevant_conditions", return_value=[]), \
+             patch.object(agent, "plan_route", return_value=route):
+            result = agent.run_agent("我和父母去长隆玩一天")
+        self.assertEqual(result["status"], "partial")
+        self.assertIn("跨来源文档", result["message"])
+
+    def test_agent_marks_day_plan_fallback_as_partial(self):
+        plan = {"decision": "query_graph", "request_type": "plan", "reason": "规划", "response": ""}
+        selection = {"tools": ["get_conditions"], "search_mode": "none",
+                     "search_keyword": "", "reason": "查建议"}
+        stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
+        route = {"proposal": {"node_ids": ["a", "b"], "explanation": "", "uncertainties": [],
+                              "day_plan_fallback": True},
+                 "validation": {"valid": True, "fully_verified": True, "segments": [],
+                                "missing_connections": [], "cross_doc_transitions": 0},
+                 "message": "通过"}
+        intent = {"scenic_area": "长隆", "duration_days": 2}
+        ok = {"status": "ok", "explanation": "", "question": ""}
+        with patch.object(agent, "parse_intent", return_value=intent), \
+             patch.object(agent, "decide_next_step", return_value=plan), \
+             patch.object(agent, "check_constraints", return_value=ok), \
+             patch.object(agent, "check_plan", return_value=ok), \
+             patch.object(agent, "select_tools", side_effect=[selection, stop]), \
+             patch.object(agent, "find_relevant_conditions", return_value=[]), \
+             patch.object(agent, "plan_route", return_value=route):
+            result = agent.run_agent("我和父母去长隆玩两天")
+        self.assertEqual(result["status"], "partial")
+        self.assertIn("按节点数均分", result["message"])
+
+    def test_condition_selection_dedupes_caps_and_drops_wrong_season(self):
+        conditions = [
+            {"condition_text": "冬天来武功山", "suggestion_text": "带冰爪"},
+            {"condition_text": "带孩子", "suggestion_text": "带儿童证件"},
+            {"condition_text": "带孩子", "suggestion_text": "带儿童证件"},
+            {"condition_text": "看日出", "suggestion_text": "带厚衣服"},
+            {"condition_text": "体力一般", "suggestion_text": "坐索道"},
+            {"condition_text": "预算有限", "suggestion_text": "自带干粮"},
+            {"condition_text": "自驾", "suggestion_text": "停北门"},
+            {"condition_text": "雨天", "suggestion_text": "带雨衣"},
+        ]
+        selections = [
+            {"index": index, "needs_verification": False}
+            for index in range(len(conditions))
+        ]
+        selected = condition_selector.apply_selection(
+            conditions, selections, user_text="带孩子去武功山玩两天")
+        self.assertEqual(len(selected), 5)
+        self.assertNotIn("冬天", [item["condition"]["condition_text"] for item in selected])
+        pairs = {
+            (item["condition"]["condition_text"], item["condition"]["suggestion_text"])
+            for item in selected
+        }
+        self.assertEqual(len(pairs), len(selected))
+
+    def test_condition_season_aliases_match(self):
+        conditions = [{"condition_text": "冬季上山", "suggestion_text": "带冰爪"}]
+        selections = [{"index": 0, "needs_verification": False}]
+        kept = condition_selector.apply_selection(
+            conditions, selections, user_text="冬天去武功山")
+        dropped = condition_selector.apply_selection(
+            conditions, selections, user_text="夏天去武功山")
+        self.assertEqual(len(kept), 1)
+        self.assertEqual(len(dropped), 0)
+
+    def test_profile_keywords_fill_missing_friend(self):
+        self.assertIn("朋友", _merge_profiles("我和朋友去白云山", []))
+        merged = _merge_profiles("带孩子和老人", ["孩子"])
+        self.assertIn("孩子", merged)
+        self.assertIn("老人", merged)
+
+    def test_check_plan_receives_full_route_and_day_plan(self):
+        route = {
+            "proposal": {
+                "node_ids": ["a", "b", "a"],
+                "day_plan": [{"day": 1, "node_ids": ["a", "b", "a"]}],
+                "day_plan_fallback": False,
+            },
+            "validation": {"valid": True, "fully_verified": False,
+                           "missing_connections": [], "cross_doc_transitions": 2},
+            "metrics": {"steps": 2, "repeats": 1},
+        }
+        ok = {"status": "ok", "explanation": "", "question": ""}
+        with patch.object(constraint_checker, "_check", return_value=ok) as check:
+            constraint_checker.check_plan("少走路", route, [])
+        payload = json.loads(check.call_args.args[0][1]["content"])
+        self.assertEqual(payload["route_nodes"], ["a", "b", "a"])
+        self.assertEqual(payload["day_plan"][0]["day"], 1)
+        self.assertEqual(payload["route_validation"]["cross_doc_transitions"], 2)
+        self.assertFalse(payload["day_plan_fallback"])
+
+    def test_default_session_dir_is_outside_repo(self):
+        repo = Path(__file__).resolve().parents[3]
+        self.assertNotIn(str(repo).lower(), str(trace_log.SESSION_DIR).lower())
 
 
 if __name__ == "__main__":

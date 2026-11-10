@@ -38,6 +38,138 @@ needs_verification 表示是否需要核实活动时间、适用人群或其他�
 
 确实没有相关建议时返回空列表。
 """
+MAX_SELECTED = 5
+SEASON_ALIASES = {
+    "春天": "春", "春季": "春",
+    "夏天": "夏", "夏季": "夏",
+    "秋天": "秋", "秋季": "秋",
+    "冬天": "冬", "冬季": "冬",
+}
+SEASONS = tuple(SEASON_ALIASES)
+
+
+def _text_key(value):
+    return " ".join(str(value or "").split()).casefold()
+
+
+def _season_mismatch(user_text, condition_text):
+    """用户没有提季节时，不同季节的专门建议不进入结果。"""
+    user_seasons = {SEASON_ALIASES[season] for season in SEASONS if season in user_text}
+    condition_seasons = {SEASON_ALIASES[season] for season in SEASONS if season in condition_text}
+    return bool(condition_seasons) and not (condition_seasons & user_seasons)
+
+
+def apply_selection(conditions, selections, user_text="", limit=MAX_SELECTED):
+    """校验模型编号，按条件+建议去重，并限制返回条数。"""
+    selected = []
+    seen_indexes = set()
+    seen_text = set()
+
+    for item in selections:
+        index = item.get("index")
+        if not isinstance(index, int) or isinstance(index, bool) or not 0 <= index < len(conditions):
+            raise ValueError(f"模型返回了不存在的候选编号：{index}")
+        if index in seen_indexes:
+            continue
+        seen_indexes.add(index)
+
+        condition = conditions[index]
+        if _season_mismatch(user_text, condition["condition_text"]):
+            continue
+
+        key = (
+            _text_key(condition["condition_text"]),
+            _text_key(condition["suggestion_text"]),
+        )
+        if key in seen_text:
+            continue
+        seen_text.add(key)
+
+        selected.append({
+            "condition": condition,
+            "needs_verification": bool(item.get("needs_verification")),
+        })
+        if len(selected) >= limit:
+            break
+
+    return selected
+
+
+def generate_reasons(user_text, conditions):
+    """一次调用为最多 5 条建议生成理由，避免每条建议单独请求模型。"""
+    if not conditions:
+        return []
+
+    schema = {
+        "type": "object",
+        "properties": {
+            "reasons": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "index": {"type": "integer"},
+                        "reason": {"type": "string"}
+                    },
+                    "required": ["index", "reason"]
+                }
+            }
+        },
+        "required": ["reasons"]
+    }
+    prompt = """
+你是旅游规划助手。根据用户需求，为每条候选建议各写一句话理由。
+只使用建议本身和用户明确表达的信息，允许合理推测并用“可能”表达。
+不要添加原建议没有提到的具体措施、地点、客流或时间结论；不要把推测说成确定事实。
+不要声称用户提出了实际没有提出的偏好；适用条件不确定时保留条件。
+每条理由都要独立，不要重复建议正文。
+"""
+    payload = {
+        "model": MODEL,
+        "messages": [
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": json.dumps(
+                {
+                    "user_request": user_text,
+                    "conditions": [
+                        {
+                            "index": index,
+                            "condition": condition["condition_text"],
+                            "suggestion": condition["suggestion_text"]
+                        }
+                        for index, condition in enumerate(conditions)
+                    ]
+                },
+                ensure_ascii=False
+            )}
+        ],
+        "format": schema,
+        "think": False,
+        "options": {"temperature": 0},
+        "stream": False
+    }
+    request = urllib.request.Request(
+        OLLAMA_URL,
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST"
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=180) as response:
+            result = json.load(response)
+        raw = json.loads(result["message"]["content"])["reasons"]
+    except Exception:
+        raw = []
+
+    reasons = {}
+    for item in raw:
+        index = item.get("index")
+        reason = item.get("reason")
+        if isinstance(index, int) and 0 <= index < len(conditions) and isinstance(reason, str):
+            reasons[index] = reason.strip()
+    return reasons
+
+
 def generate_reason(user_text, condition):
     """只针对已选中的单条建议生成理由。"""
     schema = {
@@ -125,28 +257,21 @@ def select_conditions(user_text, conditions):
 
     with urllib.request.urlopen(request, timeout=180) as response:
         result = json.load(response)
-    print("模型筛选原始结果：", result["message"]["content"], flush=True)
     selection = json.loads(result["message"]["content"])
-    selected = []
-    seen = set()
+    selected = apply_selection(
+        conditions,
+        selection.get("selections", []),
+        user_text=user_text,
+    )
+    reasons = generate_reasons(
+        user_text,
+        [item["condition"] for item in selected],
+    )
 
-    for item in selection["selections"]:
-        index = item["index"]
-
-        if not 0 <= index < len(conditions):
-            raise ValueError(f"模型返回了不存在的候选编号：{index}")
-
-        if index in seen:
-            continue
-
-        seen.add(index)
-        condition = conditions[index]
-
-        selected.append({
-            "condition": condition,
-            "reason": generate_reason(user_text, condition),
-            "needs_verification": item["needs_verification"]
-        })
+    for index, item in enumerate(selected):
+        item["reason"] = reasons.get(index) or (
+            f"该建议是否适用取决于条件“{item['condition']['condition_text']}”。"
+        )
 
     return selected
 

@@ -45,11 +45,13 @@ PLAN_PROMPT = """
 如果用户明确的硬性限制与路线中的具体行动存在关键歧义，返回 needs_clarification 并提出问题。
 若没有发现冲突，返回 ok，question 为空。
 重复经过景点或返回分岔点可以是合理路线，不要仅因重复而拦截或要求用户确认。
-用户希望少走路或轻松游玩时，如果缺少距离、坡度或时长数据，不能据此认定路线冲突；保留需要确认的提示即可。
+用户希望少走路或轻松游玩时，如果缺少距离、坡度或时长数据，不能仅凭“没有距离数据”就认定路线没问题；
+route_metrics 中的重复经过、缺失路段和跨文档跳转是明确的结构问题，应如实指出并要求确认或调整。
 不要把地点名称中的索道直接等同于已经乘坐索道；明确的乘坐活动才表示乘坐。
 条件建议应结合其适用条件和建议正文判断；不要把明确违反限制的措施作为推荐。
 不能仅凭图谱中的 NEXT 关系推断实际步行距离、坡度或费用。
-输入中的 route_nodes 是去重后的节点清单，仅用于检查明确行动，不表示路线顺序或是否往返。
+输入中的 route_nodes 是按游览顺序排列的完整节点序列，可能重复经过同一地点；不要把它当成去重后的集合。
+day_plan 是按天分组的节点；如果 day_plan_fallback 为 true，说明只是按节点数均分展示，不能当作可行日程。
 用户可能只查询景点或建议；没有提供路线时，不要假设用户一定要求规划路线。
 """
 
@@ -90,17 +92,27 @@ def check_constraints(user_text):
 
 
 def check_plan(user_text, route, suggestions):
-    # Check distinct nodes for explicit actions; repeated visits do not block display.
-    route_nodes = []
-    if route and route.get("validation") and route["validation"].get("valid"):
-        proposal = route.get("proposal") or {}
-        route_nodes = list(dict.fromkeys(proposal.get("node_ids", [])))
+    """检查完整顺序、分天与结构指标；不把路线折叠成去重集合。"""
+    proposal = (route or {}).get("proposal") or {}
+    validation = (route or {}).get("validation") or {}
+    route_nodes = list(proposal.get("node_ids", []))
+    payload = {
+        "user_request": user_text,
+        "route_nodes": route_nodes,
+        "route_metrics": (route or {}).get("metrics"),
+        "day_plan": proposal.get("day_plan", []),
+        "day_plan_fallback": bool(proposal.get("day_plan_fallback")),
+        "route_validation": {
+            "valid": validation.get("valid"),
+            "fully_verified": validation.get("fully_verified"),
+            "missing_connections": validation.get("missing_connections", []),
+            "cross_doc_transitions": validation.get("cross_doc_transitions", 0),
+        },
+        "suggestions": suggestions,
+    }
     return _check([
         {"role": "system", "content": PLAN_PROMPT},
-        {"role": "user", "content": json.dumps(
-            {"user_request": user_text, "route_nodes": route_nodes, "suggestions": suggestions},
-            ensure_ascii=False
-        )}
+        {"role": "user", "content": json.dumps(payload, ensure_ascii=False)}
     ])
 
 

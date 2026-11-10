@@ -45,8 +45,16 @@
 
 ## 离线检查与复现
 
-`python3 -m unittest discover -s analysis/p07_agent/tests -v` 使用真实 P6 图谱与模拟模型/工具，检查连接核验、补全、追问上下文、矛盾拦截、无匹配、决策轮次、子园区范围、路线整理、多日分天与偏好词回退（共 51 条）。模拟案例不作为真实模型表现。
+`python3 -m unittest discover -s analysis/p07_agent/tests -v` 使用真实 P6 图谱与模拟模型/工具，检查连接核验、补全、追问上下文、矛盾拦截、无匹配、决策轮次、子园区范围、路线整理、多日分天、偏好词回退与跨文档核验（共 60 条）。模拟案例不作为真实模型表现。
 
 `python3 analysis/p07_agent/src/analyze_route_optimization.py` 读取已有真实模型路线，离线输出整理前后对照，不调用模型、不改原始结果。
 
 `python3 analysis/p07_agent/src/run_evaluation.py` 用本地 Ollama 重跑上述人工设计的真实模型请求，生成新的 `evaluation_results.json` 和会话轨迹。模型输出、用时及文件名可能变化；本报告是本次运行的人工记录，重跑后应重新核对。
+
+## 2026-11-10 第二轮非 UI 修复后
+
+- 离线测试：`python -m unittest discover -s analysis/p07_agent/tests -q` 共 **60 条通过**；新增覆盖跨文档路线、无路线 `partial`、分天 fallback `partial`、条件去重/上限/季节性、同行人补全、`check_plan` 完整 payload。
+- 真实查询“我想去萍乡武功山风景名胜区玩三天，带孩子”：约 68.6 秒；`status=partial`；路线 25 节点，13 处连接缺失，`day_plan` 9/11/5（模型分天，非均分），3 条建议；不再返回 `complete`。
+- 当前 `valid` 只表示逐段有 NEXT 证据；`fully_verified` 还要求同来源连续。页面/结果若显示 `partial`，应理解为“有参考路线，但不能证明可行”。
+- 会话默认写到系统临时目录 `p07_agent_sessions`；仓库内旧 `outputs/sessions/*.jsonl` 是历史记录，不再新增。`run_evaluation.py` 会把有路线但 `fully_verified` 不为 true 的案例计为失败。
+- 8 案例真实评估：第一次完整跑完，结果为 `family_elder_one_day`、`friends_one_day`、`couple_two_days`、`followup_combined` 均 `partial`，`missing_information`/`conflicting_constraints` 为 `clarify`，`no_match`/`list_pois` 为 `complete`；但会话目录设在用户 `%TEMP%` 时当前运行环境报 `WinError 5`，8 条记录均因无 trace 被计失败。改用工作区可写目录重跑 11 分钟仅完成 2 例，遂中止。`evaluation_results.json` 因此仍保留 2026-11-03 旧记录，完整重跑需在可写 `P07_SESSION_DIR` 下单独执行。

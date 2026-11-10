@@ -340,8 +340,10 @@ def validate_route(node_ids, candidates):
     if len(node_ids) < 2:
         return {
             "valid": False,
+            "fully_verified": False,
             "segments": [],
             "missing_connections": [],
+            "cross_doc_transitions": 0,
             "message": "至少需要两个节点才能检查路线连接。"
         }
 
@@ -354,6 +356,8 @@ def validate_route(node_ids, candidates):
 
     segments = []
     missing = []
+    cross_doc_transitions = 0
+    previous_docs = None
 
     for from_id, to_id in zip(node_ids, node_ids[1:]):
         matches = [
@@ -367,6 +371,7 @@ def validate_route(node_ids, candidates):
                 "from_node_id": from_id,
                 "to_node_id": to_id
             })
+            previous_docs = None
             continue
 
         source_docs = sorted({
@@ -374,18 +379,40 @@ def validate_route(node_ids, candidates):
             for match in matches
             for doc_id in match["source_doc_ids"]
         })
+        current_docs = set(source_docs)
+
+        # 同一段路可能同时被多篇文档支持。只有当前段与上一段完全没有
+        # 共同来源文档时，才算一次“跨文档跳转”。这种跳转在图上看起来
+        # 连续，实际可能是两篇游记的不同片段拼在一起，不能直接标为有效。
+        if previous_docs is not None and not (previous_docs & current_docs):
+            cross_doc_transitions += 1
 
         segments.append({
             "from_name": matches[0]["from_name"],
             "to_name": matches[0]["to_name"],
             "source_doc_ids": source_docs
         })
+        previous_docs = current_docs
+
+    if missing:
+        message = f"{len(missing)} 段缺少图谱 NEXT 连接。"
+    elif cross_doc_transitions:
+        message = (
+            f"路线有 {cross_doc_transitions} 处跨来源文档跳转，"
+            "逐段连接存在，但无法证明属于同一条连续路线。"
+        )
+    else:
+        message = "检查完成"
 
     return {
+        # valid 只表示每一段都有 NEXT 证据；跨来源连续性是更严格的一层，
+        # 由 fully_verified 表示。调用方展示“已完成”时应看 fully_verified。
         "valid": len(missing) == 0,
+        "fully_verified": len(missing) == 0 and cross_doc_transitions == 0,
         "segments": segments,
         "missing_connections": missing,
-        "message": "检查完成"
+        "cross_doc_transitions": cross_doc_transitions,
+        "message": message
     }
 
 def _next_edges(candidates):

@@ -1,10 +1,16 @@
 import json
+import os
+import tempfile
 import uuid
 from pathlib import Path
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
-SESSION_DIR = PROJECT_ROOT / "analysis" / "p07_agent" / "outputs" / "sessions"
+# 用户原话可能包含隐私信息，默认不写进仓库；需要留档时用
+# P07_SESSION_DIR 指向受控目录，测试也会覆盖这个变量。
+SESSION_DIR = Path(
+    os.environ.get("P07_SESSION_DIR")
+    or (Path(tempfile.gettempdir()) / "p07_agent_sessions")
+)
 
 
 class SessionTrace:

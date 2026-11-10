@@ -145,12 +145,14 @@ class PlanRouteIntegrationTests(unittest.TestCase):
                 "长隆", conditions=[])
 
         self.assertTrue(result["validation"]["valid"])
+        self.assertFalse(result["validation"]["fully_verified"])
+        self.assertGreater(result["validation"]["cross_doc_transitions"], 0)
         self.assertLess(result["metrics"]["repeats"], 6)
         self.assertNotEqual(result["proposal"]["node_ids"], DEMO_ROUTE)
         uncertainties = " ".join(result["proposal"]["uncertainties"])
         self.assertIn("重排", uncertainties)
         self.assertIn("距离", uncertainties)
-        self.assertEqual(result["message"], "路线连接已通过图谱核验。")
+        self.assertEqual(result["message"], "路线逐段连接存在，但跨来源文档无法证明连续。")
 
     def test_plan_route_limits_candidates_to_sub_area(self):
         route = ["POI|长隆|尖叫地带", "POI|长隆|椰林餐厅", "POI|长隆|律动天地"]
