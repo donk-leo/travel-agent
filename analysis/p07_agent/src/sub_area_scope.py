@@ -184,13 +184,14 @@ def filter_route_candidates(candidates, sub_area, scenic_area="长隆"):
     """
     if not sub_area or scenic_area not in SUB_AREA_SCENIC:
         return {"candidates": candidates, "applied": False, "fallback": False, "note": "",
-                "kept_docs": [], "dropped_docs": []}
+                "requested": sub_area, "kept_docs": [], "dropped_docs": []}
 
     if sub_area not in SUB_AREA_ANCHORS:
         return {
             "candidates": candidates,
             "applied": False,
             "fallback": True,
+            "requested": sub_area,
             "note": f"图谱没有「{sub_area}」的独立节点，按整个景区范围查询。",
             "kept_docs": [],
             "dropped_docs": [],
@@ -208,6 +209,7 @@ def filter_route_candidates(candidates, sub_area, scenic_area="长隆"):
             "candidates": candidates,
             "applied": False,
             "fallback": True,
+            "requested": sub_area,
             "note": f"「{sub_area}」在图谱中的路线连接不足，已扩大到整个景区范围。",
             "kept_docs": [],
             "dropped_docs": dropped,
@@ -224,6 +226,7 @@ def filter_route_candidates(candidates, sub_area, scenic_area="长隆"):
         "candidates": kept,
         "applied": True,
         "fallback": False,
+        "requested": sub_area,
         "note": note,
         "kept_docs": kept_docs,
         "dropped_docs": dropped,

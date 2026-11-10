@@ -120,12 +120,16 @@ class CandidateScopeTests(unittest.TestCase):
     def test_insufficient_scope_falls_back_with_note(self):
         scope = filter_route_candidates(self.candidates, "水上乐园", "长隆")
         self.assertFalse(scope["applied"])
+        self.assertTrue(scope["fallback"])
+        self.assertEqual(scope["requested"], "水上乐园")
         self.assertIn("不足", scope["note"])
         self.assertEqual(scope["candidates"], self.candidates)
 
     def test_missing_anchor_falls_back_with_note(self):
         scope = filter_route_candidates(self.candidates, "飞鸟乐园", "长隆")
         self.assertFalse(scope["applied"])
+        self.assertTrue(scope["fallback"])
+        self.assertEqual(scope["requested"], "飞鸟乐园")
         self.assertIn("没有", scope["note"])
 
     def test_other_scenic_area_is_untouched(self):
@@ -137,6 +141,7 @@ class CandidateScopeTests(unittest.TestCase):
     def test_no_sub_area_keeps_everything(self):
         scope = filter_route_candidates(self.candidates, None, "长隆")
         self.assertFalse(scope["applied"])
+        self.assertIsNone(scope["requested"])
         self.assertEqual(scope["candidates"], self.candidates)
 
 
