@@ -61,5 +61,6 @@ notes: |
   2026-11-11 收尾 P6 路线连续性：路线规划改为单来源文档，按用户点名地点/连接数选一份候选，
   不再拼接多份游记的 NEXT；模型仍产生缺环时截断到可核验前缀并标记 route_truncated，返回 partial。
   路线请求限制 num_predict/num_ctx，JSON 截断降级为空路线。64 条离线测试通过；
-  完整 8 案例真实评估在最新代码上首例约 15 分钟才完成，其余未跑，详见 outputs/tests.md。
+  完整 8 案例真实评估在最新代码上完成前两例（family complete、friends partial），
+  第三例情侣两日游卡住超过 10 分钟而中止，其余未跑，详见 outputs/tests.md。
   本轮未打新 tag，version_tag 仍指向上一版 v0.7.1-p07。

@@ -104,6 +104,6 @@ python3 checks/check_agent.py analysis/p07_agent/
 - 常见同行人已用关键词补全，但复杂表述（如“带两位 70 岁老人和一名 3 岁小孩”）仍可能漏；景区简称已做归一，但组合路线中的重复路段只能按图谱结构优化，无法用真实距离评估。
 - 图谱地点列表基于既有抽取，可能包含车站、餐厅、噪声或遗漏，不是官方完整景点名录。
 - 模型工具选择、理由生成和冲突检查可能误判；无匹配只说明图谱中没有查到，不能断言现实中不存在。
-- 8 案例 `run_evaluation.py` 的完整重跑单例耗时约 2–4 分钟，最新代码上首个案例约 15 分钟才完成（返回 `complete`），其余 7 例未跑、已中止；`outputs/evaluation_results.json` 仍是 2026-11-03 旧记录。本轮行为验证以 **64 条离线测试** 和一次三日武功山真实单来源查询为准，详见 `outputs/tests.md` 的 2026-11-11 小节。
+- 8 案例 `run_evaluation.py` 的完整重跑单例耗时约 2–4 分钟；最新代码上重跑时，前两例（亲子一日、朋友白云山一日）约 2 分钟完成，分别返回 `complete` 与 `partial`（截断），第三例情侣两日游卡住超过 10 分钟，已中止，其余未跑。`outputs/evaluation_results.json` 仍是 2026-11-03 旧记录。本轮行为验证以 **64 条离线测试**、一次三日武功山真实单来源查询和已完成的两例为准，详见 `outputs/tests.md` 的 2026-11-11 小节。
 
 当前实验记录、示范及报告分别见 `outputs/tests.md`、`outputs/demo.md`、`report/p07_experiment_report.md`。审核结论及 reviewer 字段的说明见 `standards/handover/p07_agent.yaml`。

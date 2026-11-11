@@ -66,4 +66,4 @@
 - 路线请求限制 `num_predict=1800`、`num_ctx=8192`，其他模型调用限制 `num_predict=1200`；JSON 解析失败降级为空路线并提示，不再抛异常。
 - 离线测试：`python -m unittest discover -s analysis/p07_agent/tests -q` 共 **64 条通过**；新增单来源选择、单来源路线核验、子园区候选与截断分支覆盖。
 - 真实查询“我想去萍乡武功山风景名胜区玩三天，带孩子”：65.5 秒；`status=partial`；`source_doc_id=WGS-O-05`；`valid=true`、`fully_verified=true`、跨文档 0、缺段 0；10 节点；`route_truncated=true`；`day_plan` 4/3/3（均分 fallback）；3 条建议。路线本身已通过单一来源核验，`partial` 只因截断和分天均分。
-- 8 案例完整评估在最新代码上重跑时，首个案例（亲子与老人一日游）约 15 分钟才完成，返回 `complete`；其余 7 例未跑，已中止。单例耗时不适合一次跑完，本轮不把未完成的评估写成结果；`evaluation_results.json` 仍是 2026-11-03 旧记录。单来源与截断逻辑由 64 条离线测试、上述真实查询和该单例验证。
+- 8 案例完整评估在最新代码上重跑时，前两例约 2 分钟完成：`family_elder_one_day` 返回 `complete`（12 节点全部通过单一来源核验），`friends_one_day` 返回 `partial`（截断到 5 节点可核验前缀）。第三例 `couple_two_days` 卡住超过 10 分钟仍未完成，遂中止，其余 5 例未跑。单例耗时不适合一次跑完，本轮不把未完成的评估写成结果；`evaluation_results.json` 仍是 2026-11-03 旧记录。单来源与截断逻辑由 64 条离线测试、上述真实查询和已完成的两例验证。
