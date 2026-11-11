@@ -2,7 +2,7 @@ import json
 import urllib.request
 
 from condition_selector import find_relevant_conditions
-from sub_area_scope import filter_route_candidates
+from sub_area_scope import SUB_AREA_ANCHORS, filter_route_candidates
 from tools import (
     get_route_candidates,
     optimize_route,
@@ -180,6 +180,36 @@ def select_primary_candidate(candidates, user_text, scope_applied=False):
     return max(candidates, key=score)
 
 
+def _candidate_chain(candidates):
+    """从单份来源的连接中还原最长连续节点链，作为模型失败时的兜底。"""
+    adjacency = {}
+    all_nodes = set()
+    for candidate in candidates or []:
+        for connection in candidate.get("connections", []):
+            source = connection.get("from_node_id")
+            target = connection.get("to_node_id")
+            if not source or not target:
+                continue
+            adjacency.setdefault(source, []).append(target)
+            all_nodes.add(source)
+            all_nodes.add(target)
+
+    best = []
+
+    def walk(node, path, seen):
+        nonlocal best
+        if len(path) > len(best):
+            best = list(path)
+        for next_node in adjacency.get(node, []):
+            if next_node in seen:
+                continue
+            walk(next_node, path + [next_node], seen | {next_node})
+
+    for node in all_nodes:
+        walk(node, [node], {node})
+    return best
+
+
 def plan_route(user_text, scenic_area, conditions=None, trace=None,
                sub_area=None, days=None):
     days = _coerce_days(days)
@@ -234,6 +264,47 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
         conditions = find_relevant_conditions(
             user_text, scenic_area, trace=trace
         )
+
+    # 有些子园区（如长隆水上乐园）在 P6 里只有一个地点节点，没有独立的
+    # NEXT 连接。此时不要回退到整个景区再拼一条包含野生动物世界的路线，
+    # 只返回该园区地点，由上层按“单点一日游”处理。
+    anchor = SUB_AREA_ANCHORS.get(sub_area) if sub_area else None
+    if anchor and not scope["applied"]:
+        names = _node_names(candidates)
+        if anchor in names:
+            node_ids = [anchor]
+            validation = validate_route(node_ids, candidates)
+            proposal = {
+                "node_ids": node_ids,
+                "node_names": names,
+                "day_plan": [{"day": 1, "node_ids": node_ids}],
+                "duration_days": days,
+                "explanation": (
+                    f"图谱没有「{sub_area}」的独立连续路线，"
+                    "只提供该园区地点，不虚构园内连接。"
+                ),
+                "uncertainties": [
+                    "园内项目顺序、开放时间和餐饮位置需要以现场为准。"
+                ],
+                "source_doc_id": primary["source_doc_id"] if primary else None,
+            }
+            single_scope = dict(scope)
+            # 单点分支不扩大范围；清掉“已扩大到整个景区”的通用提示，
+            # 避免和实际返回的单点路线矛盾。
+            single_scope["note"] = ""
+            return {
+                "proposal": proposal,
+                "validation": validation,
+                "message": (
+                    f"「{sub_area}」在图谱中没有独立路线连接，"
+                    "只保留该园区地点，供一日行程参考。"
+                ),
+                "scope": single_scope,
+                "metrics": route_metrics(node_ids, candidates),
+                "source_doc_id": primary["source_doc_id"] if primary else None,
+                "single_destination": True,
+            }
+
     payload = {
         "model": MODEL,
         "messages": [
@@ -288,6 +359,21 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
             }
         if primary is not None:
             proposal["source_doc_id"] = primary["source_doc_id"]
+
+        # 本地小模型有时会返回空 node_ids（JSON 截断或直接放弃）。候选
+        # 连接本身来自单一来源，按最长连续链兜底，避免页面完全无路线。
+        if len(proposal.get("node_ids") or []) < 2:
+            chain = _candidate_chain(candidates)
+            if len(chain) >= 2:
+                proposal["node_ids"] = chain[:12]
+                proposal["explanation"] = (
+                    "模型没有生成可用节点，已按单一来源的最长连续链生成兜底路线；"
+                    "这不是模型自由编造的路线。"
+                )
+                proposal.setdefault("uncertainties", []).append(
+                    "兜底路线按图谱连接顺序生成，具体游玩时长和体力强度需要确认。"
+                )
+
         validation = call_tool(
             "validate_route",
             validate_route,

@@ -5,6 +5,7 @@ import json
 from condition_selector import find_relevant_conditions
 from constraint_checker import check_constraints, check_plan
 from intent_parser import parse_intent
+from itinerary import build_itinerary
 from route_planner import plan_route
 from scenic_aliases import CANONICAL_AREAS, canonicalize_scenic_area
 from sub_area_scope import detect_sub_area, filter_poi_results
@@ -30,6 +31,16 @@ def _is_preference_keyword(value):
     return bool(text) and any(token in text for token in PREFERENCE_KEYWORDS)
 
 
+def _keep_sub_area_suggestions(suggestions, sub_area):
+    """只保留在任意字段中明确提到该子园区的建议。"""
+    if not sub_area:
+        return list(suggestions or [])
+    return [
+        item for item in (suggestions or [])
+        if sub_area in json.dumps(item, ensure_ascii=False)
+    ]
+
+
 def _check_message(check, fallback):
     return " ".join(filter(None, [check.get("explanation"), check.get("question")])) or fallback
 
@@ -38,6 +49,8 @@ def _route_problem(route, days):
     """返回路线不可直接标 complete 的原因；空字符串表示可用。"""
     if route is None:
         return ""
+    if route.get("single_destination"):
+        return route.get("message") or "该子园区只提供地点级建议，没有连续路线。"
     proposal = route.get("proposal") or {}
     validation = route.get("validation") or {}
     if not proposal.get("node_ids"):
@@ -86,7 +99,7 @@ def run_agent(user_text):
         "decision": None, "tool_selection": None, "tool_decisions": [],
         "suggestions": [], "route": None, "poi_results": None,
         "poi_list_all": False, "message": "", "error": "", "scope": None,
-        "needs_followup": False, "trace_file": "", "trace_json": ""
+        "itinerary": None, "needs_followup": False, "trace_file": "", "trace_json": ""
     }
     trace = SessionTrace()
     trace.record_event("user_input", user_request=user_text)
@@ -212,6 +225,22 @@ def run_agent(user_text):
                                 result["message"] = " ".join(filter(None, [
                                     result["message"], "暂时没有找到匹配的条件建议。"
                                 ]))
+        if result.get("route"):
+            # 单点子园区（如水上乐园）的条件建议来自整个景区，容易把其他园区的
+            # 项目写进本园区行程；只保留确实提到该子园区的建议。
+            if sub_area and result["route"].get("single_destination"):
+                before = len(result["suggestions"])
+                result["suggestions"] = _keep_sub_area_suggestions(
+                    result["suggestions"], sub_area
+                )
+                if before and not result["suggestions"]:
+                    result["message"] = " ".join(filter(None, [
+                        result["message"],
+                        f"图谱中没有「{sub_area}」专属的条件建议，未展示其他园区的建议。"
+                    ]))
+            result["itinerary"] = build_itinerary(
+                result["route"], result.get("suggestions"), area, sub_area
+            )
     except Exception as exc:
         result.update(status="error", error=str(exc), needs_followup=True)
     finally:

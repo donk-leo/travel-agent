@@ -1,16 +1,25 @@
 import json
 import os
-import tempfile
 import uuid
 from pathlib import Path
 
 
+def _default_session_dir():
+    """返回用户可写的会话目录，不依赖 tempfile。
+
+    某些受限 Python 环境（如打包运行时）没有可写的系统临时目录，
+    tempfile.gettempdir() 会在导入时直接抛 FileNotFoundError。这里改用
+    用户本地应用数据目录；仍可用 P07_SESSION_DIR 覆盖。
+    """
+    base = os.environ.get("LOCALAPPDATA") or os.environ.get("APPDATA")
+    if base:
+        return Path(base) / "p07_agent_sessions"
+    return Path.home() / ".p07_agent_sessions"
+
+
 # 用户原话可能包含隐私信息，默认不写进仓库；需要留档时用
 # P07_SESSION_DIR 指向受控目录，测试也会覆盖这个变量。
-SESSION_DIR = Path(
-    os.environ.get("P07_SESSION_DIR")
-    or (Path(tempfile.gettempdir()) / "p07_agent_sessions")
-)
+SESSION_DIR = Path(os.environ.get("P07_SESSION_DIR") or _default_session_dir())
 
 
 class SessionTrace:

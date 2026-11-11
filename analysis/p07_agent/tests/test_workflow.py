@@ -17,6 +17,7 @@ import constraint_checker
 import trace_log
 import web_app
 import tools
+from agent import _keep_sub_area_suggestions
 from intent_parser import _merge_profiles
 from route_planner import _coerce_days, _normalize_day_plan
 from tools import get_route_candidates, neighbors, repair_route, validate_route
@@ -508,6 +509,19 @@ class HardeningTests(unittest.TestCase):
     def test_default_session_dir_is_outside_repo(self):
         repo = Path(__file__).resolve().parents[3]
         self.assertNotIn(str(repo).lower(), str(trace_log.SESSION_DIR).lower())
+
+    def test_single_destination_suggestions_are_scoped(self):
+        suggestions = [
+            {"condition": {"condition_text": "儿童",
+                           "suggestion_text": "水上乐园有儿童戏水区"},
+             "evidence": {"anchor_name": "长隆水上乐园"}},
+            {"condition": {"condition_text": "小朋友",
+                           "suggestion_text": "去梦幻童话世界和熊猫村"},
+             "evidence": {"anchor_name": "长隆"}},
+        ]
+        kept = _keep_sub_area_suggestions(suggestions, "水上乐园")
+        self.assertEqual(len(kept), 1)
+        self.assertIn("水上乐园", json.dumps(kept[0], ensure_ascii=False))
 
 
 if __name__ == "__main__":

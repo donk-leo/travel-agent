@@ -225,9 +225,13 @@ class PlanRouteIntegrationTests(unittest.TestCase):
                 "去长隆水上乐园玩一天", "长隆", conditions=[], sub_area="水上乐园")
 
         self.assertFalse(result["scope"]["applied"])
-        self.assertIn("不足", result["scope"]["note"])
-        payload = json.loads(calls[0]["messages"][1]["content"])
-        self.assertIsNone(payload["scope"]["sub_area"])
+        # 单点分支不扩大范围，不再给出“已扩大到整个景区”的提示。
+        self.assertEqual(result["scope"]["note"], "")
+        self.assertTrue(result["single_destination"])
+        # 水上乐园只有一个地点节点，不应回退到整个景区拼接野生动物世界。
+        self.assertEqual(result["proposal"]["node_ids"], ["POI|长隆|长隆水上乐园"])
+        self.assertIn("没有独立路线连接", result["message"])
+        self.assertEqual(calls, [])
 
 
 if __name__ == "__main__":

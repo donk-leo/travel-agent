@@ -53,6 +53,18 @@ PAGE = """
 {% if message %}
   <p>{{ message|e }}</p>
 {% endif %}
+{% if itinerary %}
+  <h2>建议行程</h2>
+  {% for day in itinerary.days %}
+    <h3>第 {{ day.day }} 天</h3>
+    {% for item in day.periods %}
+      <p><strong>{{ item.period }}：</strong>{{ item.text|e }}</p>
+    {% endfor %}
+  {% endfor %}
+  {% if itinerary.note %}
+    <p><em>{{ itinerary.note|e }}</em></p>
+  {% endif %}
+{% endif %}
 {% if poi_results is not none %}
   <h2>{% if poi_list_all %}当前范围地点{% else %}图谱名称匹配结果{% endif %}</h2>
   <p>结果来自已采集的图谱，可能包含餐厅、车站等地点，也可能不完整{% if poi_list_all %}；列表未按“儿童/亲子/老人”等偏好过滤。{% else %}。{% endif %}</p>
@@ -235,6 +247,7 @@ def home():
         poi_results=result["poi_results"],
         poi_list_all=result["poi_list_all"],
         scope=result.get("scope"),
+        itinerary=result.get("itinerary"),
         message=result["message"],
         error=result["error"],
         trace_file=result["trace_file"],
