@@ -2,7 +2,7 @@ import json
 import urllib.request
 
 
-from config import MODEL, OLLAMA_URL
+from config import MAX_TOKENS, MODEL, OLLAMA_URL
 
 CHECK_SCHEMA = {
     "type": "object",
@@ -62,7 +62,7 @@ def _check(messages):
         "messages": messages,
         "format": CHECK_SCHEMA,
         "think": False,
-        "options": {"temperature": 0},
+        "options": {"temperature": 0, "num_predict": MAX_TOKENS},
         "stream": False
     }
 

@@ -58,3 +58,12 @@
 - 当前 `valid` 只表示逐段有 NEXT 证据；`fully_verified` 还要求同来源连续。页面/结果若显示 `partial`，应理解为“有参考路线，但不能证明可行”。
 - 会话默认写到系统临时目录 `p07_agent_sessions`；仓库内旧 `outputs/sessions/*.jsonl` 是历史记录，不再新增。`run_evaluation.py` 会把有路线但 `fully_verified` 不为 true 的案例计为失败。
 - 8 案例真实评估：第一次完整跑完，结果为 `family_elder_one_day`、`friends_one_day`、`couple_two_days`、`followup_combined` 均 `partial`，`missing_information`/`conflicting_constraints` 为 `clarify`，`no_match`/`list_pois` 为 `complete`；但会话目录设在用户 `%TEMP%` 时当前运行环境报 `WinError 5`，8 条记录均因无 trace 被计失败。改用工作区可写目录重跑 11 分钟仅完成 2 例，遂中止。`evaluation_results.json` 因此仍保留 2026-11-03 旧记录，完整重跑需在可写 `P07_SESSION_DIR` 下单独执行。
+
+## 2026-11-11 P6 路线连续性收尾
+
+- 路线规划改为**单来源文档**：`route_planner.select_primary_candidate` 按“用户点名地点数、连接数、官方优先”选一份候选，后续模型、修复、优化、分天都只用这份文档的 `NEXT` 边；结果写 `source_doc_id`，核验通过时提示“单一来源”。这样不再出现跨文档拼接的假连续。
+- 若模型仍生成缺环路线，截断到第一处缺环前的可核验前缀，标记 `route_truncated=true`；Agent 返回 `partial`，不把后半段当成完整路线。
+- 路线请求限制 `num_predict=1800`、`num_ctx=8192`，其他模型调用限制 `num_predict=1200`；JSON 解析失败降级为空路线并提示，不再抛异常。
+- 离线测试：`python -m unittest discover -s analysis/p07_agent/tests -q` 共 **64 条通过**；新增单来源选择、单来源路线核验、子园区候选与截断分支覆盖。
+- 真实查询“我想去萍乡武功山风景名胜区玩三天，带孩子”：65.5 秒；`status=partial`；`source_doc_id=WGS-O-05`；`valid=true`、`fully_verified=true`、跨文档 0、缺段 0；10 节点；`route_truncated=true`；`day_plan` 4/3/3（均分 fallback）；3 条建议。路线本身已通过单一来源核验，`partial` 只因截断和分天均分。
+- 8 案例完整评估在最新代码上重跑时，首个案例（亲子与老人一日游）约 15 分钟才完成，返回 `complete`；其余 7 例未跑，已中止。单例耗时不适合一次跑完，本轮不把未完成的评估写成结果；`evaluation_results.json` 仍是 2026-11-03 旧记录。单来源与截断逻辑由 64 条离线测试、上述真实查询和该单例验证。

@@ -12,7 +12,7 @@ from tools import (
 )
 
 
-from config import MODEL, OLLAMA_URL
+from config import ROUTE_MAX_TOKENS, ROUTE_NUM_CTX, MODEL, OLLAMA_URL
 
 ROUTE_SCHEMA = {
     "type": "object",
@@ -68,6 +68,10 @@ SYSTEM_PROMPT = """
 9. 如果输入的 duration_days >= 2，必须同时返回 day_plan：按天分组，
    每天至少一个节点，day 从 1 开始连续编号，所有 node_ids 按原顺序
    恰好覆盖一次；每天只能包含整体路线中的连续片段。
+10. explanation 不超过 80 字；uncertainties 最多 3 条、每条不超过 50 字。
+    只输出 JSON，不要输出 JSON 之外的说明。
+11. node_ids 最多 12 个节点。候选连接更长时，只选其中连续的一段核心路线，
+    不要为了凑数跳过中间节点，也不要把整条长链全部抄进来。
 可以提出合理推测；对于图谱中没有明确提供的步行距离、游玩时长或
 适用条件，不要直接说已经确定，请在 uncertainties 中说明需要确认的内容。
 """
@@ -140,6 +144,42 @@ def _normalize_day_plan(node_ids, raw_plan, days):
     return groups, True
 
 
+def _doc_is_official(doc_id):
+    return "-O-" in (doc_id or "")
+
+
+def select_primary_candidate(candidates, user_text, scope_applied=False):
+    """选一份来源作为本次规划的唯一依据。
+
+    P6 的 NEXT 边来自不同游记，跨文档拼接看起来连续，实际不能证明是
+    同一条路线。这里优先选用户原文点到地点最多的来源；用户没有点名时，
+    普通查询优先官方路线，指定子园区时优先该范围内连接最多的那份。
+    """
+    if not candidates:
+        return None
+
+    official_bonus = 1 if scope_applied else 10
+
+    def score(item):
+        names = {
+            edge["from_name"] for edge in item["connections"]
+        } | {
+            edge["to_name"] for edge in item["connections"]
+        }
+        matched = sum(
+            1 for name in names
+            if len(name) >= 2 and name in user_text
+        )
+        return (
+            matched,
+            len(item["connections"])
+            + (official_bonus if _doc_is_official(item["source_doc_id"]) else 0),
+            len(names),
+        )
+
+    return max(candidates, key=score)
+
+
 def plan_route(user_text, scenic_area, conditions=None, trace=None,
                sub_area=None, days=None):
     days = _coerce_days(days)
@@ -177,11 +217,18 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
             "message": "该景区没有查询到路线连接。",
             "scope": empty_scope,
             "metrics": None,
+            "source_doc_id": None,
         }
 
     # 用户指定子园区时，只保留该园区的来源文档；连接不足会回退整个景区。
     scope = filter_route_candidates(all_candidates, sub_area, scenic_area)
     candidates = scope["candidates"]
+
+    primary = select_primary_candidate(
+        candidates, user_text, scope_applied=scope["applied"]
+    )
+    if primary is not None:
+        candidates = [primary]
 
     if conditions is None:
         conditions = find_relevant_conditions(
@@ -211,7 +258,8 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
         ],
         "format": ROUTE_SCHEMA,
         "think": False,
-        "options": {"temperature": 0},
+        "options": {"temperature": 0, "num_predict": ROUTE_MAX_TOKENS,
+                    "num_ctx": ROUTE_NUM_CTX},
         "stream": False
     }
 
@@ -228,7 +276,18 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
         with urllib.request.urlopen(request, timeout=180) as response:
             result = json.load(response)
 
-        proposal = json.loads(result["message"]["content"])
+        try:
+            proposal = json.loads(result["message"]["content"])
+        except json.JSONDecodeError:
+            # 本地小模型在长路线/多日分天时偶尔会把 JSON 截断。
+            # 不把整个请求抛成 error，交给上层按“路线未通过核验”处理。
+            proposal = {
+                "node_ids": [],
+                "explanation": "模型返回的路线 JSON 不完整，未生成可用路线。",
+                "uncertainties": ["模型输出被截断，建议缩短行程或重试。"],
+            }
+        if primary is not None:
+            proposal["source_doc_id"] = primary["source_doc_id"]
         validation = call_tool(
             "validate_route",
             validate_route,
@@ -281,6 +340,28 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
             proposal["uncertainties"].append(
                 "补全路径的实际步行距离、坡度和游玩时长需要进一步确认。"
             )
+
+    # 模型常把“终点”后又接回另一个起点，形成一段无法补全的反向跳转。
+    # 与其展示一条 1 处缺环的完整路线，不如截断到最后一个可核验节点，
+    # 并把“被截断”作为 partial 的原因交给上层。
+    if not validation["valid"]:
+        missing = (validation.get("missing_connections") or [None])[0]
+        if missing:
+            for index in range(len(proposal["node_ids"]) - 1):
+                if (proposal["node_ids"][index] == missing["from_node_id"]
+                        and proposal["node_ids"][index + 1] == missing["to_node_id"]):
+                    prefix = proposal["node_ids"][:index + 1]
+                    prefix_validation = validate_route(prefix, candidates)
+                    if len(prefix) >= 2 and prefix_validation["valid"]:
+                        proposal["node_ids"] = prefix
+                        validation = prefix_validation
+                        proposal["route_truncated"] = True
+                        missing_name = missing.get("from_name") or missing["from_node_id"].split("|")[-1]
+                        proposal["uncertainties"].append(
+                            f"原路线在「{missing_name}」之后缺少 NEXT 连接，"
+                            "已截断到可核验前缀。"
+                        )
+                    break
 
     metrics = route_metrics(proposal["node_ids"], candidates)
 
@@ -349,6 +430,9 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
             message = "路线逐段连接存在，但跨来源文档无法证明连续。"
         else:
             message = "路线连接已通过图谱核验。"
+        if primary is not None:
+            source_type = "官方路线" if _doc_is_official(primary["source_doc_id"]) else "游记"
+            message += f"（单一来源：{source_type} {primary['source_doc_id']}）"
         if scope["applied"]:
             message += f"（查询范围：{scenic_area} · {sub_area}）"
     else:
@@ -360,6 +444,7 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
         "message": message,
         "scope": scope,
         "metrics": metrics,
+        "source_doc_id": primary["source_doc_id"] if primary is not None else None,
     }
 
 

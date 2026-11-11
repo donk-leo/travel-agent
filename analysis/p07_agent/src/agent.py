@@ -59,6 +59,12 @@ def _route_problem(route, days):
             )
         return "路线未通过图谱核验，已保留路线供参考；请调整需求。"
 
+    if proposal.get("route_truncated"):
+        return (
+            "原路线在缺环处被截断，只保留了能够逐段核验的前半段；"
+            "后半段需要调整需求或改用官方路线后重新规划。"
+        )
+
     if days and days > 1 and proposal.get("day_plan_fallback"):
         return (
             "多日行程的天数分组是按节点数均分的展示结果，"

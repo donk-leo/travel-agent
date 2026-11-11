@@ -4,7 +4,7 @@ import urllib.request
 from tools import get_conditions, get_condition_evidence
 
 
-from config import MODEL, OLLAMA_URL
+from config import MAX_TOKENS, MODEL, OLLAMA_URL
 
 SELECTION_SCHEMA = {
     "type": "object",
@@ -145,7 +145,7 @@ def generate_reasons(user_text, conditions):
         ],
         "format": schema,
         "think": False,
-        "options": {"temperature": 0},
+        "options": {"temperature": 0, "num_predict": MAX_TOKENS},
         "stream": False
     }
     request = urllib.request.Request(
@@ -204,7 +204,7 @@ def generate_reason(user_text, condition):
         ],
         "format": schema,
         "think": False,
-        "options": {"temperature": 0},
+        "options": {"temperature": 0, "num_predict": MAX_TOKENS},
         "stream": False
     }
 
@@ -244,7 +244,7 @@ def select_conditions(user_text, conditions):
         ],
         "format": SELECTION_SCHEMA,
         "think": False,
-        "options": {"temperature": 0},
+        "options": {"temperature": 0, "num_predict": MAX_TOKENS},
         "stream": False
     }
 

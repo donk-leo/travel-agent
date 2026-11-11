@@ -90,6 +90,8 @@ python3 checks/check_agent.py analysis/p07_agent/
 
 规划请求的 POI 关键词没有名称匹配时，系统会改为列出该景区（或该子园区）全部 POI，并在页面提示“没有名称匹配”；但这只是把已有图谱地点摊开，不代表用户偏好一定有对应标签。人群/体验偏好词（儿童、亲子、老人、情侣、刺激、少走路等）会直接走“当前范围全部地点”，不再当地点名搜索，页面标题为“当前范围地点”，并注明列表未按偏好过滤。路线存在但图谱连接核验不通过时，状态为 `partial`（不是 `complete`），保留路线供参考并提示调整需求或改用官方路线。离线复算整理效果可运行 `python3 analysis/p07_agent/src/analyze_route_optimization.py`。
 
+2026-11-11 收尾 P6 路线连续性：`route_planner` 不再把多份游记的 `NEXT` 拼成一条路线，而是在候选文档中选一份“用户点名地点最多、连接最完整”的来源（子园区请求优先官方路线），整条路线只使用该文档的边；结果写 `source_doc_id`，核验通过时提示“单一来源”。如果模型仍生成带缺环的路线，系统会截断到第一处缺环前的可核验前缀，并标记 `route_truncated=true`，Agent 返回 `partial`，不再把不可核验的后半段当成完整路线。路线请求限制 `num_predict=1800`、`num_ctx=8192`，其他模型调用限制 `num_predict=1200`；模型输出被截断时降级为空路线并提示，而不是抛异常。
+
 工具接口见 `standards/schema_tools.json`。v1.2 在此前确认的 `get_route` 来源字段基础上，明确补充现有的 `get_route_candidates` 分组接口；未更改 P6 图谱。
 
 ## 已知限制
@@ -102,6 +104,6 @@ python3 checks/check_agent.py analysis/p07_agent/
 - 常见同行人已用关键词补全，但复杂表述（如“带两位 70 岁老人和一名 3 岁小孩”）仍可能漏；景区简称已做归一，但组合路线中的重复路段只能按图谱结构优化，无法用真实距离评估。
 - 图谱地点列表基于既有抽取，可能包含车站、餐厅、噪声或遗漏，不是官方完整景点名录。
 - 模型工具选择、理由生成和冲突检查可能误判；无匹配只说明图谱中没有查到，不能断言现实中不存在。
-- 8 案例 `run_evaluation.py` 的完整重跑单例耗时约 2–4 分钟，本轮未跑完；`outputs/evaluation_results.json` 仍是 2026-11-03 旧记录。本轮行为验证以 60 条离线测试和一次三日武功山真实查询为准，详见 `outputs/tests.md`。
+- 8 案例 `run_evaluation.py` 的完整重跑单例耗时约 2–4 分钟，最新代码上首个案例约 15 分钟才完成（返回 `complete`），其余 7 例未跑、已中止；`outputs/evaluation_results.json` 仍是 2026-11-03 旧记录。本轮行为验证以 **64 条离线测试** 和一次三日武功山真实单来源查询为准，详见 `outputs/tests.md` 的 2026-11-11 小节。
 
 当前实验记录、示范及报告分别见 `outputs/tests.md`、`outputs/demo.md`、`report/p07_experiment_report.md`。审核结论及 reviewer 字段的说明见 `standards/handover/p07_agent.yaml`。

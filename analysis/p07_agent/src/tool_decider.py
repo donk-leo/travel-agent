@@ -2,7 +2,7 @@ import json
 import urllib.request
 
 
-from config import MODEL, OLLAMA_URL
+from config import MAX_TOKENS, MODEL, OLLAMA_URL
 
 DECISION_SCHEMA = {
     "type": "object",
@@ -57,7 +57,7 @@ def decide_next_step(user_text, intent):
         ],
         "format": DECISION_SCHEMA,
         "think": False,
-        "options": {"temperature": 0},
+        "options": {"temperature": 0, "num_predict": MAX_TOKENS},
         "stream": False
     }
 

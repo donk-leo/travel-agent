@@ -3,7 +3,7 @@ import urllib.error
 import urllib.request
 
 
-from config import MODEL, OLLAMA_URL
+from config import MAX_TOKENS, MODEL, OLLAMA_URL
 from scenic_aliases import canonicalize_scenic_area
 from sub_area_scope import detect_sub_area
 
@@ -80,7 +80,7 @@ def parse_intent(user_text):
         ],
         "format": INTENT_SCHEMA,
         "think": False,
-        "options": {"temperature": 0},
+        "options": {"temperature": 0, "num_predict": MAX_TOKENS},
         "stream": False
     }
 

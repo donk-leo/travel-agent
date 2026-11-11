@@ -2,7 +2,7 @@ import json
 import urllib.request
 
 
-from config import MODEL, OLLAMA_URL
+from config import MAX_TOKENS, MODEL, OLLAMA_URL
 
 SELECTION_SCHEMA = {
     "type": "object",
@@ -71,7 +71,7 @@ def select_tools(user_text, observations=None, executed_tools=None):
         ],
         "format": SELECTION_SCHEMA,
         "think": False,
-        "options": {"temperature": 0},
+        "options": {"temperature": 0, "num_predict": MAX_TOKENS},
         "stream": False
     }
 

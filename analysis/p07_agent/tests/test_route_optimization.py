@@ -16,6 +16,7 @@ from tools import (
     route_metrics,
     validate_route,
 )
+from route_planner import select_primary_candidate
 
 # 2026-11-03 真实模型在“亲子与老人一日游”里给出的路线（见 outputs/evaluation_results.json）。
 DEMO_ROUTE = [
@@ -47,6 +48,22 @@ WUGONGSHAN_RETURN = [
     "POI|武功山|中庵索道",
     "POI|武功山|石鼓寺",
     "POI|武功山|中庵索道",
+]
+
+# P6 官方长隆路线 CL-O-02 的完整单文档链，用来验证单来源规划。
+CHANGLONG_OFFICIAL = [
+    "POI|长隆|北门",
+    "POI|长隆|小火车游览区",
+    "POI|长隆|青龙山",
+    "POI|长隆|考拉园",
+    "POI|长隆|熊猫乐园",
+    "POI|长隆|熊猫餐厅",
+    "POI|长隆|4D影院",
+    "POI|长隆|亚洲象园",
+    "POI|长隆|长颈鹿广场",
+    "POI|长隆|空中缆车",
+    "POI|长隆|火烈鸟",
+    "POI|长隆|南门纪念品商店",
 ]
 
 
@@ -135,34 +152,63 @@ class OptimizeRouteTests(unittest.TestCase):
         self.assertEqual(repaired["repeated_nodes"], [])
 
 
+class PrimaryCandidateTests(unittest.TestCase):
+    def test_named_poi_prefers_the_route_that_contains_it(self):
+        candidates = get_route_candidates("长隆")
+        chosen = select_primary_candidate(candidates, "我想玩垂直过山车")
+        self.assertEqual(chosen["source_doc_id"], "CL-T-02")
+
+    def test_named_poi_on_baiyunshan(self):
+        candidates = get_route_candidates("广州白云山")
+        chosen = select_primary_candidate(candidates, "想去摩星岭看日落")
+        self.assertEqual(chosen["source_doc_id"], "BYS-O-01")
+
+    def test_named_poi_on_wugongshan(self):
+        candidates = get_route_candidates("武功山")
+        chosen = select_primary_candidate(candidates, "想去金顶看日出")
+        self.assertEqual(chosen["source_doc_id"], "WGS-O-05")
+
+    def test_generic_query_prefers_official_route(self):
+        candidates = get_route_candidates("长隆")
+        chosen = select_primary_candidate(candidates, "带孩子和老人玩一天")
+        self.assertEqual(chosen["source_doc_id"], "CL-O-02")
+
+
 class PlanRouteIntegrationTests(unittest.TestCase):
     def test_plan_route_optimizes_model_route(self):
         candidates = get_route_candidates("长隆")
-        urlopen, _ = fake_model(DEMO_ROUTE)
+        urlopen, _ = fake_model(CHANGLONG_OFFICIAL)
         with patch.object(route_planner.urllib.request, "urlopen", urlopen):
             result = route_planner.plan_route(
                 "我想带孩子和老人去长隆玩一天，喜欢游乐项目，尽量少走路。",
                 "长隆", conditions=[])
 
         self.assertTrue(result["validation"]["valid"])
-        self.assertFalse(result["validation"]["fully_verified"])
-        self.assertGreater(result["validation"]["cross_doc_transitions"], 0)
-        self.assertLess(result["metrics"]["repeats"], 6)
-        self.assertNotEqual(result["proposal"]["node_ids"], DEMO_ROUTE)
-        uncertainties = " ".join(result["proposal"]["uncertainties"])
-        self.assertIn("重排", uncertainties)
-        self.assertIn("距离", uncertainties)
-        self.assertEqual(result["message"], "路线逐段连接存在，但跨来源文档无法证明连续。")
+        self.assertTrue(result["validation"]["fully_verified"])
+        self.assertEqual(result["validation"]["cross_doc_transitions"], 0)
+        self.assertEqual(result["source_doc_id"], "CL-O-02")
+        self.assertEqual(result["proposal"]["node_ids"], CHANGLONG_OFFICIAL)
+        self.assertEqual(
+            result["message"],
+            "路线连接已通过图谱核验。（单一来源：官方路线 CL-O-02）",
+        )
 
     def test_plan_route_limits_candidates_to_sub_area(self):
-        route = ["POI|长隆|尖叫地带", "POI|长隆|椰林餐厅", "POI|长隆|律动天地"]
+        route = [
+            "POI|长隆|安检入口",
+            "POI|长隆|欢乐主街区",
+            "POI|长隆|垂直过山车",
+        ]
         urlopen, calls = fake_model(route)
         with patch.object(route_planner.urllib.request, "urlopen", urlopen):
             result = route_planner.plan_route(
                 "去长隆欢乐世界玩一天", "长隆", conditions=[], sub_area="欢乐世界")
 
         self.assertTrue(result["scope"]["applied"])
-        self.assertEqual(result["message"], "路线连接已通过图谱核验。（查询范围：长隆 · 欢乐世界）")
+        self.assertEqual(
+            result["message"],
+            "路线连接已通过图谱核验。（单一来源：游记 CL-T-02）（查询范围：长隆 · 欢乐世界）",
+        )
 
         payload = json.loads(calls[0]["messages"][1]["content"])
         docs = {item["source_doc_id"] for item in payload["route_candidates"]}
