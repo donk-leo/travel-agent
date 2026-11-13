@@ -7,7 +7,12 @@
 """
 
 
-MEAL_WORDS = ("餐厅", "餐", "美食", "酒店", "休息区", "咖啡")
+MEAL_WORDS = ("餐厅", "餐", "美食", "咖啡", "小吃", "食堂")
+PERIOD_HINTS = {
+    "上午": "建议预留 2–3 小时",
+    "中午": "约 1–1.5 小时",
+    "下午": "建议预留 2–3 小时",
+}
 
 
 def _name(name_map, node_id):
@@ -31,9 +36,12 @@ def _periods_for_day(names):
     if len(names) == 1:
         name = names[0]
         return [
-            {"period": "上午", "text": f"前往{name}，办理入园/开始游览，先熟悉主要区域。"},
-            {"period": "中午", "text": "在园区内餐厅或休息区用餐、补水，避开正午高温。"},
-            {"period": "下午", "text": f"继续体验{name}的主要项目，按体力安排返程。"},
+            {"period": "上午", "duration_hint": PERIOD_HINTS["上午"],
+             "text": f"前往{name}，办理入园/开始游览，先熟悉主要区域。"},
+            {"period": "中午", "duration_hint": PERIOD_HINTS["中午"],
+             "text": "在园区内餐厅或休息区用餐、补水，避开正午高温。"},
+            {"period": "下午", "duration_hint": PERIOD_HINTS["下午"],
+             "text": f"继续体验{name}的主要项目，按体力安排返程。"},
         ]
 
     lunch_index = _pick_lunch(names)
@@ -55,22 +63,37 @@ def _periods_for_day(names):
     if morning:
         periods.append({
             "period": "上午",
+            "duration_hint": PERIOD_HINTS["上午"],
             "text": "游览" + "、".join(morning) + "，按园区指示顺序步行或乘接驳工具。",
         })
     else:
-        periods.append({"period": "上午", "text": "从入口进入园区，先游览核心区域。"})
-    periods.append({"period": "中午", "text": lunch_text})
+        periods.append({
+            "period": "上午",
+            "duration_hint": PERIOD_HINTS["上午"],
+            "text": "从入口进入园区，先游览核心区域。",
+        })
+    periods.append({
+        "period": "中午",
+        "duration_hint": PERIOD_HINTS["中午"],
+        "text": lunch_text,
+    })
     if afternoon:
         periods.append({
             "period": "下午",
+            "duration_hint": PERIOD_HINTS["下午"],
             "text": "继续游览" + "、".join(afternoon) + "，预留返程和休息时间。",
         })
     else:
-        periods.append({"period": "下午", "text": "自由活动或返程，避开闭园前的高峰。"})
+        periods.append({
+            "period": "下午",
+            "duration_hint": PERIOD_HINTS["下午"],
+            "text": "自由活动或返程，避开闭园前的高峰。",
+        })
     return periods
 
 
-def build_itinerary(route, suggestions=None, scenic_area="", sub_area=None):
+def build_itinerary(route, suggestions=None, scenic_area="", sub_area=None,
+                    profiles=None, preferences=None, constraints=None):
     """从路线结果生成分时行程；没有节点时返回 None。"""
     if not route:
         return None
@@ -112,6 +135,8 @@ def build_itinerary(route, suggestions=None, scenic_area="", sub_area=None):
         days.append({
             "day": item.get("day") or len(days) + 1,
             "periods": _periods_for_day(day_names),
+            "plan_note": "按节点数均分，不是真实每日体力安排"
+                         if proposal.get("day_plan_fallback") else "",
         })
 
     if not days:
@@ -135,6 +160,23 @@ def build_itinerary(route, suggestions=None, scenic_area="", sub_area=None):
             tips.append(text)
     if tips:
         notes.append("可参考的园区建议：" + "；".join(tips) + "。")
+
+    if profiles:
+        notes.append(
+            "同行人：" + "、".join(str(item) for item in profiles)
+            + "。图谱没有适龄、身高或体力标签，本行程未做硬性过滤，"
+              "请按现场项目要求取舍。"
+        )
+    if preferences:
+        notes.append(
+            "你提到的偏好：" + "、".join(str(item) for item in preferences)
+            + "。路线顺序主要按图谱 NEXT 连接生成，未保证每项偏好都已满足。"
+        )
+    if constraints:
+        notes.append(
+            "你提到的限制：" + "、".join(str(item) for item in constraints)
+            + "。分时安排不能替代真实距离、坡度和开放时间核验。"
+        )
 
     notes.append("开放时间、步行距离、餐饮营业情况和适龄性请以园区现场为准。")
     return {"days": days, "note": " ".join(notes)}

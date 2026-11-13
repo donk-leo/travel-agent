@@ -163,7 +163,10 @@ class AgentFlowTests(unittest.TestCase):
         stop = {"tools": [], "search_mode": "none", "search_keyword": "", "reason": "结束"}
         route = {"proposal": {"node_ids": ["a", "b"], "explanation": "路线", "uncertainties": []},
                  "validation": {"valid": True, "segments": [], "missing_connections": []}, "message": "通过"}
-        with patch.object(agent, "parse_intent", return_value={**self.intent, "duration_days": 1}), \
+        with patch.object(agent, "parse_intent", return_value={
+                 **self.intent, "duration_days": 1,
+                 "traveler_profiles": ["父母"], "preferences": ["轻松"],
+                 "constraints": ["少走路"]}), \
              patch.object(agent, "decide_next_step", return_value=plan), \
              patch.object(agent, "check_constraints", return_value=self.ok), \
              patch.object(agent, "check_plan", return_value=self.ok), \
@@ -176,6 +179,9 @@ class AgentFlowTests(unittest.TestCase):
         self.assertIsNotNone(result["route"])
         planner.assert_called_once()
         self.assertEqual(planner.call_args.kwargs["days"], 1)
+        self.assertEqual(planner.call_args.kwargs["profiles"], ["父母"])
+        self.assertEqual(planner.call_args.kwargs["preferences"], ["轻松"])
+        self.assertEqual(planner.call_args.kwargs["constraints"], ["少走路"])
         events = [json.loads(line) for line in (Path(self.temp.name) / result["trace_file"]).read_text(encoding="utf-8").splitlines()]
         self.assertTrue(any(e.get("event_type") == "decision_adjustment" for e in events))
 

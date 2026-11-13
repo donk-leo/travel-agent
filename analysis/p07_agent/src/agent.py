@@ -239,9 +239,12 @@ def run_agent(user_text):
                         result["message"],
                         f"图谱中没有「{sub_area}」专属的条件建议，未展示其他园区的建议。"
                     ]))
+            requirements = _route_requirements(result)
             result["itinerary"] = build_itinerary(
-                result["route"], result.get("suggestions"), area, sub_area
-            )
+                result["route"], result.get("suggestions"), area, sub_area,
+                profiles=requirements["profiles"],
+                preferences=requirements["preferences"],
+                constraints=requirements["constraints"])
     except Exception as exc:
         result.update(status="error", error=str(exc), needs_followup=True)
     finally:
@@ -258,6 +261,16 @@ def run_agent(user_text):
             result["trace_error"] = f"会话记录未保存（不影响行程结果）：{exc}"
 
     return result
+
+
+def _route_requirements(result):
+    """把意图解析出的同行人/偏好/限制整理成 planner 可用的列表。"""
+    intent = result.get("intent") or {}
+    return {
+        "profiles": intent.get("traveler_profiles") or [],
+        "preferences": intent.get("preferences") or [],
+        "constraints": intent.get("constraints") or [],
+    }
 
 
 def _query_graph(result, trace, user_text, area, days, sub_area=None):
@@ -376,9 +389,13 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
                                      "count": len(poi_results), "fallback": fallback_used,
                                      "examples": poi_results[:5]})
             else:
+                requirements = _route_requirements(result)
                 result["route"] = plan_route(
                     user_text, area, conditions=result["suggestions"],
-                    trace=trace, sub_area=sub_area, days=days)
+                    trace=trace, sub_area=sub_area, days=days,
+                    profiles=requirements["profiles"],
+                    preferences=requirements["preferences"],
+                    constraints=requirements["constraints"])
                 route_scope = result["route"].get("scope") or {}
                 if route_scope.get("note"):
                     result["message"] = " ".join(filter(None, [result["message"], route_scope["note"]]))
@@ -396,9 +413,13 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
         })
 
     if route_needs_refresh and result["route"] is not None:
+        requirements = _route_requirements(result)
         result["route"] = plan_route(
             user_text, area, conditions=result["suggestions"],
-            trace=trace, sub_area=sub_area, days=days)
+            trace=trace, sub_area=sub_area, days=days,
+            profiles=requirements["profiles"],
+            preferences=requirements["preferences"],
+            constraints=requirements["constraints"])
         route_scope = result["route"].get("scope") or {}
         if route_scope.get("note"):
             result["message"] = " ".join(filter(None, [result["message"], route_scope["note"]]))

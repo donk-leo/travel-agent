@@ -57,8 +57,9 @@ PAGE = """
   <h2>建议行程</h2>
   {% for day in itinerary.days %}
     <h3>第 {{ day.day }} 天</h3>
+    {% if day.plan_note %}<p><em>{{ day.plan_note|e }}</em></p>{% endif %}
     {% for item in day.periods %}
-      <p><strong>{{ item.period }}：</strong>{{ item.text|e }}</p>
+      <p><strong>{{ item.period }}{% if item.duration_hint %}（{{ item.duration_hint }}）{% endif %}：</strong>{{ item.text|e }}</p>
     {% endfor %}
   {% endfor %}
   {% if itinerary.note %}

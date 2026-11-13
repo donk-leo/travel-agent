@@ -20,7 +20,7 @@
 
 ## 环境
 
-- Python 3.9 或以上；本次实际环境：Python 3.9.6、Flask 3.1.3。
+- Python 3.9 或以上；本次实际环境：Python 3.12.14、Flask 3.1.3。
 - Ollama 服务可用，并已下载 `qwen3:8b`：
 
 ```bash
@@ -100,6 +100,12 @@ python3 checks/check_agent.py analysis/p07_agent/
 - **会话目录启动修复**：`trace_log` 不再在导入时调用可能失败的 `tempfile.gettempdir()`，默认改用仓库同级、实际可写的 `p7_agent_sessions`；此前该调用会让 Flask 启动直接报 `FileNotFoundError`，网页显示“无法访问”。
 - **会话保存权限修复**：受限 Python 进程不能写 `%LOCALAPPDATA%`、`%TEMP%` 或家目录，旧默认目录能创建但写文件会 `PermissionError`，又被 `finally` 写进 `result["error"]`，网页因此显示“处理失败”。现在按“仓库同级目录 → 当前工作目录 → 用户数据目录 → 家目录”探测可写目录，`P07_SESSION_DIR` 不可写时自动回退；保存失败只写 `trace_error`，不影响已生成的行程；网页单独用斜体提示。
 
+2026-11-13 约束闭环与分时行程补强：
+
+- **约束进入 planner**：`plan_route` 新增 `profiles/preferences/constraints` 参数，Agent 从意图中取同行人、偏好和限制传入；system prompt 明确要求图谱无法验证适龄、步行距离、开放时间时写进 `uncertainties`，不得声称已满足。
+- **分时行程可读性**：`itinerary` 每个时段增加 `duration_hint`（上午/下午建议 2–3 小时，中午约 1–1.5 小时）；多日 `day_plan_fallback` 时每天显示“按节点数均分，不是真实每日体力安排”；午餐识别不再把“酒店/休息区”当作餐厅。
+- **需求说明**：行程末尾追加同行人/偏好/限制说明，明确“图谱没有适龄/体力标签，未做硬性过滤”，并提示开放时间、距离、餐饮需现场确认。
+
 工具接口见 `standards/schema_tools.json`。v1.2 在此前确认的 `get_route` 来源字段基础上，明确补充现有的 `get_route_candidates` 分组接口；未更改 P6 图谱。
 
 ## 已知限制
@@ -112,6 +118,6 @@ python3 checks/check_agent.py analysis/p07_agent/
 - 常见同行人已用关键词补全，但复杂表述（如“带两位 70 岁老人和一名 3 岁小孩”）仍可能漏；景区简称已做归一，但组合路线中的重复路段只能按图谱结构优化，无法用真实距离评估。
 - 图谱地点列表基于既有抽取，可能包含车站、餐厅、噪声或遗漏，不是官方完整景点名录。
 - 模型工具选择、理由生成和冲突检查可能误判；无匹配只说明图谱中没有查到，不能断言现实中不存在。
-- 8 案例 `run_evaluation.py` 的完整重跑单例耗时约 2–4 分钟；最新代码上重跑时，前两例（亲子一日、朋友白云山一日）约 2 分钟完成，分别返回 `complete` 与 `partial`（截断），第三例情侣两日游卡住超过 10 分钟，已中止，其余未跑。`outputs/evaluation_results.json` 仍是 2026-11-03 旧记录。本轮行为验证以 **69 条离线测试**、三日武功山真实查询、长隆水上乐园单点查询、已完成的两例，以及 2026-11-13 的会话保存权限修复实测为准，详见 `outputs/tests.md` 的 2026-11-11 与 2026-11-13 小节。
+- `outputs/evaluation_results.json` 仍是 2026-11-03 的 8 案例历史记录；2026-11-13 的完整 8 案例重跑在第 5 例 `followup_combined` 卡住超过 5 分钟，已停止，未写入新结果。当前行为验证以 **72 条离线测试**、`checks/check_agent.py`、4 条 2026-11-13 真实查询（长隆亲子一日、武功山亲子三日、白云山老人一日、长隆水上乐园一日）为准，详见 `outputs/tests.md` 顶部“当前代码验证（2026-11-13）”。其中武功山三日和水上乐园一日为 `partial`：前者因分天均分，后者因图谱没有独立 NEXT；其余两条为 `complete`，但仍不代表距离、适龄性和开放时间已核实。
 
 当前实验记录、示范及报告分别见 `outputs/tests.md`、`outputs/demo.md`、`report/p07_experiment_report.md`。审核结论及 reviewer 字段的说明见 `standards/handover/p07_agent.yaml`。

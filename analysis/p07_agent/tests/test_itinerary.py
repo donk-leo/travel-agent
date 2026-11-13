@@ -64,6 +64,51 @@ class ItineraryTests(unittest.TestCase):
         self.assertNotIn("野生动物世界", " ".join(item["text"] for item in periods))
         self.assertIn("没有独立的连续路线", result["note"])
 
+    def test_each_period_has_duration_hint(self):
+        route = {
+            "proposal": {
+                "node_ids": ["a", "b", "c"],
+                "node_names": {"a": "北门", "b": "熊猫餐厅", "c": "4D影院"},
+                "day_plan": [{"day": 1, "node_ids": ["a", "b", "c"]}],
+            },
+            "scope": {},
+        }
+        result = build_itinerary(route)
+        periods = result["days"][0]["periods"]
+        self.assertTrue(all(item.get("duration_hint") for item in periods))
+        self.assertIn("小时", periods[0]["duration_hint"])
+
+    def test_hotel_is_not_treated_as_lunch(self):
+        route = {
+            "proposal": {
+                "node_ids": ["a", "hotel", "c"],
+                "node_names": {"a": "北门", "hotel": "长隆酒店", "c": "4D影院"},
+                "day_plan": [{"day": 1, "node_ids": ["a", "hotel", "c"]}],
+            },
+            "scope": {},
+        }
+        result = build_itinerary(route)
+        noon = result["days"][0]["periods"][1]["text"]
+        self.assertNotIn("在长隆酒店用餐", noon)
+
+    def test_requirements_are_explained_in_note(self):
+        route = {
+            "proposal": {
+                "node_ids": ["a", "b"],
+                "node_names": {"a": "北门", "b": "熊猫乐园"},
+                "day_plan": [{"day": 1, "node_ids": ["a", "b"]}],
+            },
+            "scope": {},
+        }
+        result = build_itinerary(
+            route, profiles=["孩子"], preferences=["轻松"],
+            constraints=["少走路"],
+        )
+        self.assertIn("同行人：孩子", result["note"])
+        self.assertIn("偏好：轻松", result["note"])
+        self.assertIn("限制：少走路", result["note"])
+        self.assertIn("未做硬性过滤", result["note"])
+
     def test_candidate_chain_returns_longest_path(self):
         candidates = [{
             "source_doc_id": "WGS-O-05",

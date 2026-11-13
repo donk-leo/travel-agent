@@ -3,6 +3,21 @@
 运行时间（UTC）：2026-11-03T09:16:46.634136+00:00；模型：`qwen3:8b`。
 所有需求均为人工设计的测试输入；“火星大峡谷”是用于无匹配测试的虚构名称。原始机器结果见 [evaluation_results.json](evaluation_results.json)。
 
+> **当前代码验证（2026-11-13）**
+>
+> 下列 4 条为当前代码（`a6dfdce` + 本轮本地修改）的真实 `qwen3:8b` 运行；离线测试 72 条通过，`checks/check_agent.py` 通过。完整 8 案例重跑在第 5 例 `followup_combined` 卡住超过 5 分钟，已停止；旧 `evaluation_results.json` 只作为 2026-11-03 历史记录，本轮不把未完成结果写成新记录。
+>
+> 8 案例重跑已完成的 4 例：`family_elder_one_day` 为 `complete`，`friends_one_day` 为 `partial`，`couple_two_days` 为 `partial`，`missing_information` 为 `clarify`；后续 4 例未跑完，不能据此声称 8 案例全部通过。
+>
+> | 场景 | 输入 | 状态 | 关键证据 | 人工检查 |
+> |---|---|---|---|---|
+> | 长隆亲子一日 | 带孩子去长隆玩一天 | `complete` | 44.3 秒；单一官方来源 `CL-O-02`；12 节点；`valid=true`、`fully_verified=true`、0 缺失；上午/中午/下午三时段 | 路线只覆盖长隆园区；中午落在熊猫餐厅；适龄性和开放时间仍需现场确认 |
+> | 武功山亲子三日 | 带孩子去武功山玩三天 | `partial` | 81.4 秒；单一官方来源 `WGS-O-05`；12 节点；`valid=true`、`fully_verified=true`、0 缺失；`day_plan` 3 天各 4 个节点、`day_plan_fallback=true` | 分天按节点数均分，不是真实体力/住宿安排；已提示重新分配 |
+> | 白云山老人一日 | 带老人去白云山玩一天，少走路 | `complete` | 73.9 秒；单一官方来源 `BYS-O-01`；12 节点；`valid=true`、`fully_verified=true`、0 缺失；上午/中午/下午三时段 | “少走路”没有距离/坡度证据，行程只说明无法硬性核验，未声称已满足 |
+> | 长隆水上乐园一日 | 带孩子去长隆水上乐园玩一天 | `partial` | 22.9 秒；只保留 `长隆水上乐园` 单点；图谱没有独立 NEXT；上午/中午/下午建议，不虚构园内路线 | 单点一日游只能给到园外/园内总体建议，园内项目顺序需现场决定 |
+>
+> 本轮同时验证了 `traveler_profiles`、`preferences`、`constraints` 会传入路线规划与分时行程；图谱没有适龄/体力标签时，行程说明会明确“未做硬性过滤”。
+
 | 场景 | 输入与现象 | 状态 | 人工检查 | 会话轨迹 |
 |---|---|---|---|---|
 | 亲子与老人一日游 | 我想带孩子和老人去长隆玩一天，喜欢游乐项目，尽量少走路。 | `complete` | 提取出孩子、老人和少走路；路线 18 段均有 NEXT 证据，但存在重复路段，无法确认少走路及一日可行性。 | [记录](sessions/session_3629eec0861b48b58a5743f824bac6d8.jsonl) |
@@ -39,13 +54,13 @@
 | 追问后补充（`followup_combined`） | 广州白云山 | 14 步 / 重复 4 | 10 步 / 重复 0 | 是 | held_karp |
 
 - 步数指图谱 `NEXT` 连接的段数，不是实际步行距离；“重复”指同一地点在路线中再次出现。整理只改变顺序与连接方式，目标地点集合不变，逐段来源仍可核验；武功山案例的返程终点（中庵索道）被保留。
-- `evaluation_results.json` 仍是 2026-11-03 优化前的真实运行记录。本次没有重跑本地模型（当前机器未运行 Ollama），因此没有把离线复算结果伪装成新的模型输出。
+- `evaluation_results.json` 仍是 2026-11-03 优化前的真实运行记录。该节记录时未重跑本地模型，因此没有把离线复算结果伪装成新的模型输出；当前机器已可运行 Ollama，最新验证见顶部 2026-11-13 表。
 - 子园区范围由 `tests/test_sub_area_scope.py` 覆盖（19 条）：别名识别、与 P1 `subtype` 对照、景点归属（含跨园区记为未知）、候选与景点筛选、回退说明、agent 透传。
 - 路线整理由 `tests/test_route_optimization.py` 覆盖（8 条）：指标统计、重复循环整理、返程终点保留、补全绕开已访问节点、`plan_route` 集成（模拟模型）与子园区候选过滤。
 
 ## 离线检查与复现
 
-`python3 -m unittest discover -s analysis/p07_agent/tests -v` 使用真实 P6 图谱与模拟模型/工具，检查连接核验、补全、追问上下文、矛盾拦截、无匹配、决策轮次、子园区范围、路线整理、多日分天、偏好词回退与跨文档核验（共 60 条）。模拟案例不作为真实模型表现。
+`python3 -m unittest discover -s analysis/p07_agent/tests -v` 使用真实 P6 图谱与模拟模型/工具，检查连接核验、补全、追问上下文、矛盾拦截、无匹配、决策轮次、子园区范围、路线整理、多日分天、偏好词回退、跨文档核验、分时行程与约束传递（共 72 条）。模拟案例不作为真实模型表现。
 
 `python3 analysis/p07_agent/src/analyze_route_optimization.py` 读取已有真实模型路线，离线输出整理前后对照，不调用模型、不改原始结果。
 
@@ -85,3 +100,11 @@
 - 根因：当前受限 Python 进程不能写 `%LOCALAPPDATA%`、`%TEMP%` 或用户家目录，只能写项目工作区；`trace_log` 默认目录虽然能 `mkdir`，但 `SessionTrace.save()` 写文件被拒绝。旧代码又在 `finally` 中把保存失败写进 `result["error"]`，所以已生成的行程被整页标成失败。
 - 修复：`trace_log` 按“仓库同级 `p7_agent_sessions` → 当前工作目录 → 用户数据目录 → 家目录”探测实际可写目录，`P07_SESSION_DIR` 不可写时自动回退；`agent` 把保存失败降级为 `trace_error`，不再污染 `error` 或行程状态；网页单独用斜体提示，不再显示“处理失败”。
 - 验证：`python -m unittest discover -s analysis/p07_agent/tests -q` 共 **69 条通过**；`check_agent.py` 通过。重启 5000 端口后实测“带孩子去长隆玩一天”HTTP 200，页面无“处理失败”，包含“建议行程/上午/下午”，会话写入 `default-workspace\p7_agent_sessions`。
+
+## 2026-11-13 约束闭环、分时行程与证据补强
+
+- 约束传递：`route_planner.plan_route` 新增 `profiles/preferences/constraints` 参数，system prompt 要求“图谱无法验证适龄、步行距离、开放时间时必须写入 uncertainties，不能声称已满足”；`proposal.user_constraints` 保留原始约束；`agent` 从 `intent` 取三个字段并同时传给路线规划和 `build_itinerary`。
+- 分时行程：`itinerary.py` 为每个时段加 `duration_hint`（上午/下午 2–3 小时、中午 1–1.5 小时），餐厅只按餐厅/餐/美食/咖啡/小吃/食堂识别，酒店不再当中餐；`day_plan_fallback` 的每天加 `plan_note`，说明“按节点数均分，不是真实每日体力安排”；同行人/偏好/限制写入 note，明确没有适龄/体力标签、未做硬性过滤。
+- 验证：`.venv\Scripts\python.exe -m unittest discover -s analysis/p07_agent/tests -q` 共 **72 条通过**；`check_agent.py` 通过（11 会话/152 步）。
+- 当前代码 4 条真实查询：长隆亲子一日 `complete`（44.3 秒、CL-O-02、12 节点、0 缺失）；武功山亲子三日 `partial`（81.4 秒、WGS-O-05、12 节点、0 缺失、day_plan 3×4 均分）；白云山老人一日 `complete`（73.9 秒、BYS-O-01、12 节点、0 缺失，少走路未硬核验）；长隆水上乐园一日 `partial`（22.9 秒、单点、无独立 NEXT）。详见顶部“当前代码验证”表。
+- 完整 8 案例重跑：前 4 例已完成（complete/partial/partial/clarify），第 5 例 `followup_combined` 卡住超过 5 分钟，已停止；`evaluation_results.json` 仍是 2026-11-03 旧记录。

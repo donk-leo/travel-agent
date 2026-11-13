@@ -210,15 +210,44 @@ def _candidate_chain(candidates):
     return best
 
 
+def _clean_list(values):
+    if not isinstance(values, list):
+        return []
+    return [str(value).strip() for value in values if str(value).strip()]
+
+
 def plan_route(user_text, scenic_area, conditions=None, trace=None,
-               sub_area=None, days=None):
+               sub_area=None, days=None, profiles=None, preferences=None,
+               constraints=None):
     days = _coerce_days(days)
+    profiles = _clean_list(profiles)
+    preferences = _clean_list(preferences)
+    constraints = _clean_list(constraints)
     system_prompt = SYSTEM_PROMPT
     if days and days > 1:
         system_prompt += (
             f"\n本次 duration_days={days}，请把 node_ids 分成 {days} 天，"
             "并在 day_plan 中逐天列出连续节点。"
         )
+    if profiles or preferences or constraints:
+        requirement_lines = ["\n用户约束（规划时必须显式考虑，不能忽略）："]
+        if profiles:
+            requirement_lines.append(
+                "- 同行人：" + "、".join(profiles) + "。"
+            )
+        if preferences:
+            requirement_lines.append(
+                "- 偏好：" + "、".join(preferences) + "。"
+            )
+        if constraints:
+            requirement_lines.append(
+                "- 限制：" + "、".join(constraints) + "。"
+            )
+        requirement_lines.append(
+            "如果图谱没有足够信息验证某项约束（如适龄、步行距离、开放时间），"
+            "必须在 uncertainties 中说明，不要声称已经满足。"
+        )
+        system_prompt += "\n".join(requirement_lines)
 
     def call_tool(name, function, **arguments):
         if trace is None:
@@ -288,6 +317,12 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
                 ],
                 "source_doc_id": primary["source_doc_id"] if primary else None,
             }
+            if profiles or preferences or constraints:
+                proposal["user_constraints"] = {
+                    "profiles": profiles,
+                    "preferences": preferences,
+                    "constraints": constraints,
+                }
             single_scope = dict(scope)
             # 单点分支不扩大范围；清掉“已扩大到整个景区”的通用提示，
             # 避免和实际返回的单点路线矛盾。
@@ -359,6 +394,12 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
             }
         if primary is not None:
             proposal["source_doc_id"] = primary["source_doc_id"]
+        if profiles or preferences or constraints:
+            proposal["user_constraints"] = {
+                "profiles": profiles,
+                "preferences": preferences,
+                "constraints": constraints,
+            }
 
         # 本地小模型有时会返回空 node_ids（JSON 截断或直接放弃）。候选
         # 连接本身来自单一来源，按最长连续链兜底，避免页面完全无路线。
