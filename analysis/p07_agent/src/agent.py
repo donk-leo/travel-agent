@@ -99,7 +99,8 @@ def run_agent(user_text):
         "decision": None, "tool_selection": None, "tool_decisions": [],
         "suggestions": [], "route": None, "poi_results": None,
         "poi_list_all": False, "message": "", "error": "", "scope": None,
-        "itinerary": None, "needs_followup": False, "trace_file": "", "trace_json": ""
+        "itinerary": None, "needs_followup": False, "trace_file": "", "trace_json": "",
+        "trace_error": ""
     }
     trace = SessionTrace()
     trace.record_event("user_input", user_request=user_text)
@@ -253,8 +254,8 @@ def run_agent(user_text):
             result["trace_json"] = json.dumps(trace.events, ensure_ascii=False, indent=2)
             result["trace_file"] = trace.save().name
         except Exception as exc:
-            message = f"工具记录保存失败：{exc}"
-            result["error"] = f'{result["error"]}；{message}' if result["error"] else message
+            # 会话记录只是可复现性材料；保存失败不应把已生成的行程标成失败。
+            result["trace_error"] = f"会话记录未保存（不影响行程结果）：{exc}"
 
     return result
 

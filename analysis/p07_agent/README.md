@@ -1,4 +1,4 @@
-﻿# 项目 7：旅游规划 Agent
+# 项目 7：旅游规划 Agent
 
 项目 7 读取项目 6 的图谱，结合本地 Ollama 模型，提供旅游需求理解、图谱查询、路线建议及来源展示。原交付版本为 `v0.7-p07`；2026-11-09 针对审核意见完成两项优化后合并，版本为 `v0.7.1-p07`。
 
@@ -15,7 +15,7 @@
 - **分天真实性**：模型分天不合法时仍可均分展示，但会标记 `day_plan_fallback=true`，Agent 返回 `partial`，不再把均分结果当成可行日程。
 - **条件建议限流**：最多保留 5 条，按条件+建议去重；用户没有提季节时过滤季节性建议；理由改为一次模型调用批量生成，避免 8 条建议逐条请求。
 - **同行人补全**：模型漏掉的“朋友/同学/同事/闺蜜”等由关键词确定性补进 `traveler_profiles`。
-- **会话落盘**：默认写到用户本地数据目录下的 `p07_agent_sessions`（`%LOCALAPPDATA%\p07_agent_sessions`），可用 `P07_SESSION_DIR` 覆盖；不再默认污染仓库工作区，也不依赖可能不可写的系统临时目录。
+- **会话落盘**：默认写到仓库同级的 `p7_agent_sessions`（自动探测可写目录；可用 `P07_SESSION_DIR` 覆盖）；不默认写入仓库，也不依赖可能不可写的系统临时目录。
 - **评估**：`run_evaluation.py` 记录 `route_fully_verified`、`day_plan`、跨文档跳转数，并将“有路线但未完全核验”计为失败。
 
 ## 环境
@@ -60,7 +60,7 @@ python3 analysis/p07_agent/src/analyze_route_optimization.py
 python3 checks/check_agent.py analysis/p07_agent/
 ```
 
-第一条是离线流程测试，使用模拟模型和真实图谱，覆盖别名归一、子园区识别与筛选、路线补全与重排、追问上下文、冲突拦截等；第二条实际调用本地模型，覆盖亲子、老人、朋友、伴侣、信息不足、冲突、无匹配及地点列表，可能需要数分钟。它会生成 `outputs/evaluation_results.json`；会话默认写到用户本地数据目录下的 `p07_agent_sessions`，不再写进仓库，可用 `P07_SESSION_DIR` 指定位置。这些案例是人工编写的测试输入，不是原始游记数据。第三条把已有真实模型路线离线交给整理算法，输出前后对照表，不调用模型。第四条检查约定的交付文件。
+第一条是离线流程测试，使用模拟模型和真实图谱，覆盖别名归一、子园区识别与筛选、路线补全与重排、追问上下文、冲突拦截等；第二条实际调用本地模型，覆盖亲子、老人、朋友、伴侣、信息不足、冲突、无匹配及地点列表，可能需要数分钟。它会生成 `outputs/evaluation_results.json`；会话默认写到仓库同级的 `p7_agent_sessions`（自动探测可写目录），不写进仓库，可用 `P07_SESSION_DIR` 指定位置。这些案例是人工编写的测试输入，不是原始游记数据。第三条把已有真实模型路线离线交给整理算法，输出前后对照表，不调用模型。第四条检查约定的交付文件。
 
 评估脚本是一条命令重跑案例，不等于保证语言模型逐字输出一致；模型版本、推理环境及图谱版本可能影响结果。`outputs/tests.md` 和 `outputs/demo.md` 记录了本次运行与人工分析，不会在每次重跑后自动重写。
 
@@ -72,7 +72,7 @@ python3 checks/check_agent.py analysis/p07_agent/
 - `tools.py` 提供 `search_poi`、`get_route`、`get_conditions`、`neighbors` 及按来源分组的 `get_route_candidates`；另有内部函数 `route_metrics`（结构指标）、`optimize_route`（路线整理）、`repair_route`（补全断开的连接）。
 - `route_planner.py` 根据候选图谱连接规划，使用 `validate_route` 检查方向；直接连接缺失时可搜索间接 `NEXT` 路径。核验通过后调用 `optimize_route` 整理顺序，具体规则见下。
 - `constraint_checker.py` 在规划前和最终方案输出前进行模型检查；模型会误判，检查不能保证覆盖全部限制。
-- `trace_log.py` 保存 JSONL，默认写到 `%LOCALAPPDATA%\p07_agent_sessions`（可用 `P07_SESSION_DIR` 覆盖），不默认写入仓库，也不依赖可能不可写的系统临时目录。新版记录包含用户输入、意图、决策摘要、子园区筛选、路线整理、工具参数及观察、最终结果；旧版记录可能只含工具调用。会话记录会包含请求文字，分享前应检查内容。
+- `trace_log.py` 保存 JSONL，默认写到仓库同级的 `p7_agent_sessions`（自动探测可写目录，可用 `P07_SESSION_DIR` 覆盖），不默认写入仓库，也不依赖可能不可写的系统临时目录。新版记录包含用户输入、意图、决策摘要、子园区筛选、路线整理、工具参数及观察、最终结果；旧版记录可能只含工具调用。会话记录会包含请求文字，分享前应检查内容。
 
 子园区范围由 `src/sub_area_scope.py` 处理：
 
@@ -97,7 +97,8 @@ python3 checks/check_agent.py analysis/p07_agent/
 - **自然语言分时行程**：新增 `src/itinerary.py`，把已核验的节点按天拆成“上午/中午/下午”的可读行程，页面优先展示；不再只给箭头链。行程不调用模型，避免二次编造，开放时间、距离、餐饮和适龄性仍提示以现场为准。
 - **模型空路线兜底**：本地模型偶尔返回空 `node_ids`，此前页面会完全无路线。现在按单一来源候选的最长连续链兜底（最多 12 个节点），并在说明里注明这是图谱连接兜底，不是模型自由生成。
 - **单点子园区**：水上乐园在 P6 中只有一个地点节点、没有独立 NEXT 连接；此前会回退整个景区并拼出“野生动物世界→水上乐园”。现在只返回该园区地点，按“单点一日游”生成上午/中午/下午建议，不虚构园内路线。
-- **会话目录启动修复**：`trace_log` 不再在导入时调用可能失败的 `tempfile.gettempdir()`，默认改用 `%LOCALAPPDATA%\p07_agent_sessions`；此前该调用会让 Flask 启动直接报 `FileNotFoundError`，网页显示“无法访问”。
+- **会话目录启动修复**：`trace_log` 不再在导入时调用可能失败的 `tempfile.gettempdir()`，默认改用仓库同级、实际可写的 `p7_agent_sessions`；此前该调用会让 Flask 启动直接报 `FileNotFoundError`，网页显示“无法访问”。
+- **会话保存权限修复**：受限 Python 进程不能写 `%LOCALAPPDATA%`、`%TEMP%` 或家目录，旧默认目录能创建但写文件会 `PermissionError`，又被 `finally` 写进 `result["error"]`，网页因此显示“处理失败”。现在按“仓库同级目录 → 当前工作目录 → 用户数据目录 → 家目录”探测可写目录，`P07_SESSION_DIR` 不可写时自动回退；保存失败只写 `trace_error`，不影响已生成的行程；网页单独用斜体提示。
 
 工具接口见 `standards/schema_tools.json`。v1.2 在此前确认的 `get_route` 来源字段基础上，明确补充现有的 `get_route_candidates` 分组接口；未更改 P6 图谱。
 
@@ -111,6 +112,6 @@ python3 checks/check_agent.py analysis/p07_agent/
 - 常见同行人已用关键词补全，但复杂表述（如“带两位 70 岁老人和一名 3 岁小孩”）仍可能漏；景区简称已做归一，但组合路线中的重复路段只能按图谱结构优化，无法用真实距离评估。
 - 图谱地点列表基于既有抽取，可能包含车站、餐厅、噪声或遗漏，不是官方完整景点名录。
 - 模型工具选择、理由生成和冲突检查可能误判；无匹配只说明图谱中没有查到，不能断言现实中不存在。
-- 8 案例 `run_evaluation.py` 的完整重跑单例耗时约 2–4 分钟；最新代码上重跑时，前两例（亲子一日、朋友白云山一日）约 2 分钟完成，分别返回 `complete` 与 `partial`（截断），第三例情侣两日游卡住超过 10 分钟，已中止，其余未跑。`outputs/evaluation_results.json` 仍是 2026-11-03 旧记录。本轮行为验证以 **69 条离线测试**、三日武功山真实查询、长隆水上乐园单点查询和已完成的两例为准，详见 `outputs/tests.md` 的 2026-11-11 小节。
+- 8 案例 `run_evaluation.py` 的完整重跑单例耗时约 2–4 分钟；最新代码上重跑时，前两例（亲子一日、朋友白云山一日）约 2 分钟完成，分别返回 `complete` 与 `partial`（截断），第三例情侣两日游卡住超过 10 分钟，已中止，其余未跑。`outputs/evaluation_results.json` 仍是 2026-11-03 旧记录。本轮行为验证以 **69 条离线测试**、三日武功山真实查询、长隆水上乐园单点查询、已完成的两例，以及 2026-11-13 的会话保存权限修复实测为准，详见 `outputs/tests.md` 的 2026-11-11 与 2026-11-13 小节。
 
 当前实验记录、示范及报告分别见 `outputs/tests.md`、`outputs/demo.md`、`report/p07_experiment_report.md`。审核结论及 reviewer 字段的说明见 `standards/handover/p07_agent.yaml`。

@@ -202,6 +202,9 @@ PAGE = """
   <h2>处理失败</h2>
   <p>{{ error|e }}</p>
 {% endif %}
+{% if trace_error %}
+  <p><em>{{ trace_error|e }}</em></p>
+{% endif %}
 """
 
 
@@ -211,7 +214,8 @@ def home():
         "query": "", "intent": None, "decision": None,
         "tool_decisions": [], "suggestions": [], "route": None,
         "poi_results": None, "poi_list_all": False, "scope": None,
-        "message": "", "error": "", "trace_file": "", "trace_json": ""
+        "message": "", "error": "", "trace_file": "", "trace_json": "",
+        "trace_error": ""
     }
 
     if request.method == "POST":
@@ -251,7 +255,8 @@ def home():
         message=result["message"],
         error=result["error"],
         trace_file=result["trace_file"],
-        trace_json=result["trace_json"]
+        trace_json=result["trace_json"],
+        trace_error=result.get("trace_error", "")
     )
 
 

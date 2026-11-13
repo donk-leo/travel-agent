@@ -4,22 +4,55 @@ import uuid
 from pathlib import Path
 
 
-def _default_session_dir():
-    """返回用户可写的会话目录，不依赖 tempfile。
+def _is_writable(directory):
+    """尝试创建目录并写一个探针文件；受限环境可能只允许工作区写入。"""
+    try:
+        directory.mkdir(parents=True, exist_ok=True)
+        probe = directory / f".write_test_{uuid.uuid4().hex}"
+        probe.write_text("ok", encoding="utf-8")
+        probe.unlink()
+        return True
+    except OSError:
+        return False
 
-    某些受限 Python 环境（如打包运行时）没有可写的系统临时目录，
-    tempfile.gettempdir() 会在导入时直接抛 FileNotFoundError。这里改用
-    用户本地应用数据目录；仍可用 P07_SESSION_DIR 覆盖。
+
+def _default_session_dir():
+    """返回实际可写的会话目录，不依赖 tempfile。
+
+    某些受限 Python 环境（如打包运行时）没有可写的系统临时目录、用户
+    AppData 或家目录，只有项目工作区可写。这里按“仓库同级目录 → 当前
+    工作目录 → 用户本地应用数据 → 家目录”的顺序探测，避免导入或保存时
+    因 PermissionError 让整个网页请求显示“处理失败”。
     """
+    repo_root = Path(__file__).resolve().parents[3]
+    candidates = [
+        repo_root.parent / "p7_agent_sessions",
+        Path.cwd() / "p7_agent_sessions",
+    ]
     base = os.environ.get("LOCALAPPDATA") or os.environ.get("APPDATA")
     if base:
-        return Path(base) / "p07_agent_sessions"
-    return Path.home() / ".p07_agent_sessions"
+        candidates.append(Path(base) / "p07_agent_sessions")
+    candidates.append(Path.home() / ".p07_agent_sessions")
+
+    for candidate in candidates:
+        if _is_writable(candidate):
+            return candidate
+    return candidates[0]
+
+
+def _select_session_dir():
+    configured = os.environ.get("P07_SESSION_DIR")
+    if configured:
+        path = Path(configured)
+        if _is_writable(path):
+            return path
+    return _default_session_dir()
 
 
 # 用户原话可能包含隐私信息，默认不写进仓库；需要留档时用
-# P07_SESSION_DIR 指向受控目录，测试也会覆盖这个变量。
-SESSION_DIR = Path(os.environ.get("P07_SESSION_DIR") or _default_session_dir())
+# P07_SESSION_DIR 指向受控目录。环境不可写时自动退回实际可写目录，
+# 不让会话记录失败影响行程结果。
+SESSION_DIR = _select_session_dir()
 
 
 class SessionTrace:

@@ -1,4 +1,4 @@
-﻿# 项目 7：测试记录
+# 项目 7：测试记录
 
 运行时间（UTC）：2026-11-03T09:16:46.634136+00:00；模型：`qwen3:8b`。
 所有需求均为人工设计的测试输入；“火星大峡谷”是用于无匹配测试的虚构名称。原始机器结果见 [evaluation_results.json](evaluation_results.json)。
@@ -56,7 +56,7 @@
 - 离线测试：`python -m unittest discover -s analysis/p07_agent/tests -q` 共 **60 条通过**；新增覆盖跨文档路线、无路线 `partial`、分天 fallback `partial`、条件去重/上限/季节性、同行人补全、`check_plan` 完整 payload。
 - 真实查询“我想去萍乡武功山风景名胜区玩三天，带孩子”：约 68.6 秒；`status=partial`；路线 25 节点，13 处连接缺失，`day_plan` 9/11/5（模型分天，非均分），3 条建议；不再返回 `complete`。
 - 当前 `valid` 只表示逐段有 NEXT 证据；`fully_verified` 还要求同来源连续。页面/结果若显示 `partial`，应理解为“有参考路线，但不能证明可行”。
-- 会话默认写到 `%LOCALAPPDATA%\p07_agent_sessions`；仓库内旧 `outputs/sessions/*.jsonl` 是历史记录，不再新增。`run_evaluation.py` 会把有路线但 `fully_verified` 不为 true 的案例计为失败。
+- 会话默认写到仓库同级的 `p7_agent_sessions`（自动探测可写目录）；仓库内旧 `outputs/sessions/*.jsonl` 是历史记录，不再新增。`run_evaluation.py` 会把有路线但 `fully_verified` 不为 true 的案例计为失败。
 - 8 案例真实评估：第一次完整跑完，结果为 `family_elder_one_day`、`friends_one_day`、`couple_two_days`、`followup_combined` 均 `partial`，`missing_information`/`conflicting_constraints` 为 `clarify`，`no_match`/`list_pois` 为 `complete`；但会话目录设在用户 `%TEMP%` 时当前运行环境报 `WinError 5`，8 条记录均因无 trace 被计失败。改用工作区可写目录重跑 11 分钟仅完成 2 例，遂中止。`evaluation_results.json` 因此仍保留 2026-11-03 旧记录，完整重跑需在可写 `P07_SESSION_DIR` 下单独执行。
 
 ## 2026-11-11 P6 路线连续性收尾
@@ -73,8 +73,15 @@
 - 新增 `src/itinerary.py`：把已核验路线按天拆成“上午/中午/下午”的自然语言行程，网页新增“建议行程”块；不再只显示箭头链。行程不调用模型，开放时间、距离、餐饮与适龄性继续提示以现场为准。
 - 模型返回空 `node_ids` 时，用单一来源候选的最长连续 NEXT 链兜底（最多 12 个节点），并注明“按单一来源最长连续链兜底”；避免武功山三日游页面没有路线。
 - 水上乐园在 P6 中只有一个地点节点、没有独立 NEXT 连接；现在返回单点 proposal（`single_destination=true`），只生成该园区的“单点一日游”行程，不再回退整个景区拼出“野生动物世界→水上乐园”。
-- `trace_log` 不再在导入时调用 `tempfile.gettempdir()`，默认写 `%LOCALAPPDATA%\p07_agent_sessions`；修复受限环境下 Flask 启动报 `FileNotFoundError`、网页“无法访问”的问题。
+- `trace_log` 不再在导入时调用 `tempfile.gettempdir()`，默认写仓库同级可写的 `p7_agent_sessions`；修复受限环境下 Flask 启动报 `FileNotFoundError`、网页“无法访问”的问题。
 - 离线测试：`python -m unittest discover -s analysis/p07_agent/tests -q` 共 **69 条通过**；`check_agent.py` 通过（11 会话/152 步）。
 - 真实查询“带孩子去武功山玩三天”：86.0 秒；`status=partial`；`source_doc_id=WGS-O-05`；`valid=true`、`fully_verified=true`；12 节点；`day_plan` 4/4/4；网页显示第 1/2/3 天及上午/中午/下午。
 - 真实查询“带孩子去长隆水上乐园玩一天”：22.9 秒；`status=partial`；单节点“长隆水上乐园”；网页显示“建议行程”和“没有独立路线连接”，并只保留水上乐园节点。
 - 这两条查询仍为 `partial`：三日游的 `day_plan` 是均分展示，水上乐园没有园内路线；页面会把原因写出来，不再显示为完整可行方案。
+
+## 2026-11-13 会话保存权限导致的“处理失败”修复
+
+- 现象：网页能返回 HTTP 200，但页面最后显示“处理失败”，错误信息是写会话文件时的 `PermissionError: [Errno 13] Permission denied`。
+- 根因：当前受限 Python 进程不能写 `%LOCALAPPDATA%`、`%TEMP%` 或用户家目录，只能写项目工作区；`trace_log` 默认目录虽然能 `mkdir`，但 `SessionTrace.save()` 写文件被拒绝。旧代码又在 `finally` 中把保存失败写进 `result["error"]`，所以已生成的行程被整页标成失败。
+- 修复：`trace_log` 按“仓库同级 `p7_agent_sessions` → 当前工作目录 → 用户数据目录 → 家目录”探测实际可写目录，`P07_SESSION_DIR` 不可写时自动回退；`agent` 把保存失败降级为 `trace_error`，不再污染 `error` 或行程状态；网页单独用斜体提示，不再显示“处理失败”。
+- 验证：`python -m unittest discover -s analysis/p07_agent/tests -q` 共 **69 条通过**；`check_agent.py` 通过。重启 5000 端口后实测“带孩子去长隆玩一天”HTTP 200，页面无“处理失败”，包含“建议行程/上午/下午”，会话写入 `default-workspace\p7_agent_sessions`。
