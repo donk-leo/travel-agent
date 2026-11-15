@@ -292,7 +292,9 @@ class AgentAlternativesTests(unittest.TestCase):
 
     def test_run_agent_attaches_alternatives_list(self):
         result = self._run()
-        self.assertEqual(result["status"], "verified")
+        # T2.2 可行性闸：这条夹具是 12 个节点的一天（成人上限 8），状态降为 partial；
+        # 本用例只验证 alternatives 接线，不验证状态。
+        self.assertEqual(result["status"], "partial")
         self.assertIs(result["route"], self.route)
         self.assertIsInstance(result["alternatives"], list)
         self.assertTrue(result["alternatives"])
@@ -307,7 +309,8 @@ class AgentAlternativesTests(unittest.TestCase):
         with patch.object(agent, "build_alternatives",
                           side_effect=RuntimeError("备选生成失败")):
             result = self._run()
-        self.assertEqual(result["status"], "verified")
+        # 同上：12 个节点的一天超过成人上限 8，状态为 partial；主流程仍不能变 error。
+        self.assertEqual(result["status"], "partial")
         self.assertEqual(result["alternatives"], [])
         self.assertEqual(result["route"], self.route)
 

@@ -1,10 +1,12 @@
 """旅游 Agent 主流程：理解需求、决策、查询图谱、检查并记录结果。"""
 
 import json
+import os
 
 from alternatives import build_alternatives
 from condition_selector import find_relevant_conditions
 from constraint_checker import check_constraints, check_plan
+from feasibility import apply_feasibility
 from intent_parser import parse_intent
 from itinerary import build_itinerary
 from route_planner import plan_route
@@ -22,6 +24,10 @@ from trace_log import SessionTrace
 
 MAX_DECISION_ROUNDS = 3
 ALLOWED_TOOLS = {"get_conditions", "get_route_candidates", "search_poi"}
+
+#: 可行性闸（T2.2）开关：显式设为 0/false/off/no 时完全跳过，便于回退与对照评测。
+FEASIBILITY_GUARD_ENV = "FEASIBILITY_GUARD"
+FEASIBILITY_OFF_VALUES = frozenset({"0", "false", "off", "no"})
 
 # 这些词描述的是人群或体验偏好，不是地点名称；拿去做 POI 名称搜索必然为空。
 PREFERENCE_KEYWORDS = (
@@ -147,7 +153,7 @@ def run_agent(user_text):
         "poi_list_all": False, "message": "", "error": "", "scope": None,
         "itinerary": None, "needs_followup": False, "reasons": [],
         "what_verified": None, "trace_file": "", "trace_json": "",
-        "trace_error": "", "alternatives": []
+        "trace_error": "", "alternatives": [], "feasibility": None
     }
     trace = SessionTrace()
     trace.record_event("user_input", user_request=user_text)
@@ -317,6 +323,7 @@ def run_agent(user_text):
                         f"图谱中没有「{sub_area}」专属的条件建议，未展示其他园区的建议。"
                     ]))
             requirements = _route_requirements(result)
+            _apply_feasibility_gate(result, requirements, days, trace)
             result["itinerary"] = build_itinerary(
                 result["route"], result.get("suggestions"), area, sub_area,
                 profiles=requirements["profiles"],
@@ -396,6 +403,60 @@ def _route_requirements(result):
         "preferences": intent.get("preferences") or [],
         "constraints": intent.get("constraints") or [],
     }
+
+
+def _feasibility_enabled():
+    """``FEASIBILITY_GUARD=0``（或 false/off/no）时完全跳过可行性闸。"""
+    value = os.environ.get(FEASIBILITY_GUARD_ENV, "1")
+    return str(value).strip().lower() not in FEASIBILITY_OFF_VALUES
+
+
+def _apply_feasibility_gate(result, requirements, days, trace=None):
+    """T2.2 可行性闸：只读路线，单日点数超人群上限时把 verified 降为 partial。
+
+    约定（与 ``feasibility.apply_feasibility`` 一致）：
+    - 只有 ``status_override == "partial"`` 才降级，且只降不升；
+    - 假设/缺失写进 ``route.proposal.uncertainties``，不改 ``node_ids`` 与连接；
+    - 超过时长预算只记 warning/uncertainty，不单独改状态（连接核验与行程可行分开）。
+    """
+    if not _feasibility_enabled():
+        return None
+
+    route = result.get("route") or {}
+    report = apply_feasibility(
+        route, requirements.get("profiles"), requirements.get("constraints"), days)
+    result["feasibility"] = report
+    if trace is not None:
+        trace.record_event("feasibility", observation=report)
+
+    proposal = route.get("proposal")
+    if isinstance(proposal, dict):
+        known = [str(item) for item in (proposal.get("uncertainties") or [])]
+        for item in report["uncertainties"]:
+            if item not in known:
+                known.append(item)
+        proposal["uncertainties"] = known
+
+    if report.get("status_override") != STATUS_PARTIAL:
+        return report
+    if result.get("status") != STATUS_VERIFIED:
+        return report
+
+    # warnings[0] 是可行性闸给出的降级原因（feasibility.py 的返回约定）。
+    warning = (report.get("warnings") or [{}])[0]
+    reason_text = str(warning.get("text") or "").strip()
+    if not reason_text:
+        reason_text = "行程超出人群单日停留点上限，请减少停留点或增加天数。"
+    reason = make_reason(warning.get("code") or "constraint_conflict", reason_text)
+
+    reasons = [item for item in (result.get("reasons") or []) if isinstance(item, dict)]
+    if reason not in reasons:
+        reasons.append(reason)
+    result["reasons"] = reasons
+    result["status"] = STATUS_PARTIAL
+    result["needs_followup"] = True
+    result["message"] = " ".join(filter(None, [result.get("message"), reason_text]))
+    return report
 
 
 def _query_graph(result, trace, user_text, area, days, sub_area=None):
