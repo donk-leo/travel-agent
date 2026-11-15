@@ -1,31 +1,31 @@
 {
-  "docs_total": 29,
-  "docs_valid": 28,
-  "docs_with_conditions": 13,
-  "coverage": 0.4643,
-  "total": 36,
-  "unique": 33,
+  "docs_total": 32,
+  "docs_valid": 31,
+  "docs_with_conditions": 15,
+  "coverage": 0.4839,
+  "total": 38,
+  "unique": 34,
   "duplicates": {
-    "exact": 2,
+    "exact": 3,
     "prefix_suffix": 1
   },
   "dedup": {
-    "exact": 2,
+    "exact": 3,
     "prefix_suffix": 1,
-    "unique": 33,
-    "total": 36
+    "unique": 34,
+    "total": 38
   },
   "by_type": {
     "交通": 4,
     "时间": 13,
     "人群": 13,
     "体力": 2,
-    "天气": 3,
+    "天气": 5,
     "预算": 1
   },
   "by_area": {
     "广州白云山": 8,
-    "武功山": 16,
+    "武功山": 18,
     "长隆": 12
   },
   "by_area_type": {
@@ -40,7 +40,7 @@
       "人群": 5,
       "时间": 7,
       "体力": 1,
-      "天气": 1,
+      "天气": 3,
       "预算": 1,
       "交通": 1
     },
@@ -52,7 +52,7 @@
     }
   },
   "by_rule": {
-    "implicit_condition": 26,
+    "implicit_condition": 28,
     "explicit_if": 10
   },
   "by_trigger": {
@@ -61,6 +61,7 @@
     "可": 4,
     "一定要": 3,
     "记得": 2,
+    "不要": 2,
     "提前": 2,
     "带": 1,
     "如": 1,
@@ -272,6 +273,27 @@
       "doc_type": "游客游记",
       "sentences": 9,
       "conditions": 1
+    },
+    {
+      "doc_id": "WGS-O-07",
+      "scenic_area": "wugongshan",
+      "doc_type": "官方路线",
+      "sentences": 20,
+      "conditions": 1
+    },
+    {
+      "doc_id": "WGS-O-08",
+      "scenic_area": "wugongshan",
+      "doc_type": "官方路线",
+      "sentences": 10,
+      "conditions": 1
+    },
+    {
+      "doc_id": "WGS-O-09",
+      "scenic_area": "wugongshan",
+      "doc_type": "官方路线",
+      "sentences": 59,
+      "conditions": 0
     }
   ]
 }

@@ -1,19 +1,19 @@
 {
-  "total": 36,
-  "recommended_for_graph": 33,
-  "duplicates": 3,
+  "total": 38,
+  "recommended_for_graph": 34,
+  "duplicates": 4,
   "by_match_type": {
-    "area_fallback": 28,
+    "area_fallback": 30,
     "poi_suggestion": 7,
     "poi_overlap": 1
   },
   "by_target_type": {
-    "SCENIC_AREA": 28,
+    "SCENIC_AREA": 30,
     "POI": 8
   },
   "by_area": {
     "广州白云山": 8,
-    "武功山": 16,
+    "武功山": 18,
     "长隆": 12
   },
   "by_condition_type": {
@@ -21,13 +21,14 @@
     "时间": 13,
     "人群": 13,
     "体力": 2,
-    "天气": 3,
+    "天气": 5,
     "预算": 1
   },
   "duplicate_cond_ids": [
     "CND-0014",
     "CND-0015",
-    "CND-0022"
+    "CND-0022",
+    "CND-0038"
   ],
   "max_nearest_distance": 80
 }

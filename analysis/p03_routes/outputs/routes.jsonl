@@ -224,3 +224,43 @@
 {"doc_id": "WGS-T-06", "route_id": "WGS-T-06-r1", "step_no": 1, "activity": "整篇路线概述（未结构化）｜反穿武功山", "time_source": "absent", "time_period": "未知", "source_span": [0, 60], "format": "prose"}
 {"doc_id": "WGS-T-07", "route_id": "WGS-T-07-r1", "step_no": 1, "activity": "整篇路线概述（未结构化）｜草已黄，人未老，武功山上见分晓", "time_source": "absent", "time_period": "未知", "source_span": [0, 60], "format": "prose"}
 {"doc_id": "WGS-T-08", "route_id": "WGS-T-08-r1", "step_no": 1, "activity": "整篇路线概述（未结构化）｜江西武功山金顶星空露营攻略：解锁高山云海的浪漫", "time_source": "absent", "time_period": "未知", "source_span": [0, 60], "format": "prose"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 1, "poi": "金顶", "poi_raw": "金顶", "time_source": "absent", "time_period": "未知", "duration_min": 300, "source_span": [663, 665], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 2, "poi": "中庵索道", "poi_raw": "中庵索道", "time_source": "absent", "time_period": "未知", "source_span": [706, 710], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 3, "poi": "中庵", "poi_raw": "中庵", "time_source": "absent", "time_period": "未知", "source_span": [711, 713], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 4, "poi": "问道台", "poi_raw": "问道台", "time_source": "absent", "time_period": "未知", "source_span": [727, 730], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 5, "poi": "松涛阁", "poi_raw": "松涛阁", "time_source": "absent", "time_period": "未知", "source_span": [731, 734], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 6, "poi": "许愿石", "poi_raw": "许愿石", "time_source": "absent", "time_period": "未知", "source_span": [735, 738], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 7, "poi": "高空栈道", "poi_raw": "高空栈道", "time_source": "absent", "time_period": "未知", "source_span": [758, 762], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 8, "poi": "金顶索道", "poi_raw": "金顶索道", "time_source": "absent", "time_period": "未知", "source_span": [768, 772], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 9, "poi": "金顶", "poi_raw": "金顶", "time_source": "absent", "time_period": "未知", "source_span": [782, 784], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 10, "poi": "古祭坛群", "poi_raw": "古祭坛群", "time_source": "absent", "time_period": "未知", "source_span": [828, 832], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 11, "poi": "金顶", "poi_raw": "金顶", "time_source": "absent", "time_period": "未知", "source_span": [838, 840], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 12, "poi": "吊马桩", "poi_raw": "吊马桩", "time_source": "absent", "time_period": "未知", "source_span": [863, 866], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 13, "poi": "好汉坡", "poi_raw": "好汉坡", "time_source": "absent", "time_period": "未知", "source_span": [867, 870], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 14, "poi": "高空栈道", "poi_raw": "高空栈道", "time_source": "absent", "time_period": "未知", "source_span": [871, 875], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 15, "poi": "中庵", "poi_raw": "中庵", "time_source": "absent", "time_period": "未知", "source_span": [880, 882], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 16, "poi": "猴谷", "poi_raw": "猴谷", "time_source": "absent", "time_period": "未知", "source_span": [905, 907], "format": "day_sequence"}
+{"doc_id": "WGS-O-07", "route_id": "WGS-O-07-r1", "step_no": 17, "poi": "尽心瀑", "poi_raw": "尽心瀑", "time_source": "absent", "time_period": "未知", "source_span": [914, 917], "format": "day_sequence"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 1, "poi": "武功山红岩谷景区", "poi_raw": "武功山红岩谷景区", "time_source": "absent", "time_period": "未知", "source_span": [82, 100], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 2, "poi": "到达石鼓寺", "poi_raw": "到达石鼓寺", "time_source": "absent", "time_period": "未知", "source_span": [199, 204], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 3, "poi": "可乘索道到中庵", "poi_raw": "可乘索道到中庵", "time_source": "absent", "time_period": "未知", "source_span": [205, 227], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 4, "poi": "乘金顶索道", "poi_raw": "乘金顶索道", "time_source": "absent", "time_period": "未知", "source_span": [277, 296], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 5, "poi": "到达十万亩天上草原", "poi_raw": "到达十万亩天上草原", "time_source": "absent", "time_period": "未知", "source_span": [297, 306], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 6, "poi": "纵揽湘赣风云", "poi_raw": "纵揽湘赣风云", "time_source": "absent", "time_period": "未知", "source_span": [371, 377], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 7, "poi": "吊马桩", "poi_raw": "吊马桩", "time_source": "absent", "time_period": "未知", "source_span": [392, 395], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 8, "poi": "好汉坡", "poi_raw": "好汉坡", "time_source": "absent", "time_period": "未知", "source_span": [396, 399], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 9, "poi": "高空栈道", "poi_raw": "高空栈道", "time_source": "absent", "time_period": "未知", "source_span": [400, 404], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 10, "poi": "到达中庵", "poi_raw": "到达中庵", "time_source": "absent", "time_period": "未知", "source_span": [405, 417], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 11, "poi": "乘索道下山", "poi_raw": "乘索道下山", "time_source": "absent", "time_period": "未知", "source_span": [418, 438], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 12, "poi": "猴谷", "poi_raw": "猴谷", "time_source": "absent", "time_period": "未知", "source_span": [444, 446], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 13, "poi": "飚水岩瀑布", "poi_raw": "飚水岩瀑布", "time_source": "absent", "time_period": "未知", "source_span": [447, 452], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 14, "poi": "尽心瀑", "poi_raw": "尽心瀑", "time_source": "absent", "time_period": "未知", "source_span": [453, 456], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 15, "poi": "天马印蹄瀑下山", "poi_raw": "天马印蹄瀑下山", "time_source": "absent", "time_period": "未知", "source_span": [457, 474], "format": "poi_list"}
+{"doc_id": "WGS-O-08", "route_id": "WGS-O-08-r1", "step_no": 16, "poi": "结束愉快之旅", "poi_raw": "结束愉快之旅", "time_source": "absent", "time_period": "未知", "source_span": [487, 493], "format": "poi_list"}
+{"doc_id": "WGS-O-09", "route_id": "WGS-O-09-r1", "step_no": 1, "poi": "山下路线:武功山航空飞行营地", "poi_raw": "（2）山下路线:武功山航空飞行营地", "time_source": "absent", "time_period": "未知", "source_span": [208, 225], "format": "chain"}
+{"doc_id": "WGS-O-09", "route_id": "WGS-O-09-r1", "step_no": 2, "poi": "游客服务中心", "poi_raw": "游客服务中心", "time_source": "absent", "time_period": "未知", "source_span": [226, 232], "format": "chain"}
+{"doc_id": "WGS-O-09", "route_id": "WGS-O-09-r1", "step_no": 3, "poi": "石鼓寺", "poi_raw": "石鼓寺", "time_source": "absent", "time_period": "未知", "source_span": [233, 236], "format": "chain"}
+{"doc_id": "WGS-O-09", "route_id": "WGS-O-09-r1", "step_no": 4, "poi": "红岩谷", "poi_raw": "红岩谷", "time_source": "absent", "time_period": "未知", "source_span": [237, 240], "format": "chain"}
+{"doc_id": "WGS-O-09", "route_id": "WGS-O-09-r1", "step_no": 5, "poi": "武功山现代农业科技产业园", "poi_raw": "武功山现代农业科技产业园", "time_source": "absent", "time_period": "未知", "source_span": [241, 253], "format": "chain"}
+{"doc_id": "WGS-O-09", "route_id": "WGS-O-09-r1", "step_no": 6, "poi": "美丽石溪", "poi_raw": "美丽石溪", "time_source": "absent", "time_period": "未知", "source_span": [254, 258], "format": "chain"}
+{"doc_id": "WGS-O-09", "route_id": "WGS-O-09-r1", "step_no": 7, "poi_raw": "返回", "activity": "返回", "time_source": "absent", "time_period": "未知", "source_span": [259, 261], "format": "chain"}

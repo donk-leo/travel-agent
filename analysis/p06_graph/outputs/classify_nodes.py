@@ -4,7 +4,8 @@
 范围（唯一口径，见 docs/optimization/NODE_CLASSIFICATION.md）：
     地点节点 = graph_nodes.csv 中 node_type ∈ {SCENIC_AREA, POI, TRANSPORT}
     非地点节点 = node_type ∈ {TIME, ACTIVITY, CONDITION}（按 node_type 显式排除，不分类、不静默丢弃）
-当前基线：SCENIC_AREA 3 + POI 141 + TRANSPORT 8 = 152；TIME 32 + ACTIVITY 12 + CONDITION 33 = 77；152 + 77 = 229。
+基线（T1.5 重跑 32 篇后更新）：SCENIC_AREA 3 + POI 157 + TRANSPORT 8 = 168；
+TIME 32 + ACTIVITY 13 + CONDITION 34 = 79；168 + 79 = 247。
 
 `node_class` 枚举（6 值，不得新增）：
     attraction 可游览/可参观的具体景点、展馆、表演、游乐项目
@@ -54,8 +55,8 @@ LOCATION_TYPES = ("SCENIC_AREA", "POI", "TRANSPORT")
 EXCLUDED_TYPES = ("TIME", "ACTIVITY", "CONDITION")
 
 #: 基线规模（写进 docs；T1.5 若增删节点，--check 会要求同步更新）
-BASELINE = {"SCENIC_AREA": 3, "POI": 141, "TRANSPORT": 8,
-            "TIME": 32, "ACTIVITY": 12, "CONDITION": 33}
+BASELINE = {"SCENIC_AREA": 3, "POI": 157, "TRANSPORT": 8,
+            "TIME": 32, "ACTIVITY": 13, "CONDITION": 34}
 SAMPLE_SEED = 20261115
 SAMPLE_N = 50
 NOISE_RATE_LIMIT = 0.10
@@ -292,8 +293,9 @@ def check_classification(rows: list[dict], errors: list[str]) -> None:
     expect_n = sum(1 for n in nodes if n["node_type"] in LOCATION_TYPES)
     if len(rows) != expect_n:
         errors.append(f"分类行数 {len(rows)} ≠ 地点节点数 {expect_n}")
-    if expect_n != 152:
-        errors.append(f"当前地点节点 {expect_n} ≠ 基线 152：T1.5 重跑后需同步更新 docs 与 50 抽样表")
+    baseline_n = sum(BASELINE[t] for t in LOCATION_TYPES)
+    if expect_n != baseline_n:
+        errors.append(f"当前地点节点 {expect_n} ≠ 基线 {baseline_n}：重跑后需同步更新 docs 与 50 抽样表")
     # 表头
     with CLASS_PATH.open(encoding="utf-8-sig", newline="") as fh:
         header = next(csv.reader(fh), [])
@@ -375,7 +377,7 @@ def check_determinism(rows: list[dict], errors: list[str]) -> None:
 
 
 def noise_frame() -> list[str]:
-    """50 抽样框：141 个 POI 节点，按 node_id 排序后 sample（固定 seed，确定性）。"""
+    """50 抽样框：157 个 POI 节点，按 node_id 排序后 sample（固定 seed，确定性）。"""
     nodes = load_nodes()
     pois = sorted(n["node_id"] for n in nodes if n["node_type"] == "POI")
     if len(pois) < SAMPLE_N:
@@ -396,7 +398,7 @@ def check_sample(errors: list[str]) -> None:
     frame = noise_frame()
     got = [r["node_id"] for r in rows]
     if got != frame:
-        errors.append("抽样表 node_id 序列与 random.Random(20261115).sample(141 POI, 50) 不一致")
+        errors.append("抽样表 node_id 序列与 random.Random(20261115).sample(157 POI, 50) 不一致")
     if [r["sample_no"] for r in rows] != [str(i) for i in range(1, SAMPLE_N + 1)]:
         errors.append("sample_no 必须是 1..50 递增")
     # 分类一致性
@@ -445,7 +447,7 @@ def check_docs(errors: list[str]) -> None:
         return
     text = DOCS_PATH.read_text(encoding="utf-8")
     for needle, why in [
-        ("152 + 77 = 229", "范围口径（152 地点 + 77 非地点 = 229）"),
+        ("168 + 79 = 247", "范围口径（168 地点 + 79 非地点 = 247）"),
         ("random.Random(20261115)", "50 抽样 seed 复算口径"),
         ("classify_nodes.py --write", "T1.5 重建命令"),
         ("attraction", "6 值枚举"),

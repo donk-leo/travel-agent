@@ -19,25 +19,25 @@
     "本 period_rule 一旦交付即冻结"
   ],
   "totals": {
-    "routes": 35,
-    "steps": 226,
+    "routes": 38,
+    "steps": 266,
     "timed_steps": 47,
     "by_time_source": {
-      "absent": 179,
+      "absent": 219,
       "explicit": 47
     },
     "by_period": {
-      "未知": 179,
+      "未知": 219,
       "上午": 16,
       "中午": 11,
       "下午": 17,
       "晚上": 3
     },
     "by_format": {
-      "poi_list": 2,
+      "poi_list": 3,
       "prose": 12,
-      "chain": 12,
-      "day_sequence": 2,
+      "chain": 13,
+      "day_sequence": 3,
       "station": 1,
       "station+chain": 1,
       "period": 2,
@@ -66,21 +66,21 @@
       }
     },
     "武功山": {
-      "routes": 16,
-      "steps": 113,
+      "routes": 19,
+      "steps": 153,
       "timed_steps": 0,
       "periods": {
-        "未知": 113
+        "未知": 153
       }
     }
   },
   "by_doc_type": {
     "官方路线": {
-      "routes": 14,
-      "steps": 134,
+      "routes": 17,
+      "steps": 174,
       "timed_steps": 14,
       "periods": {
-        "未知": 120,
+        "未知": 160,
         "上午": 4,
         "中午": 3,
         "下午": 7
@@ -1849,6 +1849,426 @@
           "step_no": 6,
           "poi": "途经好汉坡",
           "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-07-r1",
+      "doc_id": "WGS-O-07",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "两日游",
+      "title": "温泉+滑草场+武功山两日游",
+      "format": "day_sequence",
+      "n_steps": 17,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 17
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "中庵索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "中庵",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "问道台",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "松涛阁",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "许愿石",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "高空栈道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "金顶索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 9,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 10,
+          "poi": "古祭坛群",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 11,
+          "poi": "金顶",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 12,
+          "poi": "吊马桩",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 13,
+          "poi": "好汉坡",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 14,
+          "poi": "高空栈道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 15,
+          "poi": "中庵",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 16,
+          "poi": "猴谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 17,
+          "poi": "尽心瀑",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-08-r1",
+      "doc_id": "WGS-O-08",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "两日游",
+      "title": "绿色武功山+红岩谷瀑布两日游",
+      "format": "poi_list",
+      "n_steps": 16,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 16
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "武功山红岩谷景区",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "到达石鼓寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "可乘索道到中庵",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "乘金顶索道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "到达十万亩天上草原",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "纵揽湘赣风云",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "吊马桩",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 8,
+          "poi": "好汉坡",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 9,
+          "poi": "高空栈道",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 10,
+          "poi": "到达中庵",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 11,
+          "poi": "乘索道下山",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 12,
+          "poi": "猴谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 13,
+          "poi": "飚水岩瀑布",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 14,
+          "poi": "尽心瀑",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 15,
+          "poi": "天马印蹄瀑下山",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 16,
+          "poi": "结束愉快之旅",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        }
+      ]
+    },
+    {
+      "route_id": "WGS-O-09-r1",
+      "doc_id": "WGS-O-09",
+      "scenic_area": "武功山",
+      "doc_type": "官方路线",
+      "subtype": "航空游览",
+      "title": "武功山航空飞行营地",
+      "format": "chain",
+      "n_steps": 7,
+      "n_timed": 0,
+      "periods": {
+        "上午": 0,
+        "中午": 0,
+        "下午": 0,
+        "晚上": 0,
+        "未知": 7
+      },
+      "steps": [
+        {
+          "step_no": 1,
+          "poi": "山下路线:武功山航空飞行营地",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 2,
+          "poi": "游客服务中心",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 3,
+          "poi": "石鼓寺",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 4,
+          "poi": "红岩谷",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 5,
+          "poi": "武功山现代农业科技产业园",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 6,
+          "poi": "美丽石溪",
+          "activity": "",
+          "time_raw": "",
+          "time_norm": "",
+          "time_source": "absent",
+          "time_period": "未知"
+        },
+        {
+          "step_no": 7,
+          "poi": "",
+          "activity": "返回",
           "time_raw": "",
           "time_norm": "",
           "time_source": "absent",

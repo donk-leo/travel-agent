@@ -8,7 +8,7 @@
     "rule_counts": {
       "P2_only": 28,
       "R1_exact": 54,
-      "P3_only": 59
+      "P3_only": 75
     },
     "alias_hits": [],
     "p2_only": {
@@ -90,28 +90,44 @@
         "一木成林",
         "七仙潭",
         "三县界碑",
+        "乘索道下山",
+        "乘金顶索道",
         "九龙客栈",
+        "到达中庵",
+        "到达十万亩天上草原",
+        "到达石鼓寺",
         "发云界",
+        "可乘索道到中庵",
         "回音谷",
+        "天马印蹄瀑下山",
         "夫妻瀑",
         "安源路矿工人运动纪念馆",
+        "山下路线:武功山航空飞行营地",
         "明月山6281梯",
         "松园",
         "松涛阁",
+        "武功山现代农业科技产业园",
+        "武功山红岩谷景区",
         "沈家大院",
+        "游客服务中心",
         "玻璃栈道",
         "玻璃眺台",
         "福星谷栈道",
         "秋收起义广场",
         "红岩瀑",
+        "红岩谷",
+        "纵揽湘赣风云",
+        "结束愉快之旅",
         "绝望坡",
         "羊狮慕小火车站",
+        "美丽石溪",
         "老鹰岩",
         "萍乡车站",
         "许愿石",
         "途经好汉坡",
         "铁蹄峰",
-        "问道台"
+        "问道台",
+        "飚水岩瀑布"
       ]
     },
     "transport_raw_to_canon": {
@@ -207,12 +223,12 @@
       "午餐休息区": "午餐休息",
       "夜场演出": "夜场演出"
     },
-    "activity_only_steps": 7,
+    "activity_only_steps": 8,
     "condition_missing_targets": [],
     "time_edges": 47,
-    "transport_edges": 182,
-    "next_edges": 165,
-    "next_weight": 187.0,
+    "transport_edges": 215,
+    "next_edges": 192,
+    "next_weight": 224.0,
     "poi_activity_annotations": {
       "POI|长隆|南门": [
         "入园",
@@ -237,26 +253,26 @@
     }
   },
   "counts": {
-    "nodes": 229,
-    "edges": 523,
+    "nodes": 247,
+    "edges": 577,
     "by_type": {
       "SCENIC_AREA": 3,
-      "POI": 141,
+      "POI": 157,
       "TRANSPORT": 8,
       "TIME": 32,
-      "ACTIVITY": 12,
-      "CONDITION": 33
+      "ACTIVITY": 13,
+      "CONDITION": 34
     },
     "by_rel": {
-      "CONTAINS": 153,
-      "NEXT": 165,
+      "CONTAINS": 170,
+      "NEXT": 192,
       "AT_TIME": 47,
-      "BY_TRANSPORT": 118,
-      "HAS_CONDITION": 33,
+      "BY_TRANSPORT": 127,
+      "HAS_CONDITION": 34,
       "SIMILAR_TO": 7
     },
-    "conditions": 36,
-    "conditions_recommended": 33
+    "conditions": 38,
+    "conditions_recommended": 34
   },
-  "generated_at": "2026-11-01T14:16:57"
+  "generated_at": "2026-11-15T17:55:24"
 }

@@ -29,8 +29,8 @@
   <data key="d0">SCENIC_AREA</data>
   <data key="d1">武功山</data>
   <data key="d2">武功山</data>
-  <data key="d3">14</data>
-  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-04;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
+  <data key="d3">17</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-O-09;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-04;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
   <data key="d5">{"source": "P2/P3 doc_id 前缀"}</data>
 </node>
 <node id="POI|长隆|U型滑板">
@@ -765,40 +765,40 @@
   <data key="d0">POI</data>
   <data key="d1">中庵</data>
   <data key="d2">武功山</data>
-  <data key="d3">7</data>
-  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-07</data>
+  <data key="d3">9</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-T-07</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|中庵索道">
   <data key="d0">POI</data>
   <data key="d1">中庵索道</data>
   <data key="d2">武功山</data>
-  <data key="d3">6</data>
-  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-T-03</data>
+  <data key="d3">7</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-07;WGS-T-03</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|古祭坛群">
   <data key="d0">POI</data>
   <data key="d1">古祭坛群</data>
   <data key="d2">武功山</data>
-  <data key="d3">6</data>
-  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06</data>
+  <data key="d3">8</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|吊马桩">
   <data key="d0">POI</data>
   <data key="d1">吊马桩</data>
   <data key="d2">武功山</data>
-  <data key="d3">6</data>
-  <data key="d4">WGS-O-01;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-07</data>
+  <data key="d3">9</data>
+  <data key="d4">WGS-O-01;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-O-09;WGS-T-05;WGS-T-07</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|好汉坡">
   <data key="d0">POI</data>
   <data key="d1">好汉坡</data>
   <data key="d2">武功山</data>
-  <data key="d3">5</data>
-  <data key="d4">WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-06;WGS-T-07</data>
+  <data key="d3">7</data>
+  <data key="d4">WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-T-05;WGS-T-06;WGS-T-07</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|尽心桥">
@@ -813,8 +813,8 @@
   <data key="d0">POI</data>
   <data key="d1">尽心瀑</data>
   <data key="d2">武功山</data>
-  <data key="d3">2</data>
-  <data key="d4">WGS-O-05;WGS-O-06</data>
+  <data key="d3">4</data>
+  <data key="d4">WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|情人花廊">
@@ -869,8 +869,8 @@
   <data key="d0">POI</data>
   <data key="d1">猴谷</data>
   <data key="d2">武功山</data>
-  <data key="d3">3</data>
-  <data key="d4">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d3">5</data>
+  <data key="d4">WGS-O-01;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|环形栈道">
@@ -885,16 +885,16 @@
   <data key="d0">POI</data>
   <data key="d1">石鼓寺</data>
   <data key="d2">武功山</data>
-  <data key="d3">7</data>
-  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03;WGS-T-07</data>
+  <data key="d3">9</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-08;WGS-O-09;WGS-T-03;WGS-T-07</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|福星谷">
   <data key="d0">POI</data>
   <data key="d1">福星谷</data>
   <data key="d2">武功山</data>
-  <data key="d3">7</data>
-  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03</data>
+  <data key="d3">8</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-08;WGS-T-03</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|紫极宫">
@@ -917,8 +917,8 @@
   <data key="d0">POI</data>
   <data key="d1">观音宕</data>
   <data key="d2">武功山</data>
-  <data key="d3">3</data>
-  <data key="d4">WGS-O-05;WGS-O-06;WGS-T-05</data>
+  <data key="d3">4</data>
+  <data key="d4">WGS-O-05;WGS-O-06;WGS-O-09;WGS-T-05</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|许愿桥">
@@ -933,16 +933,16 @@
   <data key="d0">POI</data>
   <data key="d1">金顶</data>
   <data key="d2">武功山</data>
-  <data key="d3">13</data>
-  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
+  <data key="d3">16</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-O-09;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|金顶索道">
   <data key="d0">POI</data>
   <data key="d1">金顶索道</data>
   <data key="d2">武功山</data>
-  <data key="d3">5</data>
-  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-T-03</data>
+  <data key="d3">7</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-07;WGS-O-08;WGS-T-03</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|飙水岩瀑布">
@@ -957,8 +957,8 @@
   <data key="d0">POI</data>
   <data key="d1">高空栈道</data>
   <data key="d2">武功山</data>
-  <data key="d3">2</data>
-  <data key="d4">WGS-O-01;WGS-O-02</data>
+  <data key="d3">4</data>
+  <data key="d4">WGS-O-01;WGS-O-02;WGS-O-07;WGS-O-08</data>
   <data key="d5">{"merge_rule": "R1_exact", "origins": "P2"}</data>
 </node>
 <node id="POI|武功山|一木成林">
@@ -985,12 +985,52 @@
   <data key="d4">WGS-T-05</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
+<node id="POI|武功山|乘索道下山">
+  <data key="d0">POI</data>
+  <data key="d1">乘索道下山</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|乘金顶索道">
+  <data key="d0">POI</data>
+  <data key="d1">乘金顶索道</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
 <node id="POI|武功山|九龙客栈">
   <data key="d0">POI</data>
   <data key="d1">九龙客栈</data>
   <data key="d2">武功山</data>
   <data key="d3">1</data>
   <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|到达中庵">
+  <data key="d0">POI</data>
+  <data key="d1">到达中庵</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|到达十万亩天上草原">
+  <data key="d0">POI</data>
+  <data key="d1">到达十万亩天上草原</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|到达石鼓寺">
+  <data key="d0">POI</data>
+  <data key="d1">到达石鼓寺</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
 <node id="POI|武功山|发云界">
@@ -1001,12 +1041,28 @@
   <data key="d4">WGS-T-05</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
+<node id="POI|武功山|可乘索道到中庵">
+  <data key="d0">POI</data>
+  <data key="d1">可乘索道到中庵</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
 <node id="POI|武功山|回音谷">
   <data key="d0">POI</data>
   <data key="d1">回音谷</data>
   <data key="d2">武功山</data>
   <data key="d3">2</data>
   <data key="d4">WGS-O-05;WGS-O-06</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|天马印蹄瀑下山">
+  <data key="d0">POI</data>
+  <data key="d1">天马印蹄瀑下山</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
 <node id="POI|武功山|夫妻瀑">
@@ -1023,6 +1079,14 @@
   <data key="d2">武功山</data>
   <data key="d3">1</data>
   <data key="d4">WGS-O-03</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|山下路线:武功山航空飞行营地">
+  <data key="d0">POI</data>
+  <data key="d1">山下路线:武功山航空飞行营地</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-09</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
 <node id="POI|武功山|明月山6281梯">
@@ -1045,8 +1109,24 @@
   <data key="d0">POI</data>
   <data key="d1">松涛阁</data>
   <data key="d2">武功山</data>
+  <data key="d3">2</data>
+  <data key="d4">WGS-O-03;WGS-O-07</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|武功山现代农业科技产业园">
+  <data key="d0">POI</data>
+  <data key="d1">武功山现代农业科技产业园</data>
+  <data key="d2">武功山</data>
   <data key="d3">1</data>
-  <data key="d4">WGS-O-03</data>
+  <data key="d4">WGS-O-09</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|武功山红岩谷景区">
+  <data key="d0">POI</data>
+  <data key="d1">武功山红岩谷景区</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
 <node id="POI|武功山|沈家大院">
@@ -1055,6 +1135,14 @@
   <data key="d2">武功山</data>
   <data key="d3">1</data>
   <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|游客服务中心">
+  <data key="d0">POI</data>
+  <data key="d1">游客服务中心</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-09</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
 <node id="POI|武功山|玻璃栈道">
@@ -1097,6 +1185,30 @@
   <data key="d4">WGS-O-04</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
+<node id="POI|武功山|红岩谷">
+  <data key="d0">POI</data>
+  <data key="d1">红岩谷</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-09</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|纵揽湘赣风云">
+  <data key="d0">POI</data>
+  <data key="d1">纵揽湘赣风云</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|结束愉快之旅">
+  <data key="d0">POI</data>
+  <data key="d1">结束愉快之旅</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-08</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
 <node id="POI|武功山|绝望坡">
   <data key="d0">POI</data>
   <data key="d1">绝望坡</data>
@@ -1111,6 +1223,14 @@
   <data key="d2">武功山</data>
   <data key="d3">1</data>
   <data key="d4">WGS-T-05</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|美丽石溪">
+  <data key="d0">POI</data>
+  <data key="d1">美丽石溪</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-09</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
 <node id="POI|武功山|老鹰岩">
@@ -1133,8 +1253,8 @@
   <data key="d0">POI</data>
   <data key="d1">许愿石</data>
   <data key="d2">武功山</data>
-  <data key="d3">1</data>
-  <data key="d4">WGS-O-03</data>
+  <data key="d3">2</data>
+  <data key="d4">WGS-O-03;WGS-O-07</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
 <node id="POI|武功山|途经好汉坡">
@@ -1157,16 +1277,24 @@
   <data key="d0">POI</data>
   <data key="d1">问道台</data>
   <data key="d2">武功山</data>
+  <data key="d3">2</data>
+  <data key="d4">WGS-O-03;WGS-O-07</data>
+  <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
+</node>
+<node id="POI|武功山|飚水岩瀑布">
+  <data key="d0">POI</data>
+  <data key="d1">飚水岩瀑布</data>
+  <data key="d2">武功山</data>
   <data key="d3">1</data>
-  <data key="d4">WGS-O-03</data>
+  <data key="d4">WGS-O-08</data>
   <data key="d5">{"merge_rule": "P3_only", "origins": "P3"}</data>
 </node>
 <node id="TRANSPORT|步行">
   <data key="d0">TRANSPORT</data>
   <data key="d1">步行</data>
   <data key="d2">跨景区</data>
-  <data key="d3">13</data>
-  <data key="d4">BYS-O-01;BYS-O-02;BYS-O-03;BYS-T-01;BYS-T-02;BYS-T-04;CL-O-03;CL-T-02;CL-T-04;WGS-O-03;WGS-O-04;WGS-O-06;WGS-T-03</data>
+  <data key="d3">15</data>
+  <data key="d4">BYS-O-01;BYS-O-02;BYS-O-03;BYS-T-01;BYS-T-02;BYS-T-04;CL-O-03;CL-T-02;CL-T-04;WGS-O-03;WGS-O-04;WGS-O-06;WGS-O-07;WGS-O-08;WGS-T-03</data>
   <data key="d5">{"raw_names": ["步行"], "areas": "广州白云山、武功山、长隆"}</data>
 </node>
 <node id="TRANSPORT|缆车">
@@ -1205,8 +1333,8 @@
   <data key="d0">TRANSPORT</data>
   <data key="d1">索道</data>
   <data key="d2">跨景区</data>
-  <data key="d3">12</data>
-  <data key="d4">BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03;WGS-T-05;WGS-T-07</data>
+  <data key="d3">14</data>
+  <data key="d4">BYS-T-01;BYS-T-02;BYS-T-03;BYS-T-04;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-T-03;WGS-T-05;WGS-T-07</data>
   <data key="d5">{"raw_names": ["索道"], "areas": "广州白云山、武功山"}</data>
 </node>
 <node id="TRANSPORT|观光车">
@@ -1577,6 +1705,14 @@
   <data key="d4">WGS-O-02</data>
   <data key="d5">{"source": "P3 activity"}</data>
 </node>
+<node id="ACTIVITY|返回">
+  <data key="d0">ACTIVITY</data>
+  <data key="d1">返回</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-09</data>
+  <data key="d5">{"source": "P3 activity"}</data>
+</node>
 <node id="CONDITION|CND-0001">
   <data key="d0">CONDITION</data>
   <data key="d1">停车</data>
@@ -1840,6 +1976,14 @@
   <data key="d3">1</data>
   <data key="d4">CL-T-04</data>
   <data key="d5">{"cond_id": "CND-0036", "condition_type": "天气", "suggestion": "备好轻便雨衣更从容", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
+</node>
+<node id="CONDITION|CND-0037">
+  <data key="d0">CONDITION</data>
+  <data key="d1">雨天</data>
+  <data key="d2">武功山</data>
+  <data key="d3">1</data>
+  <data key="d4">WGS-O-07</data>
+  <data key="d5">{"cond_id": "CND-0037", "condition_type": "天气", "suggestion": "请不要在山上使用手机", "match_type": "area_fallback", "anchor_confidence": "0.3"}</data>
 </node>
 <edge source="SCENIC_AREA|长隆" target="POI|长隆|U型滑板" id="CONTAINS">
   <data key="d6">CONTAINS</data>
@@ -2540,31 +2684,31 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|中庵" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-07</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-T-07</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|中庵索道" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-T-03</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-07;WGS-T-03</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|古祭坛群" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|吊马桩" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-07</data>
+  <data key="d8">WGS-O-01;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-O-09;WGS-T-05;WGS-T-07</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|好汉坡" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-05;WGS-O-06;WGS-T-05;WGS-T-06;WGS-T-07</data>
+  <data key="d8">WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-T-05;WGS-T-06;WGS-T-07</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|尽心桥" id="CONTAINS">
@@ -2576,7 +2720,7 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|尽心瀑" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-05;WGS-O-06</data>
+  <data key="d8">WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|情人花廊" id="CONTAINS">
@@ -2618,7 +2762,7 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|猴谷" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-05;WGS-O-06</data>
+  <data key="d8">WGS-O-01;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|环形栈道" id="CONTAINS">
@@ -2630,13 +2774,13 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|石鼓寺" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03;WGS-T-07</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-08;WGS-O-09;WGS-T-03;WGS-T-07</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|福星谷" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-03</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-08;WGS-T-03</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|紫极宫" id="CONTAINS">
@@ -2654,7 +2798,7 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|观音宕" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-05;WGS-O-06;WGS-T-05</data>
+  <data key="d8">WGS-O-05;WGS-O-06;WGS-O-09;WGS-T-05</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|许愿桥" id="CONTAINS">
@@ -2666,13 +2810,13 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|金顶" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-O-09;WGS-T-01;WGS-T-02;WGS-T-03;WGS-T-05;WGS-T-06;WGS-T-07;WGS-T-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|金顶索道" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-T-03</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-03;WGS-O-04;WGS-O-07;WGS-O-08;WGS-T-03</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|飙水岩瀑布" id="CONTAINS">
@@ -2684,7 +2828,7 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|高空栈道" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-01;WGS-O-02</data>
+  <data key="d8">WGS-O-01;WGS-O-02;WGS-O-07;WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|一木成林" id="CONTAINS">
@@ -2705,10 +2849,40 @@
   <data key="d8">WGS-T-05</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|乘索道下山" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|乘金顶索道" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|九龙客栈" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|到达中庵" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|到达十万亩天上草原" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|到达石鼓寺" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|发云界" id="CONTAINS">
@@ -2717,10 +2891,22 @@
   <data key="d8">WGS-T-05</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|可乘索道到中庵" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|回音谷" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|天马印蹄瀑下山" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|夫妻瀑" id="CONTAINS">
@@ -2733,6 +2919,12 @@
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-O-03</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|山下路线:武功山航空飞行营地" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|明月山6281梯" id="CONTAINS">
@@ -2750,13 +2942,31 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|松涛阁" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-03</data>
+  <data key="d8">WGS-O-03;WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|武功山现代农业科技产业园" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|武功山红岩谷景区" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|沈家大院" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|游客服务中心" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|玻璃栈道" id="CONTAINS">
@@ -2789,6 +2999,24 @@
   <data key="d8">WGS-O-04</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|红岩谷" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|纵揽湘赣风云" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|结束愉快之旅" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|绝望坡" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
@@ -2799,6 +3027,12 @@
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|美丽石溪" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|老鹰岩" id="CONTAINS">
@@ -2816,7 +3050,7 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|许愿石" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-03</data>
+  <data key="d8">WGS-O-03;WGS-O-07</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|途经好汉坡" id="CONTAINS">
@@ -2834,13 +3068,25 @@
 <edge source="SCENIC_AREA|武功山" target="POI|武功山|问道台" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-03</data>
+  <data key="d8">WGS-O-03;WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="POI|武功山|飚水岩瀑布" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="ACTIVITY|可选择乘坐高空滑索" id="CONTAINS">
   <data key="d6">CONTAINS</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-O-02</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="ACTIVITY|返回" id="CONTAINS">
+  <data key="d6">CONTAINS</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0009" id="HAS_CONDITION">
@@ -2907,6 +3153,12 @@
   <data key="d6">HAS_CONDITION</data>
   <data key="d7">0.3</data>
   <data key="d8">WGS-T-08</data>
+  <data key="d9">{"match_type": "area_fallback"}</data>
+</edge>
+<edge source="SCENIC_AREA|武功山" target="CONDITION|CND-0037" id="HAS_CONDITION">
+  <data key="d6">HAS_CONDITION</data>
+  <data key="d7">0.3</data>
+  <data key="d8">WGS-O-07</data>
   <data key="d9">{"match_type": "area_fallback"}</data>
 </edge>
 <edge source="POI|长隆|北门" target="POI|长隆|小火车游览区" id="NEXT">
@@ -3731,16 +3983,16 @@
   <data key="d8">BYS-O-01;BYS-T-01</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
-<edge source="POI|广州白云山|摩星岭" target="TRANSPORT|徒步" id="BY_TRANSPORT">
-  <data key="d6">BY_TRANSPORT</data>
-  <data key="d7">2.0</data>
-  <data key="d8">BYS-T-01;BYS-T-04</data>
-  <data key="d9">{"evidence": "P2 同句共现"}</data>
-</edge>
 <edge source="POI|广州白云山|摩星岭" target="TRANSPORT|观光车" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
   <data key="d7">2.0</data>
   <data key="d8">BYS-O-01;BYS-T-01</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|广州白云山|摩星岭" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">BYS-T-01;BYS-T-04</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|广州白云山|摩星岭" target="TRANSPORT|缆车" id="BY_TRANSPORT">
@@ -4235,25 +4487,37 @@
   <data key="d8">WGS-O-04</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|中庵" target="POI|武功山|问道台" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|中庵" target="POI|武功山|猴谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|中庵" target="TRANSPORT|步行" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
-  <data key="d7">2.0</data>
-  <data key="d8">WGS-O-03;WGS-O-04</data>
+  <data key="d7">4.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-07;WGS-O-08</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|武功山|中庵" target="TRANSPORT|索道" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
-  <data key="d7">6.0</data>
-  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-T-07</data>
+  <data key="d7">10.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-06;WGS-O-07;WGS-O-08;WGS-T-07</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
-<edge source="POI|武功山|中庵" target="TRANSPORT|徒步" id="BY_TRANSPORT">
+<edge source="POI|武功山|中庵" target="TRANSPORT|观光车" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-T-07</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
-<edge source="POI|武功山|中庵" target="TRANSPORT|观光车" id="BY_TRANSPORT">
+<edge source="POI|武功山|中庵" target="TRANSPORT|徒步" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-T-07</data>
@@ -4277,10 +4541,16 @@
   <data key="d8">WGS-O-03</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|中庵索道" target="POI|武功山|中庵" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|中庵索道" target="TRANSPORT|索道" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
-  <data key="d7">3.0</data>
-  <data key="d8">WGS-O-03;WGS-T-03</data>
+  <data key="d7">4.0</data>
+  <data key="d8">WGS-O-03;WGS-O-07;WGS-T-03</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|武功山|中庵索道" target="TRANSPORT|徒步" id="BY_TRANSPORT">
@@ -4291,8 +4561,8 @@
 </edge>
 <edge source="POI|武功山|古祭坛群" target="POI|武功山|金顶" id="NEXT">
   <data key="d6">NEXT</data>
-  <data key="d7">3.0</data>
-  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-05</data>
+  <data key="d7">4.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-05;WGS-O-07</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|吊马桩" target="POI|武功山|金顶" id="NEXT">
@@ -4309,8 +4579,8 @@
 </edge>
 <edge source="POI|武功山|吊马桩" target="POI|武功山|好汉坡" id="NEXT">
   <data key="d6">NEXT</data>
-  <data key="d7">1.0</data>
-  <data key="d8">WGS-O-05</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-05;WGS-O-07;WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|吊马桩" target="POI|武功山|观音宕" id="NEXT">
@@ -4325,10 +4595,28 @@
   <data key="d8">WGS-T-07</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
+<edge source="POI|武功山|吊马桩" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|吊马桩" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
 <edge source="POI|武功山|好汉坡" target="POI|武功山|滴水观音" id="NEXT">
   <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-O-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|好汉坡" target="POI|武功山|高空栈道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|好汉坡" target="POI|武功山|发云界" id="NEXT">
@@ -4336,6 +4624,18 @@
   <data key="d7">1.0</data>
   <data key="d8">WGS-T-05</data>
   <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|好汉坡" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|好汉坡" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|武功山|尽心桥" target="POI|武功山|飙水岩瀑布" id="NEXT">
   <data key="d6">NEXT</data>
@@ -4349,10 +4649,22 @@
   <data key="d8">WGS-O-05</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|尽心瀑" target="POI|武功山|天马印蹄瀑下山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|尽心瀑" target="TRANSPORT|索道" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
-  <data key="d7">1.0</data>
-  <data key="d8">WGS-O-06</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-06;WGS-O-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|尽心瀑" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|武功山|情人花廊" target="POI|武功山|草甸之舟" id="NEXT">
@@ -4445,6 +4757,30 @@
   <data key="d8">WGS-O-05</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|猴谷" target="POI|武功山|尽心瀑" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|猴谷" target="POI|武功山|飚水岩瀑布" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|猴谷" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|猴谷" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-07</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
 <edge source="POI|武功山|石鼓寺" target="POI|武功山|尽心桥" id="NEXT">
   <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
@@ -4457,6 +4793,12 @@
   <data key="d8">WGS-O-02;WGS-O-04</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|石鼓寺" target="POI|武功山|红岩谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|石鼓寺" target="TRANSPORT|观光车" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
   <data key="d7">2.0</data>
@@ -4465,8 +4807,8 @@
 </edge>
 <edge source="POI|武功山|石鼓寺" target="TRANSPORT|索道" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
-  <data key="d7">4.0</data>
-  <data key="d8">WGS-O-05;WGS-T-03;WGS-T-07</data>
+  <data key="d7">5.0</data>
+  <data key="d8">WGS-O-05;WGS-O-08;WGS-T-03;WGS-T-07</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|武功山|石鼓寺" target="TRANSPORT|徒步" id="BY_TRANSPORT">
@@ -4507,8 +4849,8 @@
 </edge>
 <edge source="POI|武功山|福星谷" target="TRANSPORT|索道" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
-  <data key="d7">2.0</data>
-  <data key="d8">WGS-O-03;WGS-O-04</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-08</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|武功山|福星谷" target="TRANSPORT|徒步" id="BY_TRANSPORT">
@@ -4639,20 +4981,20 @@
 </edge>
 <edge source="POI|武功山|金顶" target="POI|武功山|中庵索道" id="NEXT">
   <data key="d6">NEXT</data>
-  <data key="d7">1.0</data>
-  <data key="d8">WGS-O-03</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-03;WGS-O-07</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|金顶" target="POI|武功山|古祭坛群" id="NEXT">
   <data key="d6">NEXT</data>
-  <data key="d7">1.0</data>
-  <data key="d8">WGS-O-04</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-04;WGS-O-07</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|金顶" target="POI|武功山|吊马桩" id="NEXT">
   <data key="d6">NEXT</data>
-  <data key="d7">2.0</data>
-  <data key="d8">WGS-O-04;WGS-T-05</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-04;WGS-O-07;WGS-T-05</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|金顶" target="POI|武功山|观音宕" id="NEXT">
@@ -4675,8 +5017,8 @@
 </edge>
 <edge source="POI|武功山|金顶" target="TRANSPORT|索道" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
-  <data key="d7">1.0</data>
-  <data key="d8">WGS-T-07</data>
+  <data key="d7">3.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08;WGS-T-07</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|武功山|金顶" target="TRANSPORT|巴士" id="BY_TRANSPORT">
@@ -4709,6 +5051,12 @@
   <data key="d8">WGS-O-03</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|金顶索道" target="POI|武功山|金顶" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|金顶索道" target="TRANSPORT|步行" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
   <data key="d7">2.0</data>
@@ -4717,8 +5065,8 @@
 </edge>
 <edge source="POI|武功山|金顶索道" target="TRANSPORT|索道" id="BY_TRANSPORT">
   <data key="d6">BY_TRANSPORT</data>
-  <data key="d7">3.0</data>
-  <data key="d8">WGS-O-03;WGS-O-04</data>
+  <data key="d7">5.0</data>
+  <data key="d8">WGS-O-03;WGS-O-04;WGS-O-07;WGS-O-08</data>
   <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|武功山|飙水岩瀑布" target="POI|武功山|猴谷" id="NEXT">
@@ -4741,9 +5089,33 @@
 </edge>
 <edge source="POI|武功山|高空栈道" target="POI|武功山|金顶索道" id="NEXT">
   <data key="d6">NEXT</data>
-  <data key="d7">1.0</data>
-  <data key="d8">WGS-O-02</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-02;WGS-O-07</data>
   <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|高空栈道" target="POI|武功山|中庵" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|高空栈道" target="POI|武功山|到达中庵" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|高空栈道" target="TRANSPORT|索道" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">4.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
+</edge>
+<edge source="POI|武功山|高空栈道" target="TRANSPORT|步行" id="BY_TRANSPORT">
+  <data key="d6">BY_TRANSPORT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-07;WGS-O-08</data>
+  <data key="d9">{"evidence": "P2 同句共现"}</data>
 </edge>
 <edge source="POI|武功山|七仙潭" target="POI|武功山|红岩瀑" id="NEXT">
   <data key="d6">NEXT</data>
@@ -4757,10 +5129,40 @@
   <data key="d8">WGS-T-05</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|乘索道下山" target="POI|武功山|猴谷" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|乘金顶索道" target="POI|武功山|到达十万亩天上草原" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|九龙客栈" target="POI|武功山|铁蹄峰" id="NEXT">
   <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|到达中庵" target="POI|武功山|乘索道下山" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|到达十万亩天上草原" target="POI|武功山|纵揽湘赣风云" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|到达石鼓寺" target="POI|武功山|可乘索道到中庵" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|发云界" target="POI|武功山|老鹰岩" id="NEXT">
@@ -4769,10 +5171,22 @@
   <data key="d8">WGS-T-05</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|可乘索道到中庵" target="POI|武功山|乘金顶索道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|回音谷" target="POI|武功山|情人花廊" id="NEXT">
   <data key="d6">NEXT</data>
   <data key="d7">2.0</data>
   <data key="d8">WGS-O-05;WGS-O-06</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|天马印蹄瀑下山" target="POI|武功山|结束愉快之旅" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|夫妻瀑" target="POI|武功山|一木成林" id="NEXT">
@@ -4787,6 +5201,12 @@
   <data key="d8">WGS-O-03</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|山下路线:武功山航空飞行营地" target="POI|武功山|游客服务中心" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|松园" target="ACTIVITY|可选择乘坐高空滑索" id="NEXT">
   <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
@@ -4795,14 +5215,32 @@
 </edge>
 <edge source="POI|武功山|松涛阁" target="POI|武功山|许愿石" id="NEXT">
   <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-03;WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|武功山现代农业科技产业园" target="POI|武功山|美丽石溪" id="NEXT">
+  <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-03</data>
+  <data key="d8">WGS-O-09</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|武功山红岩谷景区" target="POI|武功山|到达石鼓寺" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|沈家大院" target="POI|武功山|羊狮慕小火车站" id="NEXT">
   <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|游客服务中心" target="POI|武功山|石鼓寺" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|玻璃栈道" target="POI|武功山|回音谷" id="NEXT">
@@ -4841,6 +5279,18 @@
   <data key="d8">WGS-O-04</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|红岩谷" target="POI|武功山|武功山现代农业科技产业园" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|纵揽湘赣风云" target="POI|武功山|吊马桩" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-08</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|绝望坡" target="POI|武功山|好汉坡" id="NEXT">
   <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
@@ -4851,6 +5301,12 @@
   <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
   <data key="d8">WGS-T-05</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|美丽石溪" target="ACTIVITY|返回" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-09</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="POI|武功山|老鹰岩" target="POI|武功山|沈家大院" id="NEXT">
@@ -4871,6 +5327,12 @@
   <data key="d8">WGS-O-03</data>
   <data key="d9">{}</data>
 </edge>
+<edge source="POI|武功山|许愿石" target="POI|武功山|高空栈道" id="NEXT">
+  <data key="d6">NEXT</data>
+  <data key="d7">1.0</data>
+  <data key="d8">WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
 <edge source="POI|武功山|铁蹄峰" target="POI|武功山|金顶" id="NEXT">
   <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
@@ -4879,8 +5341,14 @@
 </edge>
 <edge source="POI|武功山|问道台" target="POI|武功山|松涛阁" id="NEXT">
   <data key="d6">NEXT</data>
+  <data key="d7">2.0</data>
+  <data key="d8">WGS-O-03;WGS-O-07</data>
+  <data key="d9">{}</data>
+</edge>
+<edge source="POI|武功山|飚水岩瀑布" target="POI|武功山|尽心瀑" id="NEXT">
+  <data key="d6">NEXT</data>
   <data key="d7">1.0</data>
-  <data key="d8">WGS-O-03</data>
+  <data key="d8">WGS-O-08</data>
   <data key="d9">{}</data>
 </edge>
 <edge source="ACTIVITY|刺激项目" target="ACTIVITY|错峰午餐" id="NEXT">

@@ -5,12 +5,12 @@
     "baiyunshan",
     "wugongshan"
   ],
-  "documents_processed": 29,
-  "entities": 1006,
+  "documents_processed": 32,
+  "entities": 1118,
   "by_type": {
-    "TIME": 248,
-    "POI": 573,
-    "TRANSPORT": 185
+    "TIME": 268,
+    "POI": 651,
+    "TRANSPORT": 199
   },
   "by_area": {
     "长隆": {
@@ -24,9 +24,9 @@
       "TIME": 33
     },
     "武功山": {
-      "POI": 306,
-      "TRANSPORT": 85,
-      "TIME": 117
+      "POI": 384,
+      "TRANSPORT": 99,
+      "TIME": 137
     }
   },
   "failed_areas": []

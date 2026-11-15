@@ -1,0 +1,319 @@
+{
+  "schema": "t1.5-cond-id-map-v1",
+  "note": "T1.5 临时兼容层：旧条件保持 1c2a578 的 cond_id；新条件从 max(旧)+1 追加。只改 ID/行序，不改字段值。",
+  "signature_fields": [
+    "doc_id",
+    "condition_text",
+    "suggestion_text",
+    "char_start",
+    "char_end"
+  ],
+  "signature_separator": "\\u0001",
+  "legacy_count": 36,
+  "entries": [
+    {
+      "cond_id": "CND-0001",
+      "origin": "legacy",
+      "signature": "BYS-T-01\u0001停车\u0001可停在金贵村长腰岭停车场，收费8元/小时，位于白云索道对面，较为方便\u0001433\u0001435",
+      "doc_id": "BYS-T-01",
+      "condition_text": "停车",
+      "suggestion_text": "可停在金贵村长腰岭停车场，收费8元/小时，位于白云索道对面，较为方便"
+    },
+    {
+      "cond_id": "CND-0002",
+      "origin": "legacy",
+      "signature": "BYS-T-01\u0001节假日\u0001建议早点排队避开高峰期\u0001977\u0001980",
+      "doc_id": "BYS-T-01",
+      "condition_text": "节假日",
+      "suggestion_text": "建议早点排队避开高峰期"
+    },
+    {
+      "cond_id": "CND-0003",
+      "origin": "legacy",
+      "signature": "BYS-T-01\u0001节假日\u0001建议提前确认末班车时间，夜间无观光车\u00011031\u00011034",
+      "doc_id": "BYS-T-01",
+      "condition_text": "节假日",
+      "suggestion_text": "建议提前确认末班车时间，夜间无观光车"
+    },
+    {
+      "cond_id": "CND-0004",
+      "origin": "legacy",
+      "signature": "BYS-T-01\u0001节假日\u0001建议错峰出行\u00011500\u00011503",
+      "doc_id": "BYS-T-01",
+      "condition_text": "节假日",
+      "suggestion_text": "建议错峰出行"
+    },
+    {
+      "cond_id": "CND-0005",
+      "origin": "legacy",
+      "signature": "BYS-T-01\u0001情侣\u0001可坐同一侧方便自拍\u00011537\u00011539",
+      "doc_id": "BYS-T-01",
+      "condition_text": "情侣",
+      "suggestion_text": "可坐同一侧方便自拍"
+    },
+    {
+      "cond_id": "CND-0006",
+      "origin": "legacy",
+      "signature": "BYS-T-01\u0001膝盖负担较大\u0001建议穿鞋底柔软的运动鞋\u00011558\u00011564",
+      "doc_id": "BYS-T-01",
+      "condition_text": "膝盖负担较大",
+      "suggestion_text": "建议穿鞋底柔软的运动鞋"
+    },
+    {
+      "cond_id": "CND-0007",
+      "origin": "legacy",
+      "signature": "BYS-T-01\u0001拍日落\u0001建议下午4点半左右到达山顶广场或摩星岭\u00011578\u00011581",
+      "doc_id": "BYS-T-01",
+      "condition_text": "拍日落",
+      "suggestion_text": "建议下午4点半左右到达山顶广场或摩星岭"
+    },
+    {
+      "cond_id": "CND-0008",
+      "origin": "legacy",
+      "signature": "BYS-T-02\u0001夏天\u0001带驱蚊水+防晒\u0001428\u0001430",
+      "doc_id": "BYS-T-02",
+      "condition_text": "夏天",
+      "suggestion_text": "带驱蚊水+防晒"
+    },
+    {
+      "cond_id": "CND-0009",
+      "origin": "legacy",
+      "signature": "WGS-O-05\u0001如果特别爱干净的朋友\u0001建议携带自己的睡袋，这样晚上住宿的会舒服一些\u00011576\u00011586",
+      "doc_id": "WGS-O-05",
+      "condition_text": "如果特别爱干净的朋友",
+      "suggestion_text": "建议携带自己的睡袋，这样晚上住宿的会舒服一些"
+    },
+    {
+      "cond_id": "CND-0010",
+      "origin": "legacy",
+      "signature": "WGS-O-05\u0001看日出\u0001厚衣服一定要带上\u00011620\u00011623",
+      "doc_id": "WGS-O-05",
+      "condition_text": "看日出",
+      "suggestion_text": "厚衣服一定要带上"
+    },
+    {
+      "cond_id": "CND-0011",
+      "origin": "legacy",
+      "signature": "WGS-O-06\u0001如想看日出又喜欢氛围热闹\u0001可以选择观音宕\u0001895\u0001907",
+      "doc_id": "WGS-O-06",
+      "condition_text": "如想看日出又喜欢氛围热闹",
+      "suggestion_text": "可以选择观音宕"
+    },
+    {
+      "cond_id": "CND-0012",
+      "origin": "legacy",
+      "signature": "WGS-O-06\u0001看日出\u0001记得调好闹钟，现在日出大概在6点钟左右\u0001969\u0001972",
+      "doc_id": "WGS-O-06",
+      "condition_text": "看日出",
+      "suggestion_text": "记得调好闹钟，现在日出大概在6点钟左右"
+    },
+    {
+      "cond_id": "CND-0013",
+      "origin": "legacy",
+      "signature": "WGS-O-06\u0001如果体力不佳\u0001乘坐第一级索道返回，如体力充足也可选择徒步下山，全程大概需花费3-4个小时\u00011378\u00011384",
+      "doc_id": "WGS-O-06",
+      "condition_text": "如果体力不佳",
+      "suggestion_text": "乘坐第一级索道返回，如体力充足也可选择徒步下山，全程大概需花费3-4个小时"
+    },
+    {
+      "cond_id": "CND-0014",
+      "origin": "legacy",
+      "signature": "WGS-O-06\u0001如果特别爱干净的朋友\u0001建议携带自己的睡袋，这样晚上住宿的会舒服一些\u00011478\u00011488",
+      "doc_id": "WGS-O-06",
+      "condition_text": "如果特别爱干净的朋友",
+      "suggestion_text": "建议携带自己的睡袋，这样晚上住宿的会舒服一些"
+    },
+    {
+      "cond_id": "CND-0015",
+      "origin": "legacy",
+      "signature": "WGS-O-06\u0001看日出\u0001厚衣服一定要带上\u00011522\u00011525",
+      "doc_id": "WGS-O-06",
+      "condition_text": "看日出",
+      "suggestion_text": "厚衣服一定要带上"
+    },
+    {
+      "cond_id": "CND-0016",
+      "origin": "legacy",
+      "signature": "WGS-T-02\u0001如果时间差不多\u0001坐火车也可以的\u00011533\u00011540",
+      "doc_id": "WGS-T-02",
+      "condition_text": "如果时间差不多",
+      "suggestion_text": "坐火车也可以的"
+    },
+    {
+      "cond_id": "CND-0017",
+      "origin": "legacy",
+      "signature": "WGS-T-03\u0001如果只玩两天\u0001直接背书包就行，一般大家都是从江西南昌过去，或者湖南长沙过去\u000173\u000179",
+      "doc_id": "WGS-T-03",
+      "condition_text": "如果只玩两天",
+      "suggestion_text": "直接背书包就行，一般大家都是从江西南昌过去，或者湖南长沙过去"
+    },
+    {
+      "cond_id": "CND-0018",
+      "origin": "legacy",
+      "signature": "WGS-T-03\u0001学生\u0001提前一天预约可免门票（一定要提前预约）\u0001153\u0001155",
+      "doc_id": "WGS-T-03",
+      "condition_text": "学生",
+      "suggestion_text": "提前一天预约可免门票（一定要提前预约）"
+    },
+    {
+      "cond_id": "CND-0019",
+      "origin": "legacy",
+      "signature": "WGS-T-03\u0001冬天\u0001厚外套一定要带\u0001377\u0001379",
+      "doc_id": "WGS-T-03",
+      "condition_text": "冬天",
+      "suggestion_text": "厚外套一定要带"
+    },
+    {
+      "cond_id": "CND-0020",
+      "origin": "legacy",
+      "signature": "WGS-T-03\u0001如果拼车的价格超过30\u0001没有必要坐了，价格在30左右就是合理的\u0001666\u0001677",
+      "doc_id": "WGS-T-03",
+      "condition_text": "如果拼车的价格超过30",
+      "suggestion_text": "没有必要坐了，价格在30左右就是合理的"
+    },
+    {
+      "cond_id": "CND-0021",
+      "origin": "legacy",
+      "signature": "WGS-T-03\u0001停车\u0001必须乘坐免费转运车上索道口（石鼓寺）\u0001721\u0001723",
+      "doc_id": "WGS-T-03",
+      "condition_text": "停车",
+      "suggestion_text": "必须乘坐免费转运车上索道口（石鼓寺）"
+    },
+    {
+      "cond_id": "CND-0022",
+      "origin": "legacy",
+      "signature": "WGS-T-03\u0001学生\u0001提前一天预约可免门票\u0001935\u0001937",
+      "doc_id": "WGS-T-03",
+      "condition_text": "学生",
+      "suggestion_text": "提前一天预约可免门票"
+    },
+    {
+      "cond_id": "CND-0023",
+      "origin": "legacy",
+      "signature": "WGS-T-03\u0001儿童\u0001可免门票和索道票\u00011015\u00011017",
+      "doc_id": "WGS-T-03",
+      "condition_text": "儿童",
+      "suggestion_text": "可免门票和索道票"
+    },
+    {
+      "cond_id": "CND-0024",
+      "origin": "legacy",
+      "signature": "WGS-T-08\u0001看日出\u0001建议定好闹钟，5 点左右前往观景台，当太阳冲破云层，金色的光芒洒在云海之上，随手一拍都是大片\u0001338\u0001341",
+      "doc_id": "WGS-T-08",
+      "condition_text": "看日出",
+      "suggestion_text": "建议定好闹钟，5 点左右前往观景台，当太阳冲破云层，金色的光芒洒在云海之上，随手一拍都是大片"
+    },
+    {
+      "cond_id": "CND-0025",
+      "origin": "legacy",
+      "signature": "CL-O-01\u0001小朋友\u0001都可以进入梦幻童话世界，打卡到人生照片\u0001289\u0001292",
+      "doc_id": "CL-O-01",
+      "condition_text": "小朋友",
+      "suggestion_text": "都可以进入梦幻童话世界，打卡到人生照片"
+    },
+    {
+      "cond_id": "CND-0026",
+      "origin": "legacy",
+      "signature": "CL-O-01\u0001小朋友\u0001别错过，拥有全球唯一大熊猫三胞胎的熊猫村\u0001483\u0001486",
+      "doc_id": "CL-O-01",
+      "condition_text": "小朋友",
+      "suggestion_text": "别错过，拥有全球唯一大熊猫三胞胎的熊猫村"
+    },
+    {
+      "cond_id": "CND-0027",
+      "origin": "legacy",
+      "signature": "CL-O-01\u0001小朋友\u0001记得来参加萌帅酷的十周岁生日呀\u0001522\u0001525",
+      "doc_id": "CL-O-01",
+      "condition_text": "小朋友",
+      "suggestion_text": "记得来参加萌帅酷的十周岁生日呀"
+    },
+    {
+      "cond_id": "CND-0028",
+      "origin": "legacy",
+      "signature": "CL-O-03\u0001如果胆子小在体验前\u0001做好心理建设工作，比如先跟对象打预防针：我等下要是叫出来，你可不能笑我\u00011642\u00011651",
+      "doc_id": "CL-O-03",
+      "condition_text": "如果胆子小在体验前",
+      "suggestion_text": "做好心理建设工作，比如先跟对象打预防针：我等下要是叫出来，你可不能笑我"
+    },
+    {
+      "cond_id": "CND-0029",
+      "origin": "legacy",
+      "signature": "CL-O-03\u0001如果想从南门出\u0001坐地铁的话，超方便的\u00012354\u00012361",
+      "doc_id": "CL-O-03",
+      "condition_text": "如果想从南门出",
+      "suggestion_text": "坐地铁的话，超方便的"
+    },
+    {
+      "cond_id": "CND-0030",
+      "origin": "legacy",
+      "signature": "CL-T-01\u0001五一\u0001建议7:30就要到北门排队哦~带上这份攻略，分分钟值回票价\u0001611\u0001613",
+      "doc_id": "CL-T-01",
+      "condition_text": "五一",
+      "suggestion_text": "建议7:30就要到北门排队哦~带上这份攻略，分分钟值回票价"
+    },
+    {
+      "cond_id": "CND-0031",
+      "origin": "legacy",
+      "signature": "CL-T-02\u0001如果你带了小朋友\u0001可以来这里玩飞马家庭过山车\u0001590\u0001598",
+      "doc_id": "CL-T-02",
+      "condition_text": "如果你带了小朋友",
+      "suggestion_text": "可以来这里玩飞马家庭过山车"
+    },
+    {
+      "cond_id": "CND-0032",
+      "origin": "legacy",
+      "signature": "CL-T-03\u0001自驾\u0001建议停北门坐接驳车过来\u0001851\u0001853",
+      "doc_id": "CL-T-03",
+      "condition_text": "自驾",
+      "suggestion_text": "建议停北门坐接驳车过来"
+    },
+    {
+      "cond_id": "CND-0033",
+      "origin": "legacy",
+      "signature": "CL-T-04\u0001儿童\u0001按规则带证件核验\u0001293\u0001295",
+      "doc_id": "CL-T-04",
+      "condition_text": "儿童",
+      "suggestion_text": "按规则带证件核验"
+    },
+    {
+      "cond_id": "CND-0034",
+      "origin": "legacy",
+      "signature": "CL-T-04\u0001旺季\u0001建议早于9:00抵达\u0001625\u0001627",
+      "doc_id": "CL-T-04",
+      "condition_text": "旺季",
+      "suggestion_text": "建议早于9:00抵达"
+    },
+    {
+      "cond_id": "CND-0035",
+      "origin": "legacy",
+      "signature": "CL-T-04\u0001儿童\u0001家长可在「奇幻漂流」旁休息亭同步观景\u00011434\u00011436",
+      "doc_id": "CL-T-04",
+      "condition_text": "儿童",
+      "suggestion_text": "家长可在「奇幻漂流」旁休息亭同步观景"
+    },
+    {
+      "cond_id": "CND-0036",
+      "origin": "legacy",
+      "signature": "CL-T-04\u0001雨天\u0001备好轻便雨衣更从容\u00011545\u00011547",
+      "doc_id": "CL-T-04",
+      "condition_text": "雨天",
+      "suggestion_text": "备好轻便雨衣更从容"
+    },
+    {
+      "cond_id": "CND-0037",
+      "origin": "new",
+      "signature": "WGS-O-07\u0001雨天\u0001请不要在山上使用手机\u0001979\u0001981",
+      "doc_id": "WGS-O-07",
+      "condition_text": "雨天",
+      "suggestion_text": "请不要在山上使用手机"
+    },
+    {
+      "cond_id": "CND-0038",
+      "origin": "new",
+      "signature": "WGS-O-08\u0001雨天\u0001请不要在山上使用手机\u0001525\u0001527",
+      "doc_id": "WGS-O-08",
+      "condition_text": "雨天",
+      "suggestion_text": "请不要在山上使用手机"
+    }
+  ]
+}
