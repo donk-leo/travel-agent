@@ -1,0 +1,51 @@
+{#-
+  四状态徽标组件（T3.1）
+  ---------------------------------------------------------------------------
+  口径：PRODUCT_SPEC §5.1（唯一四个状态词）与 §5.3（颜色 + 图标 + 文字三重编码）。
+  用法：
+      {% from "_status_badge.html" import status_badge %}
+      {{ status_badge(status, status_reason) }}
+  说明：
+    * 颜色不是唯一信息：图标（aria-hidden 装饰）与中文徽标文字始终可见；
+    * 未知/缺失状态按 §5.4 回退为 error 样式，不默认成 verified；
+    * 本文件不是独立页面，不引用任何外部资源。
+-#}
+{%- set STATUS_SPECS = {
+  'verified': {
+    'modifier': 'verified',
+    'icon': '✅',
+    'label': '图谱连接核验通过',
+    'explanation': '每一段“上一站 → 下一站”都能在同一篇来源里找到依据。'
+  },
+  'partial': {
+    'modifier': 'partial',
+    'icon': '⚠️',
+    'label': '部分可参考',
+    'explanation': '有一条路线可看，但其中有些点没有完全通过核验。'
+  },
+  'clarify': {
+    'modifier': 'clarify',
+    'icon': '❓',
+    'label': '需要补充信息',
+    'explanation': '还差 1—2 个信息才能给行程。'
+  },
+  'error': {
+    'modifier': 'error',
+    'icon': '❌',
+    'label': '处理失败',
+    'explanation': '这次没有生成行程，下面的内容都不是规划结果。'
+  }
+} -%}
+
+{%- macro status_badge(status, reason='') -%}
+  {%- set key = status if status is defined and status in STATUS_SPECS else 'error' -%}
+  {%- set spec = STATUS_SPECS[key] -%}
+  <p class="status-badge status-badge--{{ spec.modifier }}" data-status="{{ key }}">
+    <span class="status-badge__icon" aria-hidden="true">{{ spec.icon }}</span>
+    <span class="status-badge__text"><span class="visually-hidden">状态：</span>{{ spec.label }}</span>
+  </p>
+  <p class="status-badge__desc">{{ spec.explanation }}</p>
+  {%- if reason %}
+  <p class="status-badge__reason">{{ reason }}</p>
+  {%- endif %}
+{%- endmacro -%}

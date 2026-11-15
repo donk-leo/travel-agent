@@ -1,0 +1,63 @@
+{%- from "_status_badge.html" import status_badge -%}
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}可核验的景区行程助手{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <div class="page">
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <div>
+          <h1 class="site-title">可核验的景区行程助手</h1>
+          <p class="site-tagline">每条路线都有出处，每个不确定都标出来；不编距离、不编时间、不编开放信息。</p>
+          <p class="site-coverage">目前只覆盖 <strong>长隆 / 白云山 / 武功山</strong>，只用已采集的公开资料（当前 29 篇，见 BASELINE.md 第 3 节）。没有实时票价、排队、天气与开放状态。</p>
+        </div>
+        <p class="view-switch"><a class="view-switch__link" href="?view=auditor">切换到评审视图</a></p>
+      </div>
+    </header>
+
+    <main id="main-content" class="wrap">
+      {#
+        状态区：徽标 + 免责句。
+        T3.2 接线时把后端 status 传入（只允许 verified / partial / clarify / error）；
+        免责句只在 verified / partial 时出现，且必须保持逐字不改。
+      #}
+      <div class="status-area" aria-live="polite">
+        {% block status %}{% if status is defined and status %}{{ status_badge(status, status_reason if status_reason is defined else '') }}{% endif %}{% endblock %}
+
+        {% block disclaimer %}{% if status is defined and status in ('verified', 'partial') %}
+        <p class="disclaimer-line">核验通过只证明连接有据，不证明一天走得完</p>
+        {% endif %}{% endblock %}
+      </div>
+
+      {#
+        访客视图内容区（T3.2）：
+          查询区（标签 + 多行输入 + 3 个示例 + 提交）
+          → 进度区（四阶段）
+          → 人群/体力提示
+          → 行程可行性说明 + 未核验项清单
+          → 行程卡（每天：上午 / 中午 / 下午 → 停留点 → 证据入口）
+          → 地点列表（折叠 + 计数）
+          → 建议
+          → 可修改操作
+        评审视图另建子模板，其内容只放在子模板内，不进入本基础模板；
+        访客视图不展示调试类区块。
+      #}
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p><strong>已知限制：</strong>图谱 NEXT 步骤只表示连接顺序，不是道路距离；页面没有实时票价、排队、天气与开放状态。</p>
+        <p>不提供预订、支付、导航或叫车服务；资料版权归原站。</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

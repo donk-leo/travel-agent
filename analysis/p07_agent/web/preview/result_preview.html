@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>结果页预览（示例数据）· 可核验的景区行程助手</title>
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <div class="page">
+    <header class="site-header">
+      <div class="wrap site-header__inner">
+        <div>
+          <h1 class="site-title">可核验的景区行程助手</h1>
+          <p class="site-tagline">每条路线都有出处，每个不确定都标出来；不编距离、不编时间、不编开放信息。</p>
+          <p class="site-coverage">目前只覆盖 <strong>长隆 / 白云山 / 武功山</strong>，只用已采集的公开资料（当前 29 篇，见 BASELINE.md 第 3 节）。没有实时票价、排队、天气与开放状态。</p>
+        </div>
+        <p class="view-switch"><a class="view-switch__link" href="#components-title">查看组件样式</a></p>
+      </div>
+    </header>
+
+    <main id="main-content" class="wrap">
+      <p class="example-banner" role="note">
+        <strong>示例数据，非真实查询结果</strong>
+        本页是 T3.1 的静态预览，用于检查设计系统与响应式布局；页面中的景区、编号、来源、时间和摘句都是占位示例，不来自真实查询，也不来自真实语料。
+      </p>
+
+      <section aria-labelledby="query-title">
+        <h2 id="query-title">查询需求</h2>
+        <form class="query-form" action="#" method="get" aria-describedby="query-hint">
+          <label class="query-form__label" for="query-input">你的旅行需求</label>
+          <p class="query-form__hint" id="query-hint">例如：带孩子玩一天长隆，游玩为主，少走路（以下为示例输入，预览页不会真的提交）。</p>
+          <textarea id="query-input" name="query" rows="4">带孩子玩一天长隆，游玩为主，少走路（示例输入）</textarea>
+          <ul class="examples">
+            <li class="examples__item"><button type="button" class="chip">长隆亲子一日</button></li>
+            <li class="examples__item"><button type="button" class="chip">白云山老人一日</button></li>
+            <li class="examples__item"><button type="button" class="chip">武功山两日</button></li>
+          </ul>
+          <div class="query-form__actions">
+            <button type="submit" class="btn">提交需求</button>
+            <button type="reset" class="btn btn--secondary">开始新需求</button>
+          </div>
+        </form>
+      </section>
+
+      <section aria-labelledby="progress-title">
+        <h2 id="progress-title">处理进度（示例）</h2>
+        <ol class="stepper">
+          <li class="stepper__step stepper__step--done"><span aria-hidden="true">✔</span>解析需求</li>
+          <li class="stepper__step stepper__step--done"><span aria-hidden="true">✔</span>查询图谱</li>
+          <li class="stepper__step stepper__step--done"><span aria-hidden="true">✔</span>规划路线</li>
+          <li class="stepper__step stepper__step--done"><span aria-hidden="true">✔</span>核验来源</li>
+        </ol>
+        <p class="muted">四个阶段全部完成，用时 12.4 秒（示例数字，非实测）。</p>
+      </section>
+
+      <div class="status-area" aria-live="polite">
+        <p class="status-badge status-badge--verified">
+          <span class="status-badge__icon" aria-hidden="true">✅</span>
+          <span class="status-badge__text"><span class="visually-hidden">状态：</span>图谱连接核验通过</span>
+        </p>
+        <p class="status-badge__desc">每一段“上一站 → 下一站”都能在同一篇来源里找到依据。</p>
+        <p class="disclaimer-line">核验通过只证明连接有据，不证明一天走得完</p>
+        <p class="feasibility">行程可行性：未核验。图谱只能证明“上一站到下一站有资料依据”，不能证明步行距离、开放时间、排队、餐饮营业与体力强度。</p>
+        <ul class="unknowns">
+          <li class="unknowns__item">步行距离</li>
+          <li class="unknowns__item">开放时间</li>
+          <li class="unknowns__item">排队时长</li>
+          <li class="unknowns__item">餐饮营业</li>
+          <li class="unknowns__item">适龄与体力</li>
+        </ul>
+      </div>
+
+      <p class="person-note"><strong>同行人：</strong>3 岁小孩、70 岁老人。图谱没有适龄与体力标签，未做硬性过滤。（示例提示）</p>
+
+      <section aria-labelledby="itinerary-title">
+        <h2 id="itinerary-title">建议行程（示例）</h2>
+        <article class="card">
+          <h3 class="card__title">第 1 天</h3>
+          <p class="day-meta">
+            <span>示例：3 个停留点，全部来自同一篇示例游记</span>
+            <span>时区：本地时间</span>
+          </p>
+          <ol class="periods">
+            <li class="period">
+              <span class="period__label">上午</span>
+              <p class="stay"><span class="stay__name">示例入口（占位名称）</span></p>
+              <p class="stay__meta">
+                <span class="tag">时长：资料给出</span>
+                <span class="muted">约 90 分钟（示例）</span>
+              </p>
+              <details class="evidence" open>
+                <summary>查看来源（示例，默认展开其一以展示证据卡样式）</summary>
+                <div class="evidence-card">
+                  <dl class="evidence-card__list">
+                    <dt class="evidence-card__term">来源文档</dt>
+                    <dd>示例游记 A（占位标题，非真实文档）</dd>
+                    <dt class="evidence-card__term">站点</dt>
+                    <dd>示例入口</dd>
+                    <dt class="evidence-card__term">发布日期</dt>
+                    <dd>发布日期未记录</dd>
+                    <dt class="evidence-card__term">doc_id</dt>
+                    <dd>CL-T-00（占位编号，非真实记录）</dd>
+                    <dt class="evidence-card__term">摘句</dt>
+                    <dd><span class="evidence-card__quote">“……此处为示例摘句，不来自真实语料……”</span></dd>
+                  </dl>
+                  <p class="muted">预览页不含外链；真实页面由后端返回原文地址。</p>
+                </div>
+              </details>
+            </li>
+            <li class="period">
+              <span class="period__label">中午</span>
+              <p class="stay"><span class="stay__name">园内餐厅（示例）</span></p>
+              <p class="stay__meta">
+                <span class="tag">时长：模板估算</span>
+                <span class="muted">约 60 分钟（示例，非资料给出）</span>
+              </p>
+              <details class="evidence">
+                <summary>查看来源（示例）</summary>
+                <div class="evidence-card">
+                  <dl class="evidence-card__list">
+                    <dt class="evidence-card__term">来源文档</dt>
+                    <dd>示例游记 A（占位标题，非真实文档）</dd>
+                    <dt class="evidence-card__term">站点</dt>
+                    <dd>园内餐厅</dd>
+                    <dt class="evidence-card__term">发布日期</dt>
+                    <dd>发布日期未记录</dd>
+                    <dt class="evidence-card__term">doc_id</dt>
+                    <dd>CL-T-00（占位编号，非真实记录）</dd>
+                    <dt class="evidence-card__term">摘句</dt>
+                    <dd><span class="evidence-card__quote">“……此处为示例摘句，不来自真实语料……”</span></dd>
+                  </dl>
+                </div>
+              </details>
+            </li>
+            <li class="period">
+              <span class="period__label">下午</span>
+              <p class="stay"><span class="stay__name">示例观景台（占位名称）</span></p>
+              <p class="stay__meta">
+                <span class="tag">时长：未知</span>
+                <span class="muted">资料未给出停留时长</span>
+              </p>
+              <details class="evidence">
+                <summary>查看来源（示例）</summary>
+                <div class="evidence-card">
+                  <p class="muted">这一站没有找到示例来源，用于演示“缺失”字段的显示方式；真实页面按 §6.2 显示“缺失”，不补造。</p>
+                </div>
+              </details>
+            </li>
+          </ol>
+        </article>
+      </section>
+
+      <section aria-labelledby="poi-title">
+        <h2 id="poi-title">地点列表（示例）</h2>
+        <details class="card poi-group">
+          <summary>当前范围地点：共 4 条（示例，未按儿童/老人偏好过滤）</summary>
+          <h3>景点</h3>
+          <ul class="poi-list">
+            <li>示例入口（占位名称）</li>
+            <li>示例观景台（占位名称）</li>
+          </ul>
+          <h3>餐饮</h3>
+          <ul class="poi-list">
+            <li>园内餐厅（示例，非真实店名）</li>
+          </ul>
+          <h3>交通</h3>
+          <ul class="poi-list">
+            <li>示例接驳点（占位名称）</li>
+          </ul>
+        </details>
+      </section>
+
+      <section aria-labelledby="suggestions-title">
+        <h2 id="suggestions-title">可能适合的建议（示例）</h2>
+        <article class="card">
+          <p><strong>适用条件：</strong>示例：同行人中有 3 岁以下小孩时，减少连续停留点。</p>
+          <p><strong>建议：</strong>示例：每 2 个停留点安排 1 次休息；具体时长未核验。</p>
+          <p><strong>选择理由：</strong>示例：仅演示展示位。图谱没有适龄标签，这里不代表真实推荐。</p>
+          <p class="muted">相关条件需要进一步核实（示例）。</p>
+          <details class="evidence">
+            <summary>查看图谱来源（示例）</summary>
+            <div class="evidence-card">
+              <dl class="evidence-card__list">
+                <dt class="evidence-card__term">关联位置</dt>
+                <dd>示例入口</dd>
+                <dt class="evidence-card__term">来源文档</dt>
+                <dd>示例游记 A（占位标题，非真实文档）</dd>
+              </dl>
+            </div>
+          </details>
+        </article>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="btn btn--secondary">去掉这个点</button>
+        <button type="button" class="btn btn--secondary">换一条备选</button>
+        <button type="button" class="btn btn--secondary">调整天数或人群</button>
+      </div>
+      <p class="muted">预览页按钮不触发后端操作。</p>
+
+      <section aria-labelledby="components-title">
+        <h2 id="components-title">组件样式：四状态徽标与进度阶段</h2>
+        <p class="muted">这里只演示样式；一次真实查询只会返回四个状态中的一个。</p>
+        <ul class="badge-gallery">
+          <li>
+            <span class="status-badge status-badge--verified">
+              <span class="status-badge__icon" aria-hidden="true">✅</span>
+              <span class="status-badge__text">图谱连接核验通过</span>
+            </span>
+          </li>
+          <li>
+            <span class="status-badge status-badge--partial">
+              <span class="status-badge__icon" aria-hidden="true">⚠️</span>
+              <span class="status-badge__text">部分可参考</span>
+            </span>
+          </li>
+          <li>
+            <span class="status-badge status-badge--clarify">
+              <span class="status-badge__icon" aria-hidden="true">❓</span>
+              <span class="status-badge__text">需要补充信息</span>
+            </span>
+          </li>
+          <li>
+            <span class="status-badge status-badge--error">
+              <span class="status-badge__icon" aria-hidden="true">❌</span>
+              <span class="status-badge__text">处理失败</span>
+            </span>
+          </li>
+        </ul>
+        <ol class="stepper">
+          <li class="stepper__step stepper__step--done"><span aria-hidden="true">✔</span>已完成阶段</li>
+          <li class="stepper__step stepper__step--active"><span aria-hidden="true">▶</span>当前阶段</li>
+          <li class="stepper__step"><span aria-hidden="true">○</span>未开始阶段</li>
+        </ol>
+        <p class="muted">进度区文字与颜色同时变化，不只靠颜色；阶段变化由 aria-live 播报。</p>
+      </section>
+
+      <p class="muted">本页是 T3.1 的静态预览：所有景区名称、编号、来源、时间与摘句均为占位示例，不是真实查询结果，也不来自真实语料。</p>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p><strong>已知限制：</strong>图谱 NEXT 步骤只表示连接顺序，不是道路距离；页面没有实时票价、排队、天气与开放状态。</p>
+        <p>不提供预订、支付、导航或叫车服务；资料版权归原站。</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
