@@ -8,11 +8,26 @@ T2.6 加固：
 """
 
 import json
+import os
 import urllib.request
 
 
 from config import MAX_TOKENS, MODEL, OLLAMA_URL
 from model_guard import MODEL_ERRORS, clean_text, parse_chat_content
+
+#: T2.7 确定性快速决策开关：显式设为 0/false/off/no 时恢复逐条模型调用，便于对照评测。
+FAST_DECISION_ENV = "P07_FAST_DECISION"
+FAST_OFF_VALUES = frozenset({"0", "false", "off", "no"})
+
+#: 有景区、没给天数时，这些词说明用户要的是“景点/信息”而不是“排行程”。
+INFO_QUERY_KEYWORDS = (
+    "有哪些", "什么", "怎么去", "介绍", "信息", "景点", "门票", "开放",
+)
+
+INFO_CLARIFY_MESSAGE = "请补充景区名称。"
+PLAN_CLARIFY_MESSAGE = "请补充景区名称和游玩天数。"
+MISSING_DAYS_MESSAGE = "请补充游玩天数。"
+GREETING_RESPONSE = "你好！我可以帮你规划游览路线。"
 
 DECISION_SCHEMA = {
     "type": "object",
@@ -94,6 +109,74 @@ def fallback_decision(intent, reason):
         "reason": "没有景区和天数信息，按确定性规则回复。",
         "response": "你好！请告诉我景区和游玩天数，我可以帮你规划路线。",
         "fallback_reason": note,
+    }
+
+
+def fast_decision_enabled():
+    """``P07_FAST_DECISION=0``（或 false/off/no）时关闭确定性快速决策。"""
+    value = os.environ.get(FAST_DECISION_ENV, "1")
+    return str(value).strip().lower() not in FAST_OFF_VALUES
+
+
+def _has_info_keyword(user_text):
+    text = str(user_text or "")
+    return any(keyword in text for keyword in INFO_QUERY_KEYWORDS)
+
+
+def fast_decision(user_text, intent):
+    """T2.7 确定性决策：intent 已经明确时不再调用决策模型。
+
+    规则（与 T2.7 验收口径一致）：
+    - 有景区且有天数 → ``query_graph / plan``；
+    - 有景区、无天数，原文命中信息查询词 → ``query_graph / info``；
+    - 无景区 → ``clarify``（沿用现有追问文案）；
+    - 其余（问候等）→ ``reply``。
+    返回字段与模型决策完全同契约：``decision / request_type / reason / response``。
+    """
+    intent = intent if isinstance(intent, dict) else {}
+    area = str(intent.get("scenic_area") or "").strip()
+    days = intent.get("duration_days")
+
+    if area and days:
+        return {
+            "decision": "query_graph",
+            "request_type": "plan",
+            "reason": "景区和游玩天数都已明确，按确定性规则直接查询图谱。",
+            "response": "",
+        }
+    if area:
+        if _has_info_keyword(user_text):
+            return {
+                "decision": "query_graph",
+                "request_type": "info",
+                "reason": "用户查询景区信息，景区已明确，按确定性规则直接查询图谱。",
+                "response": "",
+            }
+        return {
+            "decision": "clarify",
+            "request_type": "plan",
+            "reason": "已识别景区但缺少游玩天数，需要先补充。",
+            "response": MISSING_DAYS_MESSAGE,
+        }
+    if days:
+        return {
+            "decision": "clarify",
+            "request_type": "plan",
+            "reason": "缺少景区名称，需要先补充。",
+            "response": PLAN_CLARIFY_MESSAGE,
+        }
+    if _has_info_keyword(user_text):
+        return {
+            "decision": "clarify",
+            "request_type": "info",
+            "reason": "查询景区信息但缺少景区名称，需要先补充。",
+            "response": INFO_CLARIFY_MESSAGE,
+        }
+    return {
+        "decision": "reply",
+        "request_type": "other",
+        "reason": "普通问候，不需要查询图谱。",
+        "response": GREETING_RESPONSE,
     }
 
 

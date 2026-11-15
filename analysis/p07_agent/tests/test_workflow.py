@@ -2,6 +2,7 @@
 
 import json
 import inspect
+import os
 import re
 import sys
 import tempfile
@@ -10,6 +11,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+# T2.7 结果缓存默认开启；本模块用 patch 替换模型/路线夹具，必须关闭缓存避免跨用例串结果。
+os.environ["P07_RESULT_CACHE"] = "0"
 
 import agent
 import condition_selector
@@ -151,7 +155,8 @@ class AgentFlowTests(unittest.TestCase):
              patch.object(agent, "decide_next_step", return_value={**self.decision, "request_type": "plan"}), \
              patch.object(agent, "check_constraints", return_value=conflict), \
              patch.object(agent, "select_tools") as selector:
-            result = agent.run_agent("冲突要求")
+            # T2.7：含「所有/不能」硬限制标记，确定性预检不跳过，仍走模型检查。
+            result = agent.run_agent("我想一天走遍长隆所有景点，但不能步行。")
         self.assertEqual(result["status"], "clarify")
         self.assertTrue(result["needs_followup"])
         selector.assert_not_called()

@@ -1,9 +1,22 @@
 import json
+import os
 import urllib.request
 
 
 from config import MAX_TOKENS, MODEL, OLLAMA_URL
 from model_guard import clean_text
+
+#: T2.7 条件化跳过模型表述检查的开关；显式设为 0/false/off/no 时全部恢复模型调用。
+FAST_CHECKS_ENV = "P07_FAST_CHECKS"
+FAST_OFF_VALUES = frozenset({"0", "false", "off", "no"})
+
+#: 原文出现这些词说明可能有硬限制/冲突，确定性预检不足以判定，必须交给模型。
+HARD_LIMIT_MARKERS = ("不能", "不坐", "不走", "全部", "所有", "一天走遍", "矛盾", "禁止")
+
+FAST_CONSTRAINT_EXPLANATION = "确定性预检通过：景区与天数明确，原文无冲突/硬限制标记。"
+FAST_PLAN_EXPLANATION = (
+    "确定性核验通过：路线逐段连接完整、同源、无重复/缺失路段。"
+)
 
 CHECK_SCHEMA = {
     "type": "object",
@@ -99,6 +112,68 @@ def check_constraints(user_text):
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": user_text}
     ])
+
+
+def fast_checks_enabled():
+    """``P07_FAST_CHECKS=0``（或 false/off/no）时关闭条件化跳过。"""
+    value = os.environ.get(FAST_CHECKS_ENV, "1")
+    return str(value).strip().lower() not in FAST_OFF_VALUES
+
+
+def has_hard_limit_markers(user_text):
+    """原文是否含冲突/硬限制标记；命中时必须调用模型判断。"""
+    text = str(user_text or "")
+    return any(marker in text for marker in HARD_LIMIT_MARKERS)
+
+
+def fast_constraint_precheck(user_text, intent):
+    """T2.7 确定性需求预检。
+
+    只有“景区+天数都明确、原文无冲突/硬限制标记”时才返回 ``status=ok`` 的
+    结果；其余情况返回 ``None``，调用方仍走模型检查。
+    """
+    intent = intent if isinstance(intent, dict) else {}
+    if not str(intent.get("scenic_area") or "").strip():
+        return None
+    if not intent.get("duration_days"):
+        return None
+    if has_hard_limit_markers(user_text):
+        return None
+    return {
+        "status": "ok",
+        "explanation": FAST_CONSTRAINT_EXPLANATION,
+        "question": "",
+    }
+
+
+def fast_plan_check(route, constraints_ok):
+    """T2.7 确定性方案核验：结构证据完备时跳过模型表述检查。
+
+    条件：需求预检已 ok；``fully_verified=True``；无缺失/跨文档；
+    ``route.metrics`` 无重复经过、无缺失路段。任一条件不满足返回 ``None``。
+    """
+    if not constraints_ok:
+        return None
+    route = route if isinstance(route, dict) else {}
+    validation = route.get("validation") or {}
+    if validation.get("fully_verified") is not True:
+        return None
+    if validation.get("missing_connections"):
+        return None
+    if validation.get("cross_doc_transitions"):
+        return None
+    metrics = route.get("metrics")
+    if not isinstance(metrics, dict):
+        return None
+    if "repeats" not in metrics or "missing_segments" not in metrics:
+        return None
+    if metrics.get("repeats") or metrics.get("missing_segments"):
+        return None
+    return {
+        "status": "ok",
+        "explanation": FAST_PLAN_EXPLANATION,
+        "question": "",
+    }
 
 
 def check_plan(user_text, route, suggestions):

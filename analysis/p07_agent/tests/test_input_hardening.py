@@ -10,6 +10,7 @@
 
 import io
 import json
+import os
 import sys
 import tempfile
 import unittest
@@ -17,6 +18,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+# T2.7 结果缓存默认开启；本模块用 patch 替换模型/路线夹具，必须关闭缓存避免跨用例串结果。
+os.environ["P07_RESULT_CACHE"] = "0"
 
 import agent
 import intent_parser
@@ -443,7 +447,9 @@ class AgentInputHardeningTests(unittest.TestCase):
         leak = intent_parser.SYSTEM_PROMPT
         decision = {"decision": "clarify", "request_type": "plan",
                     "reason": "模型说明", "response": leak}
-        with patch.object(agent, "parse_intent", return_value=self.intent), \
+        # T2.7：本用例验证模型决策回退的脱敏，关闭确定性快速决策以走模型分支。
+        with patch.dict(os.environ, {"P07_FAST_DECISION": "0"}), \
+             patch.object(agent, "parse_intent", return_value=self.intent), \
              patch.object(agent, "decide_next_step", return_value=decision):
             result = agent.run_agent("去长隆玩")
         self.assertNotIn(leak, result["message"])

@@ -2,10 +2,15 @@
 
 import json
 import os
+import time
 
+import result_cache
 from alternatives import build_alternatives
 from condition_selector import find_relevant_conditions
-from constraint_checker import check_constraints, check_plan
+from constraint_checker import (
+    check_constraints, check_plan, fast_checks_enabled, fast_constraint_precheck,
+    fast_plan_check,
+)
 from feasibility import apply_feasibility, crop_validation
 from intent_parser import INTENT_FALLBACK_MESSAGE, parse_intent
 from itinerary import build_itinerary
@@ -22,7 +27,9 @@ from text_normalize import (
     detect_prompt_injection, is_pure_injection, normalize_user_text,
     strip_injection_markers, truncation_notice,
 )
-from tool_decider import decide_next_step, fallback_decision
+from tool_decider import (
+    decide_next_step, fallback_decision, fast_decision, fast_decision_enabled,
+)
 from tool_selector import select_tools
 from tools import route_metrics, search_poi
 from trace_log import SessionTrace
@@ -34,6 +41,31 @@ ALLOWED_TOOLS = {"get_conditions", "get_route_candidates", "search_poi"}
 #: 可行性闸（T2.2）开关：显式设为 0/false/off/no 时完全跳过，便于回退与对照评测。
 FEASIBILITY_GUARD_ENV = "FEASIBILITY_GUARD"
 FEASIBILITY_OFF_VALUES = frozenset({"0", "false", "off", "no"})
+
+#: T2.7 首反馈数据面：阶段 → 中文标签。stage 取值固定为这五个。
+PROGRESS_LABELS = {
+    "intent": "解析需求",
+    "tools": "查询图谱",
+    "route": "规划路线",
+    "verify": "核验行程",
+    "done": "完成",
+}
+
+
+def _emit_progress(progress, stage, status, started):
+    """调用进度回调；回调异常一律吞掉，绝不影响主流程（T2.7 契约）。"""
+    if progress is None:
+        return
+    try:
+        elapsed_ms = max(int((time.monotonic() - started) * 1000), 0)
+        progress({
+            "stage": stage,
+            "label": PROGRESS_LABELS[stage],
+            "status": status,
+            "elapsed_ms": elapsed_ms,
+        })
+    except Exception:  # noqa: BLE001 - 进度只是旁路数据面
+        pass
 
 # 这些词描述的是人群或体验偏好，不是地点名称；拿去做 POI 名称搜索必然为空。
 PREFERENCE_KEYWORDS = (
@@ -213,14 +245,19 @@ def _route_problems(route, days):
     return problems
 
 
-def run_agent(user_text):
+def run_agent(user_text, progress=None):
     """执行一次请求；追问上下文由调用方传入完整文本。
 
     返回值 ``status`` 只可能是 ``verified`` / ``partial`` / ``clarify`` / ``error``
     四值之一，并同时带 ``reasons`` 与 ``what_verified``。契约出处：
     ``docs/optimization/PRODUCT_SPEC.md`` §5；HappinessJo 2026-11-15 按「建议默认」
     签字，见 ``travel-agent-run/optimization/state/G0_GATE.md`` §9。
+
+    ``progress`` 是 T2.7 新增的可选回调（向后兼容：单参调用行为不变）。它会收到
+    ``{"stage", "label", "status", "elapsed_ms"}``；首个事件在解析开始前发出，
+    保证 ≤3s 首反馈。回调抛出的任何异常都被吞掉，不影响主流程。
     """
+    started = time.monotonic()
     result = {
         "query": user_text, "intent": None,
         "decision": None, "tool_selection": None, "tool_decisions": [],
@@ -234,6 +271,8 @@ def run_agent(user_text):
     }
     trace = SessionTrace()
     trace.record_event("user_input", user_request=user_text)
+    cache_context = None
+    _emit_progress(progress, "intent", "start", started)
 
     try:
         # 输入归一只作用于模型输入；result["query"] 仍是用户原文。
@@ -274,6 +313,8 @@ def run_agent(user_text):
                 "error": f"{type(exc).__name__}: {exc}"[:160]
             })
             raise _ClarifyRequest(INTENT_FALLBACK_MESSAGE, "model_error")
+        finally:
+            _emit_progress(progress, "intent", "done", started)
         result["intent"] = intent
         trace.record_event("intent", observation=intent)
         if not isinstance(intent, dict):
@@ -315,6 +356,22 @@ def run_agent(user_text):
         if scope_note:
             result["message"] = scope_note
 
+        # T2.7 结果缓存：intent 明确后才能构出完整键（query + 口径 + 字段）。
+        # 会话记录仍按请求新建，缓存值里不含 trace_*，不跨请求共享会话文件。
+        days = intent.get("duration_days")
+        cache_context = (result_cache.build_key(normalized, intent), normalized, intent)
+        cached = result_cache.lookup_key(cache_context[0])
+        if cached is not None:
+            trace.record_event("cache_hit", observation={"query": normalized})
+            result.update(cached)
+            result["query"] = user_text
+            result["intent"] = intent
+            result["cache_hit"] = True
+            for stage in ("tools", "route", "verify"):
+                _emit_progress(progress, stage, "start", started)
+                _emit_progress(progress, stage, "done", started)
+            return result
+
         # 表述检查器只判断"用户需求是否冲突"，不负责回应注入。
         # 命中注入且仍有旅行需求时，用去掉注入片段的文本做检查，避免模型
         # 把"忽略指令"当成用户需求而拒绝正常行程；主解析/决策仍拿数据原文。
@@ -328,12 +385,17 @@ def run_agent(user_text):
                     "checked_chars": len(stripped),
                 })
 
-        # 超时/非法 JSON 由决定器内部回退；这里再兜 mock 或旧版决定器异常。
-        try:
-            decision = decide_next_step(normalized, intent)
-        except MODEL_ERRORS as exc:
-            decision = fallback_decision(
-                intent, f"{type(exc).__name__}: {exc}")
+        # T2.7 A：intent 已明确时用确定性规则决策，跳过决策模型调用。
+        if fast_decision_enabled():
+            decision = fast_decision(normalized, intent)
+            trace.record_event("fast_decision", decision=decision)
+        else:
+            # 超时/非法 JSON 由决定器内部回退；这里再兜 mock 或旧版决定器异常。
+            try:
+                decision = decide_next_step(normalized, intent)
+            except MODEL_ERRORS as exc:
+                decision = fallback_decision(
+                    intent, f"{type(exc).__name__}: {exc}")
         if not isinstance(decision, dict):
             decision = fallback_decision(intent, "决策返回值不是对象")
         if (decision.get("decision") not in {"clarify", "query_graph", "reply"}
@@ -365,7 +427,6 @@ def run_agent(user_text):
                 )
             }
 
-        days = intent.get("duration_days")
         # 用户只给小时数（如“只有 3 小时”）时，解析器按 1 天内的半日行程处理；
         # 这里把假设写进 uncertainties/message，不把半日说成整天。
         assumption = intent.get("duration_assumption")
@@ -403,25 +464,40 @@ def run_agent(user_text):
             )
         else:
             result["needs_followup"] = True
+            # T2.7 B：结构条件满足时跳过表述检查模型调用；注入/截断输入不跳过。
+            fast_checks_ok = (
+                fast_checks_enabled()
+                and not result["input_flags"]["injection_patterns"]
+                and not result["input_flags"]["truncated"]
+            )
+            _emit_progress(progress, "verify", "start", started)
             if decision["request_type"] == "info" and not intent.get("constraints"):
                 # 普通事实查询不需要模型先推断地点是否存在；交给图谱查询。
                 requirement_check = {"status": "ok", "explanation": "纯信息查询交由图谱核实。", "question": ""}
             else:
-                try:
-                    requirement_check = check_constraints(check_text)
-                except MODEL_ERRORS as exc:
-                    # 需求检查只是表述层面的预检；模型不可用不应把整条请求打成 error。
-                    requirement_check = {
-                        "status": "ok",
-                        "explanation": "需求检查模型不可用，已跳过表述预检。",
-                        "question": "",
-                    }
-                    result["uncertainties"].append(
-                        "需求检查模型调用失败，已跳过本轮表述检查；"
-                        "路线仍按图谱逐段核验。")
-                    trace.record_event("requirement_check_fallback", observation={
-                        "error": f"{type(exc).__name__}: {exc}"[:160]
-                    })
+                requirement_check = None
+                if fast_checks_ok:
+                    requirement_check = fast_constraint_precheck(check_text, intent)
+                    if requirement_check is not None:
+                        trace.record_event(
+                            "fast_requirement_check", observation=requirement_check)
+                if requirement_check is None:
+                    try:
+                        requirement_check = check_constraints(check_text)
+                    except MODEL_ERRORS as exc:
+                        # 需求检查只是表述层面的预检；模型不可用不应把整条请求打成 error。
+                        requirement_check = {
+                            "status": "ok",
+                            "explanation": "需求检查模型不可用，已跳过表述预检。",
+                            "question": "",
+                        }
+                        result["uncertainties"].append(
+                            "需求检查模型调用失败，已跳过本轮表述检查；"
+                            "路线仍按图谱逐段核验。")
+                        trace.record_event("requirement_check_fallback", observation={
+                            "error": f"{type(exc).__name__}: {exc}"[:160]
+                        })
+            _emit_progress(progress, "verify", "done", started)
             trace.record_event("requirement_check", observation=requirement_check)
             if requirement_check["status"] != "ok":
                 check_message = _check_message(
@@ -432,7 +508,13 @@ def run_agent(user_text):
                         _check_reason_code(requirement_check["status"]), check_message)]
                 )
             else:
-                clarified = _query_graph(result, trace, normalized, area, days, sub_area)
+                _emit_progress(progress, "tools", "start", started)
+                try:
+                    clarified = _query_graph(
+                        result, trace, normalized, area, days, sub_area,
+                        progress=progress, started=started)
+                finally:
+                    _emit_progress(progress, "tools", "done", started)
                 if clarified:
                     result["reasons"] = [make_reason("missing_slot", _reason_text(
                         result.get("message"), default="请补充具体需求。"))]
@@ -455,21 +537,34 @@ def run_agent(user_text):
                                 result["message"], "图谱中没有找到匹配地点，请确认名称或尝试其他关键词。"
                             ]))
                     else:
-                        try:
-                            plan_check = check_plan(
-                                check_text, result["route"], result["suggestions"])
-                        except MODEL_ERRORS as exc:
-                            plan_check = {
-                                "status": "ok",
-                                "explanation": "方案检查模型不可用，已跳过表述检查。",
-                                "question": "",
-                            }
-                            result["uncertainties"].append(
-                                "方案检查模型调用失败，已跳过本轮表述检查；"
-                                "路线逐段核验结果不受影响。")
-                            trace.record_event("plan_check_fallback", observation={
-                                "error": f"{type(exc).__name__}: {exc}"[:160]
-                            })
+                        _emit_progress(progress, "verify", "start", started)
+                        # T2.7 B：结构证据完备时跳过方案表述检查模型调用。
+                        plan_check = None
+                        if fast_checks_ok:
+                            plan_check = fast_plan_check(
+                                result["route"],
+                                isinstance(requirement_check, dict)
+                                and requirement_check.get("status") == "ok")
+                            if plan_check is not None:
+                                trace.record_event(
+                                    "fast_plan_check", observation=plan_check)
+                        if plan_check is None:
+                            try:
+                                plan_check = check_plan(
+                                    check_text, result["route"], result["suggestions"])
+                            except MODEL_ERRORS as exc:
+                                plan_check = {
+                                    "status": "ok",
+                                    "explanation": "方案检查模型不可用，已跳过表述检查。",
+                                    "question": "",
+                                }
+                                result["uncertainties"].append(
+                                    "方案检查模型调用失败，已跳过本轮表述检查；"
+                                    "路线逐段核验结果不受影响。")
+                                trace.record_event("plan_check_fallback", observation={
+                                    "error": f"{type(exc).__name__}: {exc}"[:160]
+                                })
+                        _emit_progress(progress, "verify", "done", started)
                         trace.record_event("plan_check", observation=plan_check)
                         if plan_check["status"] != "ok":
                             check_message = _check_message(
@@ -530,6 +625,15 @@ def run_agent(user_text):
         _sanitize_result(result)
         _append_input_notices(result)
         _finalize_result_status(result)
+        # T2.7 D：只缓存成功结果；截断输入与缓存命中本身不重复写入。
+        if (cache_context is not None
+                and not result.get("cache_hit")
+                and not result["input_flags"]["truncated"]):
+            try:
+                stored = result_cache.store_key(cache_context[0], result)
+                trace.record_event("cache_store", observation={"stored": stored})
+            except Exception:  # noqa: BLE001 - 缓存失败不影响主流程
+                pass
         trace.record_event("final_answer", final_answer={
             "status": result["status"], "message": result["message"], "error": result["error"],
             "route": result["route"], "suggestions": result["suggestions"],
@@ -541,6 +645,7 @@ def run_agent(user_text):
         except Exception as exc:
             # 会话记录只是可复现性材料；保存失败不应把已生成的行程标成失败。
             result["trace_error"] = f"会话记录未保存（不影响行程结果）：{exc}"
+        _emit_progress(progress, "done", "done", started)
 
     return result
 
@@ -771,16 +876,34 @@ def _apply_feasibility_crop(result, report, trace=None):
     return crop
 
 
-def _query_graph(result, trace, user_text, area, days, sub_area=None):
+def _query_graph(result, trace, user_text, area, days, sub_area=None,
+                 progress=None, started=None):
     """按有限轮次选择工具，基于真实返回结果决定是否补查。
 
     返回 ``True`` 表示查询阶段已经给出 ``clarify`` 结论；``False`` 表示没有
     阻断性问题，由 ``run_agent`` 继续判定 ``verified`` / ``partial``。
+    ``progress`` 只用于 T2.7 的路线阶段进度事件，异常由 ``_emit_progress`` 吞掉。
     """
+    if started is None:
+        started = time.monotonic()
     observations = []
     executed = set()
     route_needs_refresh = False
     clarified = False
+
+    def plan_with_progress():
+        """调用路线规划，并在开始/结束时发出 route 阶段进度（T2.7）。"""
+        requirements = _route_requirements(result)
+        _emit_progress(progress, "route", "start", started)
+        try:
+            return plan_route(
+                user_text, area, conditions=result["suggestions"],
+                trace=trace, sub_area=sub_area, days=days,
+                profiles=requirements["profiles"],
+                preferences=requirements["preferences"],
+                constraints=requirements["constraints"])
+        finally:
+            _emit_progress(progress, "route", "done", started)
 
     for _ in range(MAX_DECISION_ROUNDS):
         try:
@@ -929,13 +1052,7 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
                                      "count": len(poi_results), "fallback": fallback_used,
                                      "examples": poi_results[:5]})
             else:
-                requirements = _route_requirements(result)
-                result["route"] = plan_route(
-                    user_text, area, conditions=result["suggestions"],
-                    trace=trace, sub_area=sub_area, days=days,
-                    profiles=requirements["profiles"],
-                    preferences=requirements["preferences"],
-                    constraints=requirements["constraints"])
+                result["route"] = plan_with_progress()
                 route_scope = result["route"].get("scope") or {}
                 if route_scope.get("note"):
                     result["message"] = " ".join(filter(None, [result["message"], route_scope["note"]]))
@@ -953,13 +1070,7 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
         })
 
     if route_needs_refresh and result["route"] is not None:
-        requirements = _route_requirements(result)
-        result["route"] = plan_route(
-            user_text, area, conditions=result["suggestions"],
-            trace=trace, sub_area=sub_area, days=days,
-            profiles=requirements["profiles"],
-            preferences=requirements["preferences"],
-            constraints=requirements["constraints"])
+        result["route"] = plan_with_progress()
         route_scope = result["route"].get("scope") or {}
         if route_scope.get("note"):
             result["message"] = " ".join(filter(None, [result["message"], route_scope["note"]]))

@@ -17,6 +17,9 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+# T2.7 结果缓存默认开启；本模块用 patch 替换模型/路线夹具，必须关闭缓存避免跨用例串结果。
+os.environ["P07_RESULT_CACHE"] = "0"
+
 import agent
 import feasibility
 import status

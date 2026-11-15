@@ -1,6 +1,7 @@
 """备选路线（T2.4）离线回归测试：只读 P6 图谱，不调用模型、不联网。"""
 
 import json
+import os
 import sys
 import tempfile
 import unittest
@@ -9,6 +10,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+# T2.7 结果缓存默认开启；本模块用 patch 替换模型/路线夹具，必须关闭缓存避免跨用例串结果。
+os.environ["P07_RESULT_CACHE"] = "0"
 
 import agent
 import alternatives
