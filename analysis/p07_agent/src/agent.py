@@ -328,7 +328,8 @@ def run_agent(user_text):
                 result["route"], result.get("suggestions"), area, sub_area,
                 profiles=requirements["profiles"],
                 preferences=requirements["preferences"],
-                constraints=requirements["constraints"])
+                constraints=requirements["constraints"],
+                feasibility=result.get("feasibility"))
     except Exception as exc:
         error_text = _reason_text(str(exc), default="内部异常，未生成行程。")
         result.update(
