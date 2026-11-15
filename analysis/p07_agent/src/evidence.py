@@ -25,6 +25,8 @@
     文档元数据；不存在 / 空 ``doc_id`` → ``None``。
 ``quote_for(doc_id, node_id=None, span=None)``
     按显式 span 或节点名首次出现取原文片段；越界 / 找不到 → ``None``。
+``quote_sentence_for(doc_id, node_id=None, span=None, max_chars=200)``
+    在同样的锚点上向两侧扩到句子边界，返回句级摘句；超长句截到 ``max_chars``。
 ``segment_evidence(segment)``
     为一段路线（``from_name`` / ``to_name`` / ``source_doc_ids``）生成证据卡；
     摘句缺失时卡片保留，``quote=None`` 且 ``found=False``。
@@ -59,6 +61,9 @@ _NODES_BY_ID = None
 
 #: ``scan_coverage()`` 的 ``missing_examples`` 最多列出的条数。
 MISSING_EXAMPLE_LIMIT = 10
+
+#: 句级摘句使用的句子边界（``quote_sentence_for()``）；只认这 5 个字符，不做推测补全。
+SENTENCE_BOUNDARIES = "。！？；\n"
 
 
 def _guides_path(area):
@@ -198,6 +203,31 @@ def doc_meta(doc_id):
     }
 
 
+def _anchor(row, node_id=None, span=None):
+    """定位锚点 span：显式 ``span`` 优先，否则用节点名首次出现；失败返回 ``None``。
+
+    这是 ``quote_for()`` 与 ``quote_sentence_for()`` 共用的唯一口径，保证两者对
+    同一个节点/文档找到的是同一处原文位置。
+    """
+    content = _content(row)
+    if span is not None:
+        return _checked_span(span, len(content))
+
+    if node_id is not None:
+        node = _node_row(node_id)
+        if node is None:
+            return None
+        name = node.get("name") or ""
+        if not name:
+            return None
+        start = content.find(name)
+        if start < 0:
+            return None
+        return start, start + len(name)
+
+    return None
+
+
 def quote_for(doc_id, node_id=None, span=None):
     """取一段可核验的原文摘句。
 
@@ -215,19 +245,103 @@ def quote_for(doc_id, node_id=None, span=None):
     if row is None:
         return None
 
-    if span is not None:
-        bounds = _checked_span(span, len(_content(row)))
-        if bounds is None:
-            return None
-        return _quote(row, bounds[0], bounds[1])
+    bounds = _anchor(row, node_id=node_id, span=span)
+    if bounds is None:
+        return None
+    return _quote(row, bounds[0], bounds[1])
 
-    if node_id is not None:
-        node = _node_row(node_id)
-        if node is None:
-            return None
-        return _quote_by_name(doc_id, node.get("name") or "")
 
-    return None
+def _sentence_bounds(content, anchor_start, anchor_end):
+    """把锚点扩到句子边界，返回 ``(start, end)``（结束位置不含）。
+
+    左边界取锚点前最近的 ``。！？；\\n`` 之后（找不到则 0），右边界取锚点后
+    最近的 ``。！？；\\n`` 之后（含该标点；找不到则 ``len(content)``）。
+    只用 ``clean_content`` 原文里的字符判断，不补标点、不改换行。
+    """
+    start = 0
+    for index in range(anchor_start - 1, -1, -1):
+        if content[index] in SENTENCE_BOUNDARIES:
+            start = index + 1
+            break
+
+    end = len(content)
+    for index in range(anchor_end, len(content)):
+        if content[index] in SENTENCE_BOUNDARIES:
+            end = index + 1
+            break
+
+    return start, end
+
+
+def _sentence_window(anchor_start, anchor_end, sentence_start, sentence_end, max_chars):
+    """在句子范围内给锚点找一个不超过 ``max_chars`` 的窗口；放不下返回 ``None``。
+
+    句子本身不超长时整句返回；超长时先按句子起点取窗口，若锚点被截在窗口外，
+    再把窗口起点后移到刚好能容下完整锚点的位置（不切锚点、不补省略号）。
+    """
+    anchor_length = anchor_end - anchor_start
+    if anchor_length > max_chars:
+        return None
+
+    if sentence_end - sentence_start <= max_chars:
+        return sentence_start, sentence_end
+
+    start = sentence_start
+    if start + max_chars < anchor_end:
+        start = max(sentence_start, anchor_end - max_chars)
+    end = min(start + max_chars, sentence_end)
+
+    if start > anchor_start or end < anchor_end or end <= start:
+        return None
+    return start, end
+
+
+def quote_sentence_for(doc_id, node_id=None, span=None, max_chars=200):
+    """在 ``quote_for()`` 的锚点上取**句级**摘句（含句末标点），供证据卡展示。
+
+    - 锚点定位与 ``quote_for()`` 完全相同：``span`` 优先直接校验，否则取
+      ``graph_nodes.csv`` 里节点名在正文中的**首次出现**；
+    - 以锚点为中心扩到句子边界：左边界为锚点前最近的 ``。！？；\\n`` 之后
+      （找不到则 0），右边界为锚点后最近的 ``。！？；\\n`` 之后（含标点；
+      找不到则 ``len(clean_content)``）；
+    - 句子超过 ``max_chars`` 时截成仍包含**完整锚点**的窗口，长度 <= ``max_chars``；
+      ``max_chars`` 必须是正整数，且不得小于锚点本身长度，否则返回 ``None``；
+    - 返回 ``{text, char_start, char_end, anchor_start, anchor_end}``，其中
+      ``text == clean_content[char_start:char_end]``、``anchor_start/anchor_end``
+      是锚点在 ``clean_content`` 上的原始位置（``char_start <= anchor_start``、
+      ``anchor_end <= char_end``）。
+
+    文档不存在、节点不存在、span 非法、窗口放不下等任何一步失败都返回 ``None``；
+    不拼接多个片段、不用省略号或补写文字伪造句子。
+    """
+    row = _doc_row(doc_id)
+    if row is None:
+        return None
+
+    if not isinstance(max_chars, int) or isinstance(max_chars, bool) or max_chars <= 0:
+        return None
+
+    bounds = _anchor(row, node_id=node_id, span=span)
+    if bounds is None:
+        return None
+    anchor_start, anchor_end = bounds
+
+    content = _content(row)
+    sentence_start, sentence_end = _sentence_bounds(content, anchor_start, anchor_end)
+    window = _sentence_window(
+        anchor_start, anchor_end, sentence_start, sentence_end, max_chars
+    )
+    if window is None:
+        return None
+    start, end = window
+
+    return {
+        "text": content[start:end],
+        "char_start": start,
+        "char_end": end,
+        "anchor_start": anchor_start,
+        "anchor_end": anchor_end,
+    }
 
 
 def segment_evidence(segment):

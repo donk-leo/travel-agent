@@ -239,6 +239,140 @@ class SegmentEvidenceTests(unittest.TestCase):
         self.assertFalse(cards[0]["found"])
 
 
+class QuoteSentenceTests(unittest.TestCase):
+    SAMPLE = (
+        ("WGS-O-01", "POI|武功山|金顶"),
+        ("BYS-O-01", "POI|广州白云山|摩星岭"),
+        ("BYS-T-02", "POI|广州白云山|黄婆洞水库"),
+    )
+
+    def _node_name(self, node_id):
+        return next(node["name"] for node in GRAPH_NODES if node["node_id"] == node_id)
+
+    def test_sentence_slice_matches_clean_content(self):
+        for doc_id, node_id in self.SAMPLE:
+            with self.subTest(doc_id=doc_id, node_id=node_id):
+                content = RAW_DOCS[doc_id]["clean_content"]
+                name = self._node_name(node_id)
+                sentence = evidence.quote_sentence_for(doc_id, node_id=node_id)
+
+                self.assertEqual(
+                    set(sentence),
+                    {"text", "char_start", "char_end", "anchor_start", "anchor_end"},
+                )
+                self.assertEqual(
+                    sentence["text"],
+                    content[sentence["char_start"]:sentence["char_end"]],
+                )
+                self.assertEqual(sentence["anchor_start"], content.find(name))
+                self.assertEqual(
+                    content[sentence["anchor_start"]:sentence["anchor_end"]],
+                    name,
+                )
+                self.assertEqual(
+                    sentence["text"][
+                        sentence["anchor_start"] - sentence["char_start"]:
+                        sentence["anchor_end"] - sentence["char_start"]
+                    ],
+                    name,
+                )
+
+    def test_sentence_boundaries_include_punctuation(self):
+        for doc_id, node_id in self.SAMPLE:
+            with self.subTest(doc_id=doc_id, node_id=node_id):
+                content = RAW_DOCS[doc_id]["clean_content"]
+                sentence = evidence.quote_sentence_for(doc_id, node_id=node_id)
+
+                if sentence["char_start"] > 0:
+                    self.assertIn(
+                        content[sentence["char_start"] - 1],
+                        evidence.SENTENCE_BOUNDARIES,
+                    )
+                if sentence["char_end"] < len(content):
+                    self.assertIn(
+                        content[sentence["char_end"] - 1],
+                        evidence.SENTENCE_BOUNDARIES,
+                    )
+
+    def test_window_contains_anchor_and_respects_max_chars(self):
+        content = RAW_DOCS["BYS-O-01"]["clean_content"]
+        for max_chars in (8, 20, 40, 60, 200):
+            with self.subTest(max_chars=max_chars):
+                sentence = evidence.quote_sentence_for(
+                    "BYS-O-01", node_id="POI|广州白云山|摩星岭", max_chars=max_chars
+                )
+                self.assertIsNotNone(sentence)
+                self.assertLessEqual(len(sentence["text"]), max_chars)
+                self.assertLessEqual(sentence["char_start"], sentence["anchor_start"])
+                self.assertLessEqual(sentence["anchor_end"], sentence["char_end"])
+                self.assertEqual(
+                    sentence["text"],
+                    content[sentence["char_start"]:sentence["char_end"]],
+                )
+
+    def test_long_sentence_is_truncated_but_keeps_whole_anchor(self):
+        content = RAW_DOCS["WGS-O-01"]["clean_content"]
+        first = content.find("金顶")
+
+        sentence = evidence.quote_sentence_for(
+            "WGS-O-01", node_id="POI|武功山|金顶", max_chars=30
+        )
+
+        self.assertLessEqual(len(sentence["text"]), 30)
+        self.assertEqual(
+            content[sentence["anchor_start"]:sentence["anchor_end"]],
+            "金顶",
+        )
+        self.assertEqual(sentence["text"], content[sentence["char_start"]:sentence["char_end"]])
+        self.assertLessEqual(sentence["char_start"], first)
+        self.assertGreaterEqual(sentence["char_end"], first + 2)
+        self.assertNotIn("…", sentence["text"])
+        self.assertNotIn("...", sentence["text"])
+
+    def test_missing_or_invalid_inputs_return_none(self):
+        self.assertIsNone(
+            evidence.quote_sentence_for("CL-X-99", node_id="POI|武功山|金顶")
+        )
+        self.assertIsNone(
+            evidence.quote_sentence_for("WGS-O-01", node_id="POI|不存在|也不存在")
+        )
+        self.assertIsNone(evidence.quote_sentence_for("WGS-O-01"))
+        self.assertIsNone(evidence.quote_sentence_for("WGS-O-01", span=(10, 5)))
+        self.assertIsNone(evidence.quote_sentence_for("WGS-O-01", span=(0, 10 ** 6)))
+        self.assertIsNone(evidence.quote_sentence_for("WGS-O-01", span=(43, 43)))
+        # 锚点本身比 max_chars 长：无法完整保留锚点又不超过上限
+        self.assertIsNone(
+            evidence.quote_sentence_for("WGS-O-01", span=(43, 45), max_chars=1)
+        )
+        for max_chars in (0, -5, "200", 2.5, None, True):
+            with self.subTest(max_chars=max_chars):
+                self.assertIsNone(
+                    evidence.quote_sentence_for(
+                        "WGS-O-01", node_id="POI|武功山|金顶", max_chars=max_chars
+                    )
+                )
+
+    def test_first_occurrence_wins(self):
+        content = RAW_DOCS["WGS-O-01"]["clean_content"]
+        first = content.find("金顶")
+        self.assertEqual(content.count("金顶"), 2)
+
+        sentence = evidence.quote_sentence_for("WGS-O-01", node_id="POI|武功山|金顶")
+
+        self.assertEqual(sentence["anchor_start"], first)
+        self.assertLessEqual(sentence["char_start"], first)
+        self.assertGreater(sentence["char_end"], first)
+        self.assertEqual(sentence["text"].find("金顶"), first - sentence["char_start"])
+
+    def test_span_and_node_id_locate_the_same_anchor(self):
+        by_node = evidence.quote_sentence_for("WGS-O-01", node_id="POI|武功山|金顶")
+        by_span = evidence.quote_sentence_for(
+            "WGS-O-01",
+            span=(by_node["anchor_start"], by_node["anchor_end"]),
+        )
+        self.assertEqual(by_node, by_span)
+
+
 class ScanCoverageTests(unittest.TestCase):
     def test_metadata_coverage_is_complete(self):
         report = evidence.scan_coverage()
