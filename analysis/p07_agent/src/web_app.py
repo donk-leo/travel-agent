@@ -22,6 +22,9 @@
 import csv
 import json
 import os
+import threading
+import time
+from collections import OrderedDict
 from pathlib import Path
 
 from flask import Flask, render_template, render_template_string, request, session
@@ -68,6 +71,62 @@ def _count_documents():
 
 
 DOC_COUNT = _count_documents()
+
+#: 进程内结果缓存（T3.2 补丁）：让 GET 的视图切换 / 备选高亮复用上次结果。
+#: - 只存在内存，不写盘、不进 session/cookie；
+#: - 最多 8 条，超出按 LRU 淘汰；每条 TTL 30 分钟；
+#: - key 为 strip 后的 query，重启进程即清空。
+RESULT_CACHE_MAX = 8
+RESULT_CACHE_TTL_SECONDS = 30 * 60
+_RESULT_CACHE = OrderedDict()
+_RESULT_CACHE_LOCK = threading.RLock()
+
+
+def _cache_key(query):
+    return _safe_text(query)
+
+
+def _store_result(query, result):
+    """把一次 POST 的返回值放进进程内 LRU 缓存；非 dict / 空 query 不存。"""
+    key = _cache_key(query)
+    if not key or not isinstance(result, dict):
+        return
+    now = time.monotonic()
+    with _RESULT_CACHE_LOCK:
+        _RESULT_CACHE.pop(key, None)
+        _RESULT_CACHE[key] = (now, result)
+        while len(_RESULT_CACHE) > RESULT_CACHE_MAX:
+            _RESULT_CACHE.popitem(last=False)
+
+
+def _get_cached_result(query):
+    """取缓存结果；过期删除、命中移到队尾（LRU）。未命中返回 ``None``。"""
+    key = _cache_key(query)
+    if not key:
+        return None
+    now = time.monotonic()
+    with _RESULT_CACHE_LOCK:
+        item = _RESULT_CACHE.get(key)
+        if item is None:
+            return None
+        stored_at, result = item
+        if now - stored_at > RESULT_CACHE_TTL_SECONDS:
+            _RESULT_CACHE.pop(key, None)
+            return None
+        _RESULT_CACHE.move_to_end(key)
+        return result
+
+
+def _cache_size():
+    """当前缓存条数（测试与诊断用，不暴露给页面）。"""
+    with _RESULT_CACHE_LOCK:
+        return len(_RESULT_CACHE)
+
+
+def _clear_result_cache():
+    """清空缓存（测试用；页面不提供清空入口）。"""
+    with _RESULT_CACHE_LOCK:
+        _RESULT_CACHE.clear()
 
 
 @app.context_processor
@@ -474,7 +533,7 @@ def _status_note(status, contract_violation, result):
     return ""
 
 
-def _build_context(result, view, query, selected_alt=""):
+def _build_context(result, view, query, selected_alt="", cache_hit=False):
     """把 ``run_agent`` 返回值整理成模板上下文；只归一，不改判定。"""
     result = result if isinstance(result, dict) else {}
     raw_status = result.get("status")
@@ -528,12 +587,13 @@ def _build_context(result, view, query, selected_alt=""):
         "trace_error": _safe_text(result.get("trace_error")),
         "alternatives": _normalize_alternatives(result.get("alternatives")),
         "selected_alt": _safe_text(selected_alt),
+        "cache_hit": bool(cache_hit),
     }
 
 
-def _render_result(result, view, query, selected_alt=""):
+def _render_result(result, view, query, selected_alt="", cache_hit=False):
     """渲染结果页；模板异常时返回 error 页而不是 500。"""
-    context = _build_context(result, view, query, selected_alt)
+    context = _build_context(result, view, query, selected_alt, cache_hit=cache_hit)
     template = "auditor.html" if view == "auditor" else "result.html"
     try:
         return render_template(template, **context)
@@ -596,10 +656,19 @@ def home():
     view = _resolve_view()
 
     if request.method == "GET":
+        get_query = _safe_text(request.args.get("query"))
+        cached = _get_cached_result(get_query) if get_query else None
+        if cached is not None:
+            # 视图切换 / 备选高亮：复用上一次 POST 的结果，不重新调用模型。
+            return _render_result(
+                cached, view, get_query,
+                request.args.get("alt", ""),
+                cache_hit=True,
+            )
         return render_template(
             "index.html",
             view=view,
-            query=_safe_text(request.args.get("query")),
+            query=get_query,
             examples=EXAMPLES,
         )
 
@@ -636,6 +705,7 @@ def home():
         session["pending_query"] = query
     else:
         session.pop("pending_query", None)
+    _store_result(query, result)
 
     return _render_result(result, view, query, request.args.get("alt", ""))
 

@@ -16,6 +16,18 @@
 {#- 停留点锚点「#stop-<node_id>」每个节点只落在第一次出现的位置，避免重复 id。 -#}
 {% set stop_anchor = namespace(ids={}) %}
 
+{% if cache_hit %}
+<div class="card cache-notice">
+  <p class="cache-notice__title"><strong>复用上次结果（未重新调用模型）</strong></p>
+  <p class="muted">这次展示的是本进程内缓存的上一次结果，最多保留 30 分钟；需要最新结果可重新生成。</p>
+  <form class="actions" method="post" action="{{ url_for('home') }}">
+    <input type="hidden" name="query" value="{{ query|e }}">
+    <input type="hidden" name="view" value="{{ view|default('visitor') }}">
+    <button type="submit" class="btn btn--secondary">重新生成</button>
+  </form>
+</div>
+{% endif %}
+
 <section class="query-echo" aria-labelledby="query-echo-title">
   <h2 id="query-echo-title">你的需求</h2>
   <p class="query-echo__text">{{ query|e }}</p>

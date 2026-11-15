@@ -38,7 +38,8 @@ P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是
 | `web/preview/auditor_1280.png` | T3.2 评审视图真实模板渲染截图（fixture 数据） |
 | `web/preview/evidence_375.png`、`evidence_1280.png` | T3.4 证据卡真实模板渲染截图（含「未找到来源」卡片，见 §11） |
 | `web/preview/diagram_375.png`、`diagram_1280.png` | T3.3 路线示意图真实模板渲染截图（白云山 BYS-T-02 链，见 §11） |
-| `web/README.md` | 本文件：调色板、对比度、接线说明、状态映射、证据卡、示意图、截图复现 |
+| `web/preview/alternatives_1280.png` | T3.2 补丁：3 条真实备选路线 + `alt-CL-T-03` 高亮（缓存命中态，见 §11） |
+| `web/README.md` | 本文件：调色板、对比度、接线说明、状态映射、缓存、证据卡、示意图、截图复现 |
 
 ## 2. 设计口径（先读）
 
@@ -51,6 +52,8 @@ P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是
 - **零外部资源**：样式表不引用任何外部字体、图标、脚本、CDN；图标全部是 Unicode 字符
   （✅ ⚠️ ❓ ❌ ✔ ▶ ○），字体只用系统栈。
 - **无 JS 也能读**：所有内容都是服务端渲染的静态 HTML；模板里没有任何脚本标签。
+- **切换视图不重跑模型**：结果缓存在当前进程内存（8 条 / 30 分钟，不落盘、不进
+  cookie），GET 视图切换与备选高亮直接复用上次结果；详见 §9.12。
 - **状态只由后端判定**：`web_app.py` 只调用 `status.normalize_status()` 与
   `status.is_contract_violation()`，不改 `agent.py` 的业务判定。
 
@@ -260,16 +263,17 @@ app = Flask(
 
 | 请求 | 行为 |
 |---|---|
-| `GET /` | 渲染 `index.html`：查询表单 + 3 个示例 + 提交；`?query=` 可回填输入框 |
-| `POST /` | 读 `query`，跑一次 `run_agent(query)`，按 `view` 渲染 `result.html` / `auditor.html` |
+| `GET /` | 无缓存命中时渲染 `index.html`：查询表单 + 3 个示例 + 提交；`?query=` 可回填输入框 |
+| `GET /?view=…&query=…&alt=…` | **命中进程内结果缓存**时直接渲染 `result.html` / `auditor.html`，不调用 `run_agent`；未命中回退 index |
+| `POST /` | 读 `query`，跑一次 `run_agent(query)`，把结果放进进程内缓存，按 `view` 渲染 `result.html` / `auditor.html` |
 | `view` 取值 | 只认 `visitor` / `auditor`；缺失、大小写混杂或其他值一律回退 `visitor` |
 | `?view=auditor` | 首屏预选评审视图（表单 hidden `view` 随之提交）；结果页由 POST 的 `view` 决定 |
 | 空 query / `action=reset` | 回到首屏并给出提示，不调用模型 |
 
 视图切换链接（`base.html`）保留当前 `query` 与目标 `view`：
-`?view=<另一个视图>&query=<当前输入>`。本任务不引入服务端结果缓存，
-所以从结果页点切换会回到“已回填输入框”的首屏，再提交即以另一视图渲染；
-这样不需要 JS，也不会把上一次结果悄悄持久化。
+`?view=<另一个视图>&query=<当前输入>`。T3.2 补丁加入结果缓存后，点击切换会命中
+缓存并直接渲染另一视图（顶部提示「复用上次结果（未重新调用模型）」），不再回到首屏；
+缓存未命中（例如服务重启后）才回退到已回填输入框的首屏。不引入 JS。
 
 ### 9.3 状态归一与映射规则（只归一，不判定）
 
@@ -335,7 +339,7 @@ $py = ".\.venv\Scripts\python.exe"
 | `contract_violation=1` 标记 | 无 | 有 |
 | 原始错误 | 无 | 有（默认折叠） |
 
-### 9.7 备选路线区块（为 T2.4 预留，契约先定）
+### 9.7 备选路线区块（T2.4 已交付）
 
 `_visitor_body.html` 接收可选 `alternatives`（list），每项契约：
 
@@ -345,11 +349,13 @@ $py = ".\.venv\Scripts\python.exe"
  segments: [{from_name, to_name, source_doc_ids: [str]}]}
 ```
 
+- 数据由 `alternatives.build_alternatives()` 从 P6 图谱的单一来源 `NEXT` 边生成（T2.4），
+  `web_app._normalize_alternatives()` 只做渲染前归一（状态归一、字段清洗）；
 - 为空 / 未传：**整块不渲染**，不做假数据占位；
 - 非空：渲染最多 3 张卡片，含来源标题、来源 doc_id、节点链、状态、
   逐段来源折叠区，以及 GET 链接 `?view=<当前视图>&alt=<alt_id>`；
-- `alt` 参数当前只用于模板高亮（`alt-card--selected` + “当前高亮”），
-  结果页持久化由 T2.4 接入；不引入 JS。
+- 点击「高亮这条备选」命中 §9.12 的结果缓存，直接在同一结果上高亮
+  （`alt-card--selected` + “当前高亮”），不重跑模型、不引入 JS。
 
 ### 9.8 T3.3 / T3.4 均已交付（不放假数据）
 
@@ -357,7 +363,7 @@ $py = ".\.venv\Scripts\python.exe"
 |---|---|---|---|
 | T3.4 证据卡 | **已交付**（详见 §9.10） | 行程每个 `.period` 内、路线每段 `.segment` 内 | `details.evidence` + `.evidence-card` |
 | T3.3 路线示意图 | **已交付**（详见 §9.11） | 路线顺序区块内、`proposal` 之后 | `details.diagram-block` + `figure.diagram` + 内联 `svg` |
-| T2.4 备选路线 | 契约已定，未接入 | 路线顺序之后、地点列表之前 | `section` + `article.card.alt-card` / `.alt-card--selected` |
+| T2.4 备选路线 | **已交付**（详见 §9.7） | 路线顺序之后、地点列表之前 | `section` + `article.card.alt-card` / `.alt-card--selected` |
 
 原先的占位块 `.diagram-slot` 已随占位一起删除（`style.css` 中对应的两条选择器
 也一并移除），不再留“待接入”文案。T3.4 交付时同样删除了 `.evidence-slot` 占位；
@@ -367,6 +373,7 @@ $py = ".\.venv\Scripts\python.exe"
 
 - 访客视图不显示 `trace_file` 的绝对路径；评审视图只显示文件名；
 - 用户原话由 Jinja 自动转义（需要时显式 `|e`）；
+- 结果缓存只在进程内存（不落盘、不进 session/cookie），重启即清空；详见 §9.12；
 - 页面不加载第三方资源，不写 cookie 之外的分析脚本（本项目没有脚本）。
 
 ### 9.10 T3.4 证据卡（每个停留点 / 每个路线段）
@@ -514,6 +521,24 @@ $py = ".\.venv\Scripts\python.exe"
 故意插入一段图谱里没有的相邻点后，页面**不出现该段的箭头**、只出现
 `data-missing` 与「图谱未收录该段」。
 
+### 9.12 结果缓存（T3.2 补丁，进程内）
+
+目的：让结果页上的 GET 视图切换与备选高亮**真正闭环**，不重新调用模型。
+
+- 存储：`web_app._RESULT_CACHE = OrderedDict()`，**只在当前进程内存**；不写盘、不进
+  session/cookie。
+- key：`query.strip()`；value：`(time.monotonic(), result_dict)`。
+- 容量：最多 **8 条**，超出按 LRU 淘汰（命中会 `move_to_end`）。
+- TTL：**30 分钟**；读取时发现过期即删除，GET 回退 index。
+- 写入：只有 `POST /` 在 `run_agent` 返回后调用 `_store_result(query, result)`；GET 不写入。
+- 读取：`GET /` 带 `query` 且命中时用 `_render_result(..., cache_hit=True)` 渲染
+  `result.html` / `auditor.html`，**不调用 `run_agent`**；未命中仍渲染 index。
+- 页面提示：结果页顶部显示「复用上次结果（未重新调用模型）」+ 一个
+  `method="post"` 的「重新生成」按钮；点它会正常 POST、重跑模型并覆盖缓存。
+- 清空：重启进程即清空；测试可用 `_clear_result_cache()` / `_cache_size()`。
+- 隐私：不落盘、不写 cookie；同一进程内相同 query 会复用同一份结果。本机单用户实验
+  场景可接受，T5.2 部署加固时需要重新评估多用户隔离。
+
 ## 10. 本地校验
 
 ### 10.1 服务端渲染（Flask 测试客户端，不启动服务）
@@ -537,7 +562,11 @@ $py = ".\.venv\Scripts\python.exe"
    `路线结构：` / `工具调用` / `图谱指标`；
 2. 评审页含 intent JSON、`tool_decisions`、逐段来源、`route.metrics`、trace；
 3. `status="working"` / `None` 渲染成 `data-status="error"`，页面不出现原值；
-4. 免责句只在 `verified` / `partial` 出现。
+4. 免责句只在 `verified` / `partial` 出现；
+5. 缓存：`run_agent` 计数在 POST 后为 1；对同一 query 的
+   `GET /?view=auditor&query=…` 与 `GET /?alt=…&query=…` 不增加计数；
+   `GET` 未知 query 仍渲染 index；连续 POST 9 个不同 query 后缓存只留 8 条（第 1 条淘汰）；
+   缓存 30 分钟后失效回 index。
 
 ### 10.3 零外部资源 / 无脚本
 
@@ -556,10 +585,11 @@ $py = ".\.venv\Scripts\python.exe"
 
 T3.4 完成时：check 通过，137 条测试 OK（T3.2 完成时为 121 条）。
 T3.3 完成时同样是 check 通过 + **137 条测试 OK**（只新增模板与渲染接线，没改测试）。
+T3.2 缓存补丁后仍为 **137 条测试 OK**，并新增缓存/视图切换断言（见 §10.2 第 5 条）。
 
-## 11. 截图复现（T3.2 / T3.4 / T3.3）
+## 11. 截图复现（T3.2 / T3.4 / T3.3 / 缓存补丁）
 
-七张截图都由**真实 Flask 模板**渲染，不是手工 HTML；fixture 数据不调用模型：
+八张截图都由**真实 Flask 模板**渲染，不是手工 HTML；fixture 数据不调用模型：
 
 | 文件 | 视口 | 尺寸 | 说明 |
 |---|---|---|---|
@@ -570,6 +600,7 @@ T3.3 完成时同样是 check 通过 + **137 条测试 OK**（只新增模板与
 | `evidence_1280.png` | 1280 CSS px | 1280×5400 | T3.4 访客视图：证据卡展开态（含「未找到来源」卡） |
 | `diagram_375.png` | 375 CSS px | 375×3591 | T3.3 访客视图：路线示意图展开态（白云山 BYS-T-02 链） |
 | `diagram_1280.png` | 1280 CSS px | 1280×2663 | T3.3 访客视图：路线示意图展开态（白云山 BYS-T-02 链） |
+| `alternatives_1280.png` | 1280 CSS px | 1280×3952 | T3.2 补丁：3 条真实备选 + `alt-CL-T-03` 高亮（缓存命中态） |
 
 T3.4 两张图的 fixture：`tools.get_route_candidates('广州白云山')` 的真实 NEXT 连接
 （白云山南门 → 云台花园 → 缆车上山 → 山顶广场 → 摩星岭，来源 `BYS-T-02`）+
@@ -583,6 +614,13 @@ T3.3 两张图用的是同一条链（与任务书的 fixture 一致：
 `graph_edges.csv` 找到同向 `NEXT` 边（前三段 `BYS-T-02`，最后一段 `BYS-T-02` + `BYS-T-03`），
 所以图上 4 条箭头全是真实连接、没有一段是虚构的。
 **截图不代表一次真实 `run_agent` 输出。**
+
+`alternatives_1280.png` 的 fixture：主路线仍是长隆 `CL-O-02` 链；备选由
+`alternatives.build_alternatives('长隆', primary_doc_id='CL-O-02', max_alts=3)` 生成
+3 条真实备选（`CL-T-03` / `CL-T-02` / `CL-O-01`），选中 `alt-CL-T-03`。截图走
+**生产 GET 缓存路径**：先 `_store_result(QUERY, result)`，再访问
+`/?view=visitor&query=<QUERY>&alt=alt-CL-T-03`，所以顶部有「复用上次结果
+（未重新调用模型）」与「重新生成」按钮。**截图不代表一次真实 `run_agent` 输出。**
 
 > 证据入口默认折叠（§9.10）。为了在静态截图里看到卡片内容，T3.4 的截图脚本在
 > **已渲染 HTML** 上给 `<details class="evidence">` 加 `open` 属性（等同用户手动展开，
@@ -624,6 +662,9 @@ threading.Thread(target=server.serve_forever, daemon=True).start()
 print(server.server_port)
 ```
 
+`alternatives_1280.png` 不走上面的 `demo_home`：先 `web_app._store_result(QUERY, result)`，
+直接启动 `web_app.app`，再访问带 `query` / `alt` 的 GET，让请求真正命中 §9.12 的缓存。
+
 2. 用父 Agent 的 CDP 工具（仓库外）真实设置视口并整页截图：
 
 ```powershell
@@ -643,6 +684,9 @@ $base = "${scheme}://127.0.0.1:<port>"
 # T3.3 路线示意图（fixture 用白云山 BYS-T-02 链，并在响应里给 details.diagram-block 加 open）
 & $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\diagram_375.png"  --width 375
 & $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\diagram_1280.png" --width 1280
+
+# T3.2 缓存补丁：备选高亮（先 web_app._store_result(QUERY, fixture)，不替换 home，走生产 GET 缓存路径）
+& $py $shot --url "$base/?view=visitor&query=<urlencoded QUERY>&alt=alt-CL-T-03" --out "analysis\p07_agent\web\preview\alternatives_1280.png" --width 1280
 ```
 
 3. 每张图必须记录工具原样打印的 `METRICS`。本次实测：
@@ -655,6 +699,7 @@ evidence_375.png  METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,
 evidence_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":5400}
 diagram_375.png   METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":3591}
 diagram_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":2663}
+alternatives_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":3952}
 ```
 
 375px 的 `scrollWidth` 等于 `clientWidth` 等于视口宽度 375，**没有横向滚动**
@@ -665,8 +710,9 @@ diagram_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":12
 
 ## 12. 已知限制与后续
 
-- 本任务不实现结果页持久化：视图切换会回到已回填输入框的首屏，再提交渲染另一视图；
-  `?alt=` 高亮同理，等 T2.4 提供备选路线与结果缓存后生效。
+- 结果缓存只在**当前进程内存**（8 条 / 30 分钟 / 不落盘 / 不进 cookie）：重启进程即清空；
+  同一 query 在 TTL 内会复用旧结果（页面有「复用上次结果」提示与「重新生成」按钮）；
+  多进程部署时各进程缓存不共享，T5.2 部署加固时需重新评估。
 - 证据卡（T3.4）只覆盖停留点与路线段：条件建议仍只显示 `doc_id` 列表，
   完整卡片按 PRODUCT_SPEC §6.4 等来源过滤（T2.5）后再接入。
 - 分时行程（`itinerary.py`）没有 node_id，停留点按时段文案里出现的节点名做确定性
