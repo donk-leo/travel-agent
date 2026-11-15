@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}查询需求 · 可核验的景区行程助手{% endblock %}
+
+{% block content %}
+<section aria-labelledby="query-title">
+  <h2 id="query-title">说说你的行程</h2>
+
+  {% if notice %}
+  <p class="example-banner" role="status">{{ notice|e }}</p>
+  {% endif %}
+
+  <form class="query-form" action="{{ url_for('home') }}" method="post" aria-describedby="query-hint">
+    {#- 视图选择随表单一起提交；只认 visitor / auditor，非法值由后端回退。 -#}
+    <input type="hidden" name="view" value="{{ view|default('visitor') }}">
+
+    <label class="query-form__label" for="query-input">你的旅行需求</label>
+    <p class="query-form__hint" id="query-hint">写清景区、天数、同行人和偏好。例如：带孩子去长隆玩一天，游玩为主，少走路。</p>
+    <textarea id="query-input" name="query" rows="4" required>{{ query|e }}</textarea>
+
+    <p class="examples__label" id="examples-label">示例需求（点一下回填输入框，不会自动提交）：</p>
+    <ul class="examples" aria-labelledby="examples-label">
+      {% for example in examples %}
+      <li class="examples__item">
+        <a class="chip" href="{{ url_for('home', view=view, query=example.query) }}">{{ example.label|e }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="query-form__actions">
+      <button type="submit" class="btn">提交需求</button>
+      <a class="btn btn--secondary" href="{{ url_for('home', view=view) }}">清空</a>
+    </div>
+  </form>
+
+  <p class="muted">当前只覆盖长隆、白云山、武功山；没有实时票价、排队、天气与开放状态。页面不提供预订、支付、导航或叫车服务。</p>
+</section>
+{% endblock %}

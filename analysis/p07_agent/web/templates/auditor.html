@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% from "_status_badge.html" import status_badge %}
+
+{% block title %}评审视图 · 可核验的景区行程助手{% endblock %}
+
+{#
+  评审视图状态区：徽标 + 原因 + 判定摘要；内容与访客一致，另加 contract_violation 标记。
+  状态值同样已由 web_app 归一，页面不输出未知状态原文。
+#}
+{% block status %}
+  {{ status_badge(status) }}
+  {% if reasons %}
+  <ul class="reasons" aria-label="本次结果的原因">
+    {% for reason in reasons %}
+    <li class="reasons__item"><code>{{ reason.code|e }}</code>：{{ reason.text|e }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% if status_note %}
+  <p class="status-note">{{ status_note|e }}</p>
+  {% endif %}
+  {% if contract_violation %}
+  <p class="feasibility" data-contract-violation="1">contract_violation=1：后端没有返回四值契约内的状态，已按 error 渲染；请 T2.1 复查调用方。</p>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {#- 先在访客内容之后追加评审面板：评审视图 = 访客看到的内容 + 调试/证据。 -#}
+  {% include "_visitor_body.html" %}
+
+  <section class="audit-panels" aria-labelledby="audit-title">
+    <h2 id="audit-title">评审视图：判定、证据与轨迹</h2>
+    <p class="muted">以下面板只给评审看，默认不进入访客视图；所有数字来自后端返回值，前端不做计算。</p>
+
+    <details class="card audit-panel" open>
+      <summary>判定摘要（status / reasons / what_verified）</summary>
+      <dl class="audit-list">
+        <dt>status</dt>
+        <dd><code>{{ status }}</code>{% if contract_violation %}（contract_violation=1）{% endif %}</dd>
+        <dt>reasons</dt>
+        <dd>
+          {% if reasons %}
+          <ul>
+            {% for reason in reasons %}
+            <li><code>{{ reason.code|e }}</code>：{{ reason.text|e }}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          无（verified 按契约必须为空）。
+          {% endif %}
+        </dd>
+        <dt>what_verified</dt>
+        <dd>
+          {% if what_verified %}
+          <ul>
+            <li>scope：<code>{{ what_verified.scope|e }}</code></li>
+            <li>segments_checked：{{ what_verified.segments_checked }}</li>
+            <li>source_doc_ids：{% if what_verified.source_doc_ids %}{{ what_verified.source_doc_ids|join('、')|e }}{% else %}无{% endif %}</li>
+            <li>note：{{ what_verified.note|e }}</li>
+          </ul>
+          {% else %}
+          后端未返回 what_verified。
+          {% endif %}
+        </dd>
+        {% if decision %}
+        <dt>decision</dt>
+        <dd>
+          <p>下一步：<code>{{ decision.decision|e if decision.decision else '未记录' }}</code></p>
+          <p>需求类型：<code>{{ decision.request_type|e if decision.request_type else '未记录' }}</code></p>
+          {% if decision.reason %}<p>理由：{{ decision.reason|e }}</p>{% endif %}
+          {% if decision.response %}<p>回复：{{ decision.response|e }}</p>{% endif %}
+        </dd>
+        {% endif %}
+      </dl>
+    </details>
+
+    <details class="card audit-panel" open>
+      <summary>intent JSON（模型解析结果）</summary>
+      {% if intent_json %}
+      <pre>{{ intent_json|e }}</pre>
+      {% else %}
+      <p class="muted">没有解析结果（本次请求可能未进入意图解析）。</p>
+      {% endif %}
+    </details>
+
+    <details class="card audit-panel" open>
+      <summary>工具选择与理由（tool_decisions）</summary>
+      {% if tool_decisions %}
+      <ol class="audit-tools">
+        {% for selection in tool_decisions %}
+        <li>
+          <p>{% if selection.kind == 'system_adjustment' %}系统补充{% else %}模型选择{% endif %}：{% if selection.tools %}{{ selection.tools|join('、')|e }}{% else %}不再查询{% endif %}</p>
+          {% if selection.reason %}<p class="muted">理由：{{ selection.reason|e }}</p>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+      {% else %}
+      <p class="muted">本次没有工具选择记录。</p>
+      {% endif %}
+    </details>
+
+    <details class="card audit-panel" open>
+      <summary>逐段证据（route.validation.segments）</summary>
+      {% if route and route.validation and route.validation.segments %}
+      <div class="table-scroll">
+        <table>
+          <caption class="visually-hidden">路线每一段的来源文档</caption>
+          <thead>
+            <tr><th scope="col">#</th><th scope="col">上一站</th><th scope="col">下一站</th><th scope="col">来源 doc_id</th></tr>
+          </thead>
+          <tbody>
+            {% for segment in route.validation.segments %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ segment.from_name|e }}</td>
+              <td>{{ segment.to_name|e }}</td>
+              <td>{% if segment.source_doc_ids %}{{ segment.source_doc_ids|join('、')|e }}{% else %}未记录{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">
+        valid={{ route.validation.valid|default('未记录') }}；
+        fully_verified={{ route.validation.fully_verified|default('未记录') }}；
+        missing_connections={{ route.validation.missing_connections|length if route.validation.missing_connections is defined and route.validation.missing_connections is not none else '未记录' }}；
+        cross_doc_transitions={{ route.validation.cross_doc_transitions|default('未记录') }}。
+      </p>
+      {% else %}
+      <p class="muted">本次没有可展示的逐段核验记录。</p>
+      {% endif %}
+    </details>
+
+    <details class="card audit-panel" open>
+      <summary>图谱指标（route.metrics）</summary>
+      {% if route and route.metrics %}
+      <div class="table-scroll">
+        <table>
+          <caption class="visually-hidden">路线结构指标</caption>
+          <tbody>
+            <tr><th scope="row">visits</th><td>{{ route.metrics.visits }}</td></tr>
+            <tr><th scope="row">steps</th><td>{{ route.metrics.steps }}</td></tr>
+            <tr><th scope="row">unique_nodes</th><td>{{ route.metrics.unique_nodes }}</td></tr>
+            <tr><th scope="row">repeats</th><td>{{ route.metrics.repeats }}</td></tr>
+            <tr><th scope="row">missing_segments</th><td>{{ route.metrics.missing_segments }}</td></tr>
+            <tr><th scope="row">structural_score</th><td>{{ route.metrics.structural_score }}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      {% if route.metrics.note %}<p class="muted">{{ route.metrics.note|e }}</p>{% endif %}
+      {% else %}
+      <p class="muted">本次没有路线结构指标。</p>
+      {% endif %}
+    </details>
+
+    <details class="card audit-panel">
+      <summary>trace（会话记录，默认折叠）</summary>
+      {% if trace_json %}
+      <pre>{{ trace_json|e }}</pre>
+      {% else %}
+      <p class="muted">本次没有 trace_json 记录。</p>
+      {% endif %}
+      {% if trace_file_name %}
+      <p class="muted">会话记录文件（服务器本地）：{{ trace_file_name|e }}</p>
+      {% endif %}
+      {% if trace_error %}
+      <p class="muted">{{ trace_error|e }}</p>
+      {% endif %}
+    </details>
+
+    {% if error %}
+    <details class="card audit-panel">
+      <summary>原始错误（只给评审）</summary>
+      <pre>{{ error|e }}</pre>
+    </details>
+    {% endif %}
+  </section>
+{% endblock %}

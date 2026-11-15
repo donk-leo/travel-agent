@@ -7,7 +7,10 @@
   <title>{% block title %}可核验的景区行程助手{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+{#- 视图切换：只保留白名单内的 view，并带上当前 query 文本（T3.2）。 -#}
+{%- set current_view = view|default('visitor') -%}
+{%- set other_view = 'auditor' if current_view == 'visitor' else 'visitor' -%}
+<body data-view="{{ current_view }}">
   <a class="skip-link" href="#main-content">跳到主要内容</a>
 
   <div class="page">
@@ -16,16 +19,19 @@
         <div>
           <h1 class="site-title">可核验的景区行程助手</h1>
           <p class="site-tagline">每条路线都有出处，每个不确定都标出来；不编距离、不编时间、不编开放信息。</p>
-          <p class="site-coverage">目前只覆盖 <strong>长隆 / 白云山 / 武功山</strong>，只用已采集的公开资料（当前 29 篇，见 BASELINE.md 第 3 节）。没有实时票价、排队、天气与开放状态。</p>
+          <p class="site-coverage">目前只覆盖 <strong>长隆 / 白云山 / 武功山</strong>，只用已采集的公开资料（{% if doc_count %}当前 {{ doc_count }} 篇{% else %}收录篇数暂不可用{% endif %}，按三个景区 guides CSV 数据行统计）。没有实时票价、排队、天气与开放状态。</p>
         </div>
-        <p class="view-switch"><a class="view-switch__link" href="?view=auditor">切换到评审视图</a></p>
+        <p class="view-switch">
+          {%- if current_view == 'auditor' %}<span class="tag">评审视图</span> {% endif -%}
+          <a class="view-switch__link" href="{{ url_for('home', view=other_view, query=query if query else None) }}">{% if current_view == 'visitor' %}切换到评审视图{% else %}切换回访客视图{% endif %}</a>
+        </p>
       </div>
     </header>
 
     <main id="main-content" class="wrap">
       {#
-        状态区：徽标 + 免责句。
-        T3.2 接线时把后端 status 传入（只允许 verified / partial / clarify / error）；
+        状态区：徽标 + 免责句（T3.2 已接线）。
+        web_app 先把后端 status 归一为 verified / partial / clarify / error；
         免责句只在 verified / partial 时出现，且必须保持逐字不改。
       #}
       <div class="status-area" aria-live="polite">
@@ -37,17 +43,11 @@
       </div>
 
       {#
-        访客视图内容区（T3.2）：
-          查询区（标签 + 多行输入 + 3 个示例 + 提交）
-          → 进度区（四阶段）
-          → 人群/体力提示
-          → 行程可行性说明 + 未核验项清单
-          → 行程卡（每天：上午 / 中午 / 下午 → 停留点 → 证据入口）
-          → 地点列表（折叠 + 计数）
-          → 建议
-          → 可修改操作
-        评审视图另建子模板，其内容只放在子模板内，不进入本基础模板；
-        访客视图不展示调试类区块。
+        访客视图正文（T3.2）：result.html 通过 {% include "_visitor_body.html" %}
+        渲染查询回显、状态原因、行程卡、路线顺序、地点列表、建议与未核验项。
+        评审视图 auditor.html 在本块之后追加 audit-panels；
+        调试类区块（intent / tool_decisions / metrics / trace）只放在那儿，
+        不进入本基础模板，也不进入访客正文。
       #}
       {% block content %}{% endblock %}
     </main>

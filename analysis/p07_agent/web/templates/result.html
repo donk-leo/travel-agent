@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "_status_badge.html" import status_badge %}
+
+{% block title %}结果 · 可核验的景区行程助手{% endblock %}
+
+{#
+  访客视图状态区（T3.2）：
+    徽标 → reasons 人话 → 失败说明 → 固定免责句（base 的 disclaimer 块）。
+  status 已由 web_app 归一为四值之一；这里不再判断原始状态。
+#}
+{% block status %}
+  {{ status_badge(status) }}
+  {% if reasons %}
+  <ul class="reasons" aria-label="本次结果的原因">
+    {% for reason in reasons %}
+    <li class="reasons__item">{{ reason.text|e }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% if status_note %}
+  <p class="status-note">{{ status_note|e }}</p>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% include "_visitor_body.html" %}
+{% endblock %}

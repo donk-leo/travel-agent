@@ -1,0 +1,246 @@
+{#-
+  访客视图正文（T3.2）
+  ---------------------------------------------------------------------------
+  由 result.html 与 auditor.html 共用，避免两套视图内容漂移。
+  这里只放“访客可见”的内容：查询回显、行程、路线顺序、地点、建议、未核验项。
+  硬禁：intent JSON、trace JSON、tool_decisions、route.metrics、route.validation
+  原始 JSON 都不进入本文件；评审内容只在 auditor.html 的 audit-panels 里。
+  所有用户/图谱文本都经 |e 转义；不引用任何外部资源、不包含任何脚本标签。
+-#}
+
+<section class="query-echo" aria-labelledby="query-echo-title">
+  <h2 id="query-echo-title">你的需求</h2>
+  <p class="query-echo__text">{{ query|e }}</p>
+</section>
+
+{% if message and (status == 'verified' or not reasons) %}
+<p class="result-message">{{ message|e }}</p>
+{% endif %}
+
+{#- 行程卡（T3.2）。没有分时行程时按 §6.2 如实说“资料未给出”，不补造。 -#}
+<section aria-labelledby="itinerary-title">
+  <h2 id="itinerary-title">建议行程</h2>
+  {% if itinerary and itinerary.days %}
+    {% for day in itinerary.days %}
+    <article class="card">
+      <h3 class="card__title">第 {{ day.day }} 天</h3>
+      {% if day.plan_note %}
+      <p class="day-meta"><span>{{ day.plan_note|e }}</span></p>
+      {% endif %}
+      <ol class="periods">
+        {% for item in day.periods or [] %}
+        <li class="period">
+          <span class="period__label">{{ item.period|e }}</span>
+          <p class="stay"><span class="stay__text">{{ item.text|e }}</span></p>
+          {% if item.duration_hint %}
+          <p class="stay__meta">
+            <span class="tag">时长：模板估算</span>
+            <span class="muted">{{ item.duration_hint|e }}（分时模板给出的区间，不是资料原值）</span>
+          </p>
+          {% else %}
+          <p class="stay__meta">
+            <span class="tag">时长：未知</span>
+            <span class="muted">资料未给出停留时长</span>
+          </p>
+          {% endif %}
+          {#- T3.4 证据卡占位：每个停留点一个就地折叠入口，不放假数据。 -#}
+          <details class="evidence-slot">
+            <summary>查看来源（T3.4 接入证据卡）</summary>
+            <p class="muted">证据卡由 T3.4 接入：来源标题、doc_id、发布日期、摘句与原文入口。</p>
+          </details>
+        </li>
+        {% endfor %}
+      </ol>
+    </article>
+    {% endfor %}
+    {% if itinerary.note %}
+    <p class="muted">{{ itinerary.note|e }}</p>
+    {% endif %}
+  {% else %}
+    <p class="muted">资料未给出分时行程。</p>
+  {% endif %}
+</section>
+
+{#- 路线顺序：只给文字箭头。图谱指标、逐段核验原始记录不进入访客视图。 -#}
+{% if route %}
+<section aria-labelledby="route-title">
+  <h2 id="route-title">路线顺序（按图谱连接）</h2>
+  <p class="muted">箭头只表示资料里的先后连接，不是道路距离、方向或导航。</p>
+
+  {% if route.proposal and route.proposal.node_ids %}
+    {% set proposal = route.proposal %}
+    {% set names = proposal.node_names or {} %}
+    {% if proposal.duration_days %}
+    <p>游玩天数：{{ proposal.duration_days }} 天</p>
+    {% endif %}
+
+    {% set day_plan = proposal.day_plan or [] %}
+    {% if day_plan|length > 1 %}
+      {% for day in day_plan %}
+      <p class="route-chain"><strong>第 {{ day.day }} 天：</strong>
+        {%- if day.node_ids -%}
+          {%- for node_id in day.node_ids -%}
+            {{ names.get(node_id, node_id)|e }}{% if not loop.last %} → {% endif %}
+          {%- endfor -%}
+        {%- else -%}
+          资料未给出具体顺序
+        {%- endif -%}
+      </p>
+      {% endfor %}
+    {% else %}
+      <p class="route-chain">
+        {%- for node_id in proposal.node_ids -%}
+          {{ names.get(node_id, node_id)|e }}{% if not loop.last %} → {% endif %}
+        {%- endfor -%}
+      </p>
+    {% endif %}
+
+    {% if proposal.explanation %}
+    <p class="muted">{{ proposal.explanation|e }}</p>
+    {% endif %}
+
+    {% if route.message and not (route.validation and route.validation.valid) %}
+    <p class="route-note">{{ route.message|e }}</p>
+    {% endif %}
+
+    {% if proposal.uncertainties %}
+    <details class="route-uncertainties">
+      <summary>需要进一步确认（{{ proposal.uncertainties|length }} 条）</summary>
+      <ul>
+        {% for item in proposal.uncertainties %}
+        <li>{{ item|e }}</li>
+        {% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+
+    {#- T3.3 路线示意图占位：按图谱顺序画节点/连接，不是地图；不放假数据。 -#}
+    <details class="diagram-slot">
+      <summary>查看路线示意（图谱顺序，不是地图）</summary>
+      <p class="muted">示意图由 T3.3 接入：按图谱 NEXT 顺序显示节点与连接，不换算距离、不画真实地图。</p>
+    </details>
+  {% else %}
+    <p class="muted">{{ route.message|e if route.message else '资料未给出路线顺序。' }}</p>
+  {% endif %}
+</section>
+{% endif %}
+
+{#-
+  备选路线区块（为 T2.4 预留，契约先定）。
+  alternatives 每项：{alt_id, source_doc_id, source_title, node_names:[...],
+  status:"verified"|"partial", reason:"", segments:[{from_name,to_name,source_doc_ids:[...]}]}。
+  为空/未传时整块不渲染，不做假数据占位。
+-#}
+{% if alternatives %}
+<section aria-labelledby="alternatives-title">
+  <h2 id="alternatives-title">备选路线</h2>
+  <p class="muted">来自其他来源文档的候选顺序；状态由后端判定，本页只展示。</p>
+  {% for alt in alternatives[:3] %}
+  <article class="card alt-card{% if selected_alt and selected_alt == alt.alt_id %} alt-card--selected{% endif %}" data-alt-id="{{ alt.alt_id|e }}">
+    <h3 class="card__title">{{ alt.source_title|e if alt.source_title else '来源标题未记录' }}</h3>
+    <p class="alt-card__meta">
+      <span class="tag">来源 {{ alt.source_doc_id|e if alt.source_doc_id else '未记录' }}</span>
+      <span class="tag" data-status="{{ alt.status }}">{% if alt.status == 'verified' %}核验通过{% elif alt.status == 'partial' %}部分可参考{% else %}状态未记录{% endif %}</span>
+      {% if selected_alt and selected_alt == alt.alt_id %}<span class="tag">当前高亮</span>{% endif %}
+    </p>
+    {% if alt.node_names %}
+    <p class="route-chain">{{ alt.node_names|join(' → ')|e }}</p>
+    {% endif %}
+    {% if alt.reason %}
+    <p class="muted">{{ alt.reason|e }}</p>
+    {% endif %}
+    {% if alt.segments %}
+    <details class="evidence">
+      <summary>查看每段来源（{{ alt.segments|length }} 段）</summary>
+      <ul class="poi-list">
+        {% for segment in alt.segments %}
+        <li>{{ segment.from_name|e }} → {{ segment.to_name|e }}：{% if segment.source_doc_ids %}{{ segment.source_doc_ids|join('、')|e }}{% else %}来源未记录{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+    <p><a href="{{ url_for('home', view=view, query=query, alt=alt.alt_id) }}">高亮这条备选</a></p>
+  </article>
+  {% endfor %}
+  {% if alternatives|length > 3 %}
+  <p class="muted">只显示前 3 条备选。</p>
+  {% endif %}
+</section>
+{% endif %}
+
+{#- 地点列表：折叠 + 计数；列表只来自 poi_results，不推断“现实中没有”。 -#}
+{% if poi_results is not none %}
+<section aria-labelledby="poi-title">
+  <h2 id="poi-title">{% if poi_list_all %}当前范围地点{% else %}名称匹配到的地点{% endif %}</h2>
+  <p class="muted">结果来自已采集的图谱，可能包含餐厅、车站等地点，也可能不完整{% if poi_list_all %}；列表未按“儿童/亲子/老人”等偏好过滤。{% else %}。{% endif %}</p>
+  {% if poi_results %}
+  <details class="card poi-group">
+    <summary>{% if poi_list_all %}当前范围地点{% else %}名称匹配到的地点{% endif %}：共 {{ poi_results|length }} 条{% if poi_results|length >= 10000 %}（只显示前 10000 条）{% endif %}</summary>
+    <ul class="poi-list">
+      {% for poi in poi_results %}
+      <li>{{ poi.name|e }}{% if poi.scenic_area %}（{{ poi.scenic_area|e }}）{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </details>
+  {% else %}
+  <p class="muted">图谱中没有找到匹配的地点；这不代表现实中没有这个地方。</p>
+  {% endif %}
+</section>
+{% endif %}
+
+{#- 条件建议：展示条件 / 建议 / 理由 / 来源 doc_id；完整证据卡留给 T3.4。 -#}
+{% if suggestions %}
+<section aria-labelledby="suggestions-title">
+  <h2 id="suggestions-title">可能适合的建议</h2>
+  {% for item in suggestions %}
+  {% set condition = item.condition or {} %}
+  <article class="card">
+    <p><strong>适用条件：</strong>{{ condition.condition_text|e }}</p>
+    <p><strong>建议：</strong>{{ condition.suggestion_text|e }}</p>
+    {% if item.reason %}
+    <p><strong>选择理由：</strong>{{ item.reason|e }}</p>
+    {% endif %}
+    {% if item.needs_verification %}
+    <p class="muted">相关条件需要进一步核实（活动时间、适用人群或现场条件）。</p>
+    {% endif %}
+    {% if item.evidence %}
+    <details class="evidence">
+      <summary>查看图谱来源（{{ item.evidence|length }} 条）</summary>
+      <ul class="poi-list">
+        {% for source in item.evidence %}
+        <li>关联位置：{{ source.anchor_name|e }}；来源 doc_id：{% if source.source_doc_ids %}{{ source.source_doc_ids|join('、')|e }}{% else %}未记录{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </details>
+    {% else %}
+    <p class="muted">未找到对应的图谱来源。</p>
+    {% endif %}
+    {#- T3.4 证据卡占位：这里不重复渲染证据卡内容，避免与证据服务口径漂移。 -#}
+    <details class="evidence-slot">
+      <summary>查看完整证据（T3.4 接入证据卡）</summary>
+      <p class="muted">来源标题、发布日期、摘句与原文入口由 T3.4 的证据卡组件接入。</p>
+    </details>
+  </article>
+  {% endfor %}
+</section>
+{% endif %}
+
+{#- 未核验项：连接核验 ≠ 行程可行（PRODUCT_SPEC §5.6）。 -#}
+{% if status in ('verified', 'partial') or route %}
+<section aria-labelledby="unknowns-title">
+  <h2 id="unknowns-title">本次没有核验的内容</h2>
+  <p class="feasibility">行程可行性：未核验。图谱只能证明“上一站到下一站有资料依据”，不能证明步行距离、开放时间、排队、餐饮营业与体力强度。</p>
+  <ul class="unknowns">
+    <li class="unknowns__item">步行距离</li>
+    <li class="unknowns__item">开放时间</li>
+    <li class="unknowns__item">排队时长</li>
+    <li class="unknowns__item">票价</li>
+    <li class="unknowns__item">餐饮营业</li>
+    <li class="unknowns__item">适龄与体力</li>
+    <li class="unknowns__item">住宿</li>
+    <li class="unknowns__item">日出日落</li>
+  </ul>
+</section>
+{% endif %}
+
+<p class="actions"><a class="btn btn--secondary" href="{{ url_for('home', view=view) }}">开始新查询</a></p>

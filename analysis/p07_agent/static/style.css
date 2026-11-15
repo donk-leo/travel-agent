@@ -820,3 +820,172 @@ td {
     animation: none !important;
   }
 }
+
+/* --------------------------------------------------------------------------
+   19. T3.2 双视图接线新增样式
+   只做布局与占位样式；四状态色值不变；不新增“同一条规则内 color + background”
+   的色对，因此 README §5.2 的对比度表仍然逐对成立。
+   375px 下全部单列，长串（route-chain / pre / 表格）自带换行或横向滚动容器。
+   -------------------------------------------------------------------------- */
+
+/* 页头视图切换：标签 + 链接一行，窄屏可折行但不拆断链接文字 */
+.view-switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.view-switch__link {
+  white-space: nowrap;
+}
+
+/* 查询回显与结果说明 */
+.query-echo__text {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--color-line-strong);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  overflow-wrap: anywhere;
+}
+
+.result-message {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  overflow-wrap: anywhere;
+}
+
+/* 状态区里的原因清单与失败说明 */
+.reasons {
+  margin: 0 0 var(--space-2);
+  padding-left: 1.25rem;
+}
+
+.reasons__item {
+  overflow-wrap: anywhere;
+}
+
+.status-note {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink-soft);
+  overflow-wrap: anywhere;
+}
+
+/* 行程停留点正文：可能是一整句模板文案，必须能折行 */
+.stay__text {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+/* 路线顺序：文字箭头，不是地图 */
+.route-chain {
+  margin: 0 0 var(--space-2);
+  overflow-wrap: anywhere;
+}
+
+.route-note {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink-soft);
+  overflow-wrap: anywhere;
+}
+
+/* T3.4 证据卡占位：虚线框，明确标注“待接入”，不放假数据 */
+.evidence-slot {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-md);
+}
+
+.evidence-slot > summary,
+.diagram-slot > summary,
+.route-uncertainties > summary,
+.audit-panel > summary {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* T3.3 路线示意图占位 */
+.diagram-slot,
+.route-uncertainties {
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-md);
+}
+
+/* 备选路线（T2.4 预留）：无数据时整块不渲染 */
+.alt-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+}
+
+.alt-card--selected {
+  border-width: 2px;
+  border-color: var(--color-accent);
+}
+
+/* 评审视图面板 */
+.audit-panels {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 2px solid var(--color-line-strong);
+}
+
+.audit-panel {
+  margin-top: var(--space-3);
+}
+
+.audit-panel > summary {
+  margin-bottom: var(--space-2);
+}
+
+.audit-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+}
+
+.audit-list dt {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.audit-list dd {
+  margin: 0 0 var(--space-2);
+  overflow-wrap: anywhere;
+}
+
+.audit-tools {
+  margin: 0;
+}
+
+.audit-tools li {
+  overflow-wrap: anywhere;
+}
+
+/* 表单里的示例标签 */
+.examples__label {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink-soft);
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 40em) {
+  .audit-list {
+    grid-template-columns: minmax(6rem, 9rem) minmax(0, 1fr);
+  }
+
+  .audit-list dd {
+    margin-bottom: var(--space-1);
+  }
+}
