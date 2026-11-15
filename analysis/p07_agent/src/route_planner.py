@@ -277,6 +277,8 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
             "scope": empty_scope,
             "metrics": None,
             "source_doc_id": None,
+            # 裁剪后重核验要用规划时同一批候选连接；这里没有连接，给空列表。
+            "candidates": [],
         }
 
     # 用户指定子园区时，只保留该园区的来源文档；连接不足会回退整个景区。
@@ -338,6 +340,8 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
                 "metrics": route_metrics(node_ids, candidates),
                 "source_doc_id": primary["source_doc_id"] if primary else None,
                 "single_destination": True,
+                # T2.2b 裁剪后用同一批候选连接重做逐段核验。
+                "candidates": candidates,
             }
 
     payload = {
@@ -572,6 +576,8 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
         "scope": scope,
         "metrics": metrics,
         "source_doc_id": primary["source_doc_id"] if primary is not None else None,
+        # T2.2b 裁剪后用同一批候选连接重做逐段核验，因此把候选连接带回结果。
+        "candidates": candidates,
     }
 
 

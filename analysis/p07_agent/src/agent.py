@@ -6,7 +6,7 @@ import os
 from alternatives import build_alternatives
 from condition_selector import find_relevant_conditions
 from constraint_checker import check_constraints, check_plan
-from feasibility import apply_feasibility
+from feasibility import apply_feasibility, crop_validation
 from intent_parser import parse_intent
 from itinerary import build_itinerary
 from route_planner import plan_route
@@ -18,7 +18,7 @@ from status import (
 from sub_area_scope import detect_sub_area, filter_poi_results
 from tool_decider import decide_next_step
 from tool_selector import select_tools
-from tools import search_poi
+from tools import route_metrics, search_poi
 from trace_log import SessionTrace
 
 
@@ -413,12 +413,15 @@ def _feasibility_enabled():
 
 
 def _apply_feasibility_gate(result, requirements, days, trace=None):
-    """T2.2 可行性闸：只读路线，单日点数超人群上限时把 verified 降为 partial。
+    """T2.2b 可行性闸：单日点数超人群上限时裁剪停留点，而不是只降 partial。
 
     约定（与 ``feasibility.apply_feasibility`` 一致）：
     - 只有 ``status_override == "partial"`` 才降级，且只降不升；
-    - 假设/缺失写进 ``route.proposal.uncertainties``，不改 ``node_ids`` 与连接；
-    - 超过时长预算只记 warning/uncertainty，不单独改状态（连接核验与行程可行分开）。
+    - ``crop.applied`` 为真时，把裁剪后的 ``node_ids / day_plan / node_names``
+      写回 ``result["route"]["proposal"]``，用同一批 candidates 重算
+      ``validation`` 与 ``metrics``，并把被裁点写进 message 与 uncertainties；
+    - 裁剪后 ``validation.fully_verified`` 仍为真才保持 verified，否则 partial + 原因；
+    - 假设/缺失写进 ``route.proposal.uncertainties``，不改图谱节点与边。
     """
     if not _feasibility_enabled():
         return None
@@ -432,11 +435,16 @@ def _apply_feasibility_gate(result, requirements, days, trace=None):
 
     proposal = route.get("proposal")
     if isinstance(proposal, dict):
-        known = [str(item) for item in (proposal.get("uncertainties") or [])]
-        for item in report["uncertainties"]:
-            if item not in known:
-                known.append(item)
-        proposal["uncertainties"] = known
+        _append_unique(proposal, "uncertainties", report["uncertainties"])
+
+    crop = report.get("crop") or {}
+    if crop.get("applied") and _apply_feasibility_crop(result, report, trace) is None:
+        # 写回前复核失败：不交付裁剪方案，按超限降 partial（防御性，正常不会走到）。
+        report["status_override"] = STATUS_PARTIAL
+        report["warnings"] = [{
+            "code": "constraint_conflict",
+            "text": "裁剪后的路线复核未通过，未交付裁剪方案；请减少停留点或增加天数。",
+        }]
 
     if report.get("status_override") != STATUS_PARTIAL:
         return report
@@ -458,6 +466,117 @@ def _apply_feasibility_gate(result, requirements, days, trace=None):
     result["needs_followup"] = True
     result["message"] = " ".join(filter(None, [result.get("message"), reason_text]))
     return report
+
+
+def _append_unique(container, key, values):
+    """把 ``values`` 去重后追加到 ``container[key]``（保持原有顺序）。"""
+    known = [str(item) for item in (container.get(key) or [])]
+    for value in values or []:
+        text = str(value or "").strip()
+        if text and text not in known:
+            known.append(text)
+    container[key] = known
+
+
+def _crop_day_plan(day_plan, removed, cropped_ids):
+    """按被裁点重建分天方案：只截掉每天尾部的点数，保持天数与原顺序。"""
+    removed_counts = {}
+    for item in removed or []:
+        day = item.get("day")
+        removed_counts[day] = removed_counts.get(day, 0) + 1
+    fallback = [{"day": 1, "node_ids": list(cropped_ids)}]
+    if not isinstance(day_plan, list) or not day_plan:
+        return fallback
+    rebuilt = []
+    for item in day_plan:
+        if not isinstance(item, dict):
+            return fallback
+        day = item.get("day")
+        ids = [node_id for node_id in (item.get("node_ids") or [])
+               if isinstance(node_id, str)]
+        drop = removed_counts.get(day, 0)
+        if drop:
+            ids = ids[:max(len(ids) - drop, 1)]
+        rebuilt.append({"day": day, "node_ids": ids})
+    flattened = [node_id for group in rebuilt for node_id in group["node_ids"]]
+    if flattened != list(cropped_ids):
+        return fallback
+    return rebuilt
+
+
+def _cropped_metrics(cropped_ids, candidates):
+    """裁剪后重算结构指标；没有候选连接时按已核验的相邻对构造边集合。"""
+    if candidates is not None:
+        return route_metrics(cropped_ids, candidates)
+    edges = {
+        node_id: {next_id: set()}
+        for node_id, next_id in zip(cropped_ids, cropped_ids[1:])
+    }
+    return route_metrics(cropped_ids, edges=edges)
+
+
+def _apply_feasibility_crop(result, report, trace=None):
+    """把 feasibility 给出的裁剪方案写回路线，并重算逐段核验与结构指标。
+
+    返回裁剪方案；任何一步复核不通过都返回 ``None`` 且不改路线。
+    """
+    route = result.get("route") or {}
+    proposal = route.get("proposal")
+    crop = report.get("crop") or {}
+    cropped_ids = [node_id for node_id in (crop.get("node_ids") or [])
+                   if isinstance(node_id, str)]
+    if not isinstance(proposal, dict) or not cropped_ids:
+        return None
+
+    candidates = route.get("candidates")
+    validation, _basis = crop_validation(route, cropped_ids, candidates)
+    if validation is None or validation.get("fully_verified") is not True:
+        return None
+
+    names = proposal.get("node_names") if isinstance(proposal.get("node_names"), dict) else {}
+    removed = crop.get("removed") or []
+    before_count = sum(crop.get("day_counts_before") or [])
+    if not before_count:
+        before_count = len(proposal.get("node_ids") or [])
+
+    proposal["node_ids"] = cropped_ids
+    proposal["node_names"] = {
+        node_id: names.get(node_id) or node_id.split("|")[-1]
+        for node_id in cropped_ids
+    }
+    proposal["day_plan"] = _crop_day_plan(
+        proposal.get("day_plan"), removed, cropped_ids)
+    route["validation"] = validation
+    if isinstance(route.get("metrics"), dict):
+        route["metrics"] = _cropped_metrics(cropped_ids, candidates)
+
+    note = str(crop.get("note") or "").strip()
+    _append_unique(proposal, "uncertainties", [
+        note,
+        "被裁掉的停留点不进入本次交付计划；如需保留，请增加天数或减少单日停留点。",
+    ])
+    removed_names = "、".join(
+        str(item.get("name") or item.get("node_id")) for item in removed)
+    summary = (
+        f"已按人群单日停留点上限裁剪：{before_count} → {len(cropped_ids)} 个停留点"
+        f"（裁掉 {len(removed)} 个：{removed_names}）；"
+        "被裁点不进入本次行程，剩余顺序不变。"
+    )
+    result["message"] = " ".join(filter(None, [result.get("message"), summary]))
+    if trace is not None:
+        trace.record_event("feasibility_crop", observation={
+            "applied": True,
+            "before": before_count,
+            "after": len(cropped_ids),
+            "node_ids": cropped_ids,
+            "removed": removed,
+            "validation": {
+                "valid": validation.get("valid"),
+                "fully_verified": validation.get("fully_verified"),
+                "segments": len(validation.get("segments") or []),
+            },
+        })
+    return crop
 
 
 def _query_graph(result, trace, user_text, area, days, sub_area=None):

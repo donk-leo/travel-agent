@@ -1,4 +1,4 @@
-"""T2.2 可行性闸：只读路线，判断人群点数上限、用餐与时长预算。
+"""T2.2 / T2.2b 可行性闸：判断人群点数上限、按上限裁剪停留点、用餐与时长预算。
 
 契约与边界
 ----------
@@ -9,7 +9,13 @@
 - 指标口径：``03_EVAL_SPEC.md`` §3 ``stop_cap_ok`` = ``node_count <= max_stops``，
   因此 ``stop_count`` / ``day_counts`` 一律按路线节点数计（与 runner 的
   ``node_count`` 一致），不按交通/设施类节点折算。
-- 只读：不修改 ``proposal.node_ids``、不增删连接、不改 ``day_plan``。
+- 只读：不修改 ``proposal.node_ids``、不增删连接、不改 ``day_plan``；裁剪方案只
+  放在返回值的 ``crop`` 里，由 ``agent._apply_feasibility_gate`` 决定是否写回。
+- 裁剪（T2.2b）：只在单日点数超过人群上限时触发，**只删点、不改顺序、不新增点**，
+  每天从尾部删、每天至少留 1 个点；裁剪后必须用 ``tools.validate_route`` 对
+  同一批 candidates 重做逐段核验，每段仍有同源 NEXT 才算可交付（``applied``）。
+  不能核验（缺连接 / 跨来源文档 / 多日没有合法分天方案）就**不交付裁剪方案**，
+  只把原计划降 ``partial`` 并写清哪一段失去证据。
 - 不产出距离、坐标、票价、开放时间；资料不足时写「未核验 / 未知」，不写成事实。
 - ``warnings[0]`` 恒为导致 ``status_override="partial"`` 的那条原因
   （``agent.py`` 直接复用它作为 reason，不需要再解析文案）。
@@ -17,12 +23,18 @@
 返回结构（``apply_feasibility``）
 ---------------------------------
 ``{status_override, warnings, uncertainties, caps, meal, duration,
-stop_count, day_counts}``，字段含义见函数文档。
+stop_count, day_counts, crop}``。``crop`` 为
+``{applied, node_ids, removed, day_counts_before, day_counts_after, note}``：
+未裁剪时 ``applied=False``、``node_ids=None``、``removed=[]``；裁剪生效时
+``stop_count`` / ``day_counts`` / ``meal`` / ``duration`` 描述**裁剪后要交付的
+计划**，原计划点数见 ``crop.day_counts_before``。
 """
 
 import csv
 import re
 from pathlib import Path
+
+from tools import validate_route
 
 
 #: P6 节点分类表（只读）：用于餐饮判断，不修改、不落盘、不写回图谱。
@@ -166,6 +178,175 @@ def _day_counts(node_ids, day_plan, days):
     return counts, True
 
 
+def _day_plan_groups(node_ids, proposal, days):
+    """按天分组，供裁剪使用；无法确定每天有哪些点时返回 ``None``。
+
+    单日路线总可以按整条路线处理；多日只在 ``day_plan`` 恰好覆盖 ``node_ids``
+    时才按天裁剪（``_valid_day_plan`` 的口径），否则仍用均分兜底计数、不裁剪。
+    """
+    groups = _valid_day_plan(node_ids, proposal.get("day_plan"), days)
+    if groups is not None:
+        return groups
+    if not days or days <= 1:
+        return [node_ids]
+    return None
+
+
+def _crop_groups(groups, max_stops, node_names):
+    """每天从尾部删点；返回 ``(裁剪后 node_ids, 每天保留的列表, 被裁点列表)``。
+
+    只删不改序：每天保留原顺序的前缀，因此同一天内相邻段仍是原来的 NEXT；
+    跨天衔接若被删出新的相邻对，由 ``crop_validation`` 重新核验。
+    """
+    kept_groups = []
+    removed = []
+    keep = max(1, max_stops)
+    for day_index, group in enumerate(groups, 1):
+        if len(group) <= max_stops:
+            kept_groups.append(list(group))
+            continue
+        kept_groups.append(list(group[:keep]))
+        for node_id in group[keep:]:
+            removed.append({
+                "node_id": node_id,
+                "name": _name(node_names, node_id),
+                "day": day_index,
+            })
+    cropped = [node_id for group in kept_groups for node_id in group]
+    return cropped, kept_groups, removed
+
+
+def _segment_text(node_names, from_id, to_id):
+    return f"「{_name(node_names, from_id)} → {_name(node_names, to_id)}」"
+
+
+def crop_validation(route, node_ids, candidates=None):
+    """对裁剪后的节点序列重做逐段核验；返回 ``(validation, basis)``。
+
+    - ``candidates`` 可用（真实路线走这条）：直接调用 ``tools.validate_route``，
+      ``basis="validate_route"``，与未裁剪时用的是同一批候选连接；
+    - 不可用时：只接受「裁剪后每个相邻对都来自原路线的相邻对」的裁剪。这种裁剪
+      不产生新分段，每条保留分段的来源证据与原来完全一致，因此按原
+      ``validation.segments`` 取对应子集推断，``basis="verified_subsequence"``；
+    - 其余情况（原路线未核验通过、多日跨天产生新段、证据条数对不上）返回
+      ``(None, 人话原因)``，调用方不得把计划判为已核验。
+    """
+    node_ids = [node_id for node_id in (node_ids or []) if isinstance(node_id, str)]
+    if len(node_ids) < 2:
+        return None, "裁剪后不足 2 个停留点，无法逐段核验"
+
+    if candidates is not None:
+        return validate_route(node_ids, candidates), "validate_route"
+
+    validation = {}
+    if isinstance(route, dict) and isinstance(route.get("validation"), dict):
+        validation = route["validation"]
+    proposal = route.get("proposal") if isinstance(route, dict) else None
+    original = []
+    if isinstance(proposal, dict):
+        original = [nid for nid in (proposal.get("node_ids") or [])
+                    if isinstance(nid, str)]
+    if validation.get("fully_verified") is not True:
+        return None, ("没有可用的图谱候选连接，且原路线的逐段核验未完全通过，"
+                      "无法证明裁剪后每段仍有同源 NEXT")
+
+    pairs = list(zip(original, original[1:]))
+    position = {}
+    for index, pair in enumerate(pairs):
+        position.setdefault(pair, index)
+    cropped_pairs = list(zip(node_ids, node_ids[1:]))
+    if any(pair not in position for pair in cropped_pairs):
+        return None, ("没有可用的图谱候选连接，且裁剪会在跨天衔接处产生新的路段，"
+                      "无法证明这一段有同源 NEXT")
+
+    segments = [segment for segment in (validation.get("segments") or [])
+                if isinstance(segment, dict)]
+    if not segments:
+        # 有些调用方只给结论、不给逐段明细；裁剪不新增分段，沿用原结论。
+        kept_segments = []
+    elif len(segments) == len(pairs):
+        kept_segments = [segments[position[pair]] for pair in cropped_pairs]
+    else:
+        return None, ("原路线的分段证据条数与节点数对不上，"
+                      "无法按子序列证明裁剪后仍逐段可核验")
+
+    return {
+        "valid": True,
+        "fully_verified": True,
+        "segments": kept_segments,
+        "missing_connections": [],
+        "cross_doc_transitions": 0,
+        "message": "检查完成（裁剪后各段沿用原路线的同源 NEXT 证据）",
+    }, "verified_subsequence"
+
+
+def _crop_failure_reason(validation, basis, node_names):
+    """把重核验结果翻译成「哪一段失去证据」的人话原因。"""
+    if validation is None:
+        return str(basis or "裁剪后无法核验")
+    missing = validation.get("missing_connections") or []
+    if missing:
+        segment = missing[0]
+        return (f"{_segment_text(node_names, segment.get('from_node_id'), segment.get('to_node_id'))}"
+                "缺少同源 NEXT 证据")
+    cross_doc = validation.get("cross_doc_transitions") or 0
+    if cross_doc:
+        return f"有 {cross_doc} 处跨来源文档跳转，无法证明属于同一条连续路线"
+    return "裁剪后的路线未通过逐段核验"
+
+
+def _day_count_text(counts, max_stops=None):
+    """把每天点数写成「第 1 天 12 个」；给定上限时只列超限的天。"""
+    return "、".join(
+        f"第 {index} 天 {count} 个"
+        for index, count in enumerate(counts, 1)
+        if max_stops is None or count > max_stops
+    )
+
+
+def _crop_note(persona, max_stops, before_counts, after_counts, removed):
+    """裁剪说明：裁了几个点、为什么裁、被裁点如何处理。"""
+    day_text = "、".join(
+        f"第 {index} 天 {before} → {after}"
+        for index, (before, after) in enumerate(zip(before_counts, after_counts), 1)
+        if before != after
+    )
+    names = "、".join(item["name"] for item in removed)
+    return (
+        f"按「{persona}」单日上限 {max_stops} 个裁剪：{day_text}；"
+        f"共裁掉 {len(removed)} 个停留点（{names}），被裁点不进入本次交付计划；"
+        "只从每天尾部删点、不改剩余顺序，裁剪后逐段重核验仍为同源 NEXT。"
+    )
+
+
+def _crop_uncertainty(persona, max_stops, before_counts, after_counts, removed):
+    """裁剪后的假设说明：上限是规划假设，被裁点已明示。"""
+    names = "、".join(item["name"] for item in removed)
+    return (
+        f"原计划{_day_count_text(before_counts, max_stops)}，"
+        f"超过「{persona}」单日上限 {max_stops} 个；"
+        f"已按上限从每天尾部裁剪到{_day_count_text(after_counts)}（被裁：{names}），"
+        "被裁点不进入本次交付计划；"
+        "上限按 PRODUCT_SPEC §7.4 建议默认（Q4 待签字）执行。"
+    )
+
+
+def _cap_warning_text(persona, max_stops, cap_hits, crop_failure=None):
+    """超限警告；裁剪失败时补上「哪一段失去证据、所以不交付裁剪方案」。"""
+    day_number, count = cap_hits[0]
+    extra = (f"；另有 {len(cap_hits) - 1} 天也超过上限"
+             if len(cap_hits) > 1 else "")
+    tail = (
+        f"按上限裁剪后{crop_failure}，未交付裁剪方案；请减少停留点或增加天数。"
+        if crop_failure else
+        "图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。"
+    )
+    return (
+        f"单日停留点上限为 {max_stops} 个（{persona}），第 {day_number} 天排了 "
+        f"{count} 个，超过 {count - max_stops} 个{extra}；{tail}"
+    )
+
+
 def _load_node_classes(path=None):
     """读取 P6 节点分类表；文件缺失或不可读时返回 None（退回名称关键词）。"""
     path = Path(path) if path is not None else CLASSIFICATION_CSV
@@ -217,37 +398,53 @@ def _empty_report(persona, max_stops):
         "duration": {"total_min": 0, "over_budget": False, "assumptions": []},
         "stop_count": 0,
         "day_counts": [],
+        "crop": {
+            "applied": False,
+            "node_ids": None,
+            "removed": [],
+            "day_counts_before": [],
+            "day_counts_after": [],
+            "note": "没有可裁剪的路线节点，未做裁剪。",
+        },
     }
 
 
-def apply_feasibility(route, profiles=None, constraints=None, days=None):
-    """评估一条已生成路线，返回可行性判断（只读，不修改路线）。
+def apply_feasibility(route, profiles=None, constraints=None, days=None,
+                      candidates=None):
+    """评估一条已生成路线，返回可行性判断与裁剪方案（只读，不修改路线）。
 
     参数
     ----
     route : dict | None
         ``plan_route()`` 的返回值；只用 ``proposal.node_ids / node_names /
-        day_plan / duration_days``。
+        day_plan / duration_days`` 与 ``validation`` / ``candidates``。
     profiles / constraints : list[str] | None
         意图解析出的同行人与限制；用于推断人群点数上限。
     days : int | str | None
         请求天数；缺失时退回 ``proposal.duration_days``，再退回 1 天。
+    candidates : list[dict] | None
+        图谱候选连接（``get_route_candidates`` 的口径）。裁剪后用它重做逐段
+        核验；为 ``None`` 时退回 ``route["candidates"]``，两者都没有则只接受
+        「不产生新分段」的裁剪（见 ``crop_validation``）。
 
     返回
     ----
     dict
-        - ``status_override``：``None`` 或 ``"partial"``（只有单日点数超上限才降级；
-          本项目不产生 ``error`` / ``verified``，状态判定仍归 agent 与 status.py）；
+        - ``status_override``：``None`` 或 ``"partial"``（单日点数超上限且**无法**
+          交付裁剪方案时才降级；本项目不产生 ``error`` / ``verified``，状态判定
+          仍归 agent 与 status.py）；
         - ``warnings``：``[{code, text}]``，code 取自 ``status.REASON_CODES``；
           ``warnings[0]`` 是导致 partial 的那条；
-        - ``uncertainties``：假设与缺失（人群推断、均分兜底、餐饮未知、时长模板）；
+        - ``uncertainties``：假设与缺失（人群推断、均分兜底、裁剪、餐饮未知、时长模板）；
         - ``caps``：``{max_stops, persona}``；
         - ``meal``：``{inserted, slot, note}``；``inserted=False`` 表示图谱没有
           餐饮节点或未覆盖午间时段，此时只写「未知」，不编餐厅名；
         - ``duration``：``{total_min, over_budget, assumptions}``；``total_min``
           是模板预算合计（多日相加），不是实测耗时，页面不得写成「合计 X 小时」；
-        - ``stop_count``：整条路线的节点数（``stop_cap_ok`` 口径）；
-        - ``day_counts``：每天节点数，按 day_plan 或节点数均分得出。
+        - ``stop_count``：交付计划的节点数（裁剪生效时是裁剪后的数量，
+          ``stop_cap_ok`` 口径）；
+        - ``day_counts``：交付计划每天节点数，按 day_plan 或节点数均分得出；
+        - ``crop``：裁剪方案，见模块文档；``applied=False`` 时 ``node_ids`` 为 ``None``。
     """
     proposal = {}
     if isinstance(route, dict) and isinstance(route.get("proposal"), dict):
@@ -272,25 +469,70 @@ def apply_feasibility(route, profiles=None, constraints=None, days=None):
     warnings = []
     uncertainties = []
 
-    # 1) 单日点数上限：这是唯一会把状态降为 partial 的条件（DoD 1）。
+    # 1) 单日点数上限：超过就尝试按上限裁剪停留点（T2.2b）。
     cap_hits = [
         (index + 1, count)
         for index, count in enumerate(day_counts) if count > max_stops
     ]
+    crop = {
+        "applied": False,
+        "node_ids": None,
+        "removed": [],
+        "day_counts_before": list(day_counts),
+        "day_counts_after": list(day_counts),
+        "note": "未超过人群单日停留点上限，未裁剪。",
+    }
+    delivered_ids = node_ids
+    delivered_counts = day_counts
+
     if cap_hits:
-        day_number, count = cap_hits[0]
-        extra = (f"；另有 {len(cap_hits) - 1} 天也超过上限"
-                 if len(cap_hits) > 1 else "")
-        warnings.append({"code": WARNING_CODE, "text": (
-            f"单日停留点上限为 {max_stops} 个（{persona}），第 {day_number} 天排了 "
-            f"{count} 个，超过 {count - max_stops} 个{extra}；"
-            "图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。"
-        )})
-        over_days_text = "、".join(f"第 {day} 天 {count} 个" for day, count in cap_hits)
-        uncertainties.append(
-            f"{over_days_text}，超过{persona}单日上限 {max_stops} 个；"
-            "上限按 PRODUCT_SPEC §7.4 建议默认（Q4 待签字）执行，是否删减或改天数需用户确认。"
-        )
+        if candidates is None and isinstance(route, dict):
+            candidates = route.get("candidates")
+        groups = _day_plan_groups(node_ids, proposal, effective_days)
+        crop_failure = ""
+        if groups is None:
+            crop["note"] = ("多日行程没有可用的分天方案，无法按天裁剪；"
+                            "原计划仍超过人群单日上限。")
+        else:
+            cropped_ids, kept_groups, removed = _crop_groups(
+                groups, max_stops, node_names)
+            validation, basis = crop_validation(route, cropped_ids, candidates)
+            if validation is not None and validation.get("fully_verified") is True:
+                crop.update({
+                    "applied": True,
+                    "node_ids": cropped_ids,
+                    "removed": removed,
+                    "day_counts_after": [len(group) for group in kept_groups],
+                    "note": _crop_note(persona, max_stops, day_counts,
+                                       [len(group) for group in kept_groups], removed),
+                })
+                delivered_ids = cropped_ids
+                delivered_counts = crop["day_counts_after"]
+                uncertainties.append(_crop_uncertainty(
+                    persona, max_stops, day_counts, delivered_counts, removed))
+            else:
+                crop_failure = _crop_failure_reason(validation, basis, node_names)
+                crop["note"] = (
+                    f"按「{persona}」单日上限 {max_stops} 个尝试裁剪后无法保证逐段"
+                    f"同源 NEXT：{crop_failure}；未交付裁剪方案，原计划仍超过上限。"
+                )
+        if not crop["applied"]:
+            warnings.append({"code": WARNING_CODE, "text": _cap_warning_text(
+                persona, max_stops, cap_hits, crop_failure or None)})
+            over_days_text = "、".join(
+                f"第 {day} 天 {count} 个" for day, count in cap_hits)
+            if crop_failure:
+                uncertainties.append(
+                    f"{over_days_text}，超过「{persona}」单日上限 {max_stops} 个；"
+                    f"{crop_failure}，未交付裁剪方案，请减少停留点或增加天数；"
+                    "上限按 PRODUCT_SPEC §7.4 建议默认（Q4 待签字）执行。"
+                )
+            else:
+                uncertainties.append(
+                    f"{over_days_text}，超过「{persona}」单日上限 {max_stops} 个；"
+                    "上限按 PRODUCT_SPEC §7.4 建议默认（Q4 待签字）执行，"
+                    "是否删减或改天数需用户确认。"
+                )
 
     # 2) 人群上限本身是推断值，必须标成假设（图谱没有适龄/体力标签）。
     if persona == "成人":
@@ -305,8 +547,8 @@ def apply_feasibility(route, profiles=None, constraints=None, days=None):
         )
 
     # 3) 用餐：只依据图谱餐饮节点，不编餐厅名；没有就写未知。
-    window_covered = any(count >= 2 for count in day_counts)
-    food_names, meal_source = _meal_nodes(node_ids, node_names)
+    window_covered = any(count >= 2 for count in delivered_counts)
+    food_names, meal_source = _meal_nodes(delivered_ids, node_names)
     if window_covered and food_names:
         meal = {
             "inserted": True,
@@ -373,7 +615,7 @@ def apply_feasibility(route, profiles=None, constraints=None, days=None):
         f"行程总时长按固定模板估算（每点 {MINUTES_PER_STOP} 分钟 + 每天 "
         f"{MINUTES_PER_DAY_OVERHEAD} 分钟入园开销），属规划假设，不是资料给出的时长。"
     )
-    for index, count in enumerate(day_counts):
+    for index, count in enumerate(delivered_counts):
         if count <= 0:
             continue
         minutes = count * MINUTES_PER_STOP + MINUTES_PER_DAY_OVERHEAD
@@ -401,7 +643,7 @@ def apply_feasibility(route, profiles=None, constraints=None, days=None):
         )
 
     return {
-        "status_override": "partial" if cap_hits else None,
+        "status_override": "partial" if (cap_hits and not crop["applied"]) else None,
         "warnings": warnings,
         "uncertainties": uncertainties,
         "caps": caps,
@@ -411,6 +653,7 @@ def apply_feasibility(route, profiles=None, constraints=None, days=None):
             "over_budget": bool(over_days),
             "assumptions": assumptions,
         },
-        "stop_count": len(node_ids),
-        "day_counts": day_counts,
+        "stop_count": len(delivered_ids),
+        "day_counts": delivered_counts,
+        "crop": crop,
     }
