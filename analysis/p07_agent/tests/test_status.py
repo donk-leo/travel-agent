@@ -125,6 +125,14 @@ class StatusContractTests(unittest.TestCase):
         self.assertEqual(payload["source_doc_ids"], [])
         self.assertEqual(payload["note"], status.ERROR_NOTE)
 
+    def test_what_verified_verified_without_route_is_none_scope(self):
+        # 迁移口径：旧 complete 的纯地点查询也归 verified，但没有路线分段可核验。
+        payload = status.build_what_verified("verified", None)
+        self.assertEqual(payload["scope"], "none")
+        self.assertEqual(payload["segments_checked"], 0)
+        self.assertEqual(payload["source_doc_ids"], [])
+        self.assertIn(status.DISCLAIMER, payload["note"])
+
     def test_what_verified_partial_keeps_fixed_sentence(self):
         payload = status.build_what_verified("partial", _partial_route())
         self.assertIn(status.DISCLAIMER, payload["note"])
@@ -197,6 +205,25 @@ class AgentStatusIntegrationTests(unittest.TestCase):
         self.assertIn("2 处缺失", result["message"])
         self.assertIn(result["what_verified"]["scope"],
                       {"segment_connectivity", "none"})
+        self.assertIn(status.DISCLAIMER, result["what_verified"]["note"])
+
+    def test_run_agent_poi_list_does_not_claim_segment_verification(self):
+        decision = {"decision": "query_graph", "request_type": "info",
+                    "reason": "查询景点", "response": ""}
+        selection = {"tools": ["search_poi"], "search_mode": "all_pois",
+                     "search_keyword": "", "reason": "列出地点"}
+        poi = [{"name": "熊猫村", "node_id": "P", "scenic_area": "长隆"}]
+        with patch.object(agent, "parse_intent",
+                          return_value=self._intent(duration_days=None)), \
+             patch.object(agent, "decide_next_step", return_value=decision), \
+             patch.object(agent, "select_tools", side_effect=[selection, self.stop]), \
+             patch.object(agent, "search_poi", return_value=poi):
+            result = agent.run_agent("长隆有哪些景点")
+        self.assert_contract_result(result)
+        self.assertEqual(result["status"], "verified")
+        self.assertEqual(result["reasons"], [])
+        self.assertEqual(result["what_verified"]["scope"], "none")
+        self.assertEqual(result["what_verified"]["segments_checked"], 0)
         self.assertIn(status.DISCLAIMER, result["what_verified"]["note"])
 
     def test_run_agent_clarify_missing_slot(self):
