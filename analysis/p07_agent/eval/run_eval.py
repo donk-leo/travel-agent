@@ -1,7 +1,9 @@
 #!/usr/bin/env python
-"""P7 评测骨架（T0.3）：读取 golden set，调用真实 run_agent，记录结果并计算指标。
+"""P7 评测 runner（T0.3 骨架 / T4.1 扩到 30 条）：读取 golden set，调用真实 run_agent，
+记录结果并计算指标。
 
 设计约束（见 03_EVAL_SPEC.md §2/§3/§8）：
+- golden set 30 条 = 20 dev + 10 held-out；held-out 不参与调参；
 - 指标全部由 cases 计算，脚本里不写死任何成功率、延迟、证据覆盖率；
 - ``--dry-run`` 不 import agent、不调用模型，只校验 golden set schema 并写出空骨架；
 - 只有真实运行才把 ``analysis/p07_agent/src`` 插入 sys.path 并 import ``run_agent``；
@@ -31,15 +33,9 @@ GOLDEN_PATH = EVAL_DIR / "golden_set.jsonl"
 RESULTS_DIR = EVAL_DIR / "results"
 SRC_DIR = EVAL_DIR.parent / "src"
 
-# 当前 agent.py 返回 complete；T2.1 会改成 verified。评测侧只认四值，
-# 这里做显式映射，映射关系写进 eval/README.md，不手改任何结果。
-STATUS_ALIASES = {
-    "verified": "verified",
-    "complete": "verified",
-    "partial": "partial",
-    "clarify": "clarify",
-    "error": "error",
-}
+# T2.1 已落地：run_agent 只返回 verified/partial/clarify/error 四个值。
+# T4.1 删除了评测侧的临时别名（原 complete→verified）；四值之外一律记 None
+# 并计入 summary.status_other，不猜、不映射，口径见 eval/README.md §5。
 VALID_STATUSES = ("verified", "partial", "clarify", "error")
 VALID_SPLITS = ("dev", "heldout")
 REQUIRED_RESULT_KEYS = (
@@ -184,10 +180,11 @@ def submission_texts(case):
 
 
 def normalize_status(raw_status):
-    """把 agent 原始状态映射成规范四值；未知值返回 None（不猜）。"""
+    """只认四个契约值；四值之外的返回值（含旧 complete/reply）返回 None（不猜）。"""
     if not isinstance(raw_status, str):
         return None
-    return STATUS_ALIASES.get(raw_status.strip())
+    status = raw_status.strip()
+    return status if status in VALID_STATUSES else None
 
 
 def check_schema(result):
@@ -634,8 +631,8 @@ def main(argv=None):
     print(f"golden set：{GOLDEN_SET_DISPLAY}，共 {len(cases)} 条，全部通过 schema 校验")
     print(f"split={args.split}，limit={args.limit}，选中 {len(selected)} 条")
     if args.split == "heldout" and not selected:
-        print("held-out 为空（0 条）：当前 10 条 seed 全部为 dev，按裁决不跑 held-out，"
-              "本次写出空结果骨架（cases=[]）。")
+        print("held-out 为空（0 条）：本次写出空结果骨架（cases=[]）；"
+              "请检查 golden_set.jsonl 的 split 字段。")
     if not selected:
         print("选中的查询为 0 条，写出空骨架，不调用模型。")
 
@@ -705,7 +702,8 @@ def main(argv=None):
             ["dry-run：不 import agent、不调用模型；本文件是 schema 校验后的空骨架"]
             if args.dry_run else
             ["指标全部由 cases 计算；summary 不手写",
-             "status 映射：complete→verified（T2.1 前）"]
+             "状态只认四值 verified/partial/clarify/error；四值外记 None 并计入 "
+             "status_other（T2.1 已落地，T4.1 已删除 complete→verified 临时映射）"]
         ),
     }
     payload = {"meta": meta, "cases": records, "summary": summary}
