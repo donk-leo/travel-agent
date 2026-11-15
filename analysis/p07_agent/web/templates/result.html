@@ -23,5 +23,7 @@
 {% endblock %}
 
 {% block content %}
+  {#- T3.3 路线示意图由 _visitor_body.html 里的 route_diagram 宏渲染（顺序图，不是地图），
+      本页不直接写任何位置数值；没有路线时该块整块不渲染。 -#}
   {% include "_visitor_body.html" %}
 {% endblock %}

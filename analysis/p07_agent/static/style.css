@@ -900,7 +900,6 @@ td {
 }
 
 .evidence-slot > summary,
-.diagram-slot > summary,
 .route-uncertainties > summary,
 .audit-panel > summary {
   display: flex;
@@ -910,8 +909,7 @@ td {
   overflow-wrap: anywhere;
 }
 
-/* T3.3 路线示意图占位 */
-.diagram-slot,
+/* 需要进一步确认（T3.2）：虚线框，与正文区分 */
 .route-uncertainties {
   margin-top: var(--space-3);
   padding: var(--space-2) var(--space-3);
@@ -1082,3 +1080,160 @@ td {
   font-weight: 700;
   overflow-wrap: anywhere;
 }
+
+/* --------------------------------------------------------------------------
+   23. T3.3 路线示意图（服务端渲染的内联 SVG，不是地图）
+   口径：方框的上下位置只表示资料里的先后顺序，x/y 只是排版，不代表真实方位。
+   本节的深色只用于 fill / stroke，不新增「同一规则内 color + background-color」
+   的色对，所以 web/README.md §5.2 的 22 对仍然逐对成立。
+   窄屏只在 .diagram__scroll 里横向滚动，页面本身不出现横向滚动。
+   -------------------------------------------------------------------------- */
+.diagram-block {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background-color: #FFFFFF;
+}
+
+.diagram-block > summary {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.diagram {
+  margin: var(--space-3) 0 0;
+}
+
+.diagram__caption {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink);
+  font-size: 0.9375rem;
+  overflow-wrap: anywhere;
+}
+
+.diagram__meta {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ink-soft);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.diagram__scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  padding-block: var(--space-1);
+}
+
+.diagram__scroll:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.diagram__svg {
+  display: block;
+  max-width: none;
+  font-family: var(--font-sans);
+}
+
+/* 天底色（>=3 天可区分；第 5 天起循环使用同一组色，天号始终以文字标出） */
+.diagram__band--d1 { fill: #E8F5EC; }
+.diagram__band--d2 { fill: #E7F0FB; }
+.diagram__band--d3 { fill: #FFF4D6; }
+.diagram__band--d4 { fill: #FDECEA; }
+
+.diagram__day-label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.diagram__day-label--d1 { fill: #1E6B34; }
+.diagram__day-label--d2 { fill: #1F5FA8; }
+.diagram__day-label--d3 { fill: #8A5A00; }
+.diagram__day-label--d4 { fill: #A12622; }
+
+/* 节点框：白底 + 当天色描边 + 深色文字（对比度 >= 4.5:1） */
+.diagram__box {
+  fill: #FFFFFF;
+  stroke-width: 2;
+}
+
+.diagram__box--d1 { stroke: #1E6B34; }
+.diagram__box--d2 { stroke: #1F5FA8; }
+.diagram__box--d3 { stroke: #8A5A00; }
+.diagram__box--d4 { stroke: #A12622; }
+
+/* 虚线框 = 图谱未收录该节点（不只靠颜色区分） */
+.diagram__box--unknown {
+  stroke-dasharray: 4 3;
+}
+
+.diagram__name {
+  fill: var(--color-ink);
+  font-size: 15px;
+}
+
+.diagram__node-id {
+  fill: var(--color-ink-soft);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.diagram__edge-note {
+  fill: var(--color-ink-soft);
+  font-size: 12px;
+}
+
+.diagram__missing-note {
+  fill: #8A5A00;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 箭头：实线 + 箭头 marker；没有 NEXT 边的段只有虚线，没有箭头 */
+.diagram__line {
+  stroke-width: 2;
+}
+
+.diagram__line--d1 { stroke: #1E6B34; }
+.diagram__line--d2 { stroke: #1F5FA8; }
+.diagram__line--d3 { stroke: #8A5A00; }
+.diagram__line--d4 { stroke: #A12622; }
+
+.diagram__line--missing {
+  stroke: #8A5A00;
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.diagram__arrowhead--d1 { fill: #1E6B34; }
+.diagram__arrowhead--d2 { fill: #1F5FA8; }
+.diagram__arrowhead--d3 { fill: #8A5A00; }
+.diagram__arrowhead--d4 { fill: #A12622; }
+
+.diagram__link:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* 指针设备上给节点框加粗描边，提示「可点」 */
+@media (hover: hover) {
+  .diagram__link:hover .diagram__box {
+    stroke-width: 3;
+  }
+}
+
+/* 键盘聚焦时同时加粗描边 + 下划线，不只靠颜色 */
+.diagram__link:focus-visible .diagram__box {
+  stroke-width: 3;
+}
+
+.diagram__link:hover .diagram__name,
+.diagram__link:focus-visible .diagram__name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+

@@ -1,16 +1,19 @@
-# P7 前端：设计系统与双视图（T3.1 + T3.2 + T3.4）
+# P7 前端：设计系统与双视图（T3.1 + T3.2 + T3.3 + T3.4）
 
 T3.1 交付可复用的设计系统（调色板、四状态徽标、响应式样式表、基础模板）；
 **T3.2 已接线**：`analysis/p07_agent/src/web_app.py` 不再使用 `render_template_string`，
 改为渲染 `web/templates/` 下的 Jinja2 模板，提供访客视图与评审视图；
 **T3.4 已接线**：每个停留点与每个路线段都有证据入口，卡片内容全部来自 T1.6
 `evidence` 模块的原文切片（`doc_meta()` / `quote_sentence_for()` /
-`segment_evidence()`），缺失逐字显示「未找到来源」。
+`segment_evidence()`），缺失逐字显示「未找到来源」；
+**T3.3 已接线**：路线顺序下方渲染**顺序示意图**（服务端内联 SVG，数据 = P7 路线顺序 +
+P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是顺序示意图，不是地图」。
 
 - 访客视图：`web/templates/result.html`（正文抽到 `_visitor_body.html`，与评审视图共用）
 - 评审视图：`web/templates/auditor.html`（在访客内容之后追加 `<details>` 评审面板）
 - 首屏查询页：`web/templates/index.html`（GET `/`）
 - 证据卡宏：`web/templates/_evidence_card.html`（T3.4，访客/评审共用）
+- 路线示意图宏：`web/templates/_route_diagram.html`（T3.3，访客/评审共用）
 - 设计口径：`docs/optimization/PRODUCT_SPEC.md` §4.1 / §5 / §6 / §7 / §9
 
 页面默认**无 JS、零外部资源**：所有内容服务端渲染，图标是 Unicode 字符，
@@ -20,20 +23,22 @@ T3.1 交付可复用的设计系统（调色板、四状态徽标、响应式样
 
 | 文件 | 作用 |
 |---|---|
-| `static/style.css` | 唯一样式表：`:root` 调色板、移动优先、`@media` 断点、T3.2 双视图样式、T3.4 证据卡样式 |
+| `static/style.css` | 唯一样式表：`:root` 调色板、移动优先、`@media` 断点、T3.2 双视图样式、T3.4 证据卡样式、T3.3 示意图样式（第 23 节） |
 | `web/templates/base.html` | 基础模板：页头、动态覆盖篇数、视图切换、状态徽标区、免责句区、页脚限制 |
 | `web/templates/_status_badge.html` | 四状态徽标宏（图标 + 文字 + 颜色三重编码），未知状态回退 `error` |
 | `web/templates/_evidence_card.html` | T3.4 证据卡宏：标题 / `source_url` 新窗口链接 / 发布日期 / 摘句 / 评审字符区间 |
+| `web/templates/_route_diagram.html` | T3.3 路线示意图宏：服务端内联 SVG，按天分色，箭头方向 = 图谱 `NEXT`，零坐标 |
 | `web/templates/index.html` | 首屏查询页（T3.2）：表单 + 3 个示例 + 提交；无结果时渲染 |
 | `web/templates/result.html` | 访客视图结果页（T3.2），`extends "base.html"` |
 | `web/templates/auditor.html` | 评审视图结果页（T3.2），`extends "base.html"`；T3.4 追加摘句字符区间 |
-| `web/templates/_visitor_body.html` | 两个结果页共用的访客正文，避免双视图内容漂移；T3.4 证据入口在此 |
+| `web/templates/_visitor_body.html` | 两个结果页共用的访客正文，避免双视图内容漂移；T3.4 证据入口、T3.3 示意图入口在此 |
 | `web/preview/result_preview.html` | T3.1 静态预览页（引用 `../../static/style.css`），数据全部标注为示例 |
 | `web/preview/screenshot_375.png`、`screenshot_1280.png` | T3.1 静态预览截图 |
 | `web/preview/visitor_375.png`、`visitor_1280.png` | T3.2 访客视图真实模板渲染截图（fixture 数据） |
 | `web/preview/auditor_1280.png` | T3.2 评审视图真实模板渲染截图（fixture 数据） |
 | `web/preview/evidence_375.png`、`evidence_1280.png` | T3.4 证据卡真实模板渲染截图（含「未找到来源」卡片，见 §11） |
-| `web/README.md` | 本文件：调色板、对比度、接线说明、状态映射、证据卡、截图复现 |
+| `web/preview/diagram_375.png`、`diagram_1280.png` | T3.3 路线示意图真实模板渲染截图（白云山 BYS-T-02 链，见 §11） |
+| `web/README.md` | 本文件：调色板、对比度、接线说明、状态映射、证据卡、示意图、截图复现 |
 
 ## 2. 设计口径（先读）
 
@@ -104,7 +109,9 @@ T3.1 交付可复用的设计系统（调色板、四状态徽标、响应式样
 以便脚本逐对复算（`:root` 变量是同一套色值的唯一来源，二者数值一致）。
 
 T3.2 追加的样式（第 19 节）只做布局与占位，不新增“同一条规则内 color + background”
-的色对，因此下表的 22 对仍然逐对成立。
+的色对，因此下表的 22 对仍然逐对成立；T3.3 追加的示意图样式（第 23 节）只用
+`fill` / `stroke` 与一个不配 `color` 的 `background-color`，同样不新增色对
+（复算脚本仍只打印 22 条）。
 
 可用下面脚本从仓库根目录复算（只依赖标准库）：
 
@@ -203,12 +210,19 @@ for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
 - `pre`：`white-space: pre-wrap` + `overflow-x: auto`，不会撑破页面；
 - 表格：`width: 100%`，外层 `.table-scroll` 可横向滚动（评审视图的逐段核验表、指标表）；
 - 图片：`max-width: 100%; height: auto`（本项目不使用图片）；
-- 全表扫描：`style.css` 中唯一的 px 宽度是 `.visually-hidden` 的 `1px`，其余宽度均为 `%` 或 `rem`；
+- 全表扫描：`style.css` 中唯一的 px 宽度是 `.visually-hidden` 的 `1px`（另有断点
+  `@media (max-width: 480px)` 与 `border-width: 2px`，都不是元素宽度），其余宽度均为 `%` 或 `rem`；
+- 示意图是唯一的例外：`_route_diagram.html` 给 `svg` 写死 `width` 属性（访客 480px、
+  评审 640px），靠 `.diagram__scroll { max-width: 100%; overflow-x: auto }` 在**容器内**
+  横向滚动，`documentElement.scrollWidth` 仍是视口宽度（见 §9.11 与 §11 的 METRICS）；
 - 实测（CDP `Emulation.setDeviceMetricsOverride`，`visitor_375.png`）：
   `window.innerWidth = 375`、`documentElement.scrollWidth = 375`、`clientWidth = 375`，
   即 **scrollWidth 等于视口宽度，没有横向滚动**；整页 `scrollHeight = 3371`。
   1280 视口同理（访客页 `scrollWidth = 1280`、`scrollHeight = 2313`；
-  评审页 `scrollWidth = 1280`、`scrollHeight = 4386`）。
+  评审页 `scrollWidth = 1280`、`scrollHeight = 4386`）；
+- T3.3 加入示意图后复测（`diagram_375.png` / `diagram_1280.png`，示意图已展开）：
+  375 视口 `scrollWidth = 375`、`scrollHeight = 3591`；1280 视口 `scrollWidth = 1280`、
+  `scrollHeight = 2663`。**图内可横向滚动，页面本身仍不横向滚动。**
 
 ## 8. 无障碍
 
@@ -337,17 +351,17 @@ $py = ".\.venv\Scripts\python.exe"
 - `alt` 参数当前只用于模板高亮（`alt-card--selected` + “当前高亮”），
   结果页持久化由 T2.4 接入；不引入 JS。
 
-### 9.8 T3.3 占位 / T3.4 已交付（不放假数据）
+### 9.8 T3.3 / T3.4 均已交付（不放假数据）
 
 | 任务 | 状态 | 位置 | class / data 属性 |
 |---|---|---|---|
 | T3.4 证据卡 | **已交付**（详见 §9.10） | 行程每个 `.period` 内、路线每段 `.segment` 内 | `details.evidence` + `.evidence-card` |
-| T3.3 路线示意图 | 占位，未接入 | 路线顺序区块内、`proposal` 之后 | `details.diagram-slot` |
+| T3.3 路线示意图 | **已交付**（详见 §9.11） | 路线顺序区块内、`proposal` 之后 | `details.diagram-block` + `figure.diagram` + 内联 `svg` |
 | T2.4 备选路线 | 契约已定，未接入 | 路线顺序之后、地点列表之前 | `section` + `article.card.alt-card` / `.alt-card--selected` |
 
-占位块只说明“将由哪个任务接入”，不含示例节点、示例来源或编造数字。
-（T3.4 交付后，原先 `.evidence-slot` 的两处占位已删除；条件建议的完整卡片
-按 PRODUCT_SPEC §6.4 等来源过滤（T2.5）后再接入。）
+原先的占位块 `.diagram-slot` 已随占位一起删除（`style.css` 中对应的两条选择器
+也一并移除），不再留“待接入”文案。T3.4 交付时同样删除了 `.evidence-slot` 占位；
+条件建议的完整卡片按 PRODUCT_SPEC §6.4 等来源过滤（T2.5）后再接入。
 
 ### 9.9 隐私
 
@@ -418,6 +432,88 @@ periods_without_evidence=0  segments_without_evidence=0  details_open=0
 来源 BYS-T-02/BYS-T-03 都定位不到节点名）在页面上显示两张「未找到来源」卡
 + 停留点级「未找到来源」，满足“缺失示例真实出现在页面”的要求。
 
+### 9.11 T3.3 路线示意图（顺序图，不是地图）
+
+**一句话口径**：图里只有「按资料先后顺序排列的节点」和「图谱 `NEXT` 边的方向」；
+页面逐字写明 **「这是顺序示意图，不是地图」**，也没有纬度、经度、坐标、
+距离或步行时间。
+
+**数据来源（只读，单一实现）**
+
+| 上下文变量 | 构建函数 | 内容 |
+|---|---|---|
+| `diagram` | `web_app._build_diagram(route)` | `{days: [{day, nodes: [{node_id, name, in_graph}]}], edges: [{from_id, to_id, from_name, to_name, doc_ids}], missing: [{from_id, to_id, from_name, to_name}]}` |
+
+```text
+顺序（分天 / 天内先后）  ← route.proposal.day_plan，缺失或对不上时退回 route.proposal.node_ids
+名字                    ← route.proposal.node_names，其次 graph_nodes.csv 的 name
+箭头（方向 + 来源）      ← graph_edges.csv 里 rel=NEXT 且 src→dst 与相邻两点**完全一致**的行
+```
+
+- 图谱只通过 `tools.load_graph()` 读取（P6 的唯一读取实现），本模块不重写图谱规则、
+  不补边、不猜方向；`_graph_index()` 只在第一次渲染时读一次并缓存；
+- 同一对 `src→dst` 若有多行 `NEXT` 边，`doc_ids` 去重合并；**反方向的边不算**；
+- `doc_ids` 显示在箭头旁（`来源 BYS-T-02、BYS-T-03`），评审视图另有 `<title>`；
+- `node_ids` 为空、`day_plan` 与 `node_ids` 对不上、读图谱失败或任何异常 →
+  `diagram=None`，页面只渲染文字顺序，**不渲染空图、不报错**。
+
+**缺失段的处理（不伪造方向）**
+
+| 情况 | 页面表现 |
+|---|---|
+| 相邻两点在图谱里有**同向** `NEXT` 边 | 实线 + 箭头 marker + `data-from` / `data-to` + 来源 `doc_id` |
+| 没有这段边（含只有反方向边） | 虚线、**没有箭头**、`data-missing="1"` + `data-missing-from` / `data-missing-to`，并标注「图谱未收录该段」 |
+| 节点不在 `graph_nodes.csv` 里 | 虚线框 + 说明「虚线框＝图谱未收录该节点」 |
+
+**布局确定性（x/y 只是排版）**
+
+- 第一天在最上，天内严格按 `node_ids` 顺序，一行一个节点，箭头向下；
+- 只按天分组，**跨天之间不画箭头**（避免暗示资料支持跨天连接）；
+- 访客 `svg` 480×H、评审 640×H（多出的一列放节点 id），高度由
+  `16 + Σ(34 + 52×节点数 + 30×(节点数−1) + 18)` 算出，没有随机量、没有脚本测量；
+- 方框的上下位置只表示资料里的先后顺序——**不是方位、不是比例尺**。
+
+**按天配色（≥3 天可区分，不只靠颜色）**
+
+| 天 | 描边 / 箭头 / 天标题 | 天底色 |
+|---|---|---|
+| 第 1 天 | `#1E6B34`（5.83:1） | `#E8F5EC` |
+| 第 2 天 | `#1F5FA8`（5.60:1） | `#E7F0FB` |
+| 第 3 天 | `#8A5A00`（5.41:1） | `#FFF4D6` |
+| 第 4 天 | `#A12622`（6.52:1） | `#FDECEA` |
+
+第 5 天起循环使用同四组色，但每天都有可见文字「第 N 天 · N 个节点」+ `data-day`，
+所以不靠颜色也能分辨；节点名始终是 `#1A2028`（白底 16.39:1）。
+四组色值直接取 PRODUCT_SPEC §5.3 的四状态色，不新增色板。
+
+**可点 / 无障碍（无 JS）**
+
+- 每个节点一个 `<g data-node-id="…">`，首个子元素 `<title>` 与 `aria-label`
+  都是**节点全名**，节点名包在 `<a href="#stop-<node_id>">` 里；
+- `#stop-<node_id>` 锚点落在该停留点的来源卡片区（`_visitor_body.html` 里
+  `.point-evidence` 的第一次出现处，用 `namespace` 去重，不会产生重复 id）；
+  **如果该停留点没有出现在分时行程里，就暂时没有目标元素**（点击不跳转，
+  但不报错）——这是已知限制，见 §12，T3.5 时间线可以复用同一套 `#stop-<id>`；
+- 每条箭头是 `<g data-from="<src>" data-to="<dst>">`，可以直接拿回
+  `graph_edges.csv` 逐条核对同向 `NEXT` 边；
+- 示意图外层是 `<details class="diagram-block">`（访客默认折叠、评审默认展开），
+  `summary` 文案「查看路线示意（图谱顺序，不是地图）」；
+- 滚动容器 `role="region"` + `tabindex="0"`，键盘可横向滚动；
+- 模板里没有任何脚本标签、没有外部图片/字体/瓦片，断网也能看。
+
+**复现验证（Flask test client + 真实图谱，不调模型）**
+
+```powershell
+$env:PYTHONIOENCODING = 'utf-8'
+$py = ".\.venv\Scripts\python.exe"
+& $py -c "import sys; sys.path.insert(0, 'analysis/p07_agent/src'); import web_app; print('doc', web_app.DOC_COUNT)"
+```
+
+断言要点（父 Agent 可独立复算）：箭头数 = 相邻对数；每条 `data-from/data-to`
+都能在 `graph_edges.csv` 找到 `rel=NEXT` 且 `src/data-from、dst/data-to` 一致的行；
+故意插入一段图谱里没有的相邻点后，页面**不出现该段的箭头**、只出现
+`data-missing` 与「图谱未收录该段」。
+
 ## 10. 本地校验
 
 ### 10.1 服务端渲染（Flask 测试客户端，不启动服务）
@@ -459,10 +555,11 @@ $py = ".\.venv\Scripts\python.exe"
 ```
 
 T3.4 完成时：check 通过，137 条测试 OK（T3.2 完成时为 121 条）。
+T3.3 完成时同样是 check 通过 + **137 条测试 OK**（只新增模板与渲染接线，没改测试）。
 
-## 11. 截图复现（T3.2 / T3.4）
+## 11. 截图复现（T3.2 / T3.4 / T3.3）
 
-五张截图都由**真实 Flask 模板**渲染，不是手工 HTML；fixture 数据不调用模型：
+七张截图都由**真实 Flask 模板**渲染，不是手工 HTML；fixture 数据不调用模型：
 
 | 文件 | 视口 | 尺寸 | 说明 |
 |---|---|---|---|
@@ -471,6 +568,8 @@ T3.4 完成时：check 通过，137 条测试 OK（T3.2 完成时为 121 条）�
 | `auditor_1280.png` | 1280 CSS px | 1280×4386 | T3.2 评审视图整页 |
 | `evidence_375.png` | 375 CSS px | 375×8610 | T3.4 访客视图：证据卡展开态（含「未找到来源」卡） |
 | `evidence_1280.png` | 1280 CSS px | 1280×5400 | T3.4 访客视图：证据卡展开态（含「未找到来源」卡） |
+| `diagram_375.png` | 375 CSS px | 375×3591 | T3.3 访客视图：路线示意图展开态（白云山 BYS-T-02 链） |
+| `diagram_1280.png` | 1280 CSS px | 1280×2663 | T3.3 访客视图：路线示意图展开态（白云山 BYS-T-02 链） |
 
 T3.4 两张图的 fixture：`tools.get_route_candidates('广州白云山')` 的真实 NEXT 连接
 （白云山南门 → 云台花园 → 缆车上山 → 山顶广场 → 摩星岭，来源 `BYS-T-02`）+
@@ -478,9 +577,20 @@ T3.4 两张图的 fixture：`tools.get_route_candidates('广州白云山')` 的�
 T1.6 `scan_coverage()` 报告的 `missing_quote` 节点（BYS-T-02 / BYS-T-03 都定位不到节点名），
 用来展示「未找到来源」。**截图不代表一次真实 `run_agent` 输出。**
 
+T3.3 两张图用的是同一条链（与任务书的 fixture 一致：
+`POI|广州白云山|白云山南门` → `POI|广州白云山|云台花园` → `ACTIVITY|缆车上山` →
+`POI|广州白云山|山顶广场` → `POI|广州白云山|摩星岭`），四段**都**能在
+`graph_edges.csv` 找到同向 `NEXT` 边（前三段 `BYS-T-02`，最后一段 `BYS-T-02` + `BYS-T-03`），
+所以图上 4 条箭头全是真实连接、没有一段是虚构的。
+**截图不代表一次真实 `run_agent` 输出。**
+
 > 证据入口默认折叠（§9.10）。为了在静态截图里看到卡片内容，T3.4 的截图脚本在
 > **已渲染 HTML** 上给 `<details class="evidence">` 加 `open` 属性（等同用户手动展开，
 > 不改内容、数据或样式；模板默认仍是折叠，测试断言 `details_open=0`）。
+>
+> T3.3 同理：示意图访客默认折叠，`diagram_375/1280.png` 由临时脚本在**已渲染 HTML** 上
+> 给 `<details class="diagram-block">` 加 `open`（等同用户点开「查看路线示意」），
+> 模板默认仍是折叠（评审视图默认展开，见 §9.11）。
 
 fixture 的来源（仓库外临时脚本，不提交）：用 `tools.get_route_candidates('长隆')` +
 `validate_route()` + `route_metrics()` 得到真实图谱路线（北门 → 小火车游览区 → 青龙山 →
@@ -529,6 +639,10 @@ $base = "${scheme}://127.0.0.1:<port>"
 # T3.4 证据卡（fixture 用白云山路线，并在响应里给 details.evidence 加 open 以便静态图看到卡片）
 & $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\evidence_375.png"  --width 375
 & $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\evidence_1280.png" --width 1280
+
+# T3.3 路线示意图（fixture 用白云山 BYS-T-02 链，并在响应里给 details.diagram-block 加 open）
+& $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\diagram_375.png"  --width 375
+& $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\diagram_1280.png" --width 1280
 ```
 
 3. 每张图必须记录工具原样打印的 `METRICS`。本次实测：
@@ -539,10 +653,13 @@ visitor_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":12
 auditor_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":4386}
 evidence_375.png  METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":8610}
 evidence_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":5400}
+diagram_375.png   METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":3591}
+diagram_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":2663}
 ```
 
 375px 的 `scrollWidth` 等于 `clientWidth` 等于视口宽度 375，**没有横向滚动**
-（T3.4 证据卡展开到最长摘句时同样成立）。
+（T3.4 证据卡展开到最长摘句时同样成立；T3.3 示意图把 480px 宽的 `svg` 放进
+`overflow-x: auto` 的容器里，页面仍不横向滚动）。
 工具用 `Emulation.setDeviceMetricsOverride` 真正设置视口，而不是用 500px 布局裁切
 （T3.1 §11 记录过本机无头 Chrome 的 500px 下限）。
 
@@ -554,6 +671,10 @@ evidence_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":12
   完整卡片按 PRODUCT_SPEC §6.4 等来源过滤（T2.5）后再接入。
 - 分时行程（`itinerary.py`）没有 node_id，停留点按时段文案里出现的节点名做确定性
   匹配分组（长名优先）；因此同一节点在多个时段出现时会各显示一次证据入口。
-- 路线示意图（T3.3）仍是占位，不含示例节点。
+- 路线示意图（T3.3）覆盖范围：只画 P7 路线里的 `proposal.node_ids`，按 `day_plan`
+  分天；**跨天之间不画箭头**；图谱没有 `NEXT` 边的相邻两点只画虚线并标「图谱未收录该段」；
+  节点链接 `#stop-<node_id>` 目前落在停留点来源卡片区，**没出现在分时行程里的停留在
+  页面上暂时没有目标元素**（点击不跳转，不报错），T3.5 时间线可以复用同一套锚点补全；
+  示意图不含纬度、经度、坐标、距离、步行时间，也不接任何地图瓦片。
 - 条件建议的“选择理由”与 `needs_verification` 由后端给出，前端不推断。
 - 页面没有实时票价、排队、天气、开放状态，也不提供预订、支付、导航或叫车服务。

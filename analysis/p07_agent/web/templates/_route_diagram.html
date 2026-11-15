@@ -1,0 +1,130 @@
+{#-
+  路线示意图宏（T3.3）
+  ---------------------------------------------------------------------------
+  只读输入（由 ``web_app._build_diagram()`` 按图谱核验过方向后传入）::
+
+      diagram = {
+        days:    [{day, nodes: [{node_id, name, in_graph}]}],
+        edges:   [{from_id, to_id, from_name, to_name, doc_ids}],  # P6 rel=NEXT
+        missing: [{from_id, to_id, from_name, to_name}],           # 图谱没有这一段
+      }
+
+  本宏只负责排版：服务端渲染内联 ``svg``，没有脚本、没有外部资源、没有地图瓦片。
+  方框的上下位置只表示资料里的先后顺序，不代表真实方位；不换算路程。
+
+  - 每个节点：``g[data-node-id]`` + ``title`` + ``aria-label``（节点全名），
+    可点跳到 ``#stop-<node_id>``（该停留点的来源卡片区）；
+  - 每条箭头：``g[data-from][data-to]``，方向与 P6 ``NEXT`` 边一致；
+  - 图谱没有收录的相邻两点：``g[data-missing]`` + 虚线，**不画箭头、不猜方向**；
+  - 跨天之间不连边（避免暗示资料支持跨天连接）。
+
+  用法（``view`` 由调用方传入，宏自身不读模板上下文）::
+
+      {% from "_route_diagram.html" import route_diagram %}
+      {{ route_diagram(diagram, show_ids=False, expanded=False) }}
+-#}
+
+{%- macro route_diagram(diagram, show_ids=False, expanded=False) -%}
+{%- if diagram and diagram.days -%}
+{%- set svg_width = 640 if show_ids else 480 -%}
+{%- set pad_x = 12 -%}
+{%- set box_w = 280 -%}
+{%- set box_h = 52 -%}
+{%- set arrow_h = 30 -%}
+{%- set head_h = 34 -%}
+{%- set day_gap = 18 -%}
+{%- set axis_x = pad_x + 140 -%}
+{%- set ns = namespace(height=0, nodes=0, unknown=0) -%}
+{%- for day in diagram.days -%}
+  {%- set count = day.nodes|length -%}
+  {%- set ns.height = ns.height + head_h + box_h * count + arrow_h * (count - 1) + day_gap -%}
+  {%- set ns.nodes = ns.nodes + count -%}
+  {%- for node in day.nodes -%}
+    {%- if not node.in_graph -%}{%- set ns.unknown = ns.unknown + 1 -%}{%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- set svg_height = ns.height + 16 -%}
+<details class="diagram-block"{% if expanded %} open{% endif %}>
+  <summary>查看路线示意（图谱顺序，不是地图）</summary>
+  <figure class="diagram" id="route-diagram">
+    <figcaption class="diagram__caption" id="route-diagram-caption">
+      <strong>这是顺序示意图，不是地图。</strong>
+      方框的上下位置只表示资料里的先后顺序，不代表真实方位；箭头只表示图谱
+      <code>NEXT</code> 边的方向。按天分色，点节点名可跳到该停留点的来源。
+    </figcaption>
+    <p class="diagram__meta">
+      共 {{ diagram.days|length }} 天、{{ ns.nodes }} 个节点；图谱 <code>NEXT</code> 箭头
+      {{ diagram.edges|length }} 条{% if diagram.missing %}，图谱未收录的段
+      {{ diagram.missing|length }} 段（只画虚线，不画箭头）{% endif %}{% if diagram.days|length > 1 %}；跨天之间不画箭头，避免暗示资料支持跨天连接{% endif %}。
+    </p>
+    {%- if ns.unknown %}
+    <p class="diagram__meta">虚线框＝图谱未收录该节点（{{ ns.unknown }} 个）。</p>
+    {%- endif %}
+    <div class="diagram__scroll" role="region" aria-labelledby="route-diagram-caption" tabindex="0">
+      <svg class="diagram__svg" width="{{ svg_width }}" height="{{ svg_height }}"
+           viewBox="0 0 {{ svg_width }} {{ svg_height }}" role="group"
+           aria-labelledby="route-diagram-caption">
+        <title>路线顺序示意图：{{ diagram.days|length }} 天、{{ ns.nodes }} 个节点（不是地图）</title>
+        <defs>
+          {%- for palette in range(1, 5) %}
+          <marker id="diagram-arrow-{{ palette }}" viewBox="0 0 10 10" refX="10" refY="5"
+                  markerWidth="7" markerHeight="7" orient="auto">
+            <path class="diagram__arrowhead diagram__arrowhead--d{{ palette }}" d="M0,0 L10,5 L0,10 z"></path>
+          </marker>
+          {%- endfor %}
+        </defs>
+        {%- set cursor = namespace(y=8) -%}
+        {%- for day in diagram.days %}
+        {%- set palette = (loop.index0 % 4) + 1 -%}
+        {%- set count = day.nodes|length %}
+        <rect class="diagram__band diagram__band--d{{ palette }}" x="4" y="{{ cursor.y - 2 }}"
+              width="{{ svg_width - 8 }}" height="{{ head_h + box_h * count + arrow_h * (count - 1) + 6 }}"
+              rx="8"></rect>
+        <text class="diagram__day-label diagram__day-label--d{{ palette }}"
+              x="{{ pad_x }}" y="{{ cursor.y + 17 }}">第 {{ day.day }} 天 · {{ count }} 个节点</text>
+        {%- set cursor.y = cursor.y + head_h -%}
+        {%- for node in day.nodes %}
+        {%- set box_y = cursor.y %}
+        <g data-node-id="{{ node.node_id }}" data-day="{{ day.day }}"
+           class="diagram__node" role="group" aria-label="{{ node.name }}">
+          <title>{{ node.name }}</title>
+          <a class="diagram__link" href="#stop-{{ node.node_id }}">
+            <rect class="diagram__box diagram__box--d{{ palette }}{% if not node.in_graph %} diagram__box--unknown{% endif %}"
+                  x="{{ pad_x }}" y="{{ box_y }}" width="{{ box_w }}" height="{{ box_h }}" rx="6"></rect>
+            <text class="diagram__name" x="{{ pad_x + 14 }}" y="{{ box_y + 32 }}">{{ node.name }}</text>
+          </a>
+        </g>
+        {%- if show_ids %}
+        <text class="diagram__node-id" x="{{ pad_x + box_w + 12 }}" y="{{ box_y + 32 }}">{{ node.node_id }}</text>
+        {%- endif %}
+        {%- set cursor.y = box_y + box_h -%}
+        {%- if not loop.last -%}
+        {%- set following = day.nodes[loop.index] -%}
+        {%- set arrow = diagram.edges|selectattr('from_id', 'equalto', node.node_id)|selectattr('to_id', 'equalto', following.node_id)|first -%}
+        {%- if arrow %}
+        <g data-from="{{ node.node_id }}" data-to="{{ following.node_id }}" class="diagram__arrow">
+          <title>{{ node.name }} → {{ following.name }}：图谱 NEXT 边{% if arrow.doc_ids %}（来源 {{ arrow.doc_ids|join('、') }}）{% endif %}</title>
+          <line class="diagram__line diagram__line--d{{ palette }}" x1="{{ axis_x }}" y1="{{ cursor.y }}"
+                x2="{{ axis_x }}" y2="{{ cursor.y + arrow_h }}" marker-end="url(#diagram-arrow-{{ palette }})"></line>
+          <text class="diagram__edge-note" x="{{ axis_x + 24 }}" y="{{ cursor.y + 20 }}">来源 {{ arrow.doc_ids|join('、') if arrow.doc_ids else '未记录' }}</text>
+        </g>
+        {%- else %}
+        <g data-missing="1" data-missing-from="{{ node.node_id }}"
+           data-missing-to="{{ following.node_id }}" class="diagram__missing">
+          <title>{{ node.name }} → {{ following.name }}：图谱未收录该段，不画箭头</title>
+          <line class="diagram__line--missing" x1="{{ axis_x }}" y1="{{ cursor.y }}"
+                x2="{{ axis_x }}" y2="{{ cursor.y + arrow_h }}"></line>
+          <text class="diagram__missing-note" x="{{ pad_x }}" y="{{ cursor.y + 20 }}">图谱未收录该段</text>
+        </g>
+        {%- endif -%}
+        {%- set cursor.y = cursor.y + arrow_h -%}
+        {%- endif -%}
+        {%- endfor -%}
+        {%- set cursor.y = cursor.y + day_gap -%}
+        {%- endfor %}
+      </svg>
+    </div>
+  </figure>
+</details>
+{%- endif -%}
+{%- endmacro -%}

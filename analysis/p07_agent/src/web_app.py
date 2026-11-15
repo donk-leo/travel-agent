@@ -27,6 +27,7 @@ from pathlib import Path
 from flask import Flask, render_template, render_template_string, request, session
 
 import evidence
+import tools
 from agent import run_agent
 from status import is_contract_violation, normalize_status
 
@@ -320,6 +321,149 @@ def _attach_point_evidence(itinerary, route, point_evidence):
     return attached
 
 
+#: 路线示意图只认图谱里的这一步关系，方向固定为 ``src → dst``。
+NEXT_REL = "NEXT"
+
+#: 图谱索引缓存：``(nodes_by_id, next_edges)``；读不到时为 ``None``。
+_GRAPH_INDEX = None
+
+
+def _graph_index():
+    """只读 P6 图谱并建索引，供路线示意图查边。
+
+    返回 ``(nodes_by_id, next_edges)``：
+
+    - ``nodes_by_id``：``node_id → graph_nodes.csv 行``，用来判断节点是否存在；
+    - ``next_edges``：``(src, dst) → [doc_id, ...]``，**只收 ``rel=NEXT`` 的边**，
+      方向固定为 ``src → dst``；同一对节点若有多行 NEXT 边，doc_id 去重合并。
+
+    只调用 ``tools.load_graph()``（P6 产出的唯一读取实现），本模块不重写
+    图谱规则、不补边、不猜方向。读取失败返回 ``None``，页面退回文字顺序。
+    """
+    global _GRAPH_INDEX
+    if _GRAPH_INDEX is not None:
+        return _GRAPH_INDEX
+    try:
+        nodes, edges = tools.load_graph()
+    except Exception:
+        return None
+    nodes_by_id = {}
+    for node in nodes or []:
+        if not isinstance(node, dict):
+            continue
+        node_id = _safe_text(node.get("node_id"))
+        if node_id:
+            nodes_by_id[node_id] = node
+    next_edges = {}
+    for edge in edges or []:
+        if not isinstance(edge, dict):
+            continue
+        if _safe_text(edge.get("rel")) != NEXT_REL:
+            continue
+        src = _safe_text(edge.get("src"))
+        dst = _safe_text(edge.get("dst"))
+        if not src or not dst:
+            continue
+        doc_ids = next_edges.setdefault((src, dst), [])
+        for doc_id in _safe_text(edge.get("source_doc_ids")).split(";"):
+            doc_id = doc_id.strip()
+            if doc_id and doc_id not in doc_ids:
+                doc_ids.append(doc_id)
+    _GRAPH_INDEX = (nodes_by_id, next_edges)
+    return _GRAPH_INDEX
+
+
+def _diagram_node(node_id, names, nodes_by_id):
+    """把一个 node_id 变成示意图节点：名字取 route 的 ``node_names``，其次图谱。"""
+    row = nodes_by_id.get(node_id) or {}
+    name = (
+        _safe_text(names.get(node_id))
+        or _safe_text(row.get("name"))
+        or node_id.split("|")[-1]
+    )
+    return {"node_id": node_id, "name": name, "in_graph": bool(row)}
+
+
+def _build_diagram(route):
+    """按 route 顺序 + P6 ``NEXT`` 边构建路线示意图数据；异常一律返回 ``None``。
+
+    返回::
+
+        {"days":    [{"day": int, "nodes": [{node_id, name, in_graph}]}],
+         "edges":   [{from_id, to_id, from_name, to_name, doc_ids}],
+         "missing": [{from_id, to_id, from_name, to_name}]}
+
+    - 分天与天内顺序**只来自** ``route.proposal.day_plan`` / ``node_ids``；
+    - ``edges`` 只收图谱里真实存在、且方向一致的 ``NEXT`` 边；
+    - 查不到边的相邻两点记进 ``missing``，模板只画虚线并标注，不画箭头；
+    - 跨天之间不连边，避免暗示资料支持跨天连接；
+    - ``node_ids`` 为空或任何异常 → ``None``，页面退回文字顺序。
+    """
+    try:
+        proposal = (route or {}).get("proposal") if isinstance(route, dict) else None
+        proposal = proposal if isinstance(proposal, dict) else {}
+        raw_ids = proposal.get("node_ids") or []
+        if not isinstance(raw_ids, (list, tuple)):
+            return None
+        node_ids = [_safe_text(item) for item in raw_ids]
+        node_ids = [node_id for node_id in node_ids if node_id]
+        if not node_ids:
+            return None
+
+        names = proposal.get("node_names") or {}
+        if not isinstance(names, dict):
+            names = {}
+        index = _graph_index()
+        nodes_by_id = index[0] if index else {}
+
+        def entry(node_id):
+            return _diagram_node(node_id, names, nodes_by_id)
+
+        days = []
+        raw_plan = proposal.get("day_plan") or []
+        if isinstance(raw_plan, (list, tuple)):
+            for raw_day in raw_plan:
+                if not isinstance(raw_day, dict):
+                    continue
+                day_ids = [_safe_text(item) for item in (raw_day.get("node_ids") or [])]
+                day_ids = [node_id for node_id in day_ids if node_id]
+                if not day_ids:
+                    continue
+                try:
+                    day_number = int(raw_day.get("day"))
+                except (TypeError, ValueError):
+                    day_number = len(days) + 1
+                days.append({
+                    "day": day_number,
+                    "nodes": [entry(node_id) for node_id in day_ids],
+                })
+        planned = [node["node_id"] for day in days for node in day["nodes"]]
+        if planned != node_ids:
+            # day_plan 缺失、为空，或与 node_ids 的顺序/覆盖对不上：退回单天顺序。
+            days = [{"day": 1, "nodes": [entry(node_id) for node_id in node_ids]}]
+
+        edges, missing = [], []
+        for day in days:
+            nodes = day["nodes"]
+            for current, following in zip(nodes, nodes[1:]):
+                pair = (current["node_id"], following["node_id"])
+                doc_ids = (index[1].get(pair) if index else None)
+                item = {
+                    "from_id": current["node_id"],
+                    "to_id": following["node_id"],
+                    "from_name": current["name"],
+                    "to_name": following["name"],
+                }
+                if doc_ids is None:
+                    missing.append(item)
+                else:
+                    item["doc_ids"] = list(doc_ids)
+                    edges.append(item)
+        return {"days": days, "edges": edges, "missing": missing}
+    except Exception:
+        return None
+
+
 def _status_note(status, contract_violation, result):
     """给访客看的一句状态说明；不泄露原始异常/未知状态值。"""
     if contract_violation:
@@ -369,6 +513,7 @@ def _build_context(result, view, query, selected_alt=""):
         "tool_selection": result.get("tool_selection"),
         "tool_decisions": result.get("tool_decisions") or [],
         "route": route,
+        "diagram": _build_diagram(route),
         "itinerary": itinerary,
         "point_evidence": point_evidence,
         "segment_evidence_list": segment_evidence_list,

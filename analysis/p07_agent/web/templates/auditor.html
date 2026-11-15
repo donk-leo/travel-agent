@@ -25,7 +25,8 @@
 {% endblock %}
 
 {% block content %}
-  {#- 先在访客内容之后追加评审面板：评审视图 = 访客看到的内容 + 调试/证据。 -#}
+  {#- 先在访客内容之后追加评审面板：评审视图 = 访客看到的内容 + 调试/证据。
+      T3.3 示意图也在访客正文里（评审视图默认展开并叠加节点 id），本页不再重复渲染。 -#}
   {% include "_visitor_body.html" %}
 
   <section class="audit-panels" aria-labelledby="audit-title">

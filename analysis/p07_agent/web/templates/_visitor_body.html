@@ -9,7 +9,12 @@
 -#}
 
 {% from "_evidence_card.html" import evidence_card %}
+{% from "_route_diagram.html" import route_diagram %}
 {% set show_span = (view|default('visitor')) == 'auditor' %}
+{#- T3.3：示意图节点可点，评审视图叠加节点 id。 -#}
+{% set show_node_ids = (view|default('visitor')) == 'auditor' %}
+{#- 停留点锚点「#stop-<node_id>」每个节点只落在第一次出现的位置，避免重复 id。 -#}
+{% set stop_anchor = namespace(ids={}) %}
 
 <section class="query-echo" aria-labelledby="query-echo-title">
   <h2 id="query-echo-title">你的需求</h2>
@@ -64,7 +69,12 @@
             <div class="evidence__body">
               {%- if point_nodes -%}
                 {%- for point in point_nodes %}
-              <section class="point-evidence" aria-label="停留点 {{ point.name|e }} 的来源">
+                {%- set point_anchor = '' -%}
+                {%- if point.node_id and point.node_id not in stop_anchor.ids -%}
+                  {%- set _ = stop_anchor.ids.update({point.node_id: true}) -%}
+                  {%- set point_anchor = 'stop-' ~ point.node_id -%}
+                {%- endif %}
+              <section class="point-evidence"{% if point_anchor %} id="{{ point_anchor|e }}"{% endif %} aria-label="停留点 {{ point.name|e }} 的来源">
                 <p class="point-evidence__name">{{ point.name|e }}</p>
                 <p class="point-evidence__status">{% if point.found_count %}本点 {{ point.cards|length }} 条来源{% else %}未找到来源{% endif %}</p>
                 {%- if point.cards -%}
@@ -173,11 +183,10 @@
     </details>
     {% endif %}
 
-    {#- T3.3 路线示意图占位：按图谱顺序画节点/连接，不是地图；不放假数据。 -#}
-    <details class="diagram-slot">
-      <summary>查看路线示意（图谱顺序，不是地图）</summary>
-      <p class="muted">示意图由 T3.3 接入：按图谱 NEXT 顺序显示节点与连接，不换算距离、不画真实地图。</p>
-    </details>
+    {#- T3.3 路线示意图：数据只来自 P6 的 NEXT 边；diagram 为空时整块不渲染。 -#}
+    {%- if diagram %}
+    {{ route_diagram(diagram, show_ids=show_node_ids, expanded=show_node_ids) }}
+    {%- endif %}
   {% else %}
     <p class="muted">{{ route.message|e if route.message else '资料未给出路线顺序。' }}</p>
   {% endif %}
