@@ -1,0 +1,80 @@
+# 离线质量门：九项 checks + P7 离线测试
+# 设计约束（见 docs/optimization/BASELINE.md 第 8 节）：
+#   - 只用 Python 3.11 + requirements.lock，不安装其他包；
+#   - 不跑任何需要模型 / GPU / 网络的评测（P7 测试已 mock urlopen）；
+#   - 不使用 secrets、不做部署；权限只读。
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - "agent/**"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONIOENCODING: utf-8
+  PYTHONUTF8: "1"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+jobs:
+  offline-gates:
+    name: checks + unittest (offline)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.lock
+
+      - name: Install locked dependencies
+        run: python -m pip install -r requirements.lock
+
+      - name: Verify dependency consistency
+        run: python -m pip check
+
+      - name: P1 changlong
+        run: python checks/check_scenic.py scenic/changlong/data/processed/changlong_guides.csv
+
+      - name: P1 baiyunshan
+        run: python checks/check_scenic.py scenic/baiyunshan/data/processed/baiyunshan_guides.csv
+
+      - name: P1 wugongshan
+        run: python checks/check_scenic.py scenic/wugongshan/data/processed/wugongshan_guides.csv
+
+      - name: P2 entities
+        run: python checks/check_entities.py
+
+      - name: P3 routes
+        run: python checks/check_routes.py
+
+      - name: P4 coref
+        run: python checks/check_coref.py
+
+      - name: P5 conditions
+        run: python checks/check_conditions.py
+
+      - name: P6 graph
+        run: python checks/check_graph.py analysis/p06_graph/outputs
+
+      - name: P7 agent
+        run: python checks/check_agent.py analysis/p07_agent
+
+      - name: P7 offline unittest
+        run: python -m unittest discover -s analysis/p07_agent/tests -v
