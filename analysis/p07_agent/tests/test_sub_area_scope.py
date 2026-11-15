@@ -190,7 +190,7 @@ class AgentScopeTests(unittest.TestCase):
              patch.object(agent, "search_poi", return_value=mixed):
             result = agent.run_agent("长隆欢乐世界有哪些景点？")
 
-        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["status"], "verified")
         self.assertEqual(result["intent"]["sub_area"], "欢乐世界")
         self.assertEqual(result["scope"]["sub_area"], "欢乐世界")
         self.assertEqual([item["name"] for item in result["poi_results"]], ["垂直过山车"])
@@ -220,7 +220,7 @@ class AgentScopeTests(unittest.TestCase):
              patch.object(agent, "plan_route", return_value=route) as planner:
             result = agent.run_agent("我和朋友去长隆欢乐世界玩一天")
 
-        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["status"], "verified")
         self.assertEqual(planner.call_args.kwargs["sub_area"], "欢乐世界")
         self.assertIn("子园区", result["message"])
 

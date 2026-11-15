@@ -100,7 +100,7 @@ class AgentAliasTests(unittest.TestCase):
              patch.object(agent, "plan_route", return_value=route) as planner:
             result = agent.run_agent("带孩子去广州长隆旅游度假区一天")
 
-        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["status"], "verified")
         self.assertEqual(result["intent"]["scenic_area"], "长隆")
         self.assertEqual(planner.call_args.args[1], "长隆")
 

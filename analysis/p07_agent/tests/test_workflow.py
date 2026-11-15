@@ -137,7 +137,7 @@ class AgentFlowTests(unittest.TestCase):
              patch.object(agent, "select_tools", side_effect=decisions) as selector, \
              patch.object(agent, "search_poi", side_effect=[[], [{"name": "熊猫村", "node_id": "P", "scenic_area": "长隆"}]]):
             result = agent.run_agent("长隆熊猫景点")
-        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["status"], "verified")
         self.assertEqual(result["poi_results"][0]["name"], "熊猫村")
         self.assertEqual(selector.call_args_list[1].kwargs["observations"][0]["count"], 0)
         events = [json.loads(line) for line in (Path(self.temp.name) / result["trace_file"]).read_text(encoding="utf-8").splitlines()]
@@ -175,7 +175,7 @@ class AgentFlowTests(unittest.TestCase):
              patch.object(agent, "search_poi", return_value=[]), \
              patch.object(agent, "plan_route", return_value=route) as planner:
             result = agent.run_agent("我和父母去长隆玩一天")
-        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["status"], "verified")
         self.assertIsNotNone(result["route"])
         planner.assert_called_once()
         self.assertEqual(planner.call_args.kwargs["days"], 1)
@@ -202,7 +202,7 @@ class AgentFlowTests(unittest.TestCase):
              patch.object(agent, "search_poi", return_value=[]), \
              patch.object(agent, "plan_route", return_value=route) as planner:
             result = agent.run_agent("带孩子去武功山玩三天")
-        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["status"], "verified")
         self.assertIsNotNone(result["route"])
         self.assertEqual(planner.call_args.kwargs["days"], 3)
 
@@ -255,7 +255,7 @@ class AgentFlowTests(unittest.TestCase):
              patch.object(agent, "search_poi", side_effect=[[], fallback]) as search, \
              patch.object(agent, "plan_route", return_value=route):
             result = agent.run_agent("带孩子去长隆玩一天")
-        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["status"], "verified")
         self.assertTrue(result["poi_list_all"])
         self.assertEqual([item["name"] for item in result["poi_results"]], ["熊猫村"])
         self.assertIn("当前范围全部地点", result["message"])
@@ -277,7 +277,7 @@ class AgentFlowTests(unittest.TestCase):
              patch.object(agent, "search_poi", return_value=all_pois) as search, \
              patch.object(agent, "plan_route", return_value=route):
             result = agent.run_agent("带孩子去长隆欢乐世界玩三天")
-        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["status"], "verified")
         self.assertTrue(result["poi_list_all"])
         self.assertEqual(search.call_args.kwargs["keyword"], "")
         self.assertEqual(search.call_args.kwargs["limit"], 10000)
@@ -285,7 +285,7 @@ class AgentFlowTests(unittest.TestCase):
         self.assertIn("偏好", result["message"])
         self.assertIn("未按偏好过滤", result["message"])
 
-    def test_invalid_route_is_partial_not_complete(self):
+    def test_invalid_route_is_partial_not_verified(self):
         plan = {"decision": "query_graph", "request_type": "plan", "reason": "规划", "response": ""}
         selection = {"tools": ["get_conditions", "search_poi"], "search_mode": "all_pois",
                      "search_keyword": "", "reason": "查建议和地点"}

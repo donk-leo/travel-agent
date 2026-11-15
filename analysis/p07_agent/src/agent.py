@@ -8,6 +8,10 @@ from intent_parser import parse_intent
 from itinerary import build_itinerary
 from route_planner import plan_route
 from scenic_aliases import CANONICAL_AREAS, canonicalize_scenic_area
+from status import (
+    STATUS_CLARIFY, STATUS_ERROR, STATUS_PARTIAL, STATUS_VERIFIED,
+    build_what_verified, is_contract_violation, make_reason, normalize_status,
+)
 from sub_area_scope import detect_sub_area, filter_poi_results
 from tool_decider import decide_next_step
 from tool_selector import select_tools
@@ -42,64 +46,106 @@ def _keep_sub_area_suggestions(suggestions, sub_area):
 
 
 def _check_message(check, fallback):
-    return " ".join(filter(None, [check.get("explanation"), check.get("question")])) or fallback
+    message = " ".join(
+        str(value).strip()
+        for value in (check.get("explanation"), check.get("question"))
+        if value
+    ).strip()
+    return message or fallback
 
 
-def _route_problem(route, days):
-    """返回路线不可直接标 complete 的原因；空字符串表示可用。"""
+def _reason_text(*candidates, default):
+    """取第一条非空文案，避免把空白字符串写进 reasons（reasons[].text 必须非空）。"""
+    for value in candidates:
+        text = str(value or "").strip()
+        if text:
+            return text
+    return default
+
+
+def _check_reason_code(check_status):
+    """约束检查未通过时的原因码：冲突归 constraint_conflict，缺信息归 missing_slot。"""
+    return "constraint_conflict" if check_status == "conflict" else "missing_slot"
+
+
+def _route_problems(route, days):
+    """返回路线不能判 verified 的全部原因；空列表表示可判 verified。
+
+    判定口径与旧版一致（PRODUCT_SPEC.md §5.1 对 verified 的定义）：只看逐段
+    NEXT 证据、单一来源、未截断、未按节点数均分兜底、子园区范围已落实。
+    """
     if route is None:
-        return ""
-    if route.get("single_destination"):
-        return route.get("message") or "该子园区只提供地点级建议，没有连续路线。"
+        return []
+    problems = []
     proposal = route.get("proposal") or {}
     validation = route.get("validation") or {}
-    if not proposal.get("node_ids"):
-        return route.get("message") or "没有生成可用的路线节点。"
-
-    if validation.get("valid") is not True or validation.get("fully_verified") is False:
+    if route.get("single_destination"):
+        problems.append(make_reason(
+            "single_destination",
+            _reason_text(route.get("message"),
+                         default="该子园区只提供地点级建议，没有连续路线。")
+        ))
+    elif not proposal.get("node_ids"):
+        problems.append(make_reason(
+            "empty_match",
+            _reason_text(route.get("message"), default="没有生成可用的路线节点。")
+        ))
+    elif validation.get("valid") is not True or validation.get("fully_verified") is False:
         missing = validation.get("missing_connections") or []
         cross_doc = validation.get("cross_doc_transitions") or 0
         if missing:
-            return (
+            problems.append(make_reason("missing_connection", (
                 f"路线连接未通过图谱核验（{len(missing)} 处缺失），"
                 "已保留路线供参考；请调整需求，或改用景区官方路线。"
-            )
-        if cross_doc:
-            return (
+            )))
+        elif cross_doc:
+            problems.append(make_reason("cross_doc", (
                 f"路线有 {cross_doc} 处跨来源文档跳转，"
                 "这些分段不能证明属于同一条连续路线；"
                 "已保留路线供参考，请改用单一来源的官方路线或调整需求。"
-            )
-        return "路线未通过图谱核验，已保留路线供参考；请调整需求。"
-
-    if proposal.get("route_truncated"):
-        return (
+            )))
+        else:
+            problems.append(make_reason(
+                "missing_connection",
+                "路线未通过图谱核验，已保留路线供参考；请调整需求。"
+            ))
+    elif proposal.get("route_truncated"):
+        problems.append(make_reason("route_truncated", (
             "原路线在缺环处被截断，只保留了能够逐段核验的前半段；"
             "后半段需要调整需求或改用官方路线后重新规划。"
-        )
-
-    if days and days > 1 and proposal.get("day_plan_fallback"):
-        return (
+        )))
+    elif days and days > 1 and proposal.get("day_plan_fallback"):
+        problems.append(make_reason("day_plan_fallback", (
             "多日行程的天数分组是按节点数均分的展示结果，"
             "没有校验每日步行强度、住宿点和开放时间；请按实际体力重新分配。"
-        )
+        )))
 
     scope = route.get("scope") or {}
-    if scope.get("requested") and not scope.get("applied"):
-        return scope.get("note") or (
-            f"子园区「{scope.get('requested')}」未应用，路线可能包含其他园区的地点。"
-        )
-    return ""
+    # 单点园区本来就只返回地点级建议，不能用“子园区未应用”再记一条原因。
+    if (not route.get("single_destination")
+            and scope.get("requested") and not scope.get("applied")):
+        problems.append(make_reason("scope_not_applied", _reason_text(
+            scope.get("note"),
+            default=f"子园区「{scope.get('requested')}」未应用，路线可能包含其他园区的地点。"
+        )))
+    return problems
 
 
 def run_agent(user_text):
-    """执行一次请求；追问上下文由调用方传入完整文本。"""
+    """执行一次请求；追问上下文由调用方传入完整文本。
+
+    返回值 ``status`` 只可能是 ``verified`` / ``partial`` / ``clarify`` / ``error``
+    四值之一，并同时带 ``reasons`` 与 ``what_verified``。契约出处：
+    ``docs/optimization/PRODUCT_SPEC.md`` §5；HappinessJo 2026-11-15 按「建议默认」
+    签字，见 ``travel-agent-run/optimization/state/G0_GATE.md`` §9。
+    """
     result = {
-        "status": "working", "query": user_text, "intent": None,
+        "query": user_text, "intent": None,
         "decision": None, "tool_selection": None, "tool_decisions": [],
         "suggestions": [], "route": None, "poi_results": None,
         "poi_list_all": False, "message": "", "error": "", "scope": None,
-        "itinerary": None, "needs_followup": False, "trace_file": "", "trace_json": "",
+        "itinerary": None, "needs_followup": False, "reasons": [],
+        "what_verified": None, "trace_file": "", "trace_json": "",
         "trace_error": ""
     }
     trace = SessionTrace()
@@ -151,8 +197,10 @@ def run_agent(user_text):
             raise ValueError("决策器返回了无效的需求类型。")
 
         # 不在图谱覆盖范围内的名称不能当成“查到了但结果为空”。直接追问，
-        # 避免用户看到 complete + 空路线却不知道是名称写法的问题。
+        # 避免用户看到成功状态 + 空路线却不知道是名称写法的问题。
+        clarify_code = "missing_slot"
         if decision["decision"] == "query_graph" and raw_area and not resolved_area:
+            clarify_code = "unsupported_area"
             display_area = str(raw_area).strip()[:30]
             decision = {
                 "decision": "clarify",
@@ -168,6 +216,7 @@ def run_agent(user_text):
         days = intent.get("duration_days")
         missing = not area or (decision["request_type"] == "plan" and not days)
         if decision["decision"] == "query_graph" and missing:
+            clarify_code = "missing_slot"
             question = "请补充景区名称和游玩天数。" if decision["request_type"] == "plan" else "请补充景区名称。"
             decision = {"decision": "clarify", "request_type": decision["request_type"],
                         "reason": "查询所需的信息缺失，需要先补充。", "response": question}
@@ -175,10 +224,22 @@ def run_agent(user_text):
         trace.record_event("decision", decision=decision)
 
         if decision["decision"] == "clarify":
-            result.update(status="clarify", needs_followup=True,
-                          message=decision.get("response") or "请补充景区名称和游玩天数。")
+            message = decision.get("response") or "请补充景区名称和游玩天数。"
+            result.update(
+                status=STATUS_CLARIFY, needs_followup=True, message=message,
+                reasons=[make_reason(clarify_code, _reason_text(
+                    decision.get("response"), decision.get("reason"), message,
+                    default="请补充景区名称和游玩天数。"))]
+            )
         elif decision["decision"] == "reply":
-            result.update(status="reply", message=decision.get("response") or "你好！我可以帮你规划游览路线。")
+            # 旧状态 reply（问候/非规划）按 §5.4 归入 clarify：本质是等用户给需求。
+            message = decision.get("response") or "你好！我可以帮你规划游览路线。"
+            result.update(
+                status=STATUS_CLARIFY, message=message,
+                reasons=[make_reason("missing_slot", _reason_text(
+                    decision.get("reason"), message,
+                    default="本次请求是问候，需要先说明景区与游玩天数。"))]
+            )
         else:
             result["needs_followup"] = True
             if decision["request_type"] == "info" and not intent.get("constraints"):
@@ -188,23 +249,32 @@ def run_agent(user_text):
                 requirement_check = check_constraints(user_text)
             trace.record_event("requirement_check", observation=requirement_check)
             if requirement_check["status"] != "ok":
-                result.update(status="clarify", message=_check_message(
-                    requirement_check, "需求需要进一步确认，请补充或调整。"))
+                check_message = _check_message(
+                    requirement_check, "需求需要进一步确认，请补充或调整。")
+                result.update(
+                    status=STATUS_CLARIFY, message=check_message,
+                    reasons=[make_reason(
+                        _check_reason_code(requirement_check["status"]), check_message)]
+                )
             else:
-                _query_graph(result, trace, user_text, area, days, sub_area)
-                if result["status"] == "working":
-                    route_problem = _route_problem(result["route"], days)
-                    if route_problem:
+                clarified = _query_graph(result, trace, user_text, area, days, sub_area)
+                if clarified:
+                    result["reasons"] = [make_reason("missing_slot", _reason_text(
+                        result.get("message"), default="请补充具体需求。"))]
+                else:
+                    problems = _route_problems(result["route"], days)
+                    if problems:
                         result.update(
-                            status="partial",
+                            status=STATUS_PARTIAL,
                             needs_followup=True,
-                            message=" ".join(filter(None, [result["message"], route_problem]))
+                            reasons=problems,
+                            message=" ".join(filter(None, [result["message"], problems[0]["text"]]))
                         )
                     elif result["route"] is None and not result["suggestions"]:
                         # 仅展示图谱原始名称匹配，没有生成行动建议。
                         plan_check = {"status": "ok", "explanation": "仅展示图谱查询结果。", "question": ""}
                         trace.record_event("plan_check", observation=plan_check)
-                        result.update(status="complete", needs_followup=False)
+                        result.update(status=STATUS_VERIFIED, needs_followup=False)
                         if result["poi_results"] == []:
                             result["message"] = " ".join(filter(None, [
                                 result["message"], "图谱中没有找到匹配地点，请确认名称或尝试其他关键词。"
@@ -213,11 +283,16 @@ def run_agent(user_text):
                         plan_check = check_plan(user_text, result["route"], result["suggestions"])
                         trace.record_event("plan_check", observation=plan_check)
                         if plan_check["status"] != "ok":
-                            result.update(status="clarify", needs_followup=True,
-                                          message=_check_message(plan_check, "方案与需求可能存在冲突，请补充或调整。"),
-                                          suggestions=[], route=None, poi_results=None)
+                            check_message = _check_message(
+                                plan_check, "方案与需求可能存在冲突，请补充或调整。")
+                            result.update(
+                                status=STATUS_CLARIFY, needs_followup=True,
+                                message=check_message,
+                                reasons=[make_reason(
+                                    _check_reason_code(plan_check["status"]), check_message)],
+                                suggestions=[], route=None, poi_results=None)
                         else:
-                            result.update(status="complete", needs_followup=False)
+                            result.update(status=STATUS_VERIFIED, needs_followup=False)
                             if result["poi_results"] == [] and not result["suggestions"] and result["route"] is None:
                                 result["message"] = " ".join(filter(None, [
                                     result["message"], "图谱中没有找到匹配地点，请确认名称或尝试其他关键词。"
@@ -246,8 +321,13 @@ def run_agent(user_text):
                 preferences=requirements["preferences"],
                 constraints=requirements["constraints"])
     except Exception as exc:
-        result.update(status="error", error=str(exc), needs_followup=True)
+        error_text = _reason_text(str(exc), default="内部异常，未生成行程。")
+        result.update(
+            status=STATUS_ERROR, error=str(exc), needs_followup=True,
+            reasons=[make_reason("model_error", error_text)]
+        )
     finally:
+        _finalize_result_status(result)
         trace.record_event("final_answer", final_answer={
             "status": result["status"], "message": result["message"], "error": result["error"],
             "route": result["route"], "suggestions": result["suggestions"],
@@ -263,6 +343,35 @@ def run_agent(user_text):
     return result
 
 
+def _finalize_result_status(result):
+    """把返回状态收敛到四值，并补齐 ``reasons`` / ``what_verified``。
+
+    PRODUCT_SPEC.md §5.1 只允许 ``verified`` / ``partial`` / ``clarify`` / ``error``；
+    §5.4 规定 ``None`` / 缺失 / 未定义值一律按 ``error`` 并记 ``contract_violation=1``；
+    §5.1 规定 ``verified`` 的原因清单必须为空，其余三态必须非空。
+    """
+    raw_status = result.get("status")
+    if is_contract_violation(raw_status):
+        result["contract_violation"] = 1
+    status = normalize_status(raw_status)
+    result["status"] = status
+
+    reasons = [item for item in (result.get("reasons") or []) if isinstance(item, dict)]
+    if status == STATUS_VERIFIED:
+        reasons = []
+    elif not reasons:
+        fallback_code = {
+            STATUS_PARTIAL: "empty_match",
+            STATUS_CLARIFY: "missing_slot",
+            STATUS_ERROR: "model_error",
+        }[status]
+        fallback_text = _reason_text(
+            result.get("message"), result.get("error"), default="未生成行程。")
+        reasons = [make_reason(fallback_code, fallback_text)]
+    result["reasons"] = reasons
+    result["what_verified"] = build_what_verified(status, result.get("route"))
+
+
 def _route_requirements(result):
     """把意图解析出的同行人/偏好/限制整理成 planner 可用的列表。"""
     intent = result.get("intent") or {}
@@ -274,10 +383,15 @@ def _route_requirements(result):
 
 
 def _query_graph(result, trace, user_text, area, days, sub_area=None):
-    """按有限轮次选择工具，基于真实返回结果决定是否补查。"""
+    """按有限轮次选择工具，基于真实返回结果决定是否补查。
+
+    返回 ``True`` 表示查询阶段已经给出 ``clarify`` 结论；``False`` 表示没有
+    阻断性问题，由 ``run_agent`` 继续判定 ``verified`` / ``partial``。
+    """
     observations = []
     executed = set()
     route_needs_refresh = False
+    clarified = False
 
     for _ in range(MAX_DECISION_ROUNDS):
         selection = trace.call_tool(
@@ -307,8 +421,9 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
             trace.record_event("decision_adjustment", decision=adjustment)
         if not tool_names:
             if not executed:
-                result.update(status="clarify", needs_followup=True,
+                result.update(status=STATUS_CLARIFY, needs_followup=True,
                               message="暂时无法确定查询方式，请补充具体需求。")
+                clarified = True
             break
 
         progressed = False
@@ -331,15 +446,15 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
                 elif mode == "keyword" and isinstance(keyword, str) and keyword.strip():
                     keyword, limit = keyword.strip(), 10
                 else:
-                    result.update(status="clarify", needs_followup=True,
+                    result.update(status=STATUS_CLARIFY, needs_followup=True,
                                   message="请补充要查询的景点名称关键词。")
-                    return
+                    return True
             key = (name, mode, keyword)
             if key in executed or (name != "search_poi" and any(k[0] == name for k in executed)):
                 continue
             if name == "get_route_candidates" and not days:
-                result.update(status="clarify", needs_followup=True, message="请补充游玩天数，以便规划路线。")
-                return
+                result.update(status=STATUS_CLARIFY, needs_followup=True, message="请补充游玩天数，以便规划路线。")
+                return True
             executed.add(key)
             progressed = True
 
@@ -423,3 +538,5 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
         route_scope = result["route"].get("scope") or {}
         if route_scope.get("note"):
             result["message"] = " ".join(filter(None, [result["message"], route_scope["note"]]))
+
+    return clarified
