@@ -4,7 +4,7 @@
 数据来源（三份，全部只读）：
 - ``results/baseline-dev-<ts>.json``：B0 机器记录（``baseline.py`` 生成，未手改）；
 - ``results/baseline-dev-manual-labels.json``：B0 逐条人工判据（成功/编造，**人工**）；
-- ``results/dev-real-20261115T184428.json``：图谱 Agent（T4.2）结果，**原样引用**
+- ``results/dev-real-20261115T195954.json``：图谱 Agent（T4.2 重跑，T2.2/T2.3 后）结果，**原样引用**
   ``summary``，不重算成别的口径。
 
 本脚本做三件事：
@@ -29,7 +29,7 @@ import sys
 from pathlib import Path
 
 EVAL_DIR = Path(__file__).resolve().parent
-DEFAULT_AGENT_RESULTS = EVAL_DIR / "results" / "dev-real-20261115T184428.json"
+DEFAULT_AGENT_RESULTS = EVAL_DIR / "results" / "dev-real-20261115T195954.json"
 DEFAULT_LABELS = EVAL_DIR / "results" / "baseline-dev-manual-labels.json"
 
 BEGIN_MARKER = "<!-- T4.3 BASELINE BEGIN -->"

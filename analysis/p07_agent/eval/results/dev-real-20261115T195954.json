@@ -1,0 +1,2961 @@
+{
+  "meta": {
+    "runner": "analysis/p07_agent/eval/run_eval.py",
+    "spec": "03_EVAL_SPEC.md §2/§3/§8（v1）",
+    "commit": "fb9fa74",
+    "git_dirty": false,
+    "model": "qwen3:8b",
+    "model_url": "http://localhost:11434/api/chat",
+    "run_mode": "real",
+    "split": "dev",
+    "limit": null,
+    "started_at": "2026-11-15T19:59:54+08:00",
+    "finished_at": "2026-11-15T20:29:26+08:00",
+    "duration_s": 1771.453,
+    "timeout_s": 180.0,
+    "max_attempts": 2,
+    "python_version": "3.11.9",
+    "golden_set": "analysis/p07_agent/eval/golden_set.jsonl",
+    "agent_imported": true,
+    "session_dir": "E:\\ProgramProject\\travel-agent\\analysis\\p07_agent\\eval\\results\\sessions",
+    "model_preflight": {
+      "ok": true,
+      "message": "模型服务可达：http://localhost:11434/api/tags；可用模型：['qwen3:8b']"
+    },
+    "notes": [
+      "指标全部由 cases 计算；summary 不手写",
+      "状态只认四值 verified/partial/clarify/error；四值外记 None 并计入 status_other（T2.1 已落地，T4.1 已删除 complete→verified 临时映射）"
+    ]
+  },
+  "cases": [
+    {
+      "id": "CL-FAM-01",
+      "split": "dev",
+      "query": "我想带孩子去长隆玩一天，喜欢动物，尽量少走路。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "孩子",
+          "动物",
+          "少走路"
+        ],
+        "must_not": [
+          "编造开放时间",
+          "编造步行距离"
+        ],
+        "evidence_required": true,
+        "max_stops": 6
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "北门",
+            "to_name": "小火车游览区",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "小火车游览区",
+            "to_name": "青龙山",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "青龙山",
+            "to_name": "考拉园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "考拉园",
+            "to_name": "熊猫乐园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫乐园",
+            "to_name": "熊猫餐厅",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫餐厅",
+            "to_name": "4D影院",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "4D影院",
+            "to_name": "亚洲象园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "亚洲象园",
+            "to_name": "长颈鹿广场",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "长颈鹿广场",
+            "to_name": "空中缆车",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "空中缆车",
+            "to_name": "火烈鸟",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "火烈鸟",
+            "to_name": "南门纪念品商店",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 6 个（0–6 岁儿童），第 1 天排了 12 个，超过 6 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 45.36,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 45.36,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想带孩子去长隆玩一天，喜欢动物，尽量少走路。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 45.36,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "CL-FAM-02",
+      "split": "dev",
+      "query": "我想带孩子和老人去长隆玩一天，喜欢游乐项目，尽量少走路。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "孩子",
+          "老人",
+          "少走路"
+        ],
+        "must_not": [
+          "声称已满足少走路",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "北门",
+            "to_name": "小火车游览区",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "小火车游览区",
+            "to_name": "青龙山",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "青龙山",
+            "to_name": "考拉园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "考拉园",
+            "to_name": "熊猫乐园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫乐园",
+            "to_name": "熊猫餐厅",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫餐厅",
+            "to_name": "4D影院",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "4D影院",
+            "to_name": "亚洲象园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "亚洲象园",
+            "to_name": "长颈鹿广场",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "长颈鹿广场",
+            "to_name": "空中缆车",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "空中缆车",
+            "to_name": "火烈鸟",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "火烈鸟",
+            "to_name": "南门纪念品商店",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 6 个（老人 + 0–6 岁儿童），第 1 天排了 12 个，超过 6 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 52.734,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 52.734,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想带孩子和老人去长隆玩一天，喜欢游乐项目，尽量少走路。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 52.734,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "CL-CPL-01",
+      "split": "dev",
+      "query": "我和女朋友去长隆玩一天，喜欢刺激的项目。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "长隆",
+          "刺激"
+        ],
+        "must_not": [
+          "编造开放时间",
+          "编造排队时长"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "北门",
+            "to_name": "小火车游览区",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "小火车游览区",
+            "to_name": "青龙山",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "青龙山",
+            "to_name": "考拉园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "考拉园",
+            "to_name": "熊猫乐园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫乐园",
+            "to_name": "熊猫餐厅",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫餐厅",
+            "to_name": "4D影院",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "4D影院",
+            "to_name": "亚洲象园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "亚洲象园",
+            "to_name": "长颈鹿广场",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "长颈鹿广场",
+            "to_name": "空中缆车",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "空中缆车",
+            "to_name": "火烈鸟",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "火烈鸟",
+            "to_name": "南门纪念品商店",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 8 个（成人），第 1 天排了 12 个，超过 4 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 155.969,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 155.969,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我和女朋友去长隆玩一天，喜欢刺激的项目。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 155.969,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "CL-FRD-01",
+      "split": "dev",
+      "query": "我和朋友去长隆玩一天，想玩机动游戏，预算有限。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "长隆",
+          "机动游戏",
+          "预算"
+        ],
+        "must_not": [
+          "编造门票价格",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "北门",
+            "to_name": "小火车游览区",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "小火车游览区",
+            "to_name": "青龙山",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "青龙山",
+            "to_name": "考拉园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "考拉园",
+            "to_name": "熊猫乐园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫乐园",
+            "to_name": "熊猫餐厅",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫餐厅",
+            "to_name": "4D影院",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "4D影院",
+            "to_name": "亚洲象园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "亚洲象园",
+            "to_name": "长颈鹿广场",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "长颈鹿广场",
+            "to_name": "空中缆车",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "空中缆车",
+            "to_name": "火烈鸟",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "火烈鸟",
+            "to_name": "南门纪念品商店",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 8 个（成人），第 1 天排了 12 个，超过 4 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 49.375,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 49.375,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我和朋友去长隆玩一天，想玩机动游戏，预算有限。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 49.375,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "CL-ELD-01",
+      "split": "dev",
+      "query": "带爸妈去长隆玩一天，不坐过山车，多看表演。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "长隆",
+          "表演"
+        ],
+        "must_not": [
+          "推荐过山车",
+          "编造演出时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 6
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "北门",
+            "to_name": "小火车游览区",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "小火车游览区",
+            "to_name": "青龙山",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "青龙山",
+            "to_name": "考拉园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "考拉园",
+            "to_name": "熊猫乐园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫乐园",
+            "to_name": "熊猫餐厅",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫餐厅",
+            "to_name": "4D影院",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "4D影院",
+            "to_name": "亚洲象园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "亚洲象园",
+            "to_name": "长颈鹿广场",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "长颈鹿广场",
+            "to_name": "空中缆车",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "空中缆车",
+            "to_name": "火烈鸟",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "火烈鸟",
+            "to_name": "南门纪念品商店",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 6 个（老人），第 1 天排了 12 个，超过 6 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 53.922,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 53.922,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "带爸妈去长隆玩一天，不坐过山车，多看表演。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 53.922,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "CL-SUB-01",
+      "split": "dev",
+      "query": "我想去长隆欢乐世界玩一天，喜欢刺激项目。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "长隆欢乐世界"
+        ],
+        "must_not": [
+          "编造园内项目顺序",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "verified",
+      "raw_status": "verified",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 3,
+        "segment_count": 2,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 2,
+        "segments_with_source": 2,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "刺激项目",
+            "to_name": "错峰午餐",
+            "source_doc_ids": [
+              "CL-T-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "错峰午餐",
+            "to_name": "沉浸体验",
+            "source_doc_ids": [
+              "CL-T-01"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "已按子园区「欢乐世界」筛选出 22 个地点。 已按子园区范围「欢乐世界」查询：4 份来源、15 条 NEXT 连接。多园区总览路线（CL-O-01）未纳入本次规划。",
+      "error": null,
+      "latency_s": 39.015,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 39.015,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想去长隆欢乐世界玩一天，喜欢刺激项目。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 39.015,
+          "status": "verified",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "CL-SUB-02",
+      "split": "dev",
+      "query": "我想去长隆野生动物世界玩一天，带孩子看动物。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "长隆野生动物世界",
+          "动物"
+        ],
+        "must_not": [
+          "编造园内项目顺序",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 6
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "南门",
+            "to_name": "熊猫乐园站",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫乐园站",
+            "to_name": "4D影院",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "4D影院",
+            "to_name": "花果山",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "花果山",
+            "to_name": "金猴王国",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "金猴王国",
+            "to_name": "青龙山",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "青龙山",
+            "to_name": "百虎山",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "百虎山",
+            "to_name": "长颈鹿广场",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "长颈鹿广场",
+            "to_name": "考拉园",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "考拉园",
+            "to_name": "亚洲象园",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "亚洲象园",
+            "to_name": "长隆大熊猫中心",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "长隆大熊猫中心",
+            "to_name": "火烈鸟",
+            "source_doc_ids": [
+              "CL-T-03"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "已按子园区「野生动物世界」筛选出 21 个地点。 已按子园区范围「野生动物世界」查询：2 份来源、27 条 NEXT 连接。多园区总览路线（CL-O-01）未纳入本次规划。 已按子园区范围「野生动物世界」查询：2 份来源、27 条 NEXT 连接。多园区总览路线（CL-O-01）未纳入本次规划。 单日停留点上限为 6 个（0–6 岁儿童），第 1 天排了 12 个，超过 6 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 99.094,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 99.094,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想去长隆野生动物世界玩一天，带孩子看动物。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 99.094,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "CL-SUB-03",
+      "split": "dev",
+      "query": "我想带孩子去长隆水上乐园玩一天。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "partial"
+        ],
+        "must_include": [
+          "长隆水上乐园"
+        ],
+        "must_not": [
+          "编造园内项目顺序",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 1
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 1,
+        "segment_count": 0,
+        "single_destination": true,
+        "validation_valid": false,
+        "fully_verified": false,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 0,
+        "segments_with_source": 0,
+        "coverage": null,
+        "segments": []
+      },
+      "route_reasons": [
+        "single_destination",
+        "sub_area_not_applied"
+      ],
+      "partial_reasons": [
+        "single_destination",
+        "sub_area_not_applied"
+      ],
+      "message": "已按子园区「水上乐园」筛选出 1 个地点。 「水上乐园」在图谱中没有独立路线连接，只保留该园区地点，供一日行程参考。 图谱中没有「水上乐园」专属的条件建议，未展示其他园区的建议。",
+      "error": null,
+      "latency_s": 27.235,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 27.235,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想带孩子去长隆水上乐园玩一天。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 27.235,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "BYS-ELD-01",
+      "split": "dev",
+      "query": "我想带爸妈去广州白云山玩一天，不想爬太陡的坡，节奏慢一点。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "白云山"
+        ],
+        "must_not": [
+          "编造坡度数据",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 6
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 10,
+        "segment_count": 9,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 9,
+        "segments_with_source": 9,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "麓湖公园",
+            "to_name": "鸿鹄楼",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸿鹄楼",
+            "to_name": "聚芳园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "聚芳园",
+            "to_name": "白云仙馆",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "白云仙馆",
+            "to_name": "星海园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "星海园",
+            "to_name": "蒲谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "蒲谷",
+            "to_name": "能仁寺",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "能仁寺",
+            "to_name": "世纪圆梦石",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "世纪圆梦石",
+            "to_name": "鸣春谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸣春谷",
+            "to_name": "山顶公园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 6 个（老人），第 1 天排了 10 个，超过 4 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 71.812,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 71.812,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想带爸妈去广州白云山玩一天，不想爬太陡的坡，节奏慢一点。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 71.812,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "BYS-FAM-01",
+      "split": "dev",
+      "query": "带孩子去白云山玩一天，路线轻松一点。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "白云山",
+          "轻松"
+        ],
+        "must_not": [
+          "编造坡度数据",
+          "编造距离"
+        ],
+        "evidence_required": true,
+        "max_stops": 6
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "麓湖公园",
+            "to_name": "鸿鹄楼",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸿鹄楼",
+            "to_name": "聚芳园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "聚芳园",
+            "to_name": "白云仙馆",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "白云仙馆",
+            "to_name": "星海园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "星海园",
+            "to_name": "蒲谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "蒲谷",
+            "to_name": "能仁寺",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "能仁寺",
+            "to_name": "世纪圆梦石",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "世纪圆梦石",
+            "to_name": "鸣春谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸣春谷",
+            "to_name": "山顶公园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "山顶公园",
+            "to_name": "两江情缘石",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "两江情缘石",
+            "to_name": "广州碑林",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 6 个（0–6 岁儿童），第 1 天排了 12 个，超过 6 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 172.656,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 172.656,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "带孩子去白云山玩一天，路线轻松一点。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 172.656,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "BYS-FRD-01",
+      "split": "dev",
+      "query": "我和朋友去白云山玩一天，喜欢拍照，希望少爬坡。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "白云山",
+          "拍照"
+        ],
+        "must_not": [
+          "编造拍照点坐标",
+          "编造距离"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "麓湖公园",
+            "to_name": "鸿鹄楼",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸿鹄楼",
+            "to_name": "聚芳园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "聚芳园",
+            "to_name": "白云仙馆",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "白云仙馆",
+            "to_name": "星海园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "星海园",
+            "to_name": "蒲谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "蒲谷",
+            "to_name": "能仁寺",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "能仁寺",
+            "to_name": "世纪圆梦石",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "世纪圆梦石",
+            "to_name": "鸣春谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸣春谷",
+            "to_name": "山顶公园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "山顶公园",
+            "to_name": "两江情缘石",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "两江情缘石",
+            "to_name": "广州碑林",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 8 个（成人），第 1 天排了 12 个，超过 4 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 172.688,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 172.688,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我和朋友去白云山玩一天，喜欢拍照，希望少爬坡。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 172.688,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "BYS-CPL-01",
+      "split": "dev",
+      "query": "我和对象去白云山玩一天，想看看日落。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "白云山",
+          "日落"
+        ],
+        "must_not": [
+          "编造日落时间",
+          "编造观景点坐标"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "麓湖公园",
+            "to_name": "鸿鹄楼",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸿鹄楼",
+            "to_name": "聚芳园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "聚芳园",
+            "to_name": "白云仙馆",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "白云仙馆",
+            "to_name": "星海园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "星海园",
+            "to_name": "蒲谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "蒲谷",
+            "to_name": "能仁寺",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "能仁寺",
+            "to_name": "世纪圆梦石",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "世纪圆梦石",
+            "to_name": "鸣春谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸣春谷",
+            "to_name": "山顶公园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "山顶公园",
+            "to_name": "两江情缘石",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "两江情缘石",
+            "to_name": "广州碑林",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 8 个（成人），第 1 天排了 12 个，超过 4 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 170.234,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 170.234,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我和对象去白云山玩一天，想看看日落。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 170.234,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "BYS-SOLO-01",
+      "split": "dev",
+      "query": "我一个人去白云山，只有3小时，怎么走？",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "白云山",
+          "3小时"
+        ],
+        "must_not": [
+          "编造距离",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "clarify",
+      "raw_status": "clarify",
+      "status_correct": false,
+      "schema_pass": true,
+      "route": {
+        "node_count": 0,
+        "segment_count": 0,
+        "single_destination": false,
+        "validation_valid": null,
+        "fully_verified": null,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 0,
+        "segments_with_source": 0,
+        "coverage": null,
+        "segments": []
+      },
+      "route_reasons": [
+        "no_route_nodes"
+      ],
+      "partial_reasons": [],
+      "message": "您有3小时的时间，需要我帮您规划白云山的游览路线吗？",
+      "error": null,
+      "latency_s": 7.047,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 7.047,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我一个人去白云山，只有3小时，怎么走？",
+          "executed": true,
+          "ok": true,
+          "latency_s": 7.047,
+          "status": "clarify",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "WGS-FRD-01",
+      "split": "dev",
+      "query": "我想和朋友去武功山玩两天，想看日出，体力一般。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "武功山",
+          "日出"
+        ],
+        "must_not": [
+          "编造日出时间",
+          "编造距离"
+        ],
+        "evidence_required": true,
+        "max_stops": 16
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": true
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "紫极宫",
+            "to_name": "福星谷",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "福星谷",
+            "to_name": "许愿桥",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "许愿桥",
+            "to_name": "玻璃栈道",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "玻璃栈道",
+            "to_name": "回音谷",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "回音谷",
+            "to_name": "情人花廊",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "情人花廊",
+            "to_name": "草甸之舟",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "草甸之舟",
+            "to_name": "古祭坛群",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "古祭坛群",
+            "to_name": "金顶",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "金顶",
+            "to_name": "观音宕",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "观音宕",
+            "to_name": "吊马桩",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "吊马桩",
+            "to_name": "好汉坡",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [
+        "day_plan_fallback"
+      ],
+      "partial_reasons": [
+        "day_plan_fallback"
+      ],
+      "message": "多日行程的天数分组是按节点数均分的展示结果，没有校验每日步行强度、住宿点和开放时间；请按实际体力重新分配。",
+      "error": null,
+      "latency_s": 161.781,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 161.781,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想和朋友去武功山玩两天，想看日出，体力一般。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 161.781,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "WGS-FAM-01",
+      "split": "dev",
+      "query": "带孩子去武功山玩两天，尽量坐缆车，少徒步。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "武功山",
+          "缆车"
+        ],
+        "must_not": [
+          "编造索道票价",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 12
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": true
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "紫极宫",
+            "to_name": "福星谷",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "福星谷",
+            "to_name": "许愿桥",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "许愿桥",
+            "to_name": "玻璃栈道",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "玻璃栈道",
+            "to_name": "回音谷",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "回音谷",
+            "to_name": "情人花廊",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "情人花廊",
+            "to_name": "草甸之舟",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "草甸之舟",
+            "to_name": "古祭坛群",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "古祭坛群",
+            "to_name": "金顶",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "金顶",
+            "to_name": "观音宕",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "观音宕",
+            "to_name": "吊马桩",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "吊马桩",
+            "to_name": "好汉坡",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [
+        "day_plan_fallback"
+      ],
+      "partial_reasons": [
+        "day_plan_fallback"
+      ],
+      "message": "多日行程的天数分组是按节点数均分的展示结果，没有校验每日步行强度、住宿点和开放时间；请按实际体力重新分配。",
+      "error": null,
+      "latency_s": 157.032,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 157.032,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "带孩子去武功山玩两天，尽量坐缆车，少徒步。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 157.032,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "WGS-CPL-01",
+      "split": "dev",
+      "query": "我和对象去武功山玩两天，喜欢自然风光。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "武功山",
+          "自然风光"
+        ],
+        "must_not": [
+          "编造日出时间",
+          "编造距离"
+        ],
+        "evidence_required": true,
+        "max_stops": 16
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "verified",
+      "raw_status": "verified",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 10,
+        "segment_count": 9,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 9,
+        "segments_with_source": 9,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "萍乡车站",
+            "to_name": "金顶",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "金顶",
+            "to_name": "观音宕",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "观音宕",
+            "to_name": "吊马桩",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "吊马桩",
+            "to_name": "好汉坡",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "好汉坡",
+            "to_name": "滴水观音",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "滴水观音",
+            "to_name": "猴谷",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "猴谷",
+            "to_name": "飙水岩瀑布",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "飙水岩瀑布",
+            "to_name": "尽心瀑",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "尽心瀑",
+            "to_name": "石鼓寺",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "",
+      "error": null,
+      "latency_s": 51.703,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 51.703,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我和对象去武功山玩两天，喜欢自然风光。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 51.703,
+          "status": "verified",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "WGS-SOLO-01",
+      "split": "dev",
+      "query": "我一个人去武功山徒步一天，走经典路线。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "武功山",
+          "经典路线"
+        ],
+        "must_not": [
+          "编造距离",
+          "编造耗时"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 10,
+        "segment_count": 9,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 9,
+        "segments_with_source": 9,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "萍乡车站",
+            "to_name": "金顶",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "金顶",
+            "to_name": "观音宕",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "观音宕",
+            "to_name": "吊马桩",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "吊马桩",
+            "to_name": "好汉坡",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "好汉坡",
+            "to_name": "滴水观音",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "滴水观音",
+            "to_name": "猴谷",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "猴谷",
+            "to_name": "飙水岩瀑布",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "飙水岩瀑布",
+            "to_name": "尽心瀑",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "尽心瀑",
+            "to_name": "石鼓寺",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 8 个（成人），第 1 天排了 10 个，超过 2 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 51.875,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 51.875,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我一个人去武功山徒步一天，走经典路线。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 51.875,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "WGS-ELD-01",
+      "split": "dev",
+      "query": "带爸妈去武功山玩两天，他们不徒步，能坐索道吗？",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "武功山",
+          "索道"
+        ],
+        "must_not": [
+          "编造索道票价",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 12
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": true
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "紫极宫",
+            "to_name": "福星谷",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "福星谷",
+            "to_name": "许愿桥",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "许愿桥",
+            "to_name": "玻璃栈道",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "玻璃栈道",
+            "to_name": "回音谷",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "回音谷",
+            "to_name": "情人花廊",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "情人花廊",
+            "to_name": "草甸之舟",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "草甸之舟",
+            "to_name": "古祭坛群",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "古祭坛群",
+            "to_name": "金顶",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "金顶",
+            "to_name": "观音宕",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "观音宕",
+            "to_name": "吊马桩",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "吊马桩",
+            "to_name": "好汉坡",
+            "source_doc_ids": [
+              "WGS-O-05"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [
+        "day_plan_fallback"
+      ],
+      "partial_reasons": [
+        "day_plan_fallback"
+      ],
+      "message": "多日行程的天数分组是按节点数均分的展示结果，没有校验每日步行强度、住宿点和开放时间；请按实际体力重新分配。",
+      "error": null,
+      "latency_s": 146.734,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 146.734,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "带爸妈去武功山玩两天，他们不徒步，能坐索道吗？",
+          "executed": true,
+          "ok": true,
+          "latency_s": 146.734,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "EDGE-MISS-01",
+      "split": "dev",
+      "query": "我想出去玩两天，轻松一点。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "clarify"
+        ],
+        "must_include": [
+          "景区",
+          "天数"
+        ],
+        "must_not": [
+          "直接给出具体行程",
+          "猜测景区"
+        ],
+        "evidence_required": false,
+        "max_stops": null
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "clarify",
+      "raw_status": "clarify",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 0,
+        "segment_count": 0,
+        "single_destination": false,
+        "validation_valid": null,
+        "fully_verified": null,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 0,
+        "segments_with_source": 0,
+        "coverage": null,
+        "segments": []
+      },
+      "route_reasons": [
+        "no_route_nodes"
+      ],
+      "partial_reasons": [],
+      "message": "您想去哪里玩呢？",
+      "error": null,
+      "latency_s": 6.422,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 6.422,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想出去玩两天，轻松一点。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 6.422,
+          "status": "clarify",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "EDGE-FOLLOW-01",
+      "split": "dev",
+      "query": "我想出去玩一天 → 白云山，轻松一点。",
+      "turns": [
+        "我想出去玩一天",
+        "白云山，轻松一点。"
+      ],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "白云山"
+        ],
+        "must_not": [
+          "重复追问景区",
+          "编造距离"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 2,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 10,
+        "segment_count": 9,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 9,
+        "segments_with_source": 9,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "麓湖公园",
+            "to_name": "鸿鹄楼",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸿鹄楼",
+            "to_name": "聚芳园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "聚芳园",
+            "to_name": "白云仙馆",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "白云仙馆",
+            "to_name": "星海园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "星海园",
+            "to_name": "蒲谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "蒲谷",
+            "to_name": "能仁寺",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "能仁寺",
+            "to_name": "世纪圆梦石",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "世纪圆梦石",
+            "to_name": "鸣春谷",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "鸣春谷",
+            "to_name": "山顶公园",
+            "source_doc_ids": [
+              "BYS-O-01"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "单日停留点上限为 8 个（成人），第 1 天排了 10 个，超过 2 个；图谱没有距离、排队与开放时间数据，未自动裁剪，请减少停留点或增加天数。",
+      "error": null,
+      "latency_s": 76.625,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 6.484,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        },
+        {
+          "turn": 2,
+          "attempt": 1,
+          "latency_s": 70.141,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想出去玩一天",
+          "executed": true,
+          "ok": true,
+          "latency_s": 6.484,
+          "status": "clarify",
+          "error": null
+        },
+        {
+          "turn": 2,
+          "text": "我想出去玩一天，白云山，轻松一点。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 70.141,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "n_cases": 20,
+    "split_counts": {
+      "dev": 20,
+      "heldout": 0
+    },
+    "n_attempted_cases": 20,
+    "n_executed_cases": 20,
+    "n_timeout_cases": 0,
+    "n_error_cases": 0,
+    "status_counts": {
+      "verified": 2,
+      "partial": 16,
+      "clarify": 2,
+      "error": 0
+    },
+    "status_other": 0,
+    "status_correct": {
+      "numerator": 19,
+      "denominator": 20,
+      "rate": 0.95
+    },
+    "schema_pass": {
+      "numerator": 20,
+      "denominator": 20,
+      "rate": 1.0
+    },
+    "evidence_coverage": {
+      "numerator": 170,
+      "denominator": 170,
+      "rate": 1.0
+    },
+    "route_valid": {
+      "numerator": 17,
+      "denominator": 18,
+      "rate": 0.9444
+    },
+    "stop_cap_ok": {
+      "numerator": 7,
+      "denominator": 19,
+      "rate": 0.3684
+    },
+    "partial_rate": {
+      "numerator": 16,
+      "denominator": 20,
+      "rate": 0.8
+    },
+    "latency_s": {
+      "n": 20,
+      "p50": 53.922,
+      "p95": 172.656
+    }
+  }
+}

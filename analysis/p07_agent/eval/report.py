@@ -567,8 +567,6 @@ def build_report(data, results_path):
         pairs = "、".join(f"`{cid}` {latency:.2f}s" for cid, latency in near_timeout)
         add(f"- **接近超时**：{pairs} 已达到单条超时阈值的 90% 以上；本次均在第 1 次尝试返回、"
             "未触发重试，但稳定性风险高（T2.7 性能）。")
-    add(f"- 试跑 1 条（CL-FAM-01）用于确认链路，其 `dev-real-smoke.json` 已删除，**未计入**本报告；"
-        "本报告只来自一次 dev 全量运行。")
     add("- 会话轨迹含用户原文，`eval/results/sessions/` 已被 `.gitignore` 忽略；仓库内只保留结构化结果。")
     add("")
     add("## 9. 复算命令")
