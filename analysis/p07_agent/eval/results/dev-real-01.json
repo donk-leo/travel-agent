@@ -1,0 +1,325 @@
+{
+  "meta": {
+    "runner": "analysis/p07_agent/eval/run_eval.py",
+    "spec": "03_EVAL_SPEC.md §2/§3/§8（v1）",
+    "commit": "29d0943",
+    "git_dirty": true,
+    "model": "qwen3:8b",
+    "model_url": "http://127.0.0.1:11434/api/chat",
+    "run_mode": "real",
+    "split": "dev",
+    "limit": 2,
+    "started_at": "2026-11-15T15:52:48+08:00",
+    "finished_at": "2026-11-15T15:53:32+08:00",
+    "duration_s": 43.672,
+    "timeout_s": 180.0,
+    "max_attempts": 2,
+    "python_version": "3.11.9",
+    "golden_set": "analysis/p07_agent/eval/golden_set.jsonl",
+    "agent_imported": true,
+    "session_dir": "E:\\ProgramProject\\travel-agent\\analysis\\p07_agent\\eval\\results\\sessions",
+    "model_preflight": {
+      "ok": true,
+      "message": "模型服务可达：http://127.0.0.1:11434/api/tags；可用模型：['qwen3:8b']"
+    },
+    "notes": [
+      "指标全部由 cases 计算；summary 不手写",
+      "status 映射：complete→verified（T2.1 前）"
+    ]
+  },
+  "cases": [
+    {
+      "id": "CL-FAM-02",
+      "split": "dev",
+      "query": "我想带孩子和老人去长隆玩一天，喜欢游乐项目，尽量少走路。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "verified",
+          "partial"
+        ],
+        "must_include": [
+          "孩子",
+          "老人",
+          "少走路"
+        ],
+        "must_not": [
+          "声称已满足少走路",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 8
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "verified",
+      "raw_status": "complete",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 12,
+        "segment_count": 11,
+        "single_destination": false,
+        "validation_valid": true,
+        "fully_verified": true,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 11,
+        "segments_with_source": 11,
+        "coverage": 1.0,
+        "segments": [
+          {
+            "from_name": "北门",
+            "to_name": "小火车游览区",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "小火车游览区",
+            "to_name": "青龙山",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "青龙山",
+            "to_name": "考拉园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "考拉园",
+            "to_name": "熊猫乐园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫乐园",
+            "to_name": "熊猫餐厅",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "熊猫餐厅",
+            "to_name": "4D影院",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "4D影院",
+            "to_name": "亚洲象园",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "亚洲象园",
+            "to_name": "长颈鹿广场",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "长颈鹿广场",
+            "to_name": "空中缆车",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "空中缆车",
+            "to_name": "火烈鸟",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          },
+          {
+            "from_name": "火烈鸟",
+            "to_name": "南门纪念品商店",
+            "source_doc_ids": [
+              "CL-O-02"
+            ],
+            "has_source": true
+          }
+        ]
+      },
+      "route_reasons": [],
+      "partial_reasons": [],
+      "message": "",
+      "error": null,
+      "latency_s": 31.797,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 31.797,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想带孩子和老人去长隆玩一天，喜欢游乐项目，尽量少走路。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 31.797,
+          "status": "complete",
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "CL-SUB-03",
+      "split": "dev",
+      "query": "我想带孩子去长隆水上乐园玩一天。",
+      "turns": [],
+      "expected": {
+        "status": [
+          "partial"
+        ],
+        "must_include": [
+          "长隆水上乐园"
+        ],
+        "must_not": [
+          "编造园内项目顺序",
+          "编造开放时间"
+        ],
+        "evidence_required": true,
+        "max_stops": 1
+      },
+      "mode": "real",
+      "executed": true,
+      "model_calls": 1,
+      "status": "partial",
+      "raw_status": "partial",
+      "status_correct": true,
+      "schema_pass": true,
+      "route": {
+        "node_count": 1,
+        "segment_count": 0,
+        "single_destination": true,
+        "validation_valid": false,
+        "fully_verified": false,
+        "missing_connections": 0,
+        "cross_doc_transitions": 0,
+        "route_truncated": false,
+        "day_plan_fallback": false
+      },
+      "evidence": {
+        "segments_total": 0,
+        "segments_with_source": 0,
+        "coverage": null,
+        "segments": []
+      },
+      "route_reasons": [
+        "single_destination",
+        "sub_area_not_applied"
+      ],
+      "partial_reasons": [
+        "single_destination",
+        "sub_area_not_applied"
+      ],
+      "message": "已按子园区「水上乐园」筛选出 1 个地点。 「水上乐园」在图谱中没有独立路线连接，只保留该园区地点，供一日行程参考。 图谱中没有「水上乐园」专属的条件建议，未展示其他园区的建议。",
+      "error": null,
+      "latency_s": 11.797,
+      "timeout": false,
+      "attempts": [
+        {
+          "turn": 1,
+          "attempt": 1,
+          "latency_s": 11.797,
+          "ok": true,
+          "timeout": false,
+          "error": null
+        }
+      ],
+      "turns_run": [
+        {
+          "turn": 1,
+          "text": "我想带孩子去长隆水上乐园玩一天。",
+          "executed": true,
+          "ok": true,
+          "latency_s": 11.797,
+          "status": "partial",
+          "error": null
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "n_cases": 2,
+    "split_counts": {
+      "dev": 2,
+      "heldout": 0
+    },
+    "n_attempted_cases": 2,
+    "n_executed_cases": 2,
+    "n_timeout_cases": 0,
+    "n_error_cases": 0,
+    "status_counts": {
+      "verified": 1,
+      "partial": 1,
+      "clarify": 0,
+      "error": 0
+    },
+    "status_other": 0,
+    "status_correct": {
+      "numerator": 2,
+      "denominator": 2,
+      "rate": 1.0
+    },
+    "schema_pass": {
+      "numerator": 2,
+      "denominator": 2,
+      "rate": 1.0
+    },
+    "evidence_coverage": {
+      "numerator": 11,
+      "denominator": 11,
+      "rate": 1.0
+    },
+    "route_valid": {
+      "numerator": 1,
+      "denominator": 2,
+      "rate": 0.5
+    },
+    "stop_cap_ok": {
+      "numerator": 1,
+      "denominator": 2,
+      "rate": 0.5
+    },
+    "partial_rate": {
+      "numerator": 1,
+      "denominator": 2,
+      "rate": 0.5
+    },
+    "latency_s": {
+      "n": 2,
+      "p50": 11.797,
+      "p95": 31.797
+    }
+  }
+}
