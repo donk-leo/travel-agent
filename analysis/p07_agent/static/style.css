@@ -1237,3 +1237,309 @@ td {
   text-underline-offset: 3px;
 }
 
+
+/* --------------------------------------------------------------------------
+   24. T3.5 时间线 / 行程卡（竖轴 + 时段卡）
+   口径：一天一组、一个时段一张卡；时间段与时长来源必须可见，未知一律用固定
+   文案（「资料未给出」/「未找到餐饮点，请以现场为准」）。
+   本节只做布局与底色/描边：凡声明 color 的规则都不配 background-color，
+   只声明 background-color 的规则也不配 color。因此 web/README.md §5.2 的
+   22 对“同一条规则内 color + background”仍然逐对成立（与 T3.3 / T3.4 同一做法）。
+   窄屏靠竖轴左侧留白 + minmax(0, 1fr)，页面不出现横向滚动。
+   -------------------------------------------------------------------------- */
+.itinerary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+.itinerary-day {
+  margin: 0;
+}
+
+.itinerary-day__title {
+  margin: 0 0 var(--space-2);
+  font-size: 1.125rem;
+}
+
+/* 竖轴：虚线只占时段卡左侧留白，不占横向版心 */
+.timeline {
+  --axis: 0.55rem;
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 var(--space-5);
+  list-style: none;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  left: var(--axis);
+  width: 2px;
+  background-color: var(--color-line-strong);
+}
+
+.itinerary-period {
+  position: relative;
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.itinerary-period + .itinerary-period {
+  margin-top: var(--space-3);
+}
+
+/* 竖轴上的时段圆点：颜色只是辅助，时段名始终以文字给出 */
+.itinerary-period::before {
+  content: "";
+  position: absolute;
+  top: 1.05rem;
+  left: calc(-1 * var(--space-5) + var(--axis) - 0.3rem);
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background-color: var(--color-line-strong);
+  box-shadow: 0 0 0 3px var(--color-surface);
+}
+
+.period-morning::before { background-color: #1E6B34; }
+.period-noon::before { background-color: #8A5A00; }
+.period-afternoon::before { background-color: #1F5FA8; }
+.period-evening::before { background-color: #A12622; }
+
+.period__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+}
+
+.period__head .period__label {
+  margin: 0;
+}
+
+.itinerary-period__title {
+  margin: 0 0 var(--space-1);
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+
+/* 时间段：资料钟点实线，未知虚线，文字逐字给出依据 */
+.time-range {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.time-range.is-explicit {
+  border: 1px solid var(--color-accent);
+  background-color: var(--color-accent-soft);
+}
+
+.time-range.is-absent {
+  border: 1px dashed var(--color-line-strong);
+  background-color: var(--color-surface);
+}
+
+/* 停留点列表（按图谱顺序，不是步行顺序） */
+.stop-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stop-list__item {
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.stop-list__item + .stop-list__item {
+  margin-top: 0;
+}
+
+/* 时长：区间 + 来源标签必须同时出现；模板区间与资料时长视觉可区分 */
+.period__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+}
+
+.duration-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.duration-chip.is-template {
+  border-style: dashed;
+  background-color: var(--color-canvas);
+}
+
+.duration-chip.is-source {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+}
+
+.duration-chip.is-unknown {
+  border-style: dashed;
+  background-color: var(--color-surface);
+}
+
+.duration-source {
+  color: var(--color-ink-soft);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.duration-source.is-template {
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-canvas);
+}
+
+.duration-source.is-source {
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent-soft);
+}
+
+/* 餐饮块：中午固定一块；无数据时逐字「未找到餐饮点，请以现场为准」 */
+.meal-block {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-canvas);
+}
+
+.meal-block--unknown {
+  border-left-style: dashed;
+  border-left-color: #8A5A00;
+  background-color: var(--color-surface);
+}
+
+.meal-block__title {
+  margin: 0 0 var(--space-1);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.meal-block__note {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.meal-block__meta {
+  margin: var(--space-1) 0 0;
+  color: var(--color-ink-soft);
+  font-size: 0.875rem;
+}
+
+/* 休息块：与餐饮块分开，缺数据时显式「资料未给出」 */
+.rest-block {
+  margin: var(--space-2) 0 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-line);
+  border-left: 4px solid #1F5FA8;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+}
+
+.rest-block--unknown {
+  border-left-style: dashed;
+  background-color: var(--color-surface);
+}
+
+.rest-block__title {
+  margin: 0 0 var(--space-1);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.rest-block__note {
+  margin: 0;
+  font-size: 0.9375rem;
+  overflow-wrap: anywhere;
+}
+
+.rest-block__meta {
+  margin: var(--space-1) 0 0;
+  color: var(--color-ink-soft);
+  font-size: 0.8125rem;
+}
+
+/* 体力/人群提示：规划假设，不是资料结论 */
+.fatigue-note {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid #8A5A00;
+  border-left-width: 4px;
+  border-radius: var(--radius-md);
+  background-color: #FFF4D6;
+  font-size: 0.9375rem;
+}
+
+.fatigue-note__label {
+  display: block;
+  font-weight: 700;
+}
+
+.fatigue-note__text {
+  overflow-wrap: anywhere;
+}
+
+/* 未核验项：逐条列出，不折叠、不截断 */
+.period-unknowns {
+  margin: var(--space-3) 0 0;
+  padding-top: var(--space-2);
+  border-top: 1px dashed var(--color-line);
+}
+
+.period-unknowns__title {
+  margin: 0 0 var(--space-1);
+  color: var(--color-ink-soft);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.period-unknowns__list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.period-unknowns__item {
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 64em) {
+  .itinerary-period {
+    padding: var(--space-4);
+  }
+}

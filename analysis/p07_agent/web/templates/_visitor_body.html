@@ -10,6 +10,7 @@
 
 {% from "_evidence_card.html" import evidence_card %}
 {% from "_route_diagram.html" import route_diagram %}
+{% from "_timeline.html" import timeline %}
 {% set show_span = (view|default('visitor')) == 'auditor' %}
 {#- T3.3：示意图节点可点，评审视图叠加节点 id。 -#}
 {% set show_node_ids = (view|default('visitor')) == 'auditor' %}
@@ -37,77 +38,12 @@
 <p class="result-message">{{ message|e }}</p>
 {% endif %}
 
-{#- 行程卡（T3.2）。没有分时行程时按 §6.2 如实说“资料未给出”，不补造。 -#}
-<section aria-labelledby="itinerary-title">
+{#- 行程卡（T3.2 接线，T3.5 换成时间线宏）。没有分时行程时按 §6.2 如实说
+    “资料未给出”，不补造。旧 `period.text` 仍由宏逐字渲染，不丢信息。 -#}
+<section aria-labelledby="itinerary-title" class="itinerary-section">
   <h2 id="itinerary-title">建议行程</h2>
   {% if itinerary and itinerary.days %}
-    {% for day in itinerary.days %}
-    <article class="card">
-      <h3 class="card__title">第 {{ day.day }} 天</h3>
-      {% if day.plan_note %}
-      <p class="day-meta"><span>{{ day.plan_note|e }}</span></p>
-      {% endif %}
-      <ol class="periods">
-        {% for item in day.periods or [] %}
-        <li class="period">
-          <span class="period__label">{{ item.period|e }}</span>
-          <p class="stay"><span class="stay__text">{{ item.text|e }}</span></p>
-          {% if item.duration_hint %}
-          <p class="stay__meta">
-            <span class="tag">时长：模板估算</span>
-            <span class="muted">{{ item.duration_hint|e }}（分时模板给出的区间，不是资料原值）</span>
-          </p>
-          {% else %}
-          <p class="stay__meta">
-            <span class="tag">时长：未知</span>
-            <span class="muted">资料未给出停留时长</span>
-          </p>
-          {% endif %}
-          {#- T3.4 证据卡：每个时段一个就地折叠入口；有卡显示卡，无卡逐字「未找到来源」。 -#}
-          {% set point_nodes = item.point_nodes or [] %}
-          <details class="evidence">
-            <summary>
-              查看来源
-              {%- if point_nodes -%}
-                {%- set stats = namespace(missing=0) -%}
-                {%- for point in point_nodes -%}
-                  {%- if not point.found_count -%}{%- set stats.missing = stats.missing + 1 -%}{%- endif -%}
-                {%- endfor -%}
-                （{{ point_nodes|length }} 处停留点{% if stats.missing %} · 未找到来源 {{ stats.missing }} 处{% endif %}）
-              {%- else -%}
-                （未找到来源）
-              {%- endif -%}
-            </summary>
-            <div class="evidence__body">
-              {%- if point_nodes -%}
-                {%- for point in point_nodes %}
-                {%- set point_anchor = '' -%}
-                {%- if point.node_id and point.node_id not in stop_anchor.ids -%}
-                  {%- set _ = stop_anchor.ids.update({point.node_id: true}) -%}
-                  {%- set point_anchor = 'stop-' ~ point.node_id -%}
-                {%- endif %}
-              <section class="point-evidence"{% if point_anchor %} id="{{ point_anchor|e }}"{% endif %} aria-label="停留点 {{ point.name|e }} 的来源">
-                <p class="point-evidence__name">{{ point.name|e }}</p>
-                <p class="point-evidence__status">{% if point.found_count %}本点 {{ point.cards|length }} 条来源{% else %}未找到来源{% endif %}</p>
-                {%- if point.cards -%}
-                  {%- for card in point.cards %}
-                {{ evidence_card(card, show_span) }}
-                  {%- endfor -%}
-                {%- else %}
-                <p class="evidence-card__missing">未找到来源</p>
-                {%- endif %}
-              </section>
-                {%- endfor -%}
-              {%- else %}
-              <p class="evidence-card__missing">未找到来源</p>
-              {%- endif %}
-            </div>
-          </details>
-        </li>
-        {% endfor %}
-      </ol>
-    </article>
-    {% endfor %}
+    {{ timeline(itinerary, show_span, stop_anchor) }}
     {% if itinerary.note %}
     <p class="muted">{{ itinerary.note|e }}</p>
     {% endif %}

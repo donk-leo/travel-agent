@@ -1,0 +1,180 @@
+{#-
+  时间线 / 行程卡宏（T3.5）
+  ---------------------------------------------------------------------------
+  输入 = `src/itinerary.py`（T2.3）的 v2 结构：
+    days[].{day, plan_note,
+            periods[].{period, time_range, time_source, title, text, stops,
+                       duration_hint, duration_source, meal, rest,
+                       fatigue_note, unknowns}}
+  另可带 T3.4 的 `point_nodes`（每个时段的停留点证据卡），由 web_app 渲染时挂上。
+
+  口径（与 PRODUCT_SPEC §7 一致，宁可标未知也不补造）
+  - 时间段：只有 `time_source == "explicit"` 且 `time_range` 非空才显示资料钟点；
+    其余逐字显示「资料未给出」，绝不用模板钟点冒充资料时间。
+  - 时长：`duration_source` 只认「模板估算」「资料」；缺失/其他一律标「未给出」，
+    并且不显示没有来源的区间。模板区间必须带「模板估算」四个字。
+  - 餐饮：中午固定一块；有餐饮节点显示名称与“未核验”，没有数据逐字显示
+    「未找到餐饮点，请以现场为准」，不编餐厅名。
+  - 休息：中午固定一块；没有数据时逐字显示「资料未给出」。
+  - 体力/人群提示：一律写明「规划假设，非资料结论」，不写成资料事实。
+  - 未核验项：逐条列出，不折叠、不截断。
+
+  硬约束：不含任何脚本标签、不引用外部资源；所有文本都经 |e 转义。
+  复用 T3.4 `_evidence_card.html` 宏；`stop_anchor` 传命名空间，保证
+  `#stop-<node_id>` 在整页只出现一次（与路线示意图共用同一套锚点）。
+-#}
+{% from "_evidence_card.html" import evidence_card %}
+
+{% macro timeline(itinerary, show_span=false, stop_anchor=none) %}
+{%- set slot_map = {'上午': 'morning', '中午': 'noon', '下午': 'afternoon', '晚上': 'evening'} -%}
+{%- set anchors = stop_anchor if stop_anchor is not none else namespace(ids={}) -%}
+{%- set days = itinerary.days if itinerary and itinerary.days else [] -%}
+{% if days %}
+<div class="itinerary">
+  {% for day in days %}
+  {%- set day_no = day.day if day.day is defined and day.day is not none else loop.index -%}
+  <section class="itinerary-day" data-day="{{ day_no }}" aria-labelledby="day-{{ loop.index }}-title">
+    <h3 class="itinerary-day__title" id="day-{{ loop.index }}-title">第 {{ day_no }} 天</h3>
+    {% if day.plan_note %}
+    <p class="day-meta"><span>{{ day.plan_note|e }}</span></p>
+    {% endif %}
+    <ol class="timeline">
+      {% for item in day.periods or [] %}
+      {%- set period = item.period or '时段' -%}
+      {%- set slot = slot_map.get(period, 'other') -%}
+      {%- set is_explicit = (item.time_range and item.time_source == 'explicit') -%}
+      <li class="itinerary-period period-{{ slot }}" data-period="{{ period|e }}" data-time-source="{% if is_explicit %}explicit{% else %}absent{% endif %}">
+        <p class="period__head">
+          <span class="period__label">{{ period|e }}</span>
+          {%- if is_explicit %}
+          <span class="time-range is-explicit">资料时间 {{ item.time_range|e }}</span>
+          {%- else %}
+          <span class="time-range is-absent">资料未给出</span>
+          {%- endif %}
+        </p>
+        {% if item.title %}
+        <h4 class="itinerary-period__title">{{ item.title|e }}</h4>
+        {% endif %}
+        {%- if item.text %}
+        <p class="stay"><span class="stay__text">{{ item.text|e }}</span></p>
+        {%- endif %}
+        {%- if item.stops %}
+        <ul class="stop-list" aria-label="本时段停留点（按图谱顺序）">
+          {%- for stop in item.stops %}
+          <li class="stop-list__item"{% if stop.node_id %} data-node-id="{{ stop.node_id|e }}"{% endif %}>{{ stop.name|e }}</li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+        {%- set hint = item.duration_hint -%}
+        {%- set dsource = item.duration_source or '' -%}
+        {%- if hint and dsource == '模板估算' %}
+        <p class="period__meta">
+          <span class="duration-chip is-template">时长：约 {{ hint|e }}</span>
+          <span class="duration-source is-template">依据：模板估算</span>
+          <span class="muted">模板区间，不是资料给出的实际游玩时长</span>
+        </p>
+        {%- elif hint and dsource == '资料' %}
+        <p class="period__meta">
+          <span class="duration-chip is-source">时长：{{ hint|e }}</span>
+          <span class="duration-source is-source">依据：资料</span>
+        </p>
+        {%- else %}
+        <p class="period__meta">
+          <span class="duration-chip is-unknown">时长：资料未给出</span>
+          <span class="duration-source is-unknown">依据：未给出</span>
+        </p>
+        {%- endif %}
+        {%- if period == '中午' %}
+        {%- set meal = item.meal if item.meal else none -%}
+        <div class="meal-block{% if not (meal and meal.inserted) %} meal-block--unknown{% endif %}">
+          <p class="meal-block__title">餐饮</p>
+          {%- if meal and meal.note %}
+          <p class="meal-block__note">{{ meal.note|e }}</p>
+          {%- else %}
+          <p class="meal-block__note">未找到餐饮点，请以现场为准</p>
+          {%- endif %}
+          <p class="meal-block__meta">营业时间、位置与排队：未核验</p>
+        </div>
+        {%- set rest = item.rest if item.rest else none %}
+        <div class="rest-block{% if not (rest and rest.note) %} rest-block--unknown{% endif %}">
+          <p class="rest-block__title">休息</p>
+          {%- if rest and rest.note %}
+          <p class="rest-block__note">{{ rest.note|e }}</p>
+          {%- else %}
+          <p class="rest-block__note">休息安排：资料未给出</p>
+          {%- endif %}
+          <p class="rest-block__meta">休息点、座位与营业情况：未核验</p>
+        </div>
+        {%- elif item.rest and item.rest.note %}
+        <div class="rest-block rest-block--unknown">
+          <p class="rest-block__title">休息</p>
+          <p class="rest-block__note">{{ item.rest.note|e }}</p>
+          <p class="rest-block__meta">休息点、座位与营业情况：未核验</p>
+        </div>
+        {%- endif %}
+        {%- if item.fatigue_note %}
+        <p class="fatigue-note">
+          <span class="fatigue-note__label">体力/人群提示（规划假设，非资料结论）</span>
+          <span class="fatigue-note__text">{{ item.fatigue_note|e }}</span>
+        </p>
+        {%- endif %}
+        {#- T3.4 证据卡：每个时段一个就地折叠入口；有卡显示卡，无卡逐字「未找到来源」。 -#}
+        {%- set point_nodes = item.point_nodes or [] %}
+        <details class="evidence">
+          <summary>
+            查看来源
+            {%- if point_nodes -%}
+              {%- set stats = namespace(missing=0) -%}
+              {%- for point in point_nodes -%}
+                {%- if not point.found_count -%}{%- set stats.missing = stats.missing + 1 -%}{%- endif -%}
+              {%- endfor -%}
+              （{{ point_nodes|length }} 处停留点{% if stats.missing %} · 未找到来源 {{ stats.missing }} 处{% endif %}）
+            {%- else -%}
+              （未找到来源）
+            {%- endif -%}
+          </summary>
+          <div class="evidence__body">
+            {%- if point_nodes -%}
+              {%- for point in point_nodes -%}
+                {%- set point_anchor = '' -%}
+                {%- if point.node_id and point.node_id not in anchors.ids -%}
+                  {%- set _ = anchors.ids.update({point.node_id: true}) -%}
+                  {%- set point_anchor = 'stop-' ~ point.node_id -%}
+                {%- endif %}
+            <section class="point-evidence"{% if point_anchor %} id="{{ point_anchor|e }}"{% endif %} aria-label="停留点 {{ point.name|e }} 的来源">
+              <p class="point-evidence__name">{{ point.name|e }}</p>
+              <p class="point-evidence__status">{% if point.found_count %}本点 {{ point.cards|length }} 条来源{% else %}未找到来源{% endif %}</p>
+              {%- if point.cards -%}
+                {%- for card in point.cards %}
+              {{ evidence_card(card, show_span) }}
+                {%- endfor -%}
+              {%- else %}
+              <p class="evidence-card__missing">未找到来源</p>
+              {%- endif %}
+            </section>
+              {%- endfor -%}
+            {%- else %}
+            <p class="evidence-card__missing">未找到来源</p>
+            {%- endif %}
+          </div>
+        </details>
+        {%- if item.unknowns %}
+        <div class="period-unknowns">
+          <p class="period-unknowns__title">本时段未核验 / 假设（{{ item.unknowns|length }} 条）</p>
+          <ul class="period-unknowns__list">
+            {%- for note in item.unknowns %}
+            <li class="period-unknowns__item">{{ note|e }}</li>
+            {%- endfor %}
+          </ul>
+        </div>
+        {%- endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endfor %}
+</div>
+{% else %}
+<p class="muted">资料未给出分时行程。</p>
+{% endif %}
+{% endmacro %}

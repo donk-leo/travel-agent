@@ -333,14 +333,67 @@ def _point_nodes_in_text(text, node_ids, names, point_evidence):
     return points
 
 
-def _attach_point_evidence(itinerary, route, point_evidence):
-    """给每个分时时段挂上 ``point_nodes``（渲染用副本，不改 run_agent 返回值）。
+def _timeline_stops(raw):
+    """停留点列表：只保留 ``{node_id, name}``，缺名字时用节点 id 尾段，不补地点。"""
+    stops = []
+    try:
+        for stop in raw or []:
+            if not isinstance(stop, dict):
+                continue
+            node_id = _safe_text(stop.get("node_id"))
+            name = _safe_text(stop.get("name"))
+            if not name and not node_id:
+                continue
+            stops.append({
+                "node_id": node_id,
+                "name": name or node_id.split("|")[-1],
+            })
+    except Exception:
+        return []
+    return stops
 
-    时段文案里一个节点名都没出现时 ``point_nodes=[]``，模板据此显示
-    「未找到来源」；这里只复制字典，不改文案、不补节点。
+
+def _timeline_block(raw):
+    """餐饮/休息块：只收 ``inserted`` + 非空 ``note``；没有说明就当没数据。"""
+    if not isinstance(raw, dict):
+        return None
+    note = _safe_text(raw.get("note"))
+    if not note:
+        return None
+    return {"inserted": bool(raw.get("inserted")), "note": note}
+
+
+def _timeline_unknowns(raw):
+    """未核验项：只保留非空字符串，顺序不变。"""
+    items = []
+    try:
+        for value in raw or []:
+            text = _safe_text(value)
+            if text:
+                items.append(text)
+    except Exception:
+        return []
+    return items
+
+
+def _build_timeline(itinerary, route, point_evidence):
+    """把分时行程（T2.3 v2）整理成模板可渲染的结构（只归一，不补造）。
+
+    - v2 字段原样传：``period`` / ``title`` / ``text`` / ``stops`` /
+      ``duration_hint`` / ``duration_source`` / ``meal`` / ``rest`` /
+      ``fatigue_note`` / ``unknowns``；
+    - 时间：只有 ``time_source == "explicit"`` 且 ``time_range`` 非空才算资料时间，
+      其余一律降级为 ``time_range=None`` + ``time_source="absent"``，模板逐字显示
+      「资料未给出」，**不补钟点**；
+    - 时长：``duration_source`` 只认「模板估算」「资料」，且必须有 ``duration_hint``；
+      否则标成「未给出」并清空区间，避免把没有来源的时长写成资料；
+    - 餐饮/休息：没有 ``note`` 就当没数据（模板显示固定未知文案）；
+    - ``point_nodes``：沿用 T3.4 的证据分组（按时段文案里出现的节点名匹配）；
+    - 任何异常整体降级为空 ``days``（页面显示「资料未给出分时行程」），不 500。
     """
     if not isinstance(itinerary, dict):
-        return itinerary
+        return None
+
     node_ids = []
     names = {}
     try:
@@ -356,28 +409,64 @@ def _attach_point_evidence(itinerary, route, point_evidence):
     except Exception:
         node_ids, names = [], {}
 
-    attached = dict(itinerary)
-    days = []
-    for day in itinerary.get("days") or []:
-        if not isinstance(day, dict):
-            continue
-        periods = []
-        for item in day.get("periods") or []:
-            if not isinstance(item, dict):
+    try:
+        days = []
+        for index, day in enumerate(itinerary.get("days") or [], start=1):
+            if not isinstance(day, dict):
                 continue
-            period = dict(item)
-            try:
-                period["point_nodes"] = _point_nodes_in_text(
-                    item.get("text"), node_ids, names, point_evidence
-                )
-            except Exception:
-                period["point_nodes"] = []
-            periods.append(period)
-        day_copy = dict(day)
-        day_copy["periods"] = periods
-        days.append(day_copy)
-    attached["days"] = days
-    return attached
+            day_no = day.get("day")
+            if not isinstance(day_no, int) or isinstance(day_no, bool) or day_no < 1:
+                day_no = index
+            periods = []
+            for item in day.get("periods") or []:
+                if not isinstance(item, dict):
+                    continue
+                # 渲染用副本：保留原字段，只覆盖下面这些“显示安全值”。
+                period = dict(item)
+
+                time_range = _safe_text(period.get("time_range"))
+                time_source = _safe_text(period.get("time_source"))
+                if time_range and time_source == "explicit":
+                    period["time_range"] = time_range
+                    period["time_source"] = "explicit"
+                else:
+                    period["time_range"] = None
+                    period["time_source"] = "absent"
+
+                duration_source = _safe_text(period.get("duration_source"))
+                duration_hint = _safe_text(period.get("duration_hint"))
+                if duration_source in ("模板估算", "资料") and duration_hint:
+                    period["duration_hint"] = duration_hint
+                    period["duration_source"] = duration_source
+                else:
+                    period["duration_hint"] = None
+                    period["duration_source"] = "未给出"
+
+                period["title"] = _safe_text(period.get("title"))
+                period["text"] = _safe_text(period.get("text"))
+                period["stops"] = _timeline_stops(period.get("stops"))
+                period["meal"] = _timeline_block(period.get("meal"))
+                period["rest"] = _timeline_block(period.get("rest"))
+                period["fatigue_note"] = _safe_text(period.get("fatigue_note")) or None
+                period["unknowns"] = _timeline_unknowns(period.get("unknowns"))
+                try:
+                    period["point_nodes"] = _point_nodes_in_text(
+                        period["text"], node_ids, names, point_evidence
+                    )
+                except Exception:
+                    period["point_nodes"] = []
+                periods.append(period)
+            if not periods:
+                # 没有任何可渲染时段的天不占位，页面显示「资料未给出分时行程」。
+                continue
+            days.append({
+                "day": day_no,
+                "plan_note": _safe_text(day.get("plan_note")),
+                "periods": periods,
+            })
+        return {"days": days, "note": _safe_text(itinerary.get("note"))}
+    except Exception:
+        return {"days": [], "note": ""}
 
 
 #: 路线示意图只认图谱里的这一步关系，方向固定为 ``src → dst``。
@@ -558,7 +647,7 @@ def _build_context(result, view, query, selected_alt="", cache_hit=False):
     # T3.4：证据卡只由 evidence 模块产出；任何异常都降级为空，模板显示「未找到来源」。
     point_evidence = _build_point_evidence(route)
     segment_evidence_list = _build_segment_evidence(route)
-    itinerary = _attach_point_evidence(result.get("itinerary"), route, point_evidence)
+    itinerary = _build_timeline(result.get("itinerary"), route, point_evidence)
     return {
         "view": view,
         "query": _safe_text(result.get("query")) or _safe_text(query),

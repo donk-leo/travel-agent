@@ -1,4 +1,4 @@
-# P7 前端：设计系统与双视图（T3.1 + T3.2 + T3.3 + T3.4）
+# P7 前端：设计系统与双视图（T3.1 + T3.2 + T3.3 + T3.4 + T3.5）
 
 T3.1 交付可复用的设计系统（调色板、四状态徽标、响应式样式表、基础模板）；
 **T3.2 已接线**：`analysis/p07_agent/src/web_app.py` 不再使用 `render_template_string`，
@@ -7,11 +7,16 @@ T3.1 交付可复用的设计系统（调色板、四状态徽标、响应式样
 `evidence` 模块的原文切片（`doc_meta()` / `quote_sentence_for()` /
 `segment_evidence()`），缺失逐字显示「未找到来源」；
 **T3.3 已接线**：路线顺序下方渲染**顺序示意图**（服务端内联 SVG，数据 = P7 路线顺序 +
-P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是顺序示意图，不是地图」。
+P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是顺序示意图，不是地图」；
+**T3.5 已接线**：行程区改成**时间线/行程卡**（`web/templates/_timeline.html`）：
+一天一组、一个时段一张卡，时间段（资料钟点或逐字「资料未给出」）、停留点、
+时长区间 + 来源标签（资料 / 模板估算 / 未给出）、餐饮块、休息块、
+体力/人群提示（写成规划假设）与未核验项逐项可见；旧 `period.text` 仍在卡内逐字渲染。
 
 - 访客视图：`web/templates/result.html`（正文抽到 `_visitor_body.html`，与评审视图共用）
 - 评审视图：`web/templates/auditor.html`（在访客内容之后追加 `<details>` 评审面板）
 - 首屏查询页：`web/templates/index.html`（GET `/`）
+- 时间线宏：`web/templates/_timeline.html`（T3.5，访客/评审共用）
 - 证据卡宏：`web/templates/_evidence_card.html`（T3.4，访客/评审共用）
 - 路线示意图宏：`web/templates/_route_diagram.html`（T3.3，访客/评审共用）
 - 设计口径：`docs/optimization/PRODUCT_SPEC.md` §4.1 / §5 / §6 / §7 / §9
@@ -23,9 +28,10 @@ P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是
 
 | 文件 | 作用 |
 |---|---|
-| `static/style.css` | 唯一样式表：`:root` 调色板、移动优先、`@media` 断点、T3.2 双视图样式、T3.4 证据卡样式、T3.3 示意图样式（第 23 节） |
+| `static/style.css` | 唯一样式表：`:root` 调色板、移动优先、`@media` 断点、T3.2 双视图样式、T3.4 证据卡样式、T3.3 示意图样式（第 23 节）、T3.5 时间线样式（第 24 节） |
 | `web/templates/base.html` | 基础模板：页头、动态覆盖篇数、视图切换、状态徽标区、免责句区、页脚限制 |
 | `web/templates/_status_badge.html` | 四状态徽标宏（图标 + 文字 + 颜色三重编码），未知状态回退 `error` |
+| `web/templates/_timeline.html` | T3.5 时间线/行程卡宏：按天分组、逐时段卡、时间段与时长来源、餐饮/休息块、体力提示、未核验项 |
 | `web/templates/_evidence_card.html` | T3.4 证据卡宏：标题 / `source_url` 新窗口链接 / 发布日期 / 摘句 / 评审字符区间 |
 | `web/templates/_route_diagram.html` | T3.3 路线示意图宏：服务端内联 SVG，按天分色，箭头方向 = 图谱 `NEXT`，零坐标 |
 | `web/templates/index.html` | 首屏查询页（T3.2）：表单 + 3 个示例 + 提交；无结果时渲染 |
@@ -39,6 +45,7 @@ P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是
 | `web/preview/evidence_375.png`、`evidence_1280.png` | T3.4 证据卡真实模板渲染截图（含「未找到来源」卡片，见 §11） |
 | `web/preview/diagram_375.png`、`diagram_1280.png` | T3.3 路线示意图真实模板渲染截图（白云山 BYS-T-02 链，见 §11） |
 | `web/preview/alternatives_1280.png` | T3.2 补丁：3 条真实备选路线 + `alt-CL-T-03` 高亮（缓存命中态，见 §11） |
+| `web/preview/timeline_375.png`、`timeline_1280.png` | T3.5 时间线真实模板渲染截图（白云山 BYS-T-02 + T2.3 v2 结构，见 §9.13 / §11） |
 | `web/README.md` | 本文件：调色板、对比度、接线说明、状态映射、缓存、证据卡、示意图、截图复现 |
 
 ## 2. 设计口径（先读）
@@ -200,7 +207,7 @@ for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
 |---|---|---|
 | 基础 | 默认（含 375px） | 单列；容器 `width: 100%` + `max-width`；按钮/输入框整宽；行程时段单列 |
 | `@media (min-width: 40em)` | ≥640px | 页头改横向两栏；`h1` 1.875rem；表单/卡片加大内边距；`audit-list` 两列 |
-| `@media (min-width: 64em)` | ≥1024px | 版心 68rem；行程的三个时段改为 3 列 |
+| `@media (min-width: 64em)` | ≥1024px | 版心 68rem；时间线仍是单列（竖轴只在左侧留白），旧 `.periods` 三列规则不再被任何模板使用 |
 | `@media (max-width: 480px)` | ≤480px | 页面内边距收紧；状态徽标紧凑；操作按钮整行 |
 | `@media (prefers-reduced-motion: reduce)` | 系统设置 | 关闭全部过渡与动画，`scroll-behavior: auto` |
 
@@ -326,7 +333,7 @@ $py = ".\.venv\Scripts\python.exe"
 |---|---|---|
 | 状态徽标 / reasons / 免责句 | 有 | 有（reasons 带 code） |
 | 查询回显 | 有 | 有 |
-| 行程卡（天/上午/中午/下午/时长标签） | 有 | 有 |
+| 行程卡（天/上午/中午/下午/时长标签） | 有（T3.5 时间线：时间段 + 时长来源 + 餐饮/休息 + 体力提示 + 未核验项） | 有 |
 | 路线顺序（文字箭头，无坐标） | 有 | 有 |
 | 地点列表（折叠 + 计数） | 有 | 有 |
 | 条件建议（条件/建议/理由/来源 doc_id） | 有 | 有 |
@@ -539,6 +546,79 @@ $py = ".\.venv\Scripts\python.exe"
 - 隐私：不落盘、不写 cookie；同一进程内相同 query 会复用同一份结果。本机单用户实验
   场景可接受，T5.2 部署加固时需要重新评估多用户隔离。
 
+### 9.13 T3.5 时间线 / 行程卡（每时段一张卡，未知逐字标出）
+
+**数据来源（只读，单一实现）**
+
+`web_app._build_timeline()` 只整理 `itinerary.build_itinerary()`（T2.3 v2）的返回值，
+不读 guides CSV、不算时间/距离/票价、不调用模型；模板 `_timeline.html` 只做排版：
+
+```text
+days[].{day, plan_note, periods[].{period, time_range, time_source, title, text,
+        stops:[{node_id,name}], duration_hint, duration_source,
+        meal:{inserted,note}, rest:{inserted,note}, fatigue_note, unknowns:[str]}}
+```
+
+| 页面元素 | 字段 | 缺失/降级时的显示 |
+|---|---|---|
+| 天的分组 | `days[].day`、`plan_note` | 天号回退为序号；`plan_note` 为空则不显示 |
+| 时段卡 | `periods[].period` → `.period-morning/noon/afternoon/evening` | 未识别时段落 `.period-other`，文字仍显示原值 |
+| 时间段 | `time_range` + `time_source` | 只有 `explicit` 且非空才显示「资料时间 HH:MM…」；否则逐字 **「资料未给出」** |
+| 标题 / 文案 | `title`、`text` | 旧 `text` 始终逐字渲染（信息不丢），空则只显示标题 |
+| 停留点 | `stops[].name` / `node_id` | 没有停留点就不渲染列表，不补地点 |
+| 时长 | `duration_hint` + `duration_source` | 「资料」或「模板估算」且有区间才显示；否则 **「时长：资料未给出」+「依据：未给出」**，不显示无来源区间 |
+| 餐饮块 | `meal.inserted` / `meal.note` | 中午固定一块；无 `note` 时逐字 **「未找到餐饮点，请以现场为准」** |
+| 休息块 | `rest.inserted` / `rest.note` | 中午固定一块；无 `note` 时逐字 **「休息安排：资料未给出」** |
+| 体力/人群提示 | `fatigue_note` | 有才显示，前面固定写 **「体力/人群提示（规划假设，非资料结论）」** |
+| 未核验项 | `unknowns[]` | 逐条列出（不折叠、不截断），空则不渲染该块 |
+
+**渲染接线（只归一，不补造）**
+
+- `_build_timeline()` 是渲染用副本：`time_range` 有值但 `time_source` 缺失 → 一律按
+  `absent` 处理（**绝不把没标来源的钟点当成资料时间**）；`duration_source` 不在
+  「模板估算 / 资料」内 → 标「未给出」并清空区间；`meal`/`rest` 的 `note` 为空视为没数据；
+- `itinerary` 不是 dict、`days` 畸形、单个时段不是 dict、没有任何可渲染时段 → 返回
+  `{"days": [], ...}`，页面显示逐字「资料未给出分时行程」，**不 500**；
+- 只有 `explicit` 才出现 `.time-range.is-explicit`，其余都是 `.time-range.is-absent`；
+- `_visitor_body.html` 用 `{{ timeline(itinerary, show_span, stop_anchor) }}` 替换了原
+  「建议行程」循环；`#stop-<node_id>` 锚点仍由同一个命名空间去重，与 T3.3 示意图共用；
+- 旧的 `.periods` / `.period` 选择器不再被模板使用（保留在样式表里，不影响页面）。
+
+**无脚本 / 零外部资源 / 访客视图洁净**
+
+时间线宏与样式表都**没有 `<script>`、没有 `<img>`/字体/CDN 引用**；餐饮、休息、
+体力提示、未核验项都是普通段落与列表。访客渲染结果经断言不含
+`intent_json` / `trace_json` / `tool_decisions` / `route.metrics` / `图谱指标`。
+
+**复现验证（Flask test client，不调模型）**
+
+```powershell
+$env:PYTHONIOENCODING = 'utf-8'
+$py = ".\.venv\Scripts\python.exe"
+& $py -c "import sys; sys.path.insert(0,'analysis/p07_agent/src'); import web_app; print('doc', web_app.DOC_COUNT)"
+```
+
+白云山 fixture（`BYS-T-02`，5 个节点）渲染断言：
+
+```text
+periods=[('morning','上午','absent'),('noon','中午','absent'),('afternoon','下午','absent')]
+absent_labels=3   duration_source_template=3   meal_blocks=1   rest_blocks=1
+fatigue_notes=2   period_unknowns=3   fixed_meal_phrase=3
+script_tags=0  intent/trace/tool_decisions/图谱指标 = 0
+```
+
+即：**每个时段都有时间段（此处全部资料未给出）与时长来源（模板估算）**，
+餐饮块、休息块、体力提示、未核验项都真实出现在页面上。
+`time_source=absent` 的时段一定显示「资料未给出」，不出现任何模板钟点。
+长隆 `CL-O-02` fixture（图谱真有时刻）另测到 `.time-range.is-explicit` 出现
+（`11:00` / `15:00-17:00`），说明 explicit 分支有真实数据覆盖。
+
+降级路径（手工 fixture，仅测试渲染、不作为截图数据）：旧结构只有
+`period/text/duration_hint` 时 → 三个时段都显示「资料未给出 / 依据：未给出」，
+中午显示固定餐饮未知文案；`time_range` 有值但 `time_source` 缺失 → 仍按
+`absent` 渲染；`duration_source` 非法 → 不显示区间、标「未给出」；
+`itinerary=None` / 字符串 / 畸形 days → 200 + 「资料未给出分时行程」。
+
 ## 10. 本地校验
 
 ### 10.1 服务端渲染（Flask 测试客户端，不启动服务）
@@ -586,10 +666,11 @@ $py = ".\.venv\Scripts\python.exe"
 T3.4 完成时：check 通过，137 条测试 OK（T3.2 完成时为 121 条）。
 T3.3 完成时同样是 check 通过 + **137 条测试 OK**（只新增模板与渲染接线，没改测试）。
 T3.2 缓存补丁后仍为 **137 条测试 OK**，并新增缓存/视图切换断言（见 §10.2 第 5 条）。
+T3.5 完成时：check 通过 + **174 条测试 OK**（仍是只改模板 / 样式 / 渲染接线，没改测试）。
 
-## 11. 截图复现（T3.2 / T3.4 / T3.3 / 缓存补丁）
+## 11. 截图复现（T3.2 / T3.4 / T3.3 / 缓存补丁 / T3.5）
 
-八张截图都由**真实 Flask 模板**渲染，不是手工 HTML；fixture 数据不调用模型：
+十张截图都由**真实 Flask 模板**渲染，不是手工 HTML；fixture 数据不调用模型：
 
 | 文件 | 视口 | 尺寸 | 说明 |
 |---|---|---|---|
@@ -601,6 +682,8 @@ T3.2 缓存补丁后仍为 **137 条测试 OK**，并新增缓存/视图切换�
 | `diagram_375.png` | 375 CSS px | 375×3591 | T3.3 访客视图：路线示意图展开态（白云山 BYS-T-02 链） |
 | `diagram_1280.png` | 1280 CSS px | 1280×2663 | T3.3 访客视图：路线示意图展开态（白云山 BYS-T-02 链） |
 | `alternatives_1280.png` | 1280 CSS px | 1280×3952 | T3.2 补丁：3 条真实备选 + `alt-CL-T-03` 高亮（缓存命中态） |
+| `timeline_375.png` | 375 CSS px | 375×4771 | T3.5 访客视图：时间线（白云山 BYS-T-02，三个时段全部「资料未给出」） |
+| `timeline_1280.png` | 1280 CSS px | 1280×3536 | T3.5 访客视图：时间线（同一 fixture，桌面单列） |
 
 T3.4 两张图的 fixture：`tools.get_route_candidates('广州白云山')` 的真实 NEXT 连接
 （白云山南门 → 云台花园 → 缆车上山 → 山顶广场 → 摩星岭，来源 `BYS-T-02`）+
@@ -614,6 +697,15 @@ T3.3 两张图用的是同一条链（与任务书的 fixture 一致：
 `graph_edges.csv` 找到同向 `NEXT` 边（前三段 `BYS-T-02`，最后一段 `BYS-T-02` + `BYS-T-03`），
 所以图上 4 条箭头全是真实连接、没有一段是虚构的。
 **截图不代表一次真实 `run_agent` 输出。**
+
+`timeline_375.png` / `timeline_1280.png` 与 T3.3 用同一条白云山链
+（白云山南门 → 云台花园 → 缆车上山 → 山顶广场 → 摩星岭，`BYS-T-02`），
+`tools.validate_route()` → `feasibility.apply_feasibility(profiles=['老人'])` →
+`itinerary.build_itinerary()`，页面上的每个时段卡都是这次真实渲染的结果。
+白云山在图谱里没有 `AT_TIME` 边，所以**三个时段全部是 `time_source=absent`**，
+截图如实显示「资料未给出」；时长来自模板，显示「依据：模板估算」。
+截图前的服务脚本只替换首屏 `home` 视图返回 fixture，**不改模板、不注入时间、
+不给 `details` 加 `open`**。**截图不代表一次真实 `run_agent` 输出。**
 
 `alternatives_1280.png` 的 fixture：主路线仍是长隆 `CL-O-02` 链；备选由
 `alternatives.build_alternatives('长隆', primary_doc_id='CL-O-02', max_alts=3)` 生成
@@ -685,6 +777,10 @@ $base = "${scheme}://127.0.0.1:<port>"
 & $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\diagram_375.png"  --width 375
 & $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\diagram_1280.png" --width 1280
 
+# T3.5 时间线（fixture 用白云山 BYS-T-02 + T2.3 v2 结构，不做任何展开/改写）
+& $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\timeline_375.png"  --width 375
+& $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\timeline_1280.png" --width 1280
+
 # T3.2 缓存补丁：备选高亮（先 web_app._store_result(QUERY, fixture)，不替换 home，走生产 GET 缓存路径）
 & $py $shot --url "$base/?view=visitor&query=<urlencoded QUERY>&alt=alt-CL-T-03" --out "analysis\p07_agent\web\preview\alternatives_1280.png" --width 1280
 ```
@@ -700,6 +796,8 @@ evidence_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":12
 diagram_375.png   METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":3591}
 diagram_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":2663}
 alternatives_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":3952}
+timeline_375.png  METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":4771}
+timeline_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":3536}
 ```
 
 375px 的 `scrollWidth` 等于 `clientWidth` 等于视口宽度 375，**没有横向滚动**
@@ -719,8 +817,12 @@ alternatives_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth
   匹配分组（长名优先）；因此同一节点在多个时段出现时会各显示一次证据入口。
 - 路线示意图（T3.3）覆盖范围：只画 P7 路线里的 `proposal.node_ids`，按 `day_plan`
   分天；**跨天之间不画箭头**；图谱没有 `NEXT` 边的相邻两点只画虚线并标「图谱未收录该段」；
-  节点链接 `#stop-<node_id>` 目前落在停留点来源卡片区，**没出现在分时行程里的停留在
-  页面上暂时没有目标元素**（点击不跳转，不报错），T3.5 时间线可以复用同一套锚点补全；
-  示意图不含纬度、经度、坐标、距离、步行时间，也不接任何地图瓦片。
+  节点链接 `#stop-<node_id>` 落在停留点来源卡片区（T3.5 后仍在时间线时段卡的
+  `details.evidence` 里），**没出现在分时行程里的停留点在页面上暂时没有目标元素**
+  （点击不跳转，不报错）；示意图不含纬度、经度、坐标、距离、步行时间，也不接任何地图瓦片。
+- 时间线（T3.5）的 `period.text` 与中午的 `meal.note` 在 v2 结构里是同一段文字
+  （`itinerary.py` 为向后兼容让 `text` 保留完整说明），所以中午卡里两者都会渲染，
+  会出现一句重复说明；保留 `text` 是为了旧页面与信息不丢失。页面不会因此多出任何
+  未出现在 v2 数据里的时间、距离或票价。
 - 条件建议的“选择理由”与 `needs_verification` 由后端给出，前端不推断。
 - 页面没有实时票价、排队、天气、开放状态，也不提供预订、支付、导航或叫车服务。
