@@ -1,12 +1,16 @@
-# P7 前端：设计系统与双视图（T3.1 + T3.2）
+# P7 前端：设计系统与双视图（T3.1 + T3.2 + T3.4）
 
 T3.1 交付可复用的设计系统（调色板、四状态徽标、响应式样式表、基础模板）；
 **T3.2 已接线**：`analysis/p07_agent/src/web_app.py` 不再使用 `render_template_string`，
-改为渲染 `web/templates/` 下的 Jinja2 模板，提供访客视图与评审视图。
+改为渲染 `web/templates/` 下的 Jinja2 模板，提供访客视图与评审视图；
+**T3.4 已接线**：每个停留点与每个路线段都有证据入口，卡片内容全部来自 T1.6
+`evidence` 模块的原文切片（`doc_meta()` / `quote_sentence_for()` /
+`segment_evidence()`），缺失逐字显示「未找到来源」。
 
 - 访客视图：`web/templates/result.html`（正文抽到 `_visitor_body.html`，与评审视图共用）
 - 评审视图：`web/templates/auditor.html`（在访客内容之后追加 `<details>` 评审面板）
 - 首屏查询页：`web/templates/index.html`（GET `/`）
+- 证据卡宏：`web/templates/_evidence_card.html`（T3.4，访客/评审共用）
 - 设计口径：`docs/optimization/PRODUCT_SPEC.md` §4.1 / §5 / §6 / §7 / §9
 
 页面默认**无 JS、零外部资源**：所有内容服务端渲染，图标是 Unicode 字符，
@@ -16,18 +20,20 @@ T3.1 交付可复用的设计系统（调色板、四状态徽标、响应式样
 
 | 文件 | 作用 |
 |---|---|
-| `static/style.css` | 唯一样式表：`:root` 调色板、移动优先、`@media` 断点、T3.2 双视图样式 |
+| `static/style.css` | 唯一样式表：`:root` 调色板、移动优先、`@media` 断点、T3.2 双视图样式、T3.4 证据卡样式 |
 | `web/templates/base.html` | 基础模板：页头、动态覆盖篇数、视图切换、状态徽标区、免责句区、页脚限制 |
 | `web/templates/_status_badge.html` | 四状态徽标宏（图标 + 文字 + 颜色三重编码），未知状态回退 `error` |
+| `web/templates/_evidence_card.html` | T3.4 证据卡宏：标题 / `source_url` 新窗口链接 / 发布日期 / 摘句 / 评审字符区间 |
 | `web/templates/index.html` | 首屏查询页（T3.2）：表单 + 3 个示例 + 提交；无结果时渲染 |
 | `web/templates/result.html` | 访客视图结果页（T3.2），`extends "base.html"` |
-| `web/templates/auditor.html` | 评审视图结果页（T3.2），`extends "base.html"` |
-| `web/templates/_visitor_body.html` | 两个结果页共用的访客正文，避免双视图内容漂移 |
+| `web/templates/auditor.html` | 评审视图结果页（T3.2），`extends "base.html"`；T3.4 追加摘句字符区间 |
+| `web/templates/_visitor_body.html` | 两个结果页共用的访客正文，避免双视图内容漂移；T3.4 证据入口在此 |
 | `web/preview/result_preview.html` | T3.1 静态预览页（引用 `../../static/style.css`），数据全部标注为示例 |
 | `web/preview/screenshot_375.png`、`screenshot_1280.png` | T3.1 静态预览截图 |
 | `web/preview/visitor_375.png`、`visitor_1280.png` | T3.2 访客视图真实模板渲染截图（fixture 数据） |
 | `web/preview/auditor_1280.png` | T3.2 评审视图真实模板渲染截图（fixture 数据） |
-| `web/README.md` | 本文件：调色板、对比度、接线说明、状态映射、截图复现 |
+| `web/preview/evidence_375.png`、`evidence_1280.png` | T3.4 证据卡真实模板渲染截图（含「未找到来源」卡片，见 §11） |
+| `web/README.md` | 本文件：调色板、对比度、接线说明、状态映射、证据卡、截图复现 |
 
 ## 2. 设计口径（先读）
 
@@ -168,6 +174,7 @@ for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
 | 链接（页面底色上） | `#14532D` | `#F5F7F9` | 8.48:1 |
 | 焦点环 | `#0B5FB4` | `#FFFFFF` | 6.34:1 |
 | 焦点环（页面底色上） | `#0B5FB4` | `#F5F7F9` | 5.91:1 |
+| 证据卡缺失态（`.evidence-card__missing`，卡片白底） | `#8A5A00` | `#FFFFFF` | 5.93:1 |
 | 控件边框 `--color-line-strong` | `#7C8791` | `#FFFFFF` | 3.66:1（非文本 ≥3:1） |
 | 控件边框（页面底色上） | `#7C8791` | `#F5F7F9` | 3.41:1（非文本 ≥3:1） |
 | 页脚文字（与页脚底色） | `#3C4650` | `#E8EDF1` | 8.16:1 |
@@ -330,21 +337,86 @@ $py = ".\.venv\Scripts\python.exe"
 - `alt` 参数当前只用于模板高亮（`alt-card--selected` + “当前高亮”），
   结果页持久化由 T2.4 接入；不引入 JS。
 
-### 9.8 T3.3 / T3.4 占位（不放假数据）
+### 9.8 T3.3 占位 / T3.4 已交付（不放假数据）
 
-| 任务 | 占位位置 | class / data 属性 | 页面上可见文案 |
+| 任务 | 状态 | 位置 | class / data 属性 |
 |---|---|---|---|
-| T3.4 证据卡 | 行程每个 `.period` 内、条件建议卡片内 | `details.evidence-slot` | “查看来源（T3.4 接入证据卡）”“查看完整证据（T3.4 接入证据卡）” |
-| T3.3 路线示意图 | 路线顺序区块内、`proposal` 之后 | `details.diagram-slot` | “查看路线示意（图谱顺序，不是地图）” |
-| T2.4 备选路线 | 路线顺序之后、地点列表之前 | `section` + `article.card.alt-card` / `.alt-card--selected` | “备选路线”（仅 alternatives 非空时出现） |
+| T3.4 证据卡 | **已交付**（详见 §9.10） | 行程每个 `.period` 内、路线每段 `.segment` 内 | `details.evidence` + `.evidence-card` |
+| T3.3 路线示意图 | 占位，未接入 | 路线顺序区块内、`proposal` 之后 | `details.diagram-slot` |
+| T2.4 备选路线 | 契约已定，未接入 | 路线顺序之后、地点列表之前 | `section` + `article.card.alt-card` / `.alt-card--selected` |
 
 占位块只说明“将由哪个任务接入”，不含示例节点、示例来源或编造数字。
+（T3.4 交付后，原先 `.evidence-slot` 的两处占位已删除；条件建议的完整卡片
+按 PRODUCT_SPEC §6.4 等来源过滤（T2.5）后再接入。）
 
 ### 9.9 隐私
 
 - 访客视图不显示 `trace_file` 的绝对路径；评审视图只显示文件名；
 - 用户原话由 Jinja 自动转义（需要时显式 `|e`）；
 - 页面不加载第三方资源，不写 cookie 之外的分析脚本（本项目没有脚本）。
+
+### 9.10 T3.4 证据卡（每个停留点 / 每个路线段）
+
+**数据来源（只读，单一实现）**
+
+`web_app.py` 只调用 T1.6 的 `analysis/p07_agent/src/evidence.py`，不读 guides CSV、
+不拼句子、不补 URL/日期：
+
+| 上下文变量 | 构建函数 | 内容 |
+|---|---|---|
+| `point_evidence` | `_build_point_evidence(route)` | `node_id → [card]`；每个停留点最多 **2 张卡**，来源取 `graph_nodes.source_doc_ids` 前 2 篇 |
+| `segment_evidence_list` | `_build_segment_evidence(route)` | 每段 `{from_name, to_name, source_doc_ids, cards, found_count}`，直接调用 `segment_evidence(segment)` |
+| `itinerary` | `_attach_point_evidence(...)` | 复制一份分时行程，给每个 `.period` 挂 `point_nodes`（按时段文案里出现的停留点分组，长名优先，避免「熊猫乐园」误吃「熊猫乐园站」） |
+
+每张卡的字段（`_card_from_meta()` / `segment_evidence()`）：
+
+```text
+{doc_id, title, source_url, publish_date, source_site, quote, found}
+quote = {text, char_start, char_end[, anchor_start, anchor_end]}
+```
+
+`quote.text` 是 `clean_content[char_start:char_end]` 的原始连续子串（T1.6 保证），
+模板只转义与排版，不改写、不截断、不拼接。页面上的外部链接只有
+`source_url`（新窗口 + `rel="noopener noreferrer"`），没有外部 CSS/JS/字体/图片。
+
+**缺失态（逐字固定文案）**
+
+| 情况 | 页面显示 |
+|---|---|
+| `found=False` 或 `quote` 为空 | 卡片摘句位置逐字 **「未找到来源」** |
+| 某个停留点 0 张有摘句的卡 | 该停留点标题下逐字 **「未找到来源」**（入口摘要同时显示「未找到来源 N 处」） |
+| 某段没有卡 / 卡都没有摘句 | 该段入口摘要与正文逐字 **「未找到来源」** |
+| 标题 / `source_url` / `publish_date` 为空 | 按 PRODUCT_SPEC §6.2 的固定文案：`来源标题缺失（doc_id: …）` / `原文链接缺失（数据缺口）` / `发布日期未记录`；**不补造** |
+
+任何证据构建异常都会被 `_build_*` 捕获并降级成空卡（模板显示「未找到来源」），
+页面不会 500；`_render_result()` 仍保留模板异常的兜底 error 页。
+
+**默认折叠 / 无 JS**
+
+每个证据入口是原生 `<details class="evidence">`，默认**不展开**；`<summary>` 里给出
+停留点数 / 来源条数 / 未找到来源处数，键盘可直接操作，不需要任何脚本。
+模板中没有任何 `<script>` 标签。
+
+**双视图差异**
+
+| 内容 | 访客 | 评审 |
+|---|---|---|
+| 停留点 / 路线段证据入口与卡片 | 有 | 有（同一份 `_visitor_body.html`） |
+| `doc_id`（等宽小字） | 有（PRODUCT_SPEC §6.1 要求） | 有 |
+| 摘句 `char_start` / `char_end`（含 anchor 位置） | 无 | 有（卡片内 + §「逐段证据」表格） |
+| intent / trace / `tool_decisions` / 图谱指标 | 无 | 有 |
+
+**fixture 渲染计数**（Flask test client，真实图谱连接，不调模型）
+
+```text
+periods=3  point_blocks=6（5 个唯一节点，云台花园在上午/中午各出现一次）
+segments=4  cards=16（有摘句 14 / 未找到来源 2）  empty_evidence_bodies=0
+periods_without_evidence=0  segments_without_evidence=0  details_open=0
+```
+
+其中 `白云山南门`（T1.6 `scan_coverage()` 报告的 `missing_quote` 节点，
+来源 BYS-T-02/BYS-T-03 都定位不到节点名）在页面上显示两张「未找到来源」卡
++ 停留点级「未找到来源」，满足“缺失示例真实出现在页面”的要求。
 
 ## 10. 本地校验
 
@@ -386,17 +458,29 @@ $py = ".\.venv\Scripts\python.exe"
 & $py -m unittest discover -s analysis\p07_agent\tests -q
 ```
 
-T3.2 完成时：check 通过，121 条测试 OK。
+T3.4 完成时：check 通过，137 条测试 OK（T3.2 完成时为 121 条）。
 
-## 11. 截图复现（T3.2）
+## 11. 截图复现（T3.2 / T3.4）
 
-三张截图都由**真实 Flask 模板**渲染，不是手工 HTML；fixture 数据不调用模型：
+五张截图都由**真实 Flask 模板**渲染，不是手工 HTML；fixture 数据不调用模型：
 
 | 文件 | 视口 | 尺寸 | 说明 |
 |---|---|---|---|
-| `visitor_375.png` | 375 CSS px | 375×3371 | 访客视图整页 |
-| `visitor_1280.png` | 1280 CSS px | 1280×2313 | 访客视图整页 |
-| `auditor_1280.png` | 1280 CSS px | 1280×4386 | 评审视图整页 |
+| `visitor_375.png` | 375 CSS px | 375×3371 | T3.2 访客视图整页 |
+| `visitor_1280.png` | 1280 CSS px | 1280×2313 | T3.2 访客视图整页 |
+| `auditor_1280.png` | 1280 CSS px | 1280×4386 | T3.2 评审视图整页 |
+| `evidence_375.png` | 375 CSS px | 375×8610 | T3.4 访客视图：证据卡展开态（含「未找到来源」卡） |
+| `evidence_1280.png` | 1280 CSS px | 1280×5400 | T3.4 访客视图：证据卡展开态（含「未找到来源」卡） |
+
+T3.4 两张图的 fixture：`tools.get_route_candidates('广州白云山')` 的真实 NEXT 连接
+（白云山南门 → 云台花园 → 缆车上山 → 山顶广场 → 摩星岭，来源 `BYS-T-02`）+
+`validate_route()` + `route_metrics()` + `build_itinerary()`；其中 **白云山南门** 是
+T1.6 `scan_coverage()` 报告的 `missing_quote` 节点（BYS-T-02 / BYS-T-03 都定位不到节点名），
+用来展示「未找到来源」。**截图不代表一次真实 `run_agent` 输出。**
+
+> 证据入口默认折叠（§9.10）。为了在静态截图里看到卡片内容，T3.4 的截图脚本在
+> **已渲染 HTML** 上给 `<details class="evidence">` 加 `open` 属性（等同用户手动展开，
+> 不改内容、数据或样式；模板默认仍是折叠，测试断言 `details_open=0`）。
 
 fixture 的来源（仓库外临时脚本，不提交）：用 `tools.get_route_candidates('长隆')` +
 `validate_route()` + `route_metrics()` 得到真实图谱路线（北门 → 小火车游览区 → 青龙山 →
@@ -441,6 +525,10 @@ $base = "${scheme}://127.0.0.1:<port>"
 & $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\visitor_375.png"  --width 375
 & $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\visitor_1280.png" --width 1280
 & $py $shot --url "$base/?view=auditor" --out "analysis\p07_agent\web\preview\auditor_1280.png" --width 1280
+
+# T3.4 证据卡（fixture 用白云山路线，并在响应里给 details.evidence 加 open 以便静态图看到卡片）
+& $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\evidence_375.png"  --width 375
+& $py $shot --url "$base/?view=visitor" --out "analysis\p07_agent\web\preview\evidence_1280.png" --width 1280
 ```
 
 3. 每张图必须记录工具原样打印的 `METRICS`。本次实测：
@@ -449,9 +537,12 @@ $base = "${scheme}://127.0.0.1:<port>"
 visitor_375.png   METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":3371}
 visitor_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":2313}
 auditor_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":4386}
+evidence_375.png  METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":8610}
+evidence_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":5400}
 ```
 
-375px 的 `scrollWidth` 等于 `clientWidth` 等于视口宽度 375，**没有横向滚动**。
+375px 的 `scrollWidth` 等于 `clientWidth` 等于视口宽度 375，**没有横向滚动**
+（T3.4 证据卡展开到最长摘句时同样成立）。
 工具用 `Emulation.setDeviceMetricsOverride` 真正设置视口，而不是用 500px 布局裁切
 （T3.1 §11 记录过本机无头 Chrome 的 500px 下限）。
 
@@ -459,6 +550,10 @@ auditor_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":12
 
 - 本任务不实现结果页持久化：视图切换会回到已回填输入框的首屏，再提交渲染另一视图；
   `?alt=` 高亮同理，等 T2.4 提供备选路线与结果缓存后生效。
-- 证据卡（T3.4）与路线示意图（T3.3）只有占位，不显示示例来源或示例节点。
+- 证据卡（T3.4）只覆盖停留点与路线段：条件建议仍只显示 `doc_id` 列表，
+  完整卡片按 PRODUCT_SPEC §6.4 等来源过滤（T2.5）后再接入。
+- 分时行程（`itinerary.py`）没有 node_id，停留点按时段文案里出现的节点名做确定性
+  匹配分组（长名优先）；因此同一节点在多个时段出现时会各显示一次证据入口。
+- 路线示意图（T3.3）仍是占位，不含示例节点。
 - 条件建议的“选择理由”与 `needs_verification` 由后端给出，前端不推断。
 - 页面没有实时票价、排队、天气、开放状态，也不提供预订、支付、导航或叫车服务。

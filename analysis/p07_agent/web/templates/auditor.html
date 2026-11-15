@@ -104,17 +104,24 @@
       {% if route and route.validation and route.validation.segments %}
       <div class="table-scroll">
         <table>
-          <caption class="visually-hidden">路线每一段的来源文档</caption>
+          <caption class="visually-hidden">路线每一段的来源文档与摘句字符区间</caption>
           <thead>
-            <tr><th scope="col">#</th><th scope="col">上一站</th><th scope="col">下一站</th><th scope="col">来源 doc_id</th></tr>
+            <tr><th scope="col">#</th><th scope="col">上一站</th><th scope="col">下一站</th><th scope="col">来源 doc_id / 摘句字符区间</th></tr>
           </thead>
           <tbody>
             {% for segment in route.validation.segments %}
+            {% set seg_cards = segment_evidence_list[loop.index0].cards if segment_evidence_list and loop.index0 < segment_evidence_list|length else [] %}
             <tr>
               <td>{{ loop.index }}</td>
               <td>{{ segment.from_name|e }}</td>
               <td>{{ segment.to_name|e }}</td>
-              <td>{% if segment.source_doc_ids %}{{ segment.source_doc_ids|join('、')|e }}{% else %}未记录{% endif %}</td>
+              <td>
+                {% if segment.source_doc_ids %}{{ segment.source_doc_ids|join('、')|e }}{% else %}未记录{% endif %}
+                {%- for card in seg_cards %}
+                <br><code>{{ card.doc_id|e }}</code>
+                {% if card.quote %}<span class="muted">char_start={{ card.quote.char_start }} · char_end={{ card.quote.char_end }}</span>{% else %}<span class="muted">未找到来源</span>{% endif %}
+                {%- endfor %}
+              </td>
             </tr>
             {% endfor %}
           </tbody>

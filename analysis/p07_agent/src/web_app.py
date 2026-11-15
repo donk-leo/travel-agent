@@ -1,4 +1,4 @@
-"""P7 Web 入口：访客 / 评审双视图（T3.2）。
+"""P7 Web 入口：访客 / 评审双视图（T3.2）+ 证据卡接线（T3.4）。
 
 职责边界
 --------
@@ -8,7 +8,12 @@
   把缺失/未定义值收敛成 ``error``（PRODUCT_SPEC §5.4），不参与任何业务判定；
 - 访客视图（``result.html``）不渲染 intent / trace / 工具决策 / 图谱指标；
   这些只出现在评审视图（``auditor.html``）；
-- 模板与静态文件用绝对路径注册，避免工作目录变化导致找不到文件。
+- 模板与静态文件用绝对路径注册，避免工作目录变化导致找不到文件；
+- 证据卡（T3.4）只**只读复用** ``evidence`` 模块（T1.6）：节点来源取
+  ``graph_nodes.csv`` 的 ``source_doc_ids`` 前 2 篇，摘句一律由
+  ``quote_sentence_for()`` / ``segment_evidence()`` 返回的原文切片，
+  本模块不读 guides CSV、不拼句子、不补 URL/日期；任何异常都降级成空卡，
+  由模板显示「未找到来源」，不让页面 500。
 
 启动时从三个景区的 ``*_guides.csv`` 行数统计文档数（T1.5 后为 32 篇），
 不再在模板里硬编码篇数。
@@ -21,6 +26,7 @@ from pathlib import Path
 
 from flask import Flask, render_template, render_template_string, request, session
 
+import evidence
 from agent import run_agent
 from status import is_contract_violation, normalize_status
 
@@ -135,6 +141,185 @@ def _normalize_alternatives(raw):
     return alternatives
 
 
+#: T3.4 每个停留点最多展示的来源文档数（按 graph_nodes.source_doc_ids 顺序取）。
+POINT_EVIDENCE_DOCS = 2
+
+
+def _card_from_meta(meta, quote):
+    """把 ``doc_meta()`` 的元数据与摘句合成一张模板卡；不自造任何字段。
+
+    ``quote`` 为 ``None`` 时卡片仍保留（``found=False``），由模板显示
+    「未找到来源」，避免把“没有摘句”整条藏起来。
+    """
+    return {
+        "doc_id": meta.get("doc_id", ""),
+        "title": meta.get("title", ""),
+        "source_url": meta.get("source_url", ""),
+        "publish_date": meta.get("publish_date", ""),
+        "source_site": meta.get("source_site", ""),
+        "quote": quote,
+        "found": bool(quote and quote.get("text")),
+    }
+
+
+def _build_point_evidence(route):
+    """构建「每个停留点 → 最多 2 张证据卡」的映射；失败返回空字典。
+
+    只读复用 T1.6 的 ``evidence`` 模块：节点行（``_node_row``，T1.6 未提供
+    公开的节点访问器）、doc_id 拆分（``_split_doc_ids``）、文档元数据
+    （``doc_meta``）与句级摘句（``quote_sentence_for(doc_id, node_id=...)``）
+    全部来自该模块，本模块不读 guides CSV、不拼句子、不补日期或 URL。
+
+    每个 ``node_id`` 都出现在返回字典里（没有卡就是空列表），模板据此在
+    停留点下显示「未找到来源」，不会留下空块。
+    """
+    point_evidence = {}
+    try:
+        proposal = (route or {}).get("proposal") if isinstance(route, dict) else None
+        node_ids = (proposal or {}).get("node_ids") or []
+        if not isinstance(node_ids, (list, tuple)):
+            return {}
+        for raw_node_id in node_ids:
+            node_id = _safe_text(raw_node_id)
+            if not node_id:
+                continue
+            cards = []
+            try:
+                node = evidence._node_row(node_id)
+                doc_ids = evidence._split_doc_ids(node.get("source_doc_ids")) if node else []
+                for doc_id in doc_ids[:POINT_EVIDENCE_DOCS]:
+                    try:
+                        meta = evidence.doc_meta(doc_id)
+                        if not meta:
+                            continue
+                        quote = evidence.quote_sentence_for(doc_id, node_id=node_id)
+                        cards.append(_card_from_meta(meta, quote))
+                    except Exception:
+                        continue
+            except Exception:
+                cards = []
+            point_evidence[node_id] = cards
+    except Exception:
+        return {}
+    return point_evidence
+
+
+def _build_segment_evidence(route):
+    """构建「每个路线段 → 证据卡列表」；失败返回空列表。
+
+    段结构与 ``route.validation.segments`` 一一对应（``from_name`` /
+    ``to_name`` / ``source_doc_ids``），摘句直接调用 T1.6 的
+    ``segment_evidence()``；该函数在找不到摘句时也会保留卡片并给出
+    ``found=False``，因此页面不会出现空块。
+    """
+    segments = []
+    try:
+        validation = (route or {}).get("validation") if isinstance(route, dict) else None
+        raw_segments = (validation or {}).get("segments") or []
+        if not isinstance(raw_segments, (list, tuple)):
+            return []
+        for segment in raw_segments:
+            if not isinstance(segment, dict):
+                continue
+            try:
+                cards = evidence.segment_evidence(segment)
+            except Exception:
+                cards = []
+            doc_ids = segment.get("source_doc_ids") or []
+            if isinstance(doc_ids, str):
+                doc_ids = [doc_ids]
+            segments.append({
+                "from_name": _safe_text(segment.get("from_name")),
+                "to_name": _safe_text(segment.get("to_name")),
+                "source_doc_ids": [_safe_text(doc_id) for doc_id in doc_ids if _safe_text(doc_id)],
+                "cards": cards,
+                "found_count": sum(1 for card in cards if card.get("found")),
+            })
+    except Exception:
+        return []
+    return segments
+
+
+def _point_nodes_in_text(text, node_ids, names, point_evidence):
+    """找出该时段文案里出现的停留点（按名称，长名优先），供模板分组证据卡。
+
+    行程的 ``itinerary`` 只有分时文案、没有 node_id，所以这里用**已展示的
+    节点名**在**已展示的文案**里做确定性匹配：不新增句子、不推断地点。
+    长名优先并遮蔽已命中片段，避免「熊猫乐园」误吃「熊猫乐园站」。
+    返回顺序仍按 ``proposal.node_ids``，与路线顺序一致。
+    """
+    if not isinstance(text, str) or not text:
+        return []
+    name_of = {node_id: _safe_text(names.get(node_id)) for node_id in node_ids}
+    ordered = sorted(node_ids, key=lambda node_id: len(name_of.get(node_id) or ""), reverse=True)
+    remaining = text
+    matched = []
+    for node_id in ordered:
+        name = name_of.get(node_id) or ""
+        if name and name in remaining:
+            matched.append(node_id)
+            remaining = remaining.replace(name, "\u0000" * len(name), 1)
+    order = {node_id: index for index, node_id in enumerate(node_ids)}
+    matched.sort(key=lambda node_id: order.get(node_id, len(node_ids)))
+    points = []
+    for node_id in matched:
+        cards = point_evidence.get(node_id) or []
+        points.append({
+            "node_id": node_id,
+            "name": name_of.get(node_id) or node_id.split("|")[-1],
+            "cards": cards,
+            "found_count": sum(1 for card in cards if card.get("found")),
+        })
+    return points
+
+
+def _attach_point_evidence(itinerary, route, point_evidence):
+    """给每个分时时段挂上 ``point_nodes``（渲染用副本，不改 run_agent 返回值）。
+
+    时段文案里一个节点名都没出现时 ``point_nodes=[]``，模板据此显示
+    「未找到来源」；这里只复制字典，不改文案、不补节点。
+    """
+    if not isinstance(itinerary, dict):
+        return itinerary
+    node_ids = []
+    names = {}
+    try:
+        proposal = (route or {}).get("proposal") if isinstance(route, dict) else None
+        node_ids = [
+            _safe_text(node_id)
+            for node_id in ((proposal or {}).get("node_ids") or [])
+            if _safe_text(node_id)
+        ]
+        names = (proposal or {}).get("node_names") or {}
+        if not isinstance(names, dict):
+            names = {}
+    except Exception:
+        node_ids, names = [], {}
+
+    attached = dict(itinerary)
+    days = []
+    for day in itinerary.get("days") or []:
+        if not isinstance(day, dict):
+            continue
+        periods = []
+        for item in day.get("periods") or []:
+            if not isinstance(item, dict):
+                continue
+            period = dict(item)
+            try:
+                period["point_nodes"] = _point_nodes_in_text(
+                    item.get("text"), node_ids, names, point_evidence
+                )
+            except Exception:
+                period["point_nodes"] = []
+            periods.append(period)
+        day_copy = dict(day)
+        day_copy["periods"] = periods
+        days.append(day_copy)
+    attached["days"] = days
+    return attached
+
+
 def _status_note(status, contract_violation, result):
     """给访客看的一句状态说明；不泄露原始异常/未知状态值。"""
     if contract_violation:
@@ -166,6 +351,11 @@ def _build_context(result, view, query, selected_alt=""):
             intent_json = ""
 
     trace_file = _safe_text(result.get("trace_file"))
+    route = result.get("route")
+    # T3.4：证据卡只由 evidence 模块产出；任何异常都降级为空，模板显示「未找到来源」。
+    point_evidence = _build_point_evidence(route)
+    segment_evidence_list = _build_segment_evidence(route)
+    itinerary = _attach_point_evidence(result.get("itinerary"), route, point_evidence)
     return {
         "view": view,
         "query": _safe_text(result.get("query")) or _safe_text(query),
@@ -178,8 +368,10 @@ def _build_context(result, view, query, selected_alt=""):
         "decision": result.get("decision"),
         "tool_selection": result.get("tool_selection"),
         "tool_decisions": result.get("tool_decisions") or [],
-        "route": result.get("route"),
-        "itinerary": result.get("itinerary"),
+        "route": route,
+        "itinerary": itinerary,
+        "point_evidence": point_evidence,
+        "segment_evidence_list": segment_evidence_list,
         "suggestions": result.get("suggestions") or [],
         "poi_results": result.get("poi_results"),
         "poi_list_all": bool(result.get("poi_list_all")),

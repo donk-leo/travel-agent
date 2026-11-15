@@ -1,0 +1,59 @@
+{#-
+  证据卡宏（T3.4）
+  ---------------------------------------------------------------------------
+  输入一张卡（来自 T1.6 ``evidence`` 证据服务，本文件不生成任何文字）：
+
+      {doc_id, title, source_url, publish_date, source_site, quote, found}
+
+  ``quote`` 为 ``{text, char_start, char_end[, anchor_start, anchor_end]}``，
+  其中 ``text`` 是 ``clean_content[char_start:char_end]`` 的原始连续子串。
+  本宏只负责排版，不改写、不截断、不拼接摘句，也不编造标题/URL/日期。
+
+  用法（两个视图共用）：
+      {% from "_evidence_card.html" import evidence_card %}
+      {{ evidence_card(card, show_span) }}
+  ``show_span=True`` 只在评审视图传入，额外显示原始字符区间。
+
+  缺失是合法结果：``found=False`` 或 ``quote`` 为空时，摘句位置固定显示
+  「未找到来源」（逐字，不留空、不换说法）。标题/URL/日期缺失按
+  PRODUCT_SPEC §6.2 的固定文案显示，不补造。
+-#}
+
+{%- macro evidence_card(card, show_span=False) -%}
+  {%- set quote = card.quote if card and card.quote else none -%}
+  <article class="evidence-card" data-found="{{ '1' if quote else '0' }}">
+    <p class="evidence-card__title">
+      {%- if card and card.title -%}
+        {{ card.title|e }}
+      {%- else -%}
+        来源标题缺失（doc_id: {% if card and card.doc_id %}{{ card.doc_id|e }}{% else %}来源编号缺失{% endif %}）
+      {%- endif -%}
+    </p>
+    <dl class="evidence-card__list">
+      <dt class="evidence-card__term">发布日期</dt>
+      <dd>{% if card and card.publish_date %}{{ card.publish_date|e }}{% else %}发布日期未记录{% endif %}</dd>
+      <dt class="evidence-card__term">来源编号</dt>
+      <dd>{% if card and card.doc_id %}<code class="evidence-card__docid">{{ card.doc_id|e }}</code>{% else %}来源编号缺失{% endif %}</dd>
+      <dt class="evidence-card__term">原文</dt>
+      <dd>
+        {%- if card and card.source_url -%}
+          <a href="{{ card.source_url|e }}" target="_blank" rel="noopener noreferrer">打开原文 · {{ (card.source_site or '原文站点')|e }}</a>
+        {%- else -%}
+          原文链接缺失（数据缺口）
+        {%- endif -%}
+      </dd>
+    </dl>
+    {%- if quote %}
+    <blockquote class="evidence-card__quote">{{ quote.text|e }}</blockquote>
+    {%- if show_span %}
+    <p class="evidence-card__span">
+      原文位置：<code>char_start={{ quote.char_start }}</code> – <code>char_end={{ quote.char_end }}</code>
+      {%- if quote.anchor_start is defined %}（节点名 anchor {{ quote.anchor_start }}–{{ quote.anchor_end }}）{% endif %}
+      ；结束位置不含，字符位置以 clean_content 为准。
+    </p>
+    {%- endif %}
+    {%- else %}
+    <p class="evidence-card__missing">未找到来源</p>
+    {%- endif %}
+  </article>
+{%- endmacro -%}

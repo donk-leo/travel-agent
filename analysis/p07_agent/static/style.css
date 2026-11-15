@@ -989,3 +989,96 @@ td {
     margin-bottom: var(--space-1);
   }
 }
+
+/* --------------------------------------------------------------------------
+   20. T3.4 证据卡接线新增样式
+   只做布局与缺失态；四状态色值不变（缺失态借用 partial 的琥珀色，作为
+   非文本边框 + 粗体文字，不新增“同一条规则内 color + background”色对，
+   因此 README 的对比度表仍然逐对成立）。
+   375px 下全部单列；摘句与长名称自带 overflow-wrap，不撑破版心。
+   -------------------------------------------------------------------------- */
+
+/* 每段证据的标题与列表 */
+.evidence-heading {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: 1rem;
+}
+
+.segments {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.segment {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+}
+
+.segment__route {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* 停留点分组（一个时段内可能有多处停留点） */
+.evidence__body {
+  margin-top: var(--space-2);
+}
+
+.point-evidence {
+  margin-top: var(--space-2);
+}
+
+.point-evidence + .point-evidence {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-line);
+}
+
+.point-evidence__name {
+  margin: 0 0 var(--space-1);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.point-evidence__status {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 0.875rem;
+}
+
+/* 证据卡内的文字块 */
+.evidence-card__title {
+  margin: 0 0 var(--space-1);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.evidence-card__docid {
+  overflow-wrap: anywhere;
+}
+
+.evidence-card__span {
+  margin: var(--space-2) 0 0;
+  color: var(--color-ink-soft);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
+/* 缺失态：固定文案「未找到来源」，琥珀色左边框 + 粗体，不只靠颜色 */
+.evidence-card__missing {
+  margin: var(--space-2) 0 0;
+  padding: var(--space-2) 0 var(--space-2) var(--space-3);
+  border-left: 3px solid #8A5A00;
+  color: #8A5A00;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}

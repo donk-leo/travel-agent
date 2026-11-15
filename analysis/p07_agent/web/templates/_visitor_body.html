@@ -8,6 +8,9 @@
   所有用户/图谱文本都经 |e 转义；不引用任何外部资源、不包含任何脚本标签。
 -#}
 
+{% from "_evidence_card.html" import evidence_card %}
+{% set show_span = (view|default('visitor')) == 'auditor' %}
+
 <section class="query-echo" aria-labelledby="query-echo-title">
   <h2 id="query-echo-title">你的需求</h2>
   <p class="query-echo__text">{{ query|e }}</p>
@@ -43,10 +46,40 @@
             <span class="muted">资料未给出停留时长</span>
           </p>
           {% endif %}
-          {#- T3.4 证据卡占位：每个停留点一个就地折叠入口，不放假数据。 -#}
-          <details class="evidence-slot">
-            <summary>查看来源（T3.4 接入证据卡）</summary>
-            <p class="muted">证据卡由 T3.4 接入：来源标题、doc_id、发布日期、摘句与原文入口。</p>
+          {#- T3.4 证据卡：每个时段一个就地折叠入口；有卡显示卡，无卡逐字「未找到来源」。 -#}
+          {% set point_nodes = item.point_nodes or [] %}
+          <details class="evidence">
+            <summary>
+              查看来源
+              {%- if point_nodes -%}
+                {%- set stats = namespace(missing=0) -%}
+                {%- for point in point_nodes -%}
+                  {%- if not point.found_count -%}{%- set stats.missing = stats.missing + 1 -%}{%- endif -%}
+                {%- endfor -%}
+                （{{ point_nodes|length }} 处停留点{% if stats.missing %} · 未找到来源 {{ stats.missing }} 处{% endif %}）
+              {%- else -%}
+                （未找到来源）
+              {%- endif -%}
+            </summary>
+            <div class="evidence__body">
+              {%- if point_nodes -%}
+                {%- for point in point_nodes %}
+              <section class="point-evidence" aria-label="停留点 {{ point.name|e }} 的来源">
+                <p class="point-evidence__name">{{ point.name|e }}</p>
+                <p class="point-evidence__status">{% if point.found_count %}本点 {{ point.cards|length }} 条来源{% else %}未找到来源{% endif %}</p>
+                {%- if point.cards -%}
+                  {%- for card in point.cards %}
+                {{ evidence_card(card, show_span) }}
+                  {%- endfor -%}
+                {%- else %}
+                <p class="evidence-card__missing">未找到来源</p>
+                {%- endif %}
+              </section>
+                {%- endfor -%}
+              {%- else %}
+              <p class="evidence-card__missing">未找到来源</p>
+              {%- endif %}
+            </div>
           </details>
         </li>
         {% endfor %}
@@ -101,6 +134,32 @@
 
     {% if route.message and not (route.validation and route.validation.valid) %}
     <p class="route-note">{{ route.message|e }}</p>
+    {% endif %}
+
+    {#- T3.4 每段证据：每段「上一站 → 下一站」一个折叠入口，卡片来自证据服务。 -#}
+    {% if segment_evidence_list %}
+    <h3 class="evidence-heading">每段「上一站 → 下一站」的来源</h3>
+    <ol class="segments">
+      {% for segment in segment_evidence_list %}
+      <li class="segment">
+        <p class="segment__route">{{ segment.from_name|e }} → {{ segment.to_name|e }}</p>
+        <details class="evidence">
+          <summary>查看本段来源{% if segment.found_count %}（{{ segment.cards|length }} 条）{% else %}（未找到来源）{% endif %}</summary>
+          <div class="evidence__body">
+            {%- if segment.cards -%}
+              {%- for card in segment.cards %}
+            {{ evidence_card(card, show_span) }}
+              {%- endfor -%}
+            {%- else %}
+            <p class="evidence-card__missing">未找到来源</p>
+            {%- endif %}
+          </div>
+        </details>
+      </li>
+      {% endfor %}
+    </ol>
+    {% elif route.validation and route.validation.segments %}
+    <p class="route-note">本路线段来源：未找到来源</p>
     {% endif %}
 
     {% if proposal.uncertainties %}
@@ -188,7 +247,8 @@
 </section>
 {% endif %}
 
-{#- 条件建议：展示条件 / 建议 / 理由 / 来源 doc_id；完整证据卡留给 T3.4。 -#}
+{#- 条件建议：展示条件 / 建议 / 理由 / 来源 doc_id。证据卡只覆盖停留点与路线段（T3.4），
+   条件建议的完整卡片等来源过滤（T2.5）后再接入，这里不提前展示。 -#}
 {% if suggestions %}
 <section aria-labelledby="suggestions-title">
   <h2 id="suggestions-title">可能适合的建议</h2>
@@ -215,11 +275,6 @@
     {% else %}
     <p class="muted">未找到对应的图谱来源。</p>
     {% endif %}
-    {#- T3.4 证据卡占位：这里不重复渲染证据卡内容，避免与证据服务口径漂移。 -#}
-    <details class="evidence-slot">
-      <summary>查看完整证据（T3.4 接入证据卡）</summary>
-      <p class="muted">来源标题、发布日期、摘句与原文入口由 T3.4 的证据卡组件接入。</p>
-    </details>
   </article>
   {% endfor %}
 </section>
