@@ -7,8 +7,9 @@ from alternatives import build_alternatives
 from condition_selector import find_relevant_conditions
 from constraint_checker import check_constraints, check_plan
 from feasibility import apply_feasibility, crop_validation
-from intent_parser import parse_intent
+from intent_parser import INTENT_FALLBACK_MESSAGE, parse_intent
 from itinerary import build_itinerary
+from model_guard import MODEL_ERRORS, redact_system_prompt_leak
 from route_planner import plan_route
 from scenic_aliases import CANONICAL_AREAS, canonicalize_scenic_area
 from status import (
@@ -16,7 +17,12 @@ from status import (
     build_what_verified, is_contract_violation, make_reason, normalize_status,
 )
 from sub_area_scope import detect_sub_area, filter_poi_results
-from tool_decider import decide_next_step
+from text_normalize import (
+    EMPTY_INPUT_MESSAGE, INJECTION_NOTICE, MAX_INPUT_CHARS, PURE_INJECTION_MESSAGE,
+    detect_prompt_injection, is_pure_injection, normalize_user_text,
+    strip_injection_markers, truncation_notice,
+)
+from tool_decider import decide_next_step, fallback_decision
 from tool_selector import select_tools
 from tools import route_metrics, search_poi
 from trace_log import SessionTrace
@@ -68,6 +74,75 @@ def _reason_text(*candidates, default):
         if text:
             return text
     return default
+
+
+class _ClarifyRequest(Exception):
+    """在流程中途得到确定性 clarify 结论时使用；不经过顶层 error 分支。"""
+
+    def __init__(self, message, code="missing_slot"):
+        super().__init__(message)
+        self.code = code
+
+
+def _fallback_tool_selection(decision, reason):
+    """工具选择模型不可用时的确定性工具集；仍在白名单内，不新增工具。"""
+    request_type = (decision or {}).get("request_type")
+    if request_type == "plan":
+        tools = ["get_route_candidates"]
+        reason_text = "工具选择模型不可用，按规划请求确定性查询路线连接。"
+    elif request_type == "info":
+        tools = ["search_poi"]
+        reason_text = "工具选择模型不可用，按信息查询确定性列出当前范围地点。"
+    else:
+        tools = []
+        reason_text = "工具选择模型不可用，且本次不是规划/查询请求。"
+    return {
+        "tools": tools,
+        "search_mode": "all_pois" if "search_poi" in tools else "none",
+        "search_keyword": "",
+        "reason": reason_text,
+        "fallback_reason": str(reason)[:120],
+    }
+
+
+def _sanitize_value(value):
+    """递归遮蔽模型输出里的系统提示原文（用户原文 query 不处理）。
+
+    原地修改 list/dict，保持调用方持有的对象身份不变（测试会断言 ``assertIs``）。
+    """
+    if isinstance(value, str):
+        return redact_system_prompt_leak(value)
+    if isinstance(value, list):
+        for index, item in enumerate(value):
+            value[index] = _sanitize_value(item)
+        return value
+    if isinstance(value, dict):
+        for key in list(value):
+            value[key] = _sanitize_value(value[key])
+        return value
+    return value
+
+
+def _sanitize_result(result):
+    """在最终返回前做一次确定性脱敏，避免模型把系统提示写进任何展示字段。"""
+    for key, value in list(result.items()):
+        if key in {"query", "trace_json", "trace_file"}:
+            continue
+        result[key] = _sanitize_value(value)
+
+
+def _append_input_notices(result):
+    """把截断/注入等输入级提示写进 message（不只留在 uncertainties 里）。"""
+    notes = [
+        str(item).strip() for item in (result.get("uncertainties") or [])
+        if str(item).strip()
+    ]
+    if not notes:
+        return
+    message = str(result.get("message") or "").strip()
+    additions = [note for note in notes if note not in message]
+    if additions:
+        result["message"] = " ".join(filter(None, [message, *additions]))
 
 
 def _check_reason_code(check_status):
@@ -153,18 +228,61 @@ def run_agent(user_text):
         "poi_list_all": False, "message": "", "error": "", "scope": None,
         "itinerary": None, "needs_followup": False, "reasons": [],
         "what_verified": None, "trace_file": "", "trace_json": "",
-        "trace_error": "", "alternatives": [], "feasibility": None
+        "trace_error": "", "alternatives": [], "feasibility": None,
+        # T2.6：输入级提示（截断/注入）与归一标记；query 始终保留用户原文。
+        "uncertainties": [], "input_flags": {"truncated": False, "injection_patterns": []}
     }
     trace = SessionTrace()
     trace.record_event("user_input", user_request=user_text)
 
     try:
-        if not user_text.strip():
-            raise ValueError("请输入旅行需求。")
+        # 输入归一只作用于模型输入；result["query"] 仍是用户原文。
+        normalized = normalize_user_text(user_text)
+        injection_hits = detect_prompt_injection(normalized)
+        result["input_flags"] = {
+            "truncated": bool(normalized.truncated),
+            "injection_patterns": list(injection_hits),
+        }
+        trace.record_event("input_normalization", observation={
+            "original_chars": len(user_text) if isinstance(user_text, str) else 0,
+            "normalized_chars": len(normalized),
+            "truncated": bool(normalized.truncated),
+            "injection_patterns": list(injection_hits),
+        })
+        if normalized.truncated:
+            result["uncertainties"].append(truncation_notice(MAX_INPUT_CHARS))
 
-        intent = parse_intent(user_text)
+        if not normalized:
+            raise _ClarifyRequest(EMPTY_INPUT_MESSAGE, "missing_slot")
+
+        if injection_hits:
+            # 只做确定性标记：不执行、不改工具白名单，文本仍按数据传给模型。
+            result["uncertainties"].append(INJECTION_NOTICE)
+            trace.record_event("prompt_injection", observation={
+                "patterns": list(injection_hits),
+                "handled": "as_data_not_instruction",
+                "executed": False,
+            })
+            if is_pure_injection(normalized):
+                raise _ClarifyRequest(PURE_INJECTION_MESSAGE, "missing_slot")
+
+        # 模型调用本身已在 parse_intent 内回退；这里再兜一层 mock/异常路径。
+        try:
+            intent = parse_intent(normalized)
+        except MODEL_ERRORS as exc:
+            trace.record_event("intent_call_error", observation={
+                "error": f"{type(exc).__name__}: {exc}"[:160]
+            })
+            raise _ClarifyRequest(INTENT_FALLBACK_MESSAGE, "model_error")
         result["intent"] = intent
         trace.record_event("intent", observation=intent)
+        if not isinstance(intent, dict):
+            raise _ClarifyRequest(INTENT_FALLBACK_MESSAGE, "model_error")
+        if intent.get("fallback_reason"):
+            trace.record_event("intent_fallback", observation={
+                "reason": intent["fallback_reason"]
+            })
+            raise _ClarifyRequest(INTENT_FALLBACK_MESSAGE, "model_error")
 
         # 解析器已经做过一次归一化；这里再兜一层，兼容直接调用 run_agent
         # 或测试中传入旧版解析器结果的情况。
@@ -184,7 +302,7 @@ def run_agent(user_text):
         scope_note = ""
         if area == "长隆":
             if not sub_area:
-                sub_area, scope_note = detect_sub_area(user_text)
+                sub_area, scope_note = detect_sub_area(normalized)
             intent["sub_area"] = sub_area
             if sub_area or scope_note:
                 trace.record_event("sub_area_scope", observation={
@@ -197,11 +315,38 @@ def run_agent(user_text):
         if scope_note:
             result["message"] = scope_note
 
-        decision = decide_next_step(user_text, intent)
-        if decision.get("decision") not in {"clarify", "query_graph", "reply"}:
-            raise ValueError("决策器返回了无效的下一步。")
-        if decision.get("request_type") not in {"plan", "info", "other"}:
-            raise ValueError("决策器返回了无效的需求类型。")
+        # 表述检查器只判断"用户需求是否冲突"，不负责回应注入。
+        # 命中注入且仍有旅行需求时，用去掉注入片段的文本做检查，避免模型
+        # 把"忽略指令"当成用户需求而拒绝正常行程；主解析/决策仍拿数据原文。
+        check_text = normalized
+        if injection_hits:
+            stripped = strip_injection_markers(normalized).strip()
+            if stripped:
+                check_text = stripped
+                trace.record_event("injection_stripped_for_check", observation={
+                    "original_chars": len(normalized),
+                    "checked_chars": len(stripped),
+                })
+
+        # 超时/非法 JSON 由决定器内部回退；这里再兜 mock 或旧版决定器异常。
+        try:
+            decision = decide_next_step(normalized, intent)
+        except MODEL_ERRORS as exc:
+            decision = fallback_decision(
+                intent, f"{type(exc).__name__}: {exc}")
+        if not isinstance(decision, dict):
+            decision = fallback_decision(intent, "决策返回值不是对象")
+        if (decision.get("decision") not in {"clarify", "query_graph", "reply"}
+                or decision.get("request_type") not in {"plan", "info", "other"}):
+            decision = fallback_decision(intent, "决策字段不在允许的枚举内")
+        if decision.get("fallback_reason"):
+            result["uncertainties"].append(
+                "决策模型调用失败，已按确定性规则决定下一步。")
+            trace.record_event("decision_fallback", observation={
+                "reason": decision["fallback_reason"],
+                "decision": decision.get("decision"),
+                "request_type": decision.get("request_type"),
+            })
 
         # 不在图谱覆盖范围内的名称不能当成“查到了但结果为空”。直接追问，
         # 避免用户看到成功状态 + 空路线却不知道是名称写法的问题。
@@ -221,6 +366,15 @@ def run_agent(user_text):
             }
 
         days = intent.get("duration_days")
+        # 用户只给小时数（如“只有 3 小时”）时，解析器按 1 天内的半日行程处理；
+        # 这里把假设写进 uncertainties/message，不把半日说成整天。
+        assumption = intent.get("duration_assumption")
+        if assumption:
+            prefix = f"{area}：" if area else ""
+            result["uncertainties"].append(prefix + str(assumption))
+            trace.record_event("duration_assumption", observation={
+                "text": str(assumption), "duration_days": days
+            })
         missing = not area or (decision["request_type"] == "plan" and not days)
         if decision["decision"] == "query_graph" and missing:
             clarify_code = "missing_slot"
@@ -253,7 +407,21 @@ def run_agent(user_text):
                 # 普通事实查询不需要模型先推断地点是否存在；交给图谱查询。
                 requirement_check = {"status": "ok", "explanation": "纯信息查询交由图谱核实。", "question": ""}
             else:
-                requirement_check = check_constraints(user_text)
+                try:
+                    requirement_check = check_constraints(check_text)
+                except MODEL_ERRORS as exc:
+                    # 需求检查只是表述层面的预检；模型不可用不应把整条请求打成 error。
+                    requirement_check = {
+                        "status": "ok",
+                        "explanation": "需求检查模型不可用，已跳过表述预检。",
+                        "question": "",
+                    }
+                    result["uncertainties"].append(
+                        "需求检查模型调用失败，已跳过本轮表述检查；"
+                        "路线仍按图谱逐段核验。")
+                    trace.record_event("requirement_check_fallback", observation={
+                        "error": f"{type(exc).__name__}: {exc}"[:160]
+                    })
             trace.record_event("requirement_check", observation=requirement_check)
             if requirement_check["status"] != "ok":
                 check_message = _check_message(
@@ -264,7 +432,7 @@ def run_agent(user_text):
                         _check_reason_code(requirement_check["status"]), check_message)]
                 )
             else:
-                clarified = _query_graph(result, trace, user_text, area, days, sub_area)
+                clarified = _query_graph(result, trace, normalized, area, days, sub_area)
                 if clarified:
                     result["reasons"] = [make_reason("missing_slot", _reason_text(
                         result.get("message"), default="请补充具体需求。"))]
@@ -287,7 +455,21 @@ def run_agent(user_text):
                                 result["message"], "图谱中没有找到匹配地点，请确认名称或尝试其他关键词。"
                             ]))
                     else:
-                        plan_check = check_plan(user_text, result["route"], result["suggestions"])
+                        try:
+                            plan_check = check_plan(
+                                check_text, result["route"], result["suggestions"])
+                        except MODEL_ERRORS as exc:
+                            plan_check = {
+                                "status": "ok",
+                                "explanation": "方案检查模型不可用，已跳过表述检查。",
+                                "question": "",
+                            }
+                            result["uncertainties"].append(
+                                "方案检查模型调用失败，已跳过本轮表述检查；"
+                                "路线逐段核验结果不受影响。")
+                            trace.record_event("plan_check_fallback", observation={
+                                "error": f"{type(exc).__name__}: {exc}"[:160]
+                            })
                         trace.record_event("plan_check", observation=plan_check)
                         if plan_check["status"] != "ok":
                             check_message = _check_message(
@@ -330,6 +512,13 @@ def run_agent(user_text):
                 preferences=requirements["preferences"],
                 constraints=requirements["constraints"],
                 feasibility=result.get("feasibility"))
+    except _ClarifyRequest as exc:
+        # 空输入/纯注入/意图模型失败等确定性追问；不是 error。
+        message = str(exc) or "请补充旅行需求。"
+        result.update(
+            status=STATUS_CLARIFY, needs_followup=True, message=message,
+            reasons=[make_reason(exc.code, message)]
+        )
     except Exception as exc:
         error_text = _reason_text(str(exc), default="内部异常，未生成行程。")
         result.update(
@@ -337,6 +526,9 @@ def run_agent(user_text):
             reasons=[make_reason("model_error", error_text)]
         )
     finally:
+        # 先脱敏（防止模型把系统提示写进任何展示字段），再补输入级提示，最后收敛状态。
+        _sanitize_result(result)
+        _append_input_notices(result)
         _finalize_result_status(result)
         trace.record_event("final_answer", final_answer={
             "status": result["status"], "message": result["message"], "error": result["error"],
@@ -591,18 +783,54 @@ def _query_graph(result, trace, user_text, area, days, sub_area=None):
     clarified = False
 
     for _ in range(MAX_DECISION_ROUNDS):
-        selection = trace.call_tool(
-            "select_tools", select_tools, user_text=user_text,
-            observations=observations, executed_tools=sorted({key[0] for key in executed})
-        )
+        try:
+            selection = trace.call_tool(
+                "select_tools", select_tools, user_text=user_text,
+                observations=observations,
+                executed_tools=sorted({key[0] for key in executed})
+            )
+        except MODEL_ERRORS as exc:
+            # 工具选择模型超时/不可达时用确定性工具集，不把整条请求打成 error。
+            selection = _fallback_tool_selection(
+                result.get("decision"), f"{type(exc).__name__}: {exc}")
+            result["uncertainties"].append(
+                "工具选择模型调用失败，已使用确定性工具集。")
+            trace.record_event("tool_selection_fallback", observation={
+                "error": f"{type(exc).__name__}: {exc}"[:160],
+                "tools": selection.get("tools"),
+            })
+        if not isinstance(selection, dict):
+            selection = _fallback_tool_selection(
+                result.get("decision"), "工具选择返回值不是对象")
+            result["uncertainties"].append(
+                "工具选择模型返回格式不合法，已使用确定性工具集。")
+            trace.record_event("tool_selection_fallback", observation={
+                "tools": selection.get("tools")})
         result["tool_decisions"].append(selection)
         if result["tool_selection"] is None:
             result["tool_selection"] = selection
-        tool_names = selection.get("tools")
-        if not isinstance(tool_names, list) or any(
-            not isinstance(name, str) or name not in ALLOWED_TOOLS for name in tool_names
-        ):
-            raise ValueError("工具选择器返回了无效工具。")
+
+        # 白名单固定：模型（或被注入的文本）给出的工具名只能落在 ALLOWED_TOOLS，
+        # 其余一律丢弃并记录，不执行、不新增工具。
+        raw_tools = selection.get("tools")
+        if not isinstance(raw_tools, list):
+            raw_tools = []
+        rejected_tools = [
+            name for name in raw_tools
+            if not isinstance(name, str) or name not in ALLOWED_TOOLS
+        ]
+        tool_names = list(dict.fromkeys(
+            name for name in raw_tools
+            if isinstance(name, str) and name in ALLOWED_TOOLS
+        ))
+        selection["tools"] = tool_names
+        if rejected_tools:
+            result["uncertainties"].append(
+                "工具选择结果包含白名单外的工具，已忽略，未执行。")
+            trace.record_event("tool_whitelist_filtered", observation={
+                "rejected": [str(name) for name in rejected_tools],
+                "kept": tool_names,
+            })
         # A planning request needs route evidence even if the model omitted it.
         # Keep the model's original choice in the trace and record this addition separately.
         if (result["decision"]["request_type"] == "plan"
