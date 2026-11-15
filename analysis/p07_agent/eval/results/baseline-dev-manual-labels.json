@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "task": "T4.3",
+    "annotation": "人工逐条判据（非脚本自动判定）",
+    "annotator": "QA（T4.3 子 Agent）",
+    "date": "2026-11-15",
+    "baseline_results": "results/baseline-dev-20261115T192331.json",
+    "rules": {
+      "fabrication": "出现具体距离（X 米/公里）、步行耗时、票价、开放时间且无来源 → 每条原句计 1 次编造（记录 id + 原句）",
+      "fabrication_included": "计入：门票/索道/打车等票价（如“门票约30元”）、具体距离（如“约6公里”）、徒步/步行耗时（如“约2小时”“每段40分钟”）、景区开放/闭园/演出时刻（如“闭园时间18:00”“表演 11:00/14:00/16:00”）",
+      "fabrication_excluded": "不计入：建议的行程时段（如“9:00-17:00 一日行程”“10:00-12:00 游玩”）、海拔、车程/索道乘坐时长、景点/餐厅名称（后两类不在四类判据内，见 report.md §11.7）",
+      "success": "输出含可执行的顺序行程（至少 3 个地点 + 顺序）且无编造 → 成功；否则失败",
+      "evidence": "B0 无图谱/无语料，响应中不含 doc_id/URL 级来源标识 → 证据正确率 0（由 baseline_report.py 扫描 response_text 复核）"
+    },
+    "scope_note": "只判 dev 20 条 B0 响应；held-out 未运行、未查看"
+  },
+  "cases": [
+    {
+      "id": "CL-FAM-01",
+      "split": "dev",
+      "success": true,
+      "fabrication_count": 0,
+      "fabricated_quotes": [],
+      "notes": "0 编造；有一日顺序行程（熊猫乐园/长颈鹿乐园/猛兽区→动物互动→旋转木马/小火车，≥3 地点），判成功；“时间：上午9:00 - 下午5:00”按建议时段不计为开放时间（敏感项见报告 §11.7）。"
+    },
+    {
+      "id": "CL-FAM-02",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 1,
+      "fabricated_quotes": [
+        "根据园区闭园时间（通常为18:00）安排离开"
+      ],
+      "notes": "编造闭园时刻；有顺序行程但存在编造，判失败。"
+    },
+    {
+      "id": "CL-CPL-01",
+      "split": "dev",
+      "success": true,
+      "fabrication_count": 0,
+      "fabricated_quotes": [],
+      "notes": "0 编造；两园顺序行程（猛兽区→飞驰丛林→欢乐世界→太空山→飞天，≥3 地点），判成功；表内 9:00–21:00 为建议时段，不计开放时间。"
+    },
+    {
+      "id": "CL-FRD-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 2,
+      "fabricated_quotes": [
+        "门票：约180元/人（旺季价格，淡季可能更低）",
+        "门票：约220元/人（旺季价格）"
+      ],
+      "notes": "编造两园票价；后文预算表（440 元等）重复同一价格事实，不重复计数。"
+    },
+    {
+      "id": "CL-ELD-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 1,
+      "fabricated_quotes": [
+        "**动物狂欢秀**（通常在11:00、14:00、16:00等时段）"
+      ],
+      "notes": "编造演出时刻；未出现“推荐过山车”，但有编造 → 失败。"
+    },
+    {
+      "id": "CL-SUB-01",
+      "split": "dev",
+      "success": true,
+      "fabrication_count": 0,
+      "fabricated_quotes": [],
+      "notes": "0 编造；欢乐世界内 09:00–18:00 顺序项目（飞跃地平线→太空过山车→激流勇进→垂直过山车→旋转木马，≥3 地点），判成功。"
+    },
+    {
+      "id": "CL-SUB-02",
+      "split": "dev",
+      "success": true,
+      "fabrication_count": 0,
+      "fabricated_quotes": [],
+      "notes": "0 编造；野生动物世界内顺序（猛兽区→灵长类动物区→非洲草原区/雨林区，≥3 地点），判成功。"
+    },
+    {
+      "id": "CL-SUB-03",
+      "split": "dev",
+      "success": true,
+      "fabrication_count": 0,
+      "fabricated_quotes": [],
+      "notes": "0 编造；水上乐园内顺序（儿童乐园→小型滑梯区→大型水上项目→亲子互动，≥3 地点），判成功；B0 无“单点→partial”契约概念，见报告 §11.7。"
+    },
+    {
+      "id": "BYS-ELD-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 1,
+      "fabricated_quotes": [
+        "白云山门票约30元，索道单程约60元"
+      ],
+      "notes": "编造门票/索道票价；有顺序行程但存在编造 → 失败；索道“约15分钟”按乘坐时长不计。"
+    },
+    {
+      "id": "BYS-FAM-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 3,
+      "fabricated_quotes": [
+        "每段路程控制在30-40分钟",
+        "成人票约30元，儿童票半价（1.2米以下免费）",
+        "每段路程控制在30分钟以内"
+      ],
+      "notes": "编造步行耗时×2（上午/下午各一处）+ 票价；失败。"
+    },
+    {
+      "id": "BYS-FRD-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 1,
+      "fabricated_quotes": [
+        "步行约10分钟到达白云山南门"
+      ],
+      "notes": "编造步行耗时；失败；“最佳时间 9-11 点”指拍照光线，不计开放时间。"
+    },
+    {
+      "id": "BYS-CPL-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 1,
+      "fabricated_quotes": [
+        "白云山门票约30元，索道单程约60元"
+      ],
+      "notes": "编造票价；失败；日落时刻按四类判据不计（见报告 §11.7）。"
+    },
+    {
+      "id": "BYS-SOLO-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 3,
+      "fabricated_quotes": [
+        "**门票**：约20元（学生/老人可享优惠）",
+        "缆车约15元，节省体力",
+        "**打车费用**：约20-30元（视距离而定）"
+      ],
+      "notes": "编造门票/缆车/打车价格；3 小时行程有顺序但存在编造 → 失败。"
+    },
+    {
+      "id": "WGS-FRD-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 2,
+      "fabricated_quotes": [
+        "金顶索道 → 吊马桩 → 金顶（约2小时）",
+        "金顶 → 吊马桩 → 索道下山（约2小时）"
+      ],
+      "notes": "编造两段徒步耗时；失败；日出时刻（5:30-6:30）按四类判据不计（见报告 §11.7）。"
+    },
+    {
+      "id": "WGS-FAM-01",
+      "split": "dev",
+      "success": true,
+      "fabrication_count": 0,
+      "fabricated_quotes": [],
+      "notes": "0 编造；两天顺序行程（金顶→发云台→大王峰，≥3 地点），判成功；门票只列票种未给价格。"
+    },
+    {
+      "id": "WGS-CPL-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 3,
+      "fabricated_quotes": [
+        "下午1点左右开始徒步，约2-3小时，傍晚前到达山脚",
+        "下午1点左右开始徒步，约2-3小时，傍晚前到达山脚",
+        "武功山门票约120元/人，索道票约100元/人（单程）"
+      ],
+      "notes": "编造徒步耗时×2（Day 1 与 Day 2 各出现一次，原句相同）+ 票价；失败。"
+    },
+    {
+      "id": "WGS-SOLO-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 2,
+      "fabricated_quotes": [
+        "吊马桩 → 金顶（约6公里，海拔1918米）",
+        "购买门票+索道票（约120元/人）"
+      ],
+      "notes": "编造距离 + 票价；失败；海拔、车程不计。"
+    },
+    {
+      "id": "WGS-ELD-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 1,
+      "fabricated_quotes": [
+        "沿着索道下山的步道（约1.5公里）步行至**金顶景区**"
+      ],
+      "notes": "编造步行距离；索道“全程约15分钟”按乘坐时长不计；失败。"
+    },
+    {
+      "id": "EDGE-MISS-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 0,
+      "fabricated_quotes": [],
+      "notes": "0 编造，但只给通用模板（未定景区、无具体地点与顺序），不满足“≥3 个地点 + 顺序”的可执行判据 → 失败；结尾追问“更想去哪里”不等于澄清契约。"
+    },
+    {
+      "id": "EDGE-FOLLOW-01",
+      "split": "dev",
+      "success": false,
+      "fabrication_count": 1,
+      "fabricated_quotes": [
+        "白云山门票一般为20元，学生/老人有优惠"
+      ],
+      "notes": "编造票价；失败。"
+    }
+  ]
+}
