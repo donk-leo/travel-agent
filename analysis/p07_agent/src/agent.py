@@ -2,6 +2,7 @@
 
 import json
 
+from alternatives import build_alternatives
 from condition_selector import find_relevant_conditions
 from constraint_checker import check_constraints, check_plan
 from intent_parser import parse_intent
@@ -146,7 +147,7 @@ def run_agent(user_text):
         "poi_list_all": False, "message": "", "error": "", "scope": None,
         "itinerary": None, "needs_followup": False, "reasons": [],
         "what_verified": None, "trace_file": "", "trace_json": "",
-        "trace_error": ""
+        "trace_error": "", "alternatives": []
     }
     trace = SessionTrace()
     trace.record_event("user_input", user_request=user_text)
@@ -302,6 +303,7 @@ def run_agent(user_text):
                                     result["message"], "暂时没有找到匹配的条件建议。"
                                 ]))
         if result.get("route"):
+            result["alternatives"] = _alternatives_for_result(result, area, days)
             # 单点子园区（如水上乐园）的条件建议来自整个景区，容易把其他园区的
             # 项目写进本园区行程；只保留确实提到该子园区的建议。
             if sub_area and result["route"].get("single_destination"):
@@ -341,6 +343,20 @@ def run_agent(user_text):
             result["trace_error"] = f"会话记录未保存（不影响行程结果）：{exc}"
 
     return result
+
+
+def _alternatives_for_result(result, area, days):
+    """生成备选路线；任何异常都退回空列表，不影响主流程的状态判定。"""
+    try:
+        route = result.get("route") or {}
+        if route.get("single_destination"):
+            # 单点园区没有连续路线，用其它子园区的来源文档会越界，不展示备选。
+            return []
+        return build_alternatives(
+            area, days=days, primary_doc_id=route.get("source_doc_id"),
+            primary_node_ids=(route.get("proposal") or {}).get("node_ids") or [])
+    except Exception:
+        return []
 
 
 def _finalize_result_status(result):
