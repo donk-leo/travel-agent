@@ -257,13 +257,15 @@ analysis/p07_agent/
 
 ## 10. 本地校验
 
+外部资源：按 T3.1 验收口径扫描 `web/` 与 `static/` 下所有 `.html / .css / .md / .js / .svg`，
+协议前缀出现次数均为 0；本 README、两个模板、样式表与预览页都不含外部地址
+（字体只用系统栈，图标只用 Unicode 字符）。
+
+模板语法与渲染（Flask 测试上下文，不启动服务）：
+
 ```powershell
 $py = ".\.venv\Scripts\python.exe"
 
-# 1) 零外部资源：输出每个文件的协议前缀计数，应全部为 0（正则自身不会自匹配）
-& $py -c "import pathlib,re;files=[p for p in list(pathlib.Path('analysis/p07_agent/web').rglob('*'))+list(pathlib.Path('analysis/p07_agent/static').rglob('*')) if p.is_file() and p.suffix in ('.html','.css','.md','.js','.svg')];[print(p.as_posix(), len(re.findall(r'https?://', p.read_text(encoding='utf-8',errors='replace')))) for p in files]"
-
-# 2) 模板语法与渲染（Flask 测试上下文，不启动服务）
 & $py -c "from flask import Flask, render_template; from pathlib import Path; b=Path('analysis/p07_agent'); a=Flask('t', template_folder=str(b/'web/templates'), static_folder=str(b/'static')); c=a.test_request_context('/'); c.push(); print(len(render_template('base.html', status='verified'))); c.pop()"
 ```
 
