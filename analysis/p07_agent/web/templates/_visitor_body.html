@@ -255,4 +255,10 @@
 </section>
 {% endif %}
 
-<p class="actions"><a class="btn btn--secondary" href="{{ url_for('home', view=view) }}">开始新查询</a></p>
+<p class="actions">
+  {% if status == 'clarify' %}
+  <a class="btn btn--secondary" href="{{ url_for('home', view=view) }}">继续补充</a>
+  {% else %}
+  <a class="btn btn--secondary" href="{{ url_for('home', view=view, new=1) }}">开始新查询</a>
+  {% endif %}
+</p>

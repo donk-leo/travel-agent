@@ -403,9 +403,34 @@ class AgentFlowTests(unittest.TestCase):
                  "message": "请补充景区和天数", "error": "", "trace_file": "", "trace_json": "", "needs_followup": True}
         second = {**first, "query": "和父母轻松出游\n广州白云山，一天", "message": "完成", "needs_followup": False}
         with patch.object(web_app, "run_agent", side_effect=[first, second]) as runner, web_app.app.test_client() as client:
-            _post_and_render(client, {"query": "和父母轻松出游"})
+            first_html = _post_and_render(client, {"query": "和父母轻松出游"}).get_data(as_text=True)
+            self.assertIn("继续补充", first_html)
             _post_and_render(client, {"query": "广州白云山，一天"})
         self.assertEqual(runner.call_args_list[1].args[0], "和父母轻松出游\n广州白云山，一天")
+
+    def test_partial_followup_context_is_not_preserved(self):
+        """D5 hotfix：partial 已是可读结果，不能把下一条新需求拼到上一轮。"""
+        first = {"query": "长隆水上乐园", "status": "partial", "intent": None, "decision": None, "tool_decisions": [],
+                 "suggestions": [], "route": None, "poi_results": None, "poi_list_all": False,
+                 "message": "部分可参考", "error": "", "trace_file": "", "trace_json": "", "needs_followup": True}
+        second = {**first, "query": "白云山，一天", "status": "verified", "message": "完成", "needs_followup": False}
+        with patch.object(web_app, "run_agent", side_effect=[first, second]) as runner, web_app.app.test_client() as client:
+            first_html = _post_and_render(client, {"query": "长隆水上乐园"}).get_data(as_text=True)
+            self.assertIn("开始新查询", first_html)
+            self.assertIn("new=1", first_html)
+            _post_and_render(client, {"query": "白云山，一天"})
+        self.assertEqual(runner.call_args_list[1].args[0], "白云山，一天")
+
+    def test_new_query_link_clears_followup_context(self):
+        first = {"query": "和父母轻松出游", "status": "clarify", "intent": None, "decision": None, "tool_decisions": [],
+                 "suggestions": [], "route": None, "poi_results": None, "poi_list_all": False,
+                 "message": "请补充景区和天数", "error": "", "trace_file": "", "trace_json": "", "needs_followup": True}
+        second = {**first, "query": "广州白云山，一天", "message": "完成", "needs_followup": False}
+        with patch.object(web_app, "run_agent", side_effect=[first, second]) as runner, web_app.app.test_client() as client:
+            _post_and_render(client, {"query": "和父母轻松出游"})
+            client.get("/?new=1")
+            _post_and_render(client, {"query": "广州白云山，一天"})
+        self.assertEqual(runner.call_args_list[1].args[0], "广州白云山，一天")
 
 
 class HardeningTests(unittest.TestCase):

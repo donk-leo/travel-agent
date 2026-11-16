@@ -1229,9 +1229,15 @@ def _render_progress_page(job, view):
 
 
 def _sync_pending_query(result, query):
-    """完成页才同步追问上下文（后台线程不能碰 session，只能在请求里做）。"""
+    """完成页才同步追问上下文（后台线程不能碰 session，只能在请求里做）。
+
+    D5 hotfix：只有 ``clarify`` 才是真正的追问；``partial`` 虽然也可能带
+    ``needs_followup=True``（路线问题/可行性裁剪），但它已经是可读结果，
+    不能再把用户的下一条新需求拼到上一轮 query 后面。
+    """
     try:
-        if isinstance(result, dict) and result.get("needs_followup"):
+        status = normalize_status((result or {}).get("status")) if isinstance(result, dict) else None
+        if isinstance(result, dict) and result.get("needs_followup") and status == "clarify":
             session["pending_query"] = query
         else:
             session.pop("pending_query", None)
@@ -1374,6 +1380,9 @@ def home():
     view = _resolve_view()
 
     if request.method == "GET":
+        if request.args.get("new") == "1":
+            # 明确的“开始新查询/清空”：丢掉上一轮追问上下文，避免新需求被追加。
+            session.pop("pending_query", None)
         get_query = _safe_text(request.args.get("query"))
         _record_query_fingerprint(get_query)
         cached = _get_cached_result(get_query) if get_query else None
