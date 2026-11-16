@@ -1,43 +1,43 @@
-# P7 评测报告（2026-11-15 / split=dev，n=20）
+# P7 评测报告（2026-11-16 / split=dev，n=20）
 
-> 本文件由 `analysis/p07_agent/eval/report.py` 从 `dev-real-20261115T195954.json` 确定性生成；
+> 本文件由 `analysis/p07_agent/eval/report.py` 从 `dev-real-20261116T132849.json` 确定性生成；
 > 所有数字从结果 JSON 的 `cases` 复算，并与 runner 写入的 `summary` 逐项对账（不一致会拒绝生成）。
 > 口径：`03_EVAL_SPEC.md` §3（自动指标）、§7（F1–F13 失败分类）、§8（执行流程）、§9（报告模板）。
 
 ## 0. 摘要
 
 - **n = 20**（split 分布：dev 20 / heldout 0）；实际执行 20 条。
-- 模型 `qwen3:8b`，temperature=0（src 固定），单条超时 180.0s、失败重试 1 次；总耗时 1771.453s。
-- **成功率（status_correct / executed）= 19/20（95.00%）**；按全量 n 的保守口径 = 19/20（95.00%）（把未执行也计为不成功）。
-- 严格成功（辅助口径，非 §3 指标：状态正确 + schema 通过 + 已有 NEXT 段证据全覆盖，0 段视为通过）= 19/20。
-- 证据覆盖率 = 170/170（100.00%）；partial 率 = 16/20（80.00%）；P50 / P95 = 53.92s / 172.66s。
-- 超时 0 条、执行错误 0 条；失败/警告 16 条（主类：F2×1、F6×3、F7×12）。
+- 模型 `qwen3:8b`，temperature=0（src 固定），单条超时 180.0s、失败重试 1 次；总耗时 694.296s。
+- **成功率（status_correct / executed）= 20/20（100.00%）**；按全量 n 的保守口径 = 20/20（100.00%）（把未执行也计为不成功）。
+- 严格成功（辅助口径，非 §3 指标：状态正确 + schema 通过 + 已有 NEXT 段证据全覆盖，0 段视为通过）= 20/20。
+- 证据覆盖率 = 120/120（100.00%）；partial 率 = 4/20（20.00%）；P50 / P95 = 31.81s / 75.80s。
+- 超时 0 条、执行错误 0 条；失败/警告 3 条（主类：F5×1、F6×2）。
 - **held-out 10 条未运行：held-out 成功率为未知，不是 0。** 本报告只覆盖本次运行的 dev 20 条。
 
 ## 1. 环境
 
 | 项 | 值 |
 |---|---|
-| commit（运行时 HEAD） | `fb9fa74` |
+| commit（运行时 HEAD） | `3239141` |
 | git_dirty（运行时工作区） | False |
 | 模型 | `qwen3:8b` |
 | 模型地址 | `http://localhost:11434/api/chat` |
 | run_mode / split / limit | `real` / `dev` / `None` |
 | 单条超时 / 最大尝试 | 180.0s / 2 次 |
-| 开始 / 结束 | 2026-11-15T19:59:54+08:00 → 2026-11-15T20:29:26+08:00 |
-| 总耗时 | 1771.453s |
+| 开始 / 结束 | 2026-11-16T13:28:52+08:00 → 2026-11-16T13:40:26+08:00 |
+| 总耗时 | 694.296s |
 | Python / agent_imported | 3.11.9 / True |
 | model_preflight | ok=True；模型服务可达：http://localhost:11434/api/tags；可用模型：['qwen3:8b'] |
 | session_dir | `E:\ProgramProject\travel-agent\analysis\p07_agent\eval\results\sessions`（.gitignore 忽略） |
 | GPU | 未采集（Ollama 本机运行；结果 JSON 无该字段） |
 
-- 说明：`meta.commit=fb9fa74` 是运行时的 HEAD；结果文件与报告随后随 T4.2 提交入库，所以入库 commit 的父提交才是该值。`git_dirty` 记录运行开始时工作区是否干净。
+- 说明：`meta.commit=3239141` 是运行时的 HEAD；结果文件与报告随后随 T4.2 提交入库，所以入库 commit 的父提交才是该值。`git_dirty` 记录运行开始时工作区是否干净。
 
 本次运行命令（退出码 0）：
 
 ```powershell
 $env:PYTHONIOENCODING='utf-8'; $py='.\.venv\Scripts\python.exe'
-& $py analysis\p07_agent\eval\run_eval.py --split dev --out analysis\p07_agent\eval\results\dev-real-20261115T195954.json
+& $py analysis\p07_agent\eval\run_eval.py --split dev --out analysis\p07_agent\eval\results\dev-real-20261116T132849.json
 ```
 
 ## 2. 总览（指标 / 目标 / 实测）
@@ -45,14 +45,14 @@ $env:PYTHONIOENCODING='utf-8'; $py='.\.venv\Scripts\python.exe'
 | 指标 | 目标（§3/§10） | 本次实测 | 说明 |
 |---|---|---|---|
 | `schema_pass` | 100% | 20/20（100.00%） | 返回结构符合契约 |
-| `status_correct` | ≥90%（§3）；dev 成功率 ≥60%（§10） | 19/20（95.00%） | 状态落在 `expected.status` 内 |
-| dev 成功率（按全量 n） | ≥60% | 19/20（95.00%） | 未执行计为不成功，保守口径 |
-| `route_valid` | ≥95% | 17/18（94.44%） | `validation_valid` 非 null 的条目 |
-| `evidence_coverage` | 100% 段；≥95% 点 | 170/170（100.00%） | 只覆盖 NEXT 段 |
-| `stop_cap_ok` | 100% | 7/19（36.84%） | `node_count <= expected.max_stops` |
-| `partial_rate` | ≤30% | 16/20（80.00%） | `status=partial` 占比 |
-| `latency_p50` | ≤45s | 53.92s | nearest-rank |
-| `latency_p95` | ≤150s | 172.66s | nearest-rank |
+| `status_correct` | ≥90%（§3）；dev 成功率 ≥60%（§10） | 20/20（100.00%） | 状态落在 `expected.status` 内 |
+| dev 成功率（按全量 n） | ≥60% | 20/20（100.00%） | 未执行计为不成功，保守口径 |
+| `route_valid` | ≥95% | 18/19（94.74%） | `validation_valid` 非 null 的条目 |
+| `evidence_coverage` | 100% 段；≥95% 点 | 120/120（100.00%） | 只覆盖 NEXT 段 |
+| `stop_cap_ok` | 100% | 19/19（100.00%） | `node_count <= expected.max_stops` |
+| `partial_rate` | ≤30% | 4/20（20.00%） | `status=partial` 占比 |
+| `latency_p50` | ≤45s | 31.81s | nearest-rank |
+| `latency_p95` | ≤150s | 75.80s | nearest-rank |
 | 超时条数 | 0（§8 记录） | 0 | `timeout=true` 的条数 |
 | 执行错误条数 | 0（§8 记录） | 0 | `error != null` 的条数 |
 | `fabrication_count` | 0 | 未测 | runner 不采集编造事实，需人工/规则评分 |
@@ -66,21 +66,21 @@ $env:PYTHONIOENCODING='utf-8'; $py='.\.venv\Scripts\python.exe'
 
 | verified | partial | clarify | error | status_other | 合计 |
 |---|---|---|---|---|---|
-| 2（10.00%） | 16（80.00%） | 2（10.00%） | 0（0.00%） | 0 | 20 |
+| 15（75.00%） | 4（20.00%） | 1（5.00%） | 0（0.00%） | 0 | 20 |
 
-证据覆盖率复算：170 / 170 个 NEXT 段有来源文档；单点园区（0 段）不进入分母，其 `coverage` 为 `null` 而非 100%。
+证据覆盖率复算：120 / 120 个 NEXT 段有来源文档；单点园区（0 段）不进入分母，其 `coverage` 为 `null` 而非 100%。
 
-`stop_cap_ok` 口径提醒：按 runner 定义 `node_count <= max_stops`，**0 节点的澄清/失败条目也会计为 true**；若只看产出了路线的条目（`node_count > 0` 且有 `max_stops`），stop_cap_ok = 6/18（33.33%）。
+`stop_cap_ok` 口径提醒：按 runner 定义 `node_count <= max_stops`，**0 节点的澄清/失败条目也会计为 true**；若只看产出了路线的条目（`node_count > 0` 且有 `max_stops`），stop_cap_ok = 19/19（100.00%）。
 
 ## 3. 分景区
 
 | 景区 | n | 执行 | 成功 | 成功率 | 证据覆盖 | partial | P50 | P95 |
 |---|---:|---:|---:|---|---:|---:|---:|---:|
-| 长隆 | 8 | 8 | 8 | 8/8（100.00%） | 68/68（100.00%） | 7 | 49.38s | 155.97s |
-| 白云山 | 5 | 5 | 4 | 4/5（80.00%） | 42/42（100.00%） | 4 | 170.23s | 172.69s |
-| 武功山 | 5 | 5 | 5 | 5/5（100.00%） | 51/51（100.00%） | 4 | 146.73s | 161.78s |
-| 边界（EDGE） | 2 | 2 | 2 | 2/2（100.00%） | 9/9（100.00%） | 1 | 6.42s | 76.62s |
-| **合计** | **20** | **20** | **19** | **19/20（95.00%）** | **170/170（100.00%）** | **16** | **53.92s** | **172.66s** |
+| 长隆 | 8 | 8 | 8 | 8/8（100.00%） | 36/36（100.00%） | 1 | 31.03s | 37.77s |
+| 白云山 | 5 | 5 | 5 | 5/5（100.00%） | 30/30（100.00%） | 1 | 30.97s | 43.69s |
+| 武功山 | 5 | 5 | 5 | 5/5（100.00%） | 47/47（100.00%） | 2 | 32.98s | 76.88s |
+| 边界（EDGE） | 2 | 2 | 2 | 2/2（100.00%） | 7/7（100.00%） | 0 | 3.25s | 32.66s |
+| **合计** | **20** | **20** | **20** | **20/20（100.00%）** | **120/120（100.00%）** | **4** | **31.81s** | **75.80s** |
 
 分组口径：按 id 前缀 CL / BYS / WGS / EDGE 映射到 长隆 / 白云山 / 武功山 / 边界（EDGE）；子园区（CL-SUB-*）仍归长隆。
 
@@ -102,26 +102,13 @@ function Repro($id) {
 Repro <ID>   # 例：Repro CL-FAM-01
 ```
 
-完整日志：`analysis/p07_agent/eval/results/dev-real-20261115T195954.json` 的 `cases[]`（按 id 检索）；会话轨迹在 `eval/results/sessions/`，含用户原文，已被 `.gitignore` 忽略、不入库。
+完整日志：`analysis/p07_agent/eval/results/dev-real-20261116T132849.json` 的 `cases[]`（按 id 检索）；会话轨迹在 `eval/results/sessions/`，含用户原文，已被 `.gitignore` 忽略、不入库。
 
 | id | F 类 | 现象 | 复现 | 建议责任 | 状态 |
 |---|---|---|---|---|---|
-| `BYS-SOLO-01` | **F2** 意图/槽位错误（含 F3） | status=clarify，期望=['verified', 'partial']；no_route_nodes（规划请求未产出路线） | `Repro BYS-SOLO-01`（见 §4.1） | T2.6 | 未修（T4.2 仅记录） |
-| `CL-CPL-01` | **F7** 节奏不可行 | 路线 12 点 > max_stops=8 | `Repro CL-CPL-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `CL-ELD-01` | **F7** 节奏不可行 | 路线 12 点 > max_stops=6 | `Repro CL-ELD-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `CL-FAM-01` | **F7** 节奏不可行 | 路线 12 点 > max_stops=6 | `Repro CL-FAM-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `CL-FAM-02` | **F7** 节奏不可行 | 路线 12 点 > max_stops=8 | `Repro CL-FAM-02`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `CL-FRD-01` | **F7** 节奏不可行 | 路线 12 点 > max_stops=8 | `Repro CL-FRD-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `CL-SUB-02` | **F7** 节奏不可行 | 路线 12 点 > max_stops=6 | `Repro CL-SUB-02`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `BYS-CPL-01` | **F7** 节奏不可行 | 路线 12 点 > max_stops=8 | `Repro BYS-CPL-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `BYS-ELD-01` | **F7** 节奏不可行 | 路线 10 点 > max_stops=6 | `Repro BYS-ELD-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `BYS-FAM-01` | **F7** 节奏不可行 | 路线 12 点 > max_stops=6 | `Repro BYS-FAM-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `BYS-FRD-01` | **F7** 节奏不可行 | 路线 12 点 > max_stops=8 | `Repro BYS-FRD-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
+| `BYS-FRD-01` | **F5** 跨文档/截断 | route_truncated=true（路线截断） | `Repro BYS-FRD-01`（见 §4.1） | T2.4 | 未修（T4.2 仅记录） |
 | `WGS-ELD-01` | **F6** 分天兜底 | day_plan_fallback=true（均分兜底） | `Repro WGS-ELD-01`（见 §4.1） | T2.3 | 未修（T4.2 仅记录） |
 | `WGS-FAM-01` | **F6** 分天兜底 | day_plan_fallback=true（均分兜底） | `Repro WGS-FAM-01`（见 §4.1） | T2.3 | 未修（T4.2 仅记录） |
-| `WGS-FRD-01` | **F6** 分天兜底 | day_plan_fallback=true（均分兜底） | `Repro WGS-FRD-01`（见 §4.1） | T2.3 | 未修（T4.2 仅记录） |
-| `WGS-SOLO-01` | **F7** 节奏不可行 | 路线 10 点 > max_stops=8 | `Repro WGS-SOLO-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
-| `EDGE-FOLLOW-01` | **F7** 节奏不可行 | 路线 10 点 > max_stops=8 | `Repro EDGE-FOLLOW-01`（见 §4.1） | T2.2 | 未修（T4.2 仅记录） |
 
 级别说明：状态错误/未执行/schema 失败为**失败**；状态正确但结构、点数或证据有问题的记为**警告**（全部条目均保留在结果 JSON，不删难样本）。
 
@@ -130,12 +117,12 @@ Repro <ID>   # 例：Repro CL-FAM-01
 | F 类 | 类别 | 主类计数 | 全部标签计数 | id（主类） |
 |---|---|---:|---:|---|
 | F1 | 未覆盖/语言 | 0 | 0 | — |
-| F2 | 意图/槽位错误 | 1 | 1 | `BYS-SOLO-01` |
-| F3 | 工具漏选/错选 | 0 | 1 | — |
+| F2 | 意图/槽位错误 | 0 | 0 | — |
+| F3 | 工具漏选/错选 | 0 | 0 | — |
 | F4 | 路线断段/方向错 | 0 | 0 | — |
-| F5 | 跨文档/截断 | 0 | 0 | — |
-| F6 | 分天兜底 | 3 | 3 | `WGS-ELD-01`、`WGS-FAM-01`、`WGS-FRD-01` |
-| F7 | 节奏不可行 | 12 | 12 | `CL-CPL-01`、`CL-ELD-01`、`CL-FAM-01`、`CL-FAM-02`、`CL-FRD-01`、`CL-SUB-02`、`BYS-CPL-01`、`BYS-ELD-01`、`BYS-FAM-01`、`BYS-FRD-01`、`WGS-SOLO-01`、`EDGE-FOLLOW-01` |
+| F5 | 跨文档/截断 | 1 | 1 | `BYS-FRD-01` |
+| F6 | 分天兜底 | 2 | 2 | `WGS-ELD-01`、`WGS-FAM-01` |
+| F7 | 节奏不可行 | 0 | 0 | — |
 | F8 | 证据缺失/错误 | 0 | 0 | — |
 | F9 | 编造事实 | 0 | 0 | — |
 | F10 | 条件噪声 | 0 | 0 | — |
@@ -149,15 +136,15 @@ Repro <ID>   # 例：Repro CL-FAM-01
 
 ## 7. 结论
 
-- 达标：dev 成功率 ≥60%（§10 必须） → 19/20（95.00%）
-- 达标：status_correct ≥90%（§3） → 19/20（95.00%）
+- 达标：dev 成功率 ≥60%（§10 必须） → 20/20（100.00%）
+- 达标：status_correct ≥90%（§3） → 20/20（100.00%）
 - 达标：schema_pass 100%（§3） → 20/20（100.00%）
-- 未达标：route_valid ≥95%（§3） → 17/18（94.44%）
-- 未达标：stop_cap_ok 100%（§3） → 7/19（36.84%）
-- 达标：证据覆盖 ≥95%（§10 必须） → 170/170（100.00%）
-- 未达标：partial 率 ≤30%（§10 必须） → 16/20（80.00%）
-- 未达标：P50 ≤45s（§10 必须） → 53.92s
-- 未达标：P95 ≤150s（§10 必须） → 172.66s
+- 未达标：route_valid ≥95%（§3） → 18/19（94.74%）
+- 达标：stop_cap_ok 100%（§3） → 19/19（100.00%）
+- 达标：证据覆盖 ≥95%（§10 必须） → 120/120（100.00%）
+- 达标：partial 率 ≤30%（§10 必须） → 4/20（20.00%）
+- 达标：P50 ≤45s（§10 必须） → 31.81s
+- 达标：P95 ≤150s（§10 必须） → 75.80s
 - 达标：零超时/零执行错误 → 超时 0 / 错误 0
 
 - **不能据此宣布整体达标**：held-out 未运行（成功率未知），人工评分未做，编造事实/未知标注等指标未采集。
@@ -172,15 +159,14 @@ Repro <ID>   # 例：Repro CL-FAM-01
 - `must_include` / `must_not` 未自动评分，表中 F 分类只依据结构化字段，可能低估语义类失败。
 - `stop_cap_ok` 使用 golden set 的 `max_stops`；`CL-FAM-02` 仍为 8，与 Q4「0–6 岁 ≤6」冲突（`REVIEW_T4.1.md` §4.2），本报告按 8 判定，未静默改。
 - 延迟是 runner 实测墙钟（含重试与多轮），受本机负载影响，不能直接外推到其他机器。
-- **接近超时**：`BYS-FAM-01` 172.66s、`BYS-FRD-01` 172.69s、`BYS-CPL-01` 170.23s 已达到单条超时阈值的 90% 以上；本次均在第 1 次尝试返回、未触发重试，但稳定性风险高（T2.7 性能）。
 - 会话轨迹含用户原文，`eval/results/sessions/` 已被 `.gitignore` 忽略；仓库内只保留结构化结果。
 
 ## 9. 复算命令
 
 ```powershell
 $env:PYTHONIOENCODING='utf-8'; $py='.\.venv\Scripts\python.exe'
-& $py analysis\p07_agent\eval\report.py analysis\p07_agent\eval\results\dev-real-20261115T195954.json --out analysis\p07_agent\eval\report.md
-& $py -c "import json;d=json.load(open(r'analysis/p07_agent/eval/results/dev-real-20261115T195954.json',encoding='utf-8'));print(d['meta']);print(d['summary']);print(len(d['cases']));print(sorted({c['status'] for c in d['cases']}))"
+& $py analysis\p07_agent\eval\report.py analysis\p07_agent\eval\results\dev-real-20261116T132849.json --out analysis\p07_agent\eval\report.md
+& $py -c "import json;d=json.load(open(r'analysis/p07_agent/eval/results/dev-real-20261116T132849.json',encoding='utf-8'));print(d['meta']);print(d['summary']);print(len(d['cases']));print(sorted({c['status'] for c in d['cases']}))"
 ```
 
 `report.py` 会对账 `summary` 与 `cases` 复算值：不一致时退出码 3、不写报告。
@@ -189,32 +175,32 @@ $env:PYTHONIOENCODING='utf-8'; $py='.\.venv\Scripts\python.exe'
 
 | id | status | expected | correct | 节点/上限 | NEXT 段（有来源） | latency | calls | F 标签 |
 |---|---|---|---|---|---:|---:|---:|---|
-| `CL-FAM-01` | partial | ['verified', 'partial'] | ✓ | 12/6 | 11/11 | 45.36s | 1 | F7 |
-| `CL-FAM-02` | partial | ['verified', 'partial'] | ✓ | 12/8 | 11/11 | 52.73s | 1 | F7 |
-| `CL-CPL-01` | partial | ['verified', 'partial'] | ✓ | 12/8 | 11/11 | 155.97s | 1 | F7 |
-| `CL-FRD-01` | partial | ['verified', 'partial'] | ✓ | 12/8 | 11/11 | 49.38s | 1 | F7 |
-| `CL-ELD-01` | partial | ['verified', 'partial'] | ✓ | 12/6 | 11/11 | 53.92s | 1 | F7 |
-| `CL-SUB-01` | verified | ['verified', 'partial'] | ✓ | 3/8 | 2/2 | 39.02s | 1 | — |
-| `CL-SUB-02` | partial | ['verified', 'partial'] | ✓ | 12/6 | 11/11 | 99.09s | 1 | F7 |
-| `CL-SUB-03` | partial | ['partial'] | ✓ | 1/1 | 0/0 | 27.23s | 1 | — |
-| `BYS-ELD-01` | partial | ['verified', 'partial'] | ✓ | 10/6 | 9/9 | 71.81s | 1 | F7 |
-| `BYS-FAM-01` | partial | ['verified', 'partial'] | ✓ | 12/6 | 11/11 | 172.66s | 1 | F7 |
-| `BYS-FRD-01` | partial | ['verified', 'partial'] | ✓ | 12/8 | 11/11 | 172.69s | 1 | F7 |
-| `BYS-CPL-01` | partial | ['verified', 'partial'] | ✓ | 12/8 | 11/11 | 170.23s | 1 | F7 |
-| `BYS-SOLO-01` | clarify | ['verified', 'partial'] | ✗ | 0/8 | 0/0 | 7.05s | 1 | F2、F3 |
-| `WGS-FRD-01` | partial | ['verified', 'partial'] | ✓ | 12/16 | 11/11 | 161.78s | 1 | F6 |
-| `WGS-FAM-01` | partial | ['verified', 'partial'] | ✓ | 12/12 | 11/11 | 157.03s | 1 | F6 |
-| `WGS-CPL-01` | verified | ['verified', 'partial'] | ✓ | 10/16 | 9/9 | 51.70s | 1 | — |
-| `WGS-SOLO-01` | partial | ['verified', 'partial'] | ✓ | 10/8 | 9/9 | 51.88s | 1 | F7 |
-| `WGS-ELD-01` | partial | ['verified', 'partial'] | ✓ | 12/12 | 11/11 | 146.73s | 1 | F6 |
-| `EDGE-MISS-01` | clarify | ['clarify'] | ✓ | 0/— | 0/0 | 6.42s | 1 | — |
-| `EDGE-FOLLOW-01` | partial | ['verified', 'partial'] | ✓ | 10/8 | 9/9 | 76.62s | 2 | F7 |
+| `CL-FAM-01` | verified | ['verified', 'partial'] | ✓ | 6/6 | 5/5 | 32.64s | 1 | — |
+| `CL-FAM-02` | verified | ['verified', 'partial'] | ✓ | 6/8 | 5/5 | 32.12s | 1 | — |
+| `CL-CPL-01` | verified | ['verified', 'partial'] | ✓ | 8/8 | 7/7 | 29.41s | 1 | — |
+| `CL-FRD-01` | verified | ['verified', 'partial'] | ✓ | 8/8 | 7/7 | 31.81s | 1 | — |
+| `CL-ELD-01` | verified | ['verified', 'partial'] | ✓ | 6/6 | 5/5 | 37.77s | 1 | — |
+| `CL-SUB-01` | verified | ['verified', 'partial'] | ✓ | 3/8 | 2/2 | 25.56s | 1 | — |
+| `CL-SUB-02` | verified | ['verified', 'partial'] | ✓ | 6/6 | 5/5 | 31.03s | 1 | — |
+| `CL-SUB-03` | partial | ['partial'] | ✓ | 1/1 | 0/0 | 20.00s | 1 | — |
+| `BYS-ELD-01` | verified | ['verified', 'partial'] | ✓ | 6/6 | 5/5 | 31.19s | 1 | — |
+| `BYS-FAM-01` | verified | ['verified', 'partial'] | ✓ | 6/6 | 5/5 | 30.25s | 1 | — |
+| `BYS-FRD-01` | partial | ['verified', 'partial'] | ✓ | 7/8 | 6/6 | 43.69s | 1 | F5 |
+| `BYS-CPL-01` | verified | ['verified', 'partial'] | ✓ | 8/8 | 7/7 | 30.97s | 1 | — |
+| `BYS-SOLO-01` | verified | ['verified', 'partial'] | ✓ | 8/8 | 7/7 | 29.36s | 1 | — |
+| `WGS-FRD-01` | verified | ['verified', 'partial'] | ✓ | 10/16 | 9/9 | 32.53s | 1 | — |
+| `WGS-FAM-01` | partial | ['verified', 'partial'] | ✓ | 12/12 | 11/11 | 75.80s | 1 | F6 |
+| `WGS-CPL-01` | verified | ['verified', 'partial'] | ✓ | 10/16 | 9/9 | 32.25s | 1 | — |
+| `WGS-SOLO-01` | verified | ['verified', 'partial'] | ✓ | 8/8 | 7/7 | 32.98s | 1 | — |
+| `WGS-ELD-01` | partial | ['verified', 'partial'] | ✓ | 12/12 | 11/11 | 76.88s | 1 | F6 |
+| `EDGE-MISS-01` | clarify | ['clarify'] | ✓ | 0/— | 0/0 | 3.25s | 1 | — |
+| `EDGE-FOLLOW-01` | verified | ['verified', 'partial'] | ✓ | 8/8 | 7/7 | 32.66s | 2 | — |
 
 <!-- T4.3 BASELINE BEGIN -->
 ## 11. Baseline 对比（T4.3：B0 同模型无图谱）
 
 > 本节由 `analysis/p07_agent/eval/baseline_report.py` 从三份文件确定性生成并追加；不修改 §0–§10（由 `report.py` 生成）。
-> B0 机器记录：`results/baseline-dev-20261115T192331.json`（runner 生成，未手改）；B0 人工判据：`results/baseline-dev-manual-labels.json`（**人工**逐条）；图谱 Agent（T4.2）：`results/dev-real-20261115T195954.json`（原样引用 `summary`，不重算口径）。
+> B0 机器记录：`results/baseline-dev-20261115T192331.json`（runner 生成，未手改）；B0 人工判据：`results/baseline-dev-manual-labels.json`（**人工**逐条）；图谱 Agent（T4.2）：`results/dev-real-20261116T132849.json`（原样引用 `summary`，不重算口径）。
 > §2 末尾「基线 B0 — 未运行（T4.3）」是 T4.2 生成时的状态；T4.3 已运行 B0，对比以本节为准，§0–§10 正文未改。
 
 ### 11.1 对比条件（公平性）
@@ -223,7 +209,7 @@ $env:PYTHONIOENCODING='utf-8'; $py='.\.venv\Scripts\python.exe'
 |---|---|---|
 | 模型 | `qwen3:8b` | `qwen3:8b` |
 | temperature | 0（src 固定） | 0（请求 options 固定） |
-| 运行时 HEAD / 工作区 | `fb9fa74` / dirty=False | `490cdf3` / dirty=True（运行时 `baseline.py` 还未提交） |
+| 运行时 HEAD / 工作区 | `3239141` / dirty=False | `490cdf3` / dirty=True（运行时 `baseline.py` 还未提交） |
 | 查询集合 | dev 20 条（golden set） | dev 20 条，`query` 逐字提交 |
 | 图谱 / 工具 / 证据 | 有（P6 图谱写进 prompt，路线逐段带 `source_doc_ids`） | 无（只有 system prompt + query） |
 | 输出形态 | 结构化路线 + 四状态契约 | 自由文本（无状态） |
@@ -238,26 +224,26 @@ $env:PYTHONIOENCODING='utf-8'; $py='.\.venv\Scripts\python.exe'
 | 指标 | 图谱 Agent（T4.2） | 通用 LLM B0 |
 |---|---|---|
 | 样本 / 有响应 | 20 / 20 | 20 / 20 |
-| 成功率 | 19/20（95.00%） | 6/20（30.00%） |
-| 证据正确率（有来源比例） | 170/170（100.00%）（NEXT 段级） | 0/20（0.00%）（条级，无 doc_id/URL 引用） |
+| 成功率 | 20/20（100.00%） | 6/20（30.00%） |
+| 证据正确率（有来源比例） | 120/120（100.00%）（NEXT 段级） | 0/20（0.00%）（条级，无 doc_id/URL 引用） |
 | 编造次数 | 未测（T4.2 runner 不采集，`report.md` §2 `fabrication_count`=未测） | 22 次（涉及 13 条，人工判据） |
-| partial 率 | 16/20（80.00%） | 不适用（无状态契约） |
-| P50 | 53.92s | 19.64s |
-| P95 | 172.66s | 25.23s |
+| partial 率 | 4/20（20.00%） | 不适用（无状态契约） |
+| P50 | 31.81s | 19.64s |
+| P95 | 75.80s | 25.23s |
 | 超时 / 执行错误 | 0 / 0 | 0 / 0 |
 
 **两列的成功率定义不同，不能直接相减当作“图谱增量”**：图谱 Agent 的 95% 是「`status` 落在 `expected.status` 内」的状态判定；B0 的 30% 是「输出有 ≥3 地点顺序行程且无四类编造」的内容判定。前者不评估文本是否编造，后者不区分 verified/partial。
-补充（T4.2 原样引用）：`route_valid` = 17/18（94.44%），`stop_cap_ok` = 7/19（36.84%）；B0 无对应结构指标，不能比较。
+补充（T4.2 原样引用）：`route_valid` = 18/19（94.74%），`stop_cap_ok` = 19/19（100.00%）；B0 无对应结构指标，不能比较。
 
 ### 11.3 指标定义与数据来源
 
 | 指标 | 定义 | 图谱 Agent（T4.2）数据来源 | B0 数据来源 |
 |---|---|---|---|
-| 成功率 | 图谱 Agent：`status ∈ expected.status` 的条数 / 已执行条数；B0：输出含可执行顺序行程（≥3 个地点且有顺序）**且无编造**的条数 / 20 | `results/dev-real-20261115T195954.json` 的 `summary.status_correct`（`run_eval.py::compute_summary`） | 人工判据 `success=true` 的计数（`baseline_report.py` 复算） |
-| 证据正确率（有来源比例） | 图谱 Agent：有来源文档的 NEXT 段 / 全部 NEXT 段（`source_doc_ids` 非空）；B0：响应中出现可核对来源标识（doc_id 或 URL）的条数 / 20 | `results/dev-real-20261115T195954.json` 的 `summary.evidence_coverage` | `baseline_report.py` 扫描 `response_text`（正则：doc_id / URL），结果见 11.2 |
+| 成功率 | 图谱 Agent：`status ∈ expected.status` 的条数 / 已执行条数；B0：输出含可执行顺序行程（≥3 个地点且有顺序）**且无编造**的条数 / 20 | `results/dev-real-20261116T132849.json` 的 `summary.status_correct`（`run_eval.py::compute_summary`） | 人工判据 `success=true` 的计数（`baseline_report.py` 复算） |
+| 证据正确率（有来源比例） | 图谱 Agent：有来源文档的 NEXT 段 / 全部 NEXT 段（`source_doc_ids` 非空）；B0：响应中出现可核对来源标识（doc_id 或 URL）的条数 / 20 | `results/dev-real-20261116T132849.json` 的 `summary.evidence_coverage` | `baseline_report.py` 扫描 `response_text`（正则：doc_id / URL），结果见 11.2 |
 | 编造次数 | 具体距离（X 米/公里）、步行耗时、票价、开放时间且无来源 → 每句计 1 次（人工） | `report.md` §2 明确标注为「未测」（runner 不采集自然语言事实） | 人工判据 `fabrication_count` 之和（`results/baseline-dev-manual-labels.json`） |
-| partial 率 | `status=partial` 条数 / 已执行条数 | `results/dev-real-20261115T195954.json` 的 `summary.partial_rate` | 不适用：B0 无 verified/partial/clarify/error 状态契约，不填 0 冒充 |
-| P50 / P95 | 端到端墙钟耗时（nearest-rank） | `results/dev-real-20261115T195954.json` 的 `summary.latency_s` | `baseline_report.py` 从 B0 `cases[].latency_s` 复算，并与 `summary.latency_s` 对账 |
+| partial 率 | `status=partial` 条数 / 已执行条数 | `results/dev-real-20261116T132849.json` 的 `summary.partial_rate` | 不适用：B0 无 verified/partial/clarify/error 状态契约，不填 0 冒充 |
+| P50 / P95 | 端到端墙钟耗时（nearest-rank） | `results/dev-real-20261116T132849.json` 的 `summary.latency_s` | `baseline_report.py` 从 B0 `cases[].latency_s` 复算，并与 `summary.latency_s` 对账 |
 
 ### 11.4 B0 人工判据（人工判断，非脚本判定）
 
@@ -342,3 +328,67 @@ $env:PYTHONIOENCODING='utf-8'; $py='.\.venv\Scripts\python.exe'
 - held-out 10 条**未运行**（本任务只允许 dev）；B0 的 held-out 表现未知，不是 0。
 
 <!-- T4.3 BASELINE END -->
+
+## 12. D3 最终轮（G3 证据）
+
+> 本节由 T4.2 执行子任务在 `report.py` 生成 §0–§10、`baseline_report.py` 生成 §11 之后追加；
+> 所有数字程序化取自本次结果 JSON 的 `meta`/`summary` 与本次运行的会话轨迹统计，未手工改写，可用 §9 命令复算。`report.py`/`baseline_report.py` 重跑不会重新生成本节。
+
+### 12.1 运行信息
+
+| 项 | 值 |
+|---|---|
+| 运行时 commit | `3239141`（工作区 dirty=False） |
+| 模型 / 地址 | `qwen3:8b` / `http://localhost:11434/api/chat` |
+| split / limit | `dev` / `None` |
+| n / split_counts | 20 / dev 20、heldout 0 |
+| 单条超时 / 最大尝试 | 180.0s / 2 次 |
+| 开始 → 结束 / 总耗时 | 2026-11-16T13:28:52+08:00 → 2026-11-16T13:40:26+08:00 / 694.296s |
+| 执行 / 超时 / 错误 | 20 / 0 / 0 |
+
+### 12.2 G3 指标（dev 20 条，按 cases 复算）
+
+| 指标 | 实测 | 目标 | 判定 |
+|---|---|---|---|
+| `status_correct` | 20/20（100.00%） | ≥90% | 达标 |
+| `evidence_coverage` | 120/120（100.00%）（NEXT 段级） | ≥95% | 达标 |
+| `stop_cap_ok` | 19/19（100.00%） | 100% | 达标 |
+| `partial_rate` | 4/20（20.00%） | ≤30% | 达标 |
+| `latency_p50` | 31.813s | ≤60s（G3） | 达标 |
+| `latency_p95` | 75.797s | ≤150s（§3，如实报） | 达标 |
+| `schema_pass` | 20/20（100.00%） | 100% | 达标 |
+| `route_valid` | 18/19（94.74%） | ≥95% | 未达标（1 条单点园区 0 段，见 §8） |
+| 超时 / 执行错误 | 0 / 0 | 0 / 0 | 达标 |
+| `cache_hits` | 0 | 冷启动应为 0 | 达标 |
+
+### 12.3 状态分布（executed 为分母）
+
+| verified | partial | clarify | error | status_other | 合计 |
+|---|---|---|---|---|---|
+| 15（75.00%） | 4（20.00%） | 1（5.00%） | 0（0.00%） | 0 | 20 |
+
+### 12.4 缓存与 held-out
+
+- **cache_hits = 0**：本次进程共 21 次请求轨迹（20 条 + `EDGE-FOLLOW-01` 第二轮），会话轨迹中 `cache_store` 21 次、`cache_hit` 0 次；符合 `src/result_cache.py` 的冷启动设计（同一进程内每条 query 首次出现）。统计方式：扫描本次运行开始后新写入的会话 JSONL 事件。
+- **held-out 10 条未运行**：`split_counts.heldout=0`；held-out 成功率为**未知，不是 0**。本轮只跑 dev，未打开 held-out 明细。
+
+### 12.5 与 D2 旧轮对照（同 split、同 golden set）
+
+| 指标 | D2 轮（`dev-real-20261115T195954.json`，commit `fb9fa74`） | D3 本轮（`dev-real-20261116T132849.json`，commit `3239141`） | 变化 |
+|---|---|---|---|
+| `status_correct` | 19/20（95.00%） | 20/20（100.00%） | +1 条 |
+| `partial_rate` | 16/20（80.00%） | 4/20（20.00%） | -12 条 |
+| `evidence_coverage` | 170/170（100.00%） | 120/120（100.00%） | 170→120 段（占比均 100%） |
+| `stop_cap_ok` | 7/19（36.84%） | 19/19（100.00%） | +12 条 |
+| P50 | 53.922s | 31.813s | -22.109s |
+| P95 | 172.656s | 75.797s | -96.859s |
+| 超时 / 执行错误 | 0 / 0 | 0 / 0 | 0 / 0 |
+
+两轮运行时 HEAD 不同（D2 `fb9fa74` → D3 `3239141`），代码与提示词在此期间有变更，因此该对照是“同 golden set 的两轮实测”，不是同代码 A/B；单轮 temperature=0 也不代表可复现同一文本。
+
+### 12.6 口径与限制提示
+
+- **§11.2 表后的“图谱 Agent 的 95%”是 `baseline_report.py` 中硬编码的 D2 旧文案**；本轮实测为 100%，以 §11.2 表格、§2 与本节为准。`baseline_report.py` 不在 T4.2 允许修改的路径内，本次未改。
+- **B0 列保持原值**（6/20、22 次编造、P50 19.64s、P95 25.23s），未重算或改写 B0 数据。
+- 本节不是 `report.py` 的确定性产物；`report.py` 重跑会覆盖 §0–§11（§11 需再用 `baseline_report.py --append-to` 恢复），也需要重新生成本节。
+
