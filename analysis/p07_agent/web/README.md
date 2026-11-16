@@ -58,6 +58,11 @@ POST 校验后立刻 `303` 到 `GET /run/<job_id>`，进度页四个阶段的状
 | `web/preview/timeline_375.png`、`timeline_1280.png` | T3.5 时间线真实模板渲染截图（白云山 BYS-T-02 + T2.3 v2 结构，见 §9.13 / §11） |
 | `web/preview/progress_375.png`、`progress_1280.png` | T3.7 真实任务进度页截图（真实模型，非 fixture；见 §11） |
 | `web/preview/progress_result_375.png` | T3.7 同一任务完成后的真实结果页截图（375 CSS px） |
+| `web/preview/a11y_index_375.png` | T3.8 首页 375px 实机截图（CDP 设备模拟） |
+| `web/preview/a11y_progress_375.png` | T3.8 进度页 375px 实机截图（真实任务运行中） |
+| `web/preview/a11y_result_375.png` | T3.8 结果页 375px 实机截图（同一真实任务完成后） |
+| `web/preview/a11y_progress_nojs_375.png` | T3.8 禁用页面脚本后的进度页（meta refresh 仍工作） |
+| `web/preview/a11y_result_nojs_375.png` | T3.8 禁用页面脚本后的结果页（details 仍可展开） |
 | `web/README.md` | 本文件：调色板、对比度、接线说明、状态映射、缓存、证据卡、示意图、截图复现 |
 
 ## 2. 设计口径（先读）
@@ -683,6 +688,8 @@ T3.2 缓存补丁后仍为 **137 条测试 OK**，并新增缓存/视图切换�
 T3.5 完成时：check 通过 + **174 条测试 OK**（仍是只改模板 / 样式 / 渲染接线，没改测试）。
 T3.7 完成时：check 通过 + **271 条测试 OK**（新增 11 条任务/进度/错误页断言；
 `test_workflow` 里 3 条 POST 用例改为「POST 303 → 等任务完成 → GET 进度页」）。
+T3.8 完成时：check 通过 + **293 条测试 OK**（新增 `test_accessibility.py` 22 条：
+HTML 语义 / 焦点 / 标题层级 / 375 防溢出规则 / 减少动效 / 对比度复算；未删改既有测试）。
 
 ## 11. 截图复现（T3.2 / T3.4 / T3.3 / 缓存补丁 / T3.5）
 
@@ -855,6 +862,115 @@ progress_1280.png scrollWidth=1280 == clientWidth=1280
 `run_agent(progress=...)` 的 `start` / `done` 事件。T2.7 的 `verify` 会在解析需求后先做一次
 需求预检、路线规划后再重复出现；进度页按 stage 合并，并且只按文档顺序点亮
 （前序未完成时后序保持「等待」，不提前把「核验行程」标成完成）。
+
+### 11.2 T3.8 移动端与无障碍实测（2026-11-16）
+
+T3.8 不改变业务判定与页面内容，只补可验收的收口：跳转链接 44px 触控高度、等待阶段
+药丸边框改用 `--color-line-strong`、长 `doc_id` / 会话文件名断行规则；并新增
+`tests/test_accessibility.py`（22 条）把 HTML 语义、焦点、防溢出与对比度固定成回归断言。
+
+工具：仓库外 `d3_a11y_probe.py`（父 Agent 提供）与 `t38_audit.py`（本次补充），
+均通过 CDP `Emulation.setDeviceMetricsOverride` 把视口真正设为 **375×900**，不用
+`--window-size=375` 裁切。服务：`WEB_PORT=5006`，真实 `run_agent`（qwen3:8b）。
+
+#### 11.2.1 375px 横向滚动
+
+| 页面 | innerWidth | scrollWidth（默认） | clientWidth | scrollWidth（展开全部 `details`） | scrollHeight（展开） |
+|---|---:|---:|---:|---:|---:|
+| 首页 | 375 | 375 | 375 | 375 | 1161 |
+| 进度页 | 375 | 375 | 375 | 375 | 1030 |
+| 结果页 | 375 | 375 | 375 | 375 | 11397 |
+| 评审页 | 375 | 375 | 375 | 375 | 68653 |
+
+结果页包含时间线、证据卡、备选与路线示意图（`svg` 宽 480/640，放在
+`overflow-x: auto` 的 `.diagram__scroll` 里，只让容器内部滚动，页面本身不横滚）。
+修复前评审页「展开 trace」时 `scrollWidth=425`，原因是会话文件名是一段无空格长串；
+现由 `.audit-panels .muted { overflow-wrap: anywhere; }` 收口，复测回到 375。
+
+#### 11.2.2 键盘与焦点
+
+所有页面第一个 Tab 都是「跳到主要内容」，聚焦时 `transform` 归零并显示
+`outline: 3px solid rgb(11, 95, 180)`（3px，白底 6.34:1）；链接/按钮/输入框/
+`details > summary` 全部可聚焦，无键盘陷阱。实测前 10 个焦点（computed
+`outlineWidth/outlineStyle/outlineColor` 均为 `3px / solid / rgb(11, 95, 180)`）：
+
+| 页面 | Tab 顺序（前 10 个） |
+|---|---|
+| 首页 | 跳过链接 → 切换到评审视图 → 需求输入框 → 长隆亲子一日 → 白云山老人一日 → 武功山两日 → 提交需求 → 清空 → body（循环）→ 跳过链接 |
+| 进度页 | 跳过链接 → 切换到评审视图 → 立即刷新进度 →（只有 3 个可聚焦元素，随后循环） |
+| 结果页 | 跳过链接 → 切换到评审视图 → 查看来源（1 处停留点）→ 打开原文 · Trip.com → 查看来源 → 打开原文 · Trip.com → 查看来源 → 打开原文 · Trip.com → 查看本段来源（1 条）→ 打开原文 · Trip.com |
+
+首页/结果页的跳过链接与按钮高度均为 44px；正文内联链接按 WCAG 2.5.8 的
+“inline exception”不强制 44px。
+
+#### 11.2.3 对比度（WCAG 2.x 实算）
+
+文本对（要求 ≥4.5:1）：
+
+| 颜色对 | 前景 | 背景 | 比值 |
+|---|---|---|---:|
+| 正文 / 画布 | `#1A2028` | `#F5F7F9` | 15.26 |
+| 次要文本 / 画布 | `#4A5560` | `#F5F7F9` | 7.09 |
+| 次要文本 / 白底 | `#4A5560` | `#FFFFFF` | 7.61 |
+| 跳转链接 / 按钮 | `#FFFFFF` | `#14532D` | 9.11 |
+| 品牌链接 / 白底 | `#14532D` | `#FFFFFF` | 9.11 |
+| 状态 verified | `#1E6B34` | `#E8F5EC` | 5.83 |
+| 状态 partial | `#8A5A00` | `#FFF4D6` | 5.41 |
+| 状态 clarify | `#1F5FA8` | `#E7F0FB` | 5.60 |
+| 状态 error | `#A12622` | `#FDECEA` | 6.52 |
+| 页脚 | `#3C4650` | `#E8EDF1` | 8.16 |
+| 进度-等待阶段 | `#4A5560` | `#FFFFFF` | 7.61 |
+| 进度-进行中 | `#1F5FA8` | `#E7F0FB` | 5.60 |
+| 进度-已完成 | `#1E6B34` | `#E8F5EC` | 5.83 |
+| 证据卡摘句 | `#2B333B` | `#F2F5F7` | 11.70 |
+| 未找到来源 | `#8A5A00` | `#FFFFFF` | 5.93 |
+| 资料时间药丸 | `#1A2028` | `#ECF3EE` | 14.53 |
+| 行程可行性提示 | `#8A5A00` | `#FFF4D6` | 5.41 |
+
+控件/边界对（要求 ≥3:1）：
+
+| 控件 | 前景/边界 | 背景 | 比值 |
+|---|---|---|---:|
+| 焦点环 | `#0B5FB4` | `#FFFFFF` | 6.34 |
+| 焦点环 / 画布 | `#0B5FB4` | `#F5F7F9` | 5.91 |
+| 输入框 / 示例 chip 边框 | `#7C8791` | `#FFFFFF` | 3.66 |
+| 等待阶段药丸边框 | `#7C8791` | `#FFFFFF` | 3.66 |
+| 次按钮边框 | `#14532D` | `#FFFFFF` | 9.11 |
+| 状态徽标边框（currentColor） | 各状态前景 | 各状态底色 | 5.41–6.52 |
+
+`--color-line: #CBD4DC`（1.5:1）只用于卡片、表格、分组等**装饰性分隔线**，
+不承担控件边界或状态信息，按 WCAG 1.4.11 不属于需要 3:1 的 UI component；
+所有可交互控件的边界都使用 `--color-line-strong` 或品牌绿。
+
+#### 11.2.4 减少动效
+
+`Emulation.setEmulatedMedia` 模拟 `prefers-reduced-motion: reduce` 后，
+`.btn` / `html` / `.stepper__step` 的 computed `transition-duration` 与
+`animation-duration` 均为 `0s`，`scroll-behavior` 为 `auto`。样式表本身没有
+关键帧动画；进度页的轮询是数据更新，不是视觉动效。
+
+#### 11.2.5 禁用页面脚本
+
+CDP `Emulation.setScriptExecutionDisabled(true)` 后实测：
+
+- **首页可提交**：只在 textarea 写值并调用原生 `form.submit()`，落到
+  `/run/<job_id>?view=visitor`，标题为「处理中」，未执行任何页面脚本；
+- **进度页靠 meta refresh**：`<meta http-equiv="refresh" content="2">` 在禁用脚本时
+  始终存在，`elapsed` 从 `0.0` 自动变为 `2.0`，标题仍为「处理中」；
+- **结果页可读**：15 个 `details` 初始折叠，原生点击 `summary` 后
+  `details[open]` 从 0 变 1；页面没有任何 `<script>`；
+- 进度页唯一的内联 `<script>` 只是增强：有 JS 时轮询并移除 meta refresh，
+  失败/无 JS 时保留 meta refresh 兜底（T3.7 既有行为未改）。
+
+#### 11.2.6 T3.8 截图（375px，CDP 设备模拟）
+
+| 文件 | 尺寸 | 说明 |
+|---|---|---|
+| `a11y_index_375.png` | 375×1161 | 首页默认态 |
+| `a11y_progress_375.png` | 375×1030 | 真实任务运行中的进度页（解析需求进行中） |
+| `a11y_result_375.png` | 375×6944 | 同一真实任务完成后的结果页（含时间线/证据/备选/示意图入口） |
+| `a11y_progress_nojs_375.png` | 375×1030 | 禁用脚本后的进度页（meta refresh 仍生效） |
+| `a11y_result_nojs_375.png` | 375×6944 | 禁用脚本后的结果页（内容与有 JS 时一致） |
 
 ## 12. 已知限制与后续
 

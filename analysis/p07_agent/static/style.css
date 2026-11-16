@@ -1595,3 +1595,38 @@ td {
     margin-left: 0;
   }
 }
+
+/* --------------------------------------------------------------------------
+   26. T3.8 移动端与无障碍收口（只补规则，不重写既有样式）
+   验收口径：375px 无横向滚动、控件边界与焦点环 >=3:1、长串必须能折行。
+   说明：--color-line（#CBD4DC，1.5:1）只用于卡片/表格等**装饰性分隔线**，
+   WCAG 1.4.11 不要求装饰线达标；所有可交互控件的边界一律用
+   --color-line-strong（3.66:1）或品牌色（>=9:1）。
+   -------------------------------------------------------------------------- */
+
+/* 跳转链接也是触控目标：键盘聚焦时可见，且高度 >=44px */
+.skip-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+/* 进度页等待阶段：药丸边界用 line-strong（3.66:1），不只靠文字区分阶段 */
+.stepper__step--waiting {
+  border-color: var(--color-line-strong);
+}
+
+/* 可能包含 doc_id / 文件名 / URL 片段的文本块：一律允许断行，避免撑破 375px */
+.status-badge,
+.status-badge__desc,
+.status-badge__reason,
+.disclaimer-line,
+.person-note,
+.example-banner,
+.site-coverage,
+.progress__current,
+.tag,
+.audit-panels,
+.audit-panels .muted {
+  overflow-wrap: anywhere;
+}

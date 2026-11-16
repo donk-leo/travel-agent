@@ -1022,12 +1022,13 @@ def _render_failure_page():
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
   <div class="page">
     <header class="site-header"><div class="wrap site-header__inner"><div>
       <h1 class="site-title">可核验的景区行程助手</h1>
     </div></div></header>
     <main id="main-content" class="wrap">
-      <div class="status-area">
+      <div class="status-area" aria-live="polite">
         <p class="status-badge status-badge--error" data-status="error">
           <span class="status-badge__icon" aria-hidden="true">❌</span>
           <span class="status-badge__text"><span class="visually-hidden">状态：</span>处理失败</span>
@@ -1037,6 +1038,11 @@ def _render_failure_page():
         <p><a href="{{ url_for('home') }}">返回首页</a></p>
       </div>
     </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>不提供预订、支付、导航或叫车服务；资料版权归原站。</p>
+      </div>
+    </footer>
   </div>
 </body>
 </html>
