@@ -33,11 +33,12 @@ from collections import OrderedDict
 from pathlib import Path
 
 from flask import (
-    Flask, jsonify, redirect, render_template, render_template_string, request,
-    session, url_for,
+    Flask, g, got_request_exception, jsonify, redirect, render_template,
+    render_template_string, request, session, url_for,
 )
 
 import evidence
+import observability
 import tools
 from agent import run_agent
 from status import is_contract_violation, normalize_status
@@ -62,6 +63,9 @@ app = Flask(
     static_folder=str(BASE_DIR / "static"),
 )
 app.secret_key = os.urandom(32)
+
+# T5.1：日志默认写仓库外；配置失败只静默降级，不影响 Web 启动。
+observability.configure_logging()
 
 
 def _count_documents():
@@ -211,13 +215,18 @@ def _create_job(query, view):
     """新建任务（``status=pending``）并返回 ``job_id``；不启动线程。"""
     job_id = uuid.uuid4().hex
     now = time.time()
+    safe_query = _safe_text(query)
+    query_sha256_12, query_len = observability.query_fingerprint(safe_query)
     with _JOBS_LOCK:
         _purge_jobs_locked(now)
         while len(_JOBS) >= JOB_MAX_ENTRIES:
             _JOBS.popitem(last=False)
         _JOBS[job_id] = {
             "job_id": job_id,
-            "query": _safe_text(query),
+            "request_id": observability.get_request_id() or observability.new_request_id(),
+            "query": safe_query,
+            "query_sha256_12": query_sha256_12,
+            "query_len": query_len,
             "view": view,
             "status": "pending",
             "stages": [],
@@ -418,11 +427,25 @@ def _job_public(job):
 
 
 def _run_job(job_id):
-    """后台线程：真实调用 ``run_agent``，把回调事件写进任务，结束后落结果缓存。"""
+    """后台线程：真实调用 ``run_agent``，把回调事件写进任务，结束后落结果缓存。
+
+    T5.1：线程进入时恢复创建任务时的 request-id，使 ``job_started`` /
+    ``job_finished`` 与 POST 请求共用同一个 id；只记录耗时、状态、模型交互
+    次数与错误类型，不记录 query 原文。
+    """
     job = _job_get(job_id)
     if job is None:
         return
+    job_id = _safe_text(job_id)
+    request_id = observability.set_request_id(job.get("request_id"))
+    started = time.monotonic()
+    fingerprint = job.get("query_sha256_12")
+    query_len = int(job.get("query_len") or 0)
     _job_mark_running(job_id)
+    observability.log_event(
+        "job_started", job_id=job_id, request_id=request_id,
+        query_sha256_12=fingerprint, query_len=query_len,
+    )
     query = job["query"]
 
     def progress(event):
@@ -431,6 +454,17 @@ def _run_job(job_id):
         except Exception:  # noqa: BLE001 - 回调异常不影响主流程
             pass
 
+    def log_finished(status, result_status, model_calls,
+                     error_type=None, error_code=None, known=True):
+        observability.log_event(
+            "job_finished", job_id=job_id, request_id=request_id,
+            duration_ms=max(int((time.monotonic() - started) * 1000), 0),
+            status=status, result_status=result_status,
+            model_calls=int(model_calls), model_calls_known=known,
+            error_type=error_type, error_code=error_code,
+            query_sha256_12=fingerprint, query_len=query_len,
+        )
+
     try:
         result = run_agent(query, progress=progress)
     except Exception as exc:  # noqa: BLE001 - 线程异常落成 error 页，不让页面 500
@@ -438,10 +472,31 @@ def _run_job(job_id):
         # 先落缓存再标记完成，确保 GET 看到 done 时旧缓存路径已可命中。
         _store_result(query, result)
         _job_finish(job_id, result, error=str(exc))
+        log_finished("error", "error", 0,
+                     error_type=type(exc).__name__, known=False)
         return
+    model_calls = observability.count_model_calls(
+        result.get("trace_json") if isinstance(result, dict) else None
+    )
+    result_status = (
+        normalize_status(result.get("status")) if isinstance(result, dict) else "error"
+    )
+    status = "error" if result_status == "error" else "done"
+    error_type = None
+    error_code = None
+    if status == "error":
+        error_type = "agent_error"
+        reasons = result.get("reasons") if isinstance(result, dict) else None
+        if isinstance(reasons, list) and reasons and isinstance(reasons[0], dict):
+            error_code = _safe_text(reasons[0].get("code")) or None
     # 与旧同步流程一致：结果进进程内缓存，供 ?view=auditor / ?alt= 复用。
     _store_result(query, result)
     _job_finish(job_id, result)
+    log_finished(
+        status, result_status, model_calls,
+        error_type=error_type, error_code=error_code,
+        known=isinstance(result, dict) and "trace_json" in result,
+    )
 
 
 def _start_job(job_id):
@@ -1119,12 +1174,98 @@ def _sync_pending_query(result, query):
         pass
 
 
+# ---------------------------------------------------------------------------
+# T5.1 请求级可观测性：request-id + JSONL 日志
+#
+# - 每个请求生成/接受合法 ``X-Request-ID``，并写回响应头；
+# - 只记 method/path/status/duration_ms/error_type 与 query 的哈希+长度，
+#   不记 query string、表单原文、trace_json、cookie 或 Authorization；
+# - 日志失败由 observability.log_event 内部吞掉，不影响路由/模板/状态。
+# ---------------------------------------------------------------------------
+
+def _record_query_fingerprint(text):
+    """把当前请求的 query 只以 SHA256 前缀 + 字符长度存进 ``g``。"""
+    digest, length = observability.query_fingerprint(text)
+    g.query_sha256_12 = digest
+    g.query_len = length
+
+
+def _current_query_fingerprint():
+    return getattr(g, "query_sha256_12", None), int(getattr(g, "query_len", 0) or 0)
+
+
+@app.before_request
+def _observe_request_start():
+    """生成 request-id，并预先计算 query 指纹（不保存原文）。"""
+    request_id = observability.set_request_id(
+        request.headers.get(observability.REQUEST_ID_HEADER)
+    )
+    g.request_id = request_id
+    g.request_started = time.monotonic()
+    g.error_type = None
+    raw_query = ""
+    try:
+        raw_query = request.args.get("query") or ""
+        if not raw_query and request.method in ("POST", "PUT", "PATCH"):
+            raw_query = request.form.get("query") or ""
+    except Exception:  # noqa: BLE001 - 读表单失败不能影响路由
+        raw_query = ""
+    _record_query_fingerprint(raw_query)
+
+
+def _record_request_exception(sender, exception, **extra):
+    """记录异常类型；不记录异常 message（可能夹带用户输入）。"""
+    try:
+        g.error_type = type(exception).__name__
+    except Exception:  # noqa: BLE001 - 信号回调不得影响异常处理
+        pass
+
+
+got_request_exception.connect(_record_request_exception, app)
+
+
+@app.after_request
+def _observe_request_end(response):
+    """写响应头 + 一条 ``http_request`` 事件；任何异常都不改变响应。"""
+    try:
+        request_id = (
+            observability.get_request_id()
+            or getattr(g, "request_id", "")
+            or observability.new_request_id()
+        )
+        response.headers[observability.REQUEST_ID_HEADER] = request_id
+        started = getattr(g, "request_started", None)
+        duration_ms = (
+            max(int((time.monotonic() - started) * 1000), 0)
+            if isinstance(started, (int, float)) else 0
+        )
+        error_type = getattr(g, "error_type", None)
+        if error_type is None and response.status_code >= 500:
+            error_type = "internal_error"
+        digest, length = _current_query_fingerprint()
+        observability.log_event(
+            "http_request",
+            request_id=request_id,
+            method=request.method,
+            path=request.path,
+            status=response.status_code,
+            duration_ms=duration_ms,
+            error_type=error_type,
+            query_sha256_12=digest,
+            query_len=length,
+        )
+    except Exception:  # noqa: BLE001 - 可观测性不得改变响应
+        pass
+    return response
+
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     view = _resolve_view()
 
     if request.method == "GET":
         get_query = _safe_text(request.args.get("query"))
+        _record_query_fingerprint(get_query)
         cached = _get_cached_result(get_query) if get_query else None
         if cached is not None:
             # 视图切换 / 备选高亮：复用上一次 POST 的结果，不重新调用模型。
@@ -1143,6 +1284,7 @@ def home():
 
     if request.form.get("action") == "reset":
         session.pop("pending_query", None)
+        _record_query_fingerprint("")
         return render_template(
             "index.html",
             view=view,
@@ -1160,6 +1302,7 @@ def home():
     else:
         query = new_query
 
+    _record_query_fingerprint(query)
     if not query:
         return render_template(
             "index.html",
