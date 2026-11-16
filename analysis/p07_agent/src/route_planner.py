@@ -509,6 +509,40 @@ def plan_route(user_text, scenic_area, conditions=None, trace=None,
         if validation["valid"]:
             break
 
+        # T2.7b：第一次尝试未通过核验时，先用确定性 repair_route 在同一批候选
+        # 连接上补全中间步骤。补全后逐段同源可核验，就不再发第二次完整模型请求
+        # （第二次请求在失败时容易顶满 ROUTE_MAX_TOKENS，是延迟尾部主因）。
+        if attempt == 0:
+            repair_info = call_tool(
+                "repair_route",
+                repair_route,
+                node_ids=proposal["node_ids"],
+                candidates=candidates
+            )
+            if repair_info.get("repaired") and repair_info["validation"]["valid"]:
+                proposal["node_ids"] = repair_info["node_ids"]
+                validation = repair_info["validation"]
+                proposal["repaired_before_replan"] = True
+                proposal["explanation"] = (
+                    "首次模型路线未通过核验，已按图谱 NEXT 连接确定性补全中间步骤；"
+                    "没有再次调用规划模型。"
+                )
+                proposal.setdefault("uncertainties", []).append(
+                    "补全路径的实际步行距离、坡度和游玩时长需要进一步确认。"
+                )
+                if trace is not None:
+                    trace.record_event("route_repair_before_replan", observation={
+                        "repaired": True,
+                        "inserted_paths": len(repair_info.get("inserted_paths") or []),
+                        "node_count": len(proposal["node_ids"]),
+                        "validation": {
+                            "valid": validation.get("valid"),
+                            "fully_verified": validation.get("fully_verified"),
+                            "segments": len(validation.get("segments") or []),
+                        },
+                    })
+                break
+
         # 网络失败已经等过 180s 超时，不再发起第二次请求（不把上限翻倍）。
         if network_failed:
             break

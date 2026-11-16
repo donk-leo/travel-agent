@@ -4,6 +4,7 @@
 """
 
 import copy
+import io
 import json
 import os
 import sys
@@ -20,6 +21,7 @@ os.environ["P07_RESULT_CACHE"] = "0"
 import agent
 import constraint_checker
 import result_cache
+import route_planner
 import tool_decider
 import trace_log
 from constraint_checker import (
@@ -498,6 +500,91 @@ class ResultCacheIntegrationTests(unittest.TestCase):
         self.assertFalse(first.get("cache_hit"))
         self.assertFalse(second.get("cache_hit"))
         self.assertEqual(result_cache.stats()["hits"], 0)
+
+
+class _FakeRouteResponse:
+    """模拟 urllib 返回对象，供 plan_route 的模型调用使用。"""
+
+    def __init__(self, payload):
+        self._stream = io.BytesIO(
+            json.dumps(payload, ensure_ascii=False).encode("utf-8"))
+
+    def read(self, *args):
+        return self._stream.read(*args)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc_info):
+        return False
+
+
+#: T2.7b 修复夹具：单一来源 A→B→C，模型给出 A→C 时可由 repair_route 补出 B。
+REPAIR_CANDIDATES = [{
+    "source_doc_id": "CL-O-01",
+    "connections": [
+        {"from_node_id": "A", "to_node_id": "B",
+         "from_name": "A", "to_name": "B", "source_doc_ids": ["CL-O-01"]},
+        {"from_node_id": "B", "to_node_id": "C",
+         "from_name": "B", "to_name": "C", "source_doc_ids": ["CL-O-01"]},
+    ],
+}]
+
+
+class RouteRepairBeforeReplanTests(unittest.TestCase):
+    """T2.7b：第一次路线核验失败时先确定性补全，成功则不再发第二次模型请求。"""
+
+    def _plan(self, responses):
+        calls = []
+
+        def fake_urlopen(request, timeout=180):
+            calls.append(json.loads(request.data.decode("utf-8")))
+            if len(calls) > len(responses):
+                raise AssertionError("第二次模型请求不应发生")
+            return _FakeRouteResponse(responses[len(calls) - 1])
+
+        with patch.object(route_planner.urllib.request, "urlopen", fake_urlopen), \
+             patch.object(route_planner, "get_route_candidates",
+                          return_value=copy.deepcopy(REPAIR_CANDIDATES)):
+            result = route_planner.plan_route(
+                "去长隆玩一天", "长隆", conditions=[], days=1)
+        return result, calls
+
+    def _content(self, node_ids):
+        return {"message": {"content": json.dumps(
+            {"node_ids": node_ids, "explanation": "模型路线", "uncertainties": []},
+            ensure_ascii=False)}}
+
+    def test_repair_success_skips_second_model_call(self):
+        result, calls = self._plan([self._content(["A", "C"])])
+        self.assertEqual(len(calls), 1, "repair 成功时不应再发第二次模型请求")
+        proposal = result["proposal"]
+        self.assertEqual(proposal["node_ids"], ["A", "B", "C"])
+        self.assertTrue(proposal.get("repaired_before_replan"))
+        self.assertTrue(result["validation"]["valid"])
+        # 修复后的每一段都必须有同一来源文档的证据。
+        segments = result["validation"]["segments"]
+        self.assertEqual(len(segments), 2)
+        for segment in segments:
+            self.assertEqual(segment["source_doc_ids"], ["CL-O-01"])
+        self.assertTrue(result["validation"]["fully_verified"])
+
+    def test_repair_failure_still_uses_second_model_call(self):
+        result, calls = self._plan([
+            self._content(["A", "X"]),   # 无法补全：X 不在图谱里
+            self._content(["A", "B", "C"]),
+        ])
+        self.assertEqual(len(calls), 2, "repair 失败后应保留第二次模型尝试")
+        proposal = result["proposal"]
+        self.assertEqual(proposal["node_ids"], ["A", "B", "C"])
+        self.assertNotIn("repaired_before_replan", proposal)
+        self.assertTrue(result["validation"]["valid"])
+        # 第二次请求应带上第一次的核验反馈。
+        self.assertTrue(any(
+            message.get("role") == "user"
+            and "未通过图谱核验" in message.get("content", "")
+            for message in calls[1]["messages"]
+        ))
 
 
 if __name__ == "__main__":
