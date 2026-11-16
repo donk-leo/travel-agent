@@ -78,6 +78,21 @@ def _gate_runner(result, events, gate):
     return runner
 
 
+def _csrf_token(client):
+    """T5.2：POST 前先 GET 首页，取服务端注入的 hidden token（无 JS）。"""
+    html = client.get("/").get_data(as_text=True)
+    match = re.search(r'name="csrf_token" value="([^"]+)"', html)
+    if not match:
+        raise AssertionError("首页缺少服务端注入的 csrf_token")
+    return match.group(1)
+
+
+def _post(client, data):
+    payload = dict(data)
+    payload["csrf_token"] = _csrf_token(client)
+    return client.post("/", data=payload)
+
+
 def _job_id(response):
     location = response.headers.get("Location", "")
     match = re.search(r"/run/([0-9a-f]{32})", location)
@@ -113,10 +128,13 @@ class ProgressFlowTests(unittest.TestCase):
     def setUp(self):
         web_app._clear_jobs()
         web_app._clear_result_cache()
+        # T5.2：限流是进程内状态，逐用例清空，避免与 T3.7 断言互相干扰。
+        web_app._reset_rate_limiter()
 
     def tearDown(self):
         web_app._clear_jobs()
         web_app._clear_result_cache()
+        web_app._reset_rate_limiter()
 
     def assert_no_external_resources(self, html):
         self.assertNotRegex(html, r'(?:src|href)=["\']https?://')
@@ -136,8 +154,11 @@ class ProgressFlowTests(unittest.TestCase):
             web_app, "run_agent", side_effect=_gate_runner(_result(), events, gate)
         ):
             with web_app.app.test_client() as client:
+                token = _csrf_token(client)
                 started = time.monotonic()
-                response = client.post("/", data={"query": QUERY})
+                response = client.post(
+                    "/", data={"query": QUERY, "csrf_token": token}
+                )
                 elapsed = time.monotonic() - started
                 self.assertEqual(response.status_code, 303)
                 self.assertLess(elapsed, 1.0, "POST 仍在等模型结束")
@@ -184,7 +205,7 @@ class ProgressFlowTests(unittest.TestCase):
             web_app, "run_agent", side_effect=_gate_runner(_result(), events, gate)
         ):
             with web_app.app.test_client() as client:
-                response = client.post("/", data={"query": QUERY})
+                response = _post(client, {"query": QUERY})
                 job_id = _job_id(response)
                 page = client.get(response.headers["Location"])
                 html = page.get_data(as_text=True)
@@ -219,7 +240,7 @@ class ProgressFlowTests(unittest.TestCase):
             web_app, "run_agent", side_effect=_gate_runner(_result(), events, gate)
         ):
             with web_app.app.test_client() as client:
-                response = client.post("/", data={"query": QUERY})
+                response = _post(client, {"query": QUERY})
                 job_id = _job_id(response)
                 html = client.get(response.headers["Location"]).get_data(as_text=True)
                 verify_li = re.search(
@@ -246,7 +267,7 @@ class ProgressFlowTests(unittest.TestCase):
         )
         with patch.object(web_app, "run_agent", return_value=result):
             with web_app.app.test_client() as client:
-                response = client.post("/", data={"query": QUERY, "view": "auditor"})
+                response = _post(client, {"query": QUERY, "view": "auditor"})
                 self.assertEqual(response.status_code, 303)
                 self.assertIn("view=auditor", response.headers["Location"])
                 job_id = _job_id(response)
@@ -275,7 +296,7 @@ class ProgressFlowTests(unittest.TestCase):
     def test_thread_exception_renders_retry_form(self):
         with patch.object(web_app, "run_agent", side_effect=RuntimeError("boom-secret")):
             with web_app.app.test_client() as client:
-                response = client.post("/", data={"query": QUERY})
+                response = _post(client, {"query": QUERY})
                 job_id = _job_id(response)
                 payload = _wait_done(self, client, job_id)
                 self.assertEqual(payload["status"], "error")
@@ -300,7 +321,7 @@ class ProgressFlowTests(unittest.TestCase):
         )
         with patch.object(web_app, "run_agent", return_value=result):
             with web_app.app.test_client() as client:
-                response = client.post("/", data={"query": QUERY})
+                response = _post(client, {"query": QUERY})
                 job_id = _job_id(response)
                 _wait_done(self, client, job_id)
                 page = client.get(response.headers["Location"])
@@ -347,7 +368,7 @@ class ProgressFlowTests(unittest.TestCase):
         ]
         with patch.object(web_app, "run_agent", return_value=_result()):
             with web_app.app.test_client() as client:
-                response = client.post("/", data={"query": QUERY})
+                response = _post(client, {"query": QUERY})
                 job_id = _job_id(response)
                 payload = _wait_done(self, client, job_id)
 
@@ -388,7 +409,7 @@ class ProgressFlowTests(unittest.TestCase):
                 self.assertEqual(home.status_code, 200)
                 self.assert_no_external_resources(home.get_data(as_text=True))
 
-                response = client.post("/", data={"query": QUERY})
+                response = _post(client, {"query": QUERY})
                 job_id = _job_id(response)
                 progress = client.get(response.headers["Location"])
                 self.assertEqual(progress.status_code, 200)

@@ -17,9 +17,20 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 os.environ["P07_RESULT_CACHE"] = "0"
 
 
+def _csrf_token(client):
+    """T5.2：POST 前先 GET 首页，取服务端注入的 hidden token（无 JS）。"""
+    html = client.get("/").get_data(as_text=True)
+    match = re.search(r'name="csrf_token" value="([^"]+)"', html)
+    if not match:
+        raise AssertionError("首页缺少服务端注入的 csrf_token")
+    return match.group(1)
+
+
 def _post_and_render(client, data, timeout=5.0):
     """T3.7：POST 只返回 303；等后台任务完成后再 GET 进度页（完成态即结果页）。"""
-    response = client.post("/", data=data)
+    payload = dict(data)
+    payload.setdefault("csrf_token", _csrf_token(client))
+    response = client.post("/", data=payload)
     if response.status_code != 303:
         return response
     location = response.headers.get("Location", "")
@@ -142,6 +153,9 @@ class AgentFlowTests(unittest.TestCase):
         directory = patch.object(trace_log, "SESSION_DIR", Path(self.temp.name))
         directory.start()
         self.addCleanup(directory.stop)
+        # T5.2：限流是进程内状态，逐用例清空，避免与业务断言互相干扰。
+        self.addCleanup(web_app._reset_rate_limiter)
+        web_app._reset_rate_limiter()
         self.ok = {"status": "ok", "explanation": "", "question": ""}
         self.intent = {"scenic_area": "长隆", "duration_days": None}
         self.decision = {"decision": "query_graph", "request_type": "info", "reason": "查地点", "response": ""}

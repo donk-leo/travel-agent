@@ -30,6 +30,7 @@ import threading
 import time
 import uuid
 from collections import OrderedDict
+from datetime import timedelta
 from pathlib import Path
 
 from flask import (
@@ -39,6 +40,7 @@ from flask import (
 
 import evidence
 import observability
+import security
 import tools
 from agent import run_agent
 from status import is_contract_violation, normalize_status
@@ -49,6 +51,10 @@ GUIDES_GLOB = "scenic/*/data/processed/*_guides.csv"
 
 VIEWS = ("visitor", "auditor")
 DEFAULT_VIEW = "visitor"
+
+#: T5.2：默认只绑定回环地址；不要改成对外监听地址（部署建议见 SECURITY.md）。
+DEFAULT_HOST = security.DEFAULT_HOST
+DEFAULT_PORT = security.DEFAULT_PORT
 
 #: 访客视图首页的 3 个示例；用 GET 链接回填输入框，不依赖 JS。
 EXAMPLES = (
@@ -63,6 +69,27 @@ app = Flask(
     static_folder=str(BASE_DIR / "static"),
 )
 app.secret_key = os.urandom(32)
+# T5.2：会话 cookie 只走 HttpOnly + SameSite=Lax，30 分钟过期。
+# secret_key 为进程内随机值（重启/多进程会换），本机单用户可接受；
+# 不要让浏览器在 HTTPS 之外携带 Secure cookie，因此这里不设 SESSION_COOKIE_SECURE。
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE="Lax",
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=30),
+)
+
+#: 与 security 共享同一个限流器实例；测试通过下面的钩子配置/清空。
+RATE_LIMITER = security.RATE_LIMITER
+
+
+def _configure_rate_limit(limit=None, window_seconds=None):
+    """配置昂贵 POST 限流（测试/部署脚本用）；``None`` 恢复默认值。"""
+    security.configure_rate_limit(limit=limit, window_seconds=window_seconds)
+
+
+def _reset_rate_limiter():
+    """清空限流计数（测试隔离用，不改变当前限额）。"""
+    security.reset_rate_limiter()
 
 # T5.1：日志默认写仓库外；配置失败只静默降级，不影响 Web 启动。
 observability.configure_logging()
@@ -1105,6 +1132,44 @@ def _render_failure_page():
     return render_template_string(page)
 
 
+_SECURITY_PAGE = """<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · 可核验的景区行程助手</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="page">
+    <header class="site-header"><div class="wrap site-header__inner"><div>
+      <h1 class="site-title">可核验的景区行程助手</h1>
+    </div></div></header>
+    <main id="main-content" class="wrap">
+      <section aria-labelledby="security-title">
+        <h2 id="security-title">{{ title }}</h2>
+        <p>{{ message }}</p>
+        <p><a class="btn btn--secondary" href="{{ url_for('home') }}">返回首页</a></p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+"""
+
+
+def _render_security_notice(title, message, status_code, retry_after=None):
+    """T5.2：CSRF 校验失败 / 限流时的可读 HTML 页，不建任务、不调模型。"""
+    response = app.response_class(
+        render_template_string(_SECURITY_PAGE, title=title, message=message),
+        status=status_code,
+        mimetype="text/html",
+    )
+    if retry_after:
+        response.headers["Retry-After"] = str(int(retry_after))
+    return response
+
+
 def _error_result(query, exc=None):
     """把线程/调用异常收敛成四值契约里的 error 结果（不泄露原始堆栈到页面）。"""
     return {
@@ -1213,6 +1278,29 @@ def _observe_request_start():
     _record_query_fingerprint(raw_query)
 
 
+@app.before_request
+def _enforce_csrf_token():
+    """T5.2：所有 POST 必须带会话 token；失败返回可读 400，且不进入路由。
+
+    在 ``_observe_request_start`` 之后注册，保证 request-id/日志仍先生成；
+    这里只比较 token，不记录 token 原文。
+    """
+    if request.method != "POST":
+        return None
+    try:
+        submitted = request.form.get(security.CSRF_FIELD_NAME, "")
+    except Exception:  # noqa: BLE001 - 读表单失败按缺失处理
+        submitted = ""
+    expected = session.get(security.CSRF_SESSION_KEY)
+    if security.csrf_tokens_match(expected, submitted):
+        return None
+    return _render_security_notice(
+        "提交校验失败",
+        "页面可能已过期，本次提交没有处理。请返回首页刷新后重新提交。",
+        400,
+    )
+
+
 def _record_request_exception(sender, exception, **extra):
     """记录异常类型；不记录异常 message（可能夹带用户输入）。"""
     try:
@@ -1255,6 +1343,28 @@ def _observe_request_end(response):
             query_len=length,
         )
     except Exception:  # noqa: BLE001 - 可观测性不得改变响应
+        pass
+    return response
+
+
+@app.after_request
+def _inject_csrf_token(response):
+    """T5.2：给 HTML 表单服务端注入 hidden ``csrf_token``（无 JS）。
+
+    在 ``_observe_request_end`` 之后注册，但 Flask 按注册逆序执行，因此注入
+    先于日志；注入失败绝不改变原响应/状态码。已有 token 的页面不重复注入。
+    """
+    try:
+        if response.mimetype != "text/html" or response.status_code >= 500:
+            return response
+        html = response.get_data(as_text=True)
+        if "</form>" not in html:
+            return response
+        token = security.ensure_csrf_token(session)
+        updated = security.inject_csrf_token(html, token)
+        if updated != html:
+            response.set_data(updated)
+    except Exception:  # noqa: BLE001 - 安全注入不得把页面变成 500
         pass
     return response
 
@@ -1313,6 +1423,16 @@ def home():
         )
 
     # T3.7：POST 不再等在模型结束；建任务 + 起后台线程后立刻 303 到进度页。
+    # T5.2：昂贵 POST 每 IP 每分钟限流；GET / reset / 空输入不消耗限额。
+    allowed, retry_after = RATE_LIMITER.consume(request.remote_addr or "local")
+    if not allowed:
+        return _render_security_notice(
+            "提交太频繁",
+            "每分钟最多 %d 次查询，本次提交没有处理。请约 %d 秒后再试。"
+            % (RATE_LIMITER.limit, retry_after),
+            429,
+            retry_after=retry_after,
+        )
     job_id = _create_job(query, view)
     _start_job(job_id)
     return redirect(url_for("run_progress", job_id=job_id, view=view), code=303)
@@ -1352,5 +1472,10 @@ def run_progress_json(job_id):
     return jsonify(_job_public(job))
 
 
+def _serve():
+    """启动本机 Web 服务：显式只绑定回环地址，关闭 debug/reloader。"""
+    app.run(host=DEFAULT_HOST, port=DEFAULT_PORT, debug=False)
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    _serve()

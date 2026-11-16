@@ -58,6 +58,21 @@ def _result(trace_events=None, status="verified"):
     }
 
 
+def _csrf_token(client):
+    """T5.2：POST 前先 GET 首页，取服务端注入的 hidden token（无 JS）。"""
+    html = client.get("/").get_data(as_text=True)
+    match = re.search(r'name="csrf_token" value="([^"]+)"', html)
+    if not match:
+        raise AssertionError("首页缺少服务端注入的 csrf_token")
+    return match.group(1)
+
+
+def _post(client, data):
+    payload = dict(data)
+    payload["csrf_token"] = _csrf_token(client)
+    return client.post("/", data=payload)
+
+
 def _log_path(directory):
     return Path(directory) / observability.LOG_FILENAME
 
@@ -271,6 +286,9 @@ class LogEventPrivacyTests(_TempLogTestCase):
 class WebObservabilityTests(_TempLogTestCase):
     def setUp(self):
         super().setUp()
+        # T5.2：限流是进程内状态，逐用例清空，避免 T3.7/T5.1 断言被 429 干扰。
+        web_app._reset_rate_limiter()
+        self.addCleanup(web_app._reset_rate_limiter)
         self._client = web_app.app.test_client()
         self.addCleanup(self._client.__exit__, None, None, None)
         self._client.__enter__()
@@ -297,7 +315,7 @@ class WebObservabilityTests(_TempLogTestCase):
 
     def test_post_logs_fingerprint_but_never_query_text(self):
         with patch.object(web_app, "run_agent", return_value=_result()):
-            response = self._client.post("/", data={"query": QUERY})
+            response = _post(self._client, {"query": QUERY})
             self.assertEqual(response.status_code, 303)
             request_id = response.headers.get("X-Request-ID")
             self.assertRegex(request_id, REQUEST_ID_RE)
@@ -322,6 +340,17 @@ class WebObservabilityTests(_TempLogTestCase):
         self.assertEqual(event["query_len"], len(QUERY))
         self.assertNotIn(QUERY, _log_text(self.log_dir))
 
+    def test_csrf_token_never_appears_in_logs_or_location(self):
+        token = _csrf_token(self._client)
+        with patch.object(web_app, "run_agent", return_value=_result()):
+            response = self._client.post(
+                "/", data={"query": QUERY, "csrf_token": token}
+            )
+            self.assertEqual(response.status_code, 303)
+            self.assertNotIn(token, response.headers.get("Location", ""))
+            _wait_done(self._client, response.headers["Location"])
+        self.assertNotIn(token, _log_text(self.log_dir))
+
     def test_job_events_share_request_id_and_model_calls(self):
         trace_events = [
             _event("user_input", user_request=QUERY),
@@ -331,7 +360,7 @@ class WebObservabilityTests(_TempLogTestCase):
             _event("final_answer", final_answer={}),
         ]
         with patch.object(web_app, "run_agent", return_value=_result(trace_events)):
-            response = self._client.post("/", data={"query": QUERY})
+            response = _post(self._client, {"query": QUERY})
             self.assertEqual(response.status_code, 303)
             request_id = response.headers.get("X-Request-ID")
             job_id = _wait_done(self._client, response.headers["Location"])
@@ -372,7 +401,7 @@ class WebObservabilityTests(_TempLogTestCase):
 
     def test_job_exception_logs_error_type_and_request_id(self):
         with patch.object(web_app, "run_agent", side_effect=RuntimeError("job boom")):
-            response = self._client.post("/", data={"query": QUERY})
+            response = _post(self._client, {"query": QUERY})
             self.assertEqual(response.status_code, 303)
             request_id = response.headers.get("X-Request-ID")
             _wait_done(self._client, response.headers["Location"])
@@ -389,7 +418,7 @@ class WebObservabilityTests(_TempLogTestCase):
 
     def test_existing_303_contract_still_holds(self):
         with patch.object(web_app, "run_agent", return_value=_result()):
-            response = self._client.post("/", data={"query": QUERY})
+            response = _post(self._client, {"query": QUERY})
             self.assertEqual(response.status_code, 303)
             self.assertRegex(
                 response.headers.get("Location", ""),
