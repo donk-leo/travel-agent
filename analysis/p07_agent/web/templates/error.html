@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from "_status_badge.html" import status_badge %}
+
+{% block title %}处理失败 · 可核验的景区行程助手{% endblock %}
+
+{#
+  T3.7 失败页：任务线程异常或后端返回 status=error 时渲染。
+  - 四值徽标（error） + 原因文案 + 「重新提交」表单（query 回填）；
+  - 纯服务端渲染，无脚本、无外部资源；HTTP 状态保持 200，不把访客留在 500。
+#}
+{% block status %}
+  {{ status_badge('error') }}
+  {% if reasons %}
+  <ul class="reasons" aria-label="本次结果的原因">
+    {% for reason in reasons %}
+    <li class="reasons__item">{{ reason.text|e }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% if message %}
+  <p class="status-note">{{ message|e }}</p>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<section aria-labelledby="retry-title">
+  <h2 id="retry-title">重新提交</h2>
+  <p class="muted">这次没有生成行程，下面的输入框已保留上次的需求，可以直接修改后重试。</p>
+
+  <form class="query-form" action="{{ url_for('home') }}" method="post" aria-describedby="retry-hint">
+    <input type="hidden" name="view" value="{{ view|default('visitor') }}">
+
+    <label class="query-form__label" for="retry-query-input">你的旅行需求</label>
+    <p class="query-form__hint" id="retry-hint">可以补充景区、天数、同行人和偏好，再提交一次。</p>
+    <textarea id="retry-query-input" name="query" rows="4" required>{{ query|e }}</textarea>
+
+    <div class="query-form__actions">
+      <button type="submit" class="btn">重新提交</button>
+      <a class="btn btn--secondary" href="{{ url_for('home', view=view) }}">返回首页</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

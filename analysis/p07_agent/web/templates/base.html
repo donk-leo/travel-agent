@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}可核验的景区行程助手{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% block head %}{% endblock %}
 </head>
 {#- 视图切换：只保留白名单内的 view，并带上当前 query 文本（T3.2）。 -#}
 {%- set current_view = view|default('visitor') -%}

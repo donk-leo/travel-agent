@@ -1,8 +1,8 @@
-"""P7 Web 入口：访客 / 评审双视图（T3.2）+ 证据卡接线（T3.4）。
+"""P7 Web 入口：访客 / 评审双视图（T3.2）+ 证据卡接线（T3.4）+ 任务化进度（T3.7）。
 
 职责边界
 --------
-本模块只做**路由、状态归一与渲染**：
+本模块只做**路由、状态归一、任务接线与渲染**：
 
 - 状态仍由 ``agent.run_agent()`` 判定，这里只调用 ``status.normalize_status()``
   把缺失/未定义值收敛成 ``error``（PRODUCT_SPEC §5.4），不参与任何业务判定；
@@ -13,7 +13,11 @@
   ``graph_nodes.csv`` 的 ``source_doc_ids`` 前 2 篇，摘句一律由
   ``quote_sentence_for()`` / ``segment_evidence()`` 返回的原文切片，
   本模块不读 guides CSV、不拼句子、不补 URL/日期；任何异常都降级成空卡，
-  由模板显示「未找到来源」，不让页面 500。
+  由模板显示「未找到来源」，不让页面 500；
+- T3.7 提交改成**进程内任务**：POST 建 job + 起 daemon 线程后立刻 303 到
+  ``/run/<job_id>``，进度页四个阶段的状态全部来自 ``run_agent(progress=...)``
+  的真实回调（按 stage 合并，不伪造完成）；进度 JSON 只暴露阶段状态，
+  结果仍走原 ``_store_result`` 缓存，``?view=auditor`` / ``?alt=`` 行为不变。
 
 启动时从三个景区的 ``*_guides.csv`` 行数统计文档数（T1.5 后为 32 篇），
 不再在模板里硬编码篇数。
@@ -24,10 +28,14 @@ import json
 import os
 import threading
 import time
+import uuid
 from collections import OrderedDict
 from pathlib import Path
 
-from flask import Flask, render_template, render_template_string, request, session
+from flask import (
+    Flask, jsonify, redirect, render_template, render_template_string, request,
+    session, url_for,
+)
 
 import evidence
 import tools
@@ -144,6 +152,319 @@ def _resolve_view():
 
 def _safe_text(value):
     return str(value).strip() if value is not None else ""
+
+
+# ---------------------------------------------------------------------------
+# T3.7 任务化提交：进程内 JobStore + 后台线程 + 进度事件
+#
+# 边界：
+# - 只保存本进程内的一次请求状态，不落盘、不进 cookie；
+# - 线程只调用 ``run_agent(query, progress=...)``，进度来自后端真实回调，
+#   前端不推断、不伪造阶段完成；
+# - 回调异常一律吞掉，绝不影响 ``run_agent`` 主流程。
+# ---------------------------------------------------------------------------
+
+#: 四阶段固定顺序（与 ``agent.PROGRESS_LABELS`` 同名，但不从 agent 导入：
+#: 页面只认这四个阶段，未知阶段只按「等待」渲染，不伪造完成）。
+PROGRESS_STAGES = (
+    ("intent", "解析需求"),
+    ("tools", "查询图谱"),
+    ("route", "规划路线"),
+    ("verify", "核验行程"),
+)
+PROGRESS_STAGE_LABELS = dict(PROGRESS_STAGES)
+PROGRESS_STATE_TEXT = {"waiting": "等待", "active": "进行中", "done": "已完成"}
+PROGRESS_STATE_ICONS = {"waiting": "○", "active": "▶", "done": "✔"}
+
+JOB_TTL_SECONDS = 30 * 60
+JOB_MAX_ENTRIES = 16
+
+#: job_id -> 任务字典；``OrderedDict`` 用于按创建顺序淘汰最旧任务。
+_JOBS = OrderedDict()
+_JOBS_LOCK = threading.RLock()
+
+
+def _job_elapsed_ms(job):
+    """任务已用毫秒；完成后冻结在 ``finished_mono``，不随页面刷新继续增长。"""
+    started = job.get("started_mono")
+    if not isinstance(started, (int, float)):
+        return 0
+    finished = job.get("finished_mono")
+    end = finished if isinstance(finished, (int, float)) else time.monotonic()
+    return max(int((end - started) * 1000), 0)
+
+
+def _purge_jobs_locked(now=None):
+    """TTL 过期清理 + 超过上限时淘汰最旧任务；调用方必须持有 ``_JOBS_LOCK``。"""
+    now = time.time() if now is None else now
+    expired = [
+        job_id for job_id, job in _JOBS.items()
+        if now - job.get("created_at", now) > JOB_TTL_SECONDS
+    ]
+    for job_id in expired:
+        _JOBS.pop(job_id, None)
+    while len(_JOBS) > JOB_MAX_ENTRIES:
+        _JOBS.popitem(last=False)
+
+
+def _create_job(query, view):
+    """新建任务（``status=pending``）并返回 ``job_id``；不启动线程。"""
+    job_id = uuid.uuid4().hex
+    now = time.time()
+    with _JOBS_LOCK:
+        _purge_jobs_locked(now)
+        while len(_JOBS) >= JOB_MAX_ENTRIES:
+            _JOBS.popitem(last=False)
+        _JOBS[job_id] = {
+            "job_id": job_id,
+            "query": _safe_text(query),
+            "view": view,
+            "status": "pending",
+            "stages": [],
+            "result": None,
+            "error": None,
+            "created_at": now,
+            "updated_at": now,
+            "started_mono": time.monotonic(),
+            "finished_at": None,
+            "finished_mono": None,
+        }
+    return job_id
+
+
+def _job_get(job_id):
+    """取任务快照（深拷贝阶段事件）；不存在或已过期返回 ``None``。"""
+    key = _safe_text(job_id)
+    if not key:
+        return None
+    with _JOBS_LOCK:
+        _purge_jobs_locked()
+        job = _JOBS.get(key)
+        if job is None:
+            return None
+        snapshot = dict(job)
+        snapshot["stages"] = [dict(event) for event in job.get("stages") or []]
+    return snapshot
+
+
+def _job_append_event(job_id, event):
+    """追加一条真实进度事件；任何异常都吞掉（进度只是旁路数据面）。"""
+    try:
+        if not isinstance(event, dict):
+            return
+        stage = _safe_text(event.get("stage"))
+        try:
+            elapsed_ms = max(int(event.get("elapsed_ms") or 0), 0)
+        except (TypeError, ValueError):
+            elapsed_ms = 0
+        entry = {
+            "stage": stage,
+            "label": _safe_text(event.get("label")) or PROGRESS_STAGE_LABELS.get(stage, ""),
+            "status": _safe_text(event.get("status")),
+            "elapsed_ms": elapsed_ms,
+            "server_ts": time.time(),
+        }
+        with _JOBS_LOCK:
+            job = _JOBS.get(_safe_text(job_id))
+            if job is None or job.get("status") in ("done", "error"):
+                return
+            job["stages"].append(entry)
+            job["status"] = "running"
+            job["updated_at"] = entry["server_ts"]
+    except Exception:  # noqa: BLE001 - 进度失败不得影响主流程
+        pass
+
+
+def _job_finish(job_id, result, error=None):
+    """写入最终结果并标记 ``done`` / ``error``；状态只做归一，不改判定。"""
+    with _JOBS_LOCK:
+        job = _JOBS.get(_safe_text(job_id))
+        if job is None:
+            return
+        payload = result if isinstance(result, dict) else {}
+        job["result"] = payload
+        job["error"] = _safe_text(error) or None
+        job["status"] = (
+            "error" if normalize_status(payload.get("status")) == "error" else "done"
+        )
+        now = time.time()
+        job["updated_at"] = now
+        job["finished_at"] = now
+        job["finished_mono"] = time.monotonic()
+
+
+def _job_mark_running(job_id):
+    """线程启动后立刻标记 ``running``（首个事件通常也在 0ms 内到达）。"""
+    with _JOBS_LOCK:
+        job = _JOBS.get(_safe_text(job_id))
+        if job is not None and job.get("status") == "pending":
+            job["status"] = "running"
+            job["updated_at"] = time.time()
+
+
+def _job_error_text(job):
+    """错误页/JSON 用的人话原因；不把原始异常文本暴露给访客。"""
+    result = job.get("result") if isinstance(job, dict) else None
+    result = result if isinstance(result, dict) else {}
+    return (
+        _safe_text(result.get("message"))
+        or _safe_text(job.get("error") if isinstance(job, dict) else "")
+        or "本次处理失败，请稍后重试。"
+    )
+
+
+def _merge_stages(job):
+    """把真实事件按 stage 合并成固定四阶段（verify 重复出现也只渲染一次）。
+
+    - 任一事件 ``status=done`` → 该阶段「已完成」；
+    - 有 start 但无 done → 「进行中」（不假设阶段唯一、不伪造完成）；
+    - 没有任何事件 → 「等待」；
+    - 时间取该阶段最新事件的 ``elapsed_ms``（任务开始以来的累计毫秒），
+      进行中的阶段按当前累计时间向上取整；
+    - **按文档顺序点亮**：前序阶段未完成时，后序阶段保持「等待」。T2.7 的
+      ``verify`` 会在解析需求后先做一次需求预检、之后规划路线完再重复出现；
+      这里只推迟显示，不提前把「核验行程」标成完成（也不伪造任何阶段）。
+    """
+    events = job.get("stages") if isinstance(job, dict) else []
+    by_stage = {}
+    for event in events or []:
+        if not isinstance(event, dict):
+            continue
+        stage = _safe_text(event.get("stage"))
+        if stage not in PROGRESS_STAGE_LABELS:
+            continue
+        by_stage.setdefault(stage, []).append(event)
+
+    running = job.get("status") in ("pending", "running") if isinstance(job, dict) else False
+    now_ms = _job_elapsed_ms(job if isinstance(job, dict) else {})
+    current_ts = None
+    current_stage = None
+    prefix_done = True
+    merged = []
+    for stage, label in PROGRESS_STAGES:
+        seq = by_stage.get(stage) or []
+        done = any(_safe_text(event.get("status")) == "done" for event in seq)
+        started = bool(seq)
+        if prefix_done:
+            state = "done" if done else ("active" if started and running else "waiting")
+        else:
+            # 前序阶段还没完成：后序事件（如 verify 的需求预检）不提前点亮。
+            state = "waiting"
+        elapsed_ms = max(
+            (int(event.get("elapsed_ms") or 0) for event in seq), default=0
+        )
+        if state == "done":
+            elapsed_ms = max(int(elapsed_ms), 0)
+        elif state == "active":
+            elapsed_ms = max(int(elapsed_ms), now_ms)
+            latest_ts = max(
+                (event.get("server_ts") or 0 for event in seq), default=0
+            )
+            if current_ts is None or latest_ts >= current_ts:
+                current_ts = latest_ts
+                current_stage = stage
+        else:
+            # 等待中的阶段不显示秒数：没有到达就不编造已用时间。
+            elapsed_ms = 0
+        if state != "done":
+            prefix_done = False
+        merged.append({
+            "stage": stage,
+            "label": label,
+            "state": state,
+            "state_text": PROGRESS_STATE_TEXT[state],
+            "icon": PROGRESS_STATE_ICONS[state],
+            "elapsed_ms": max(int(elapsed_ms), 0),
+            "elapsed_s": f"{max(int(elapsed_ms), 0) / 1000:.1f}",
+            "is_current": False,
+        })
+
+    if current_stage:
+        for item in merged:
+            item["is_current"] = item["stage"] == current_stage
+    return merged
+
+
+def _job_current_label(job, stages):
+    """当前阶段文案：真实进行中的阶段；没开始则「准备开始」。"""
+    if not isinstance(job, dict):
+        return "准备开始"
+    if job.get("status") == "pending":
+        return "准备开始"
+    for item in stages:
+        if item.get("state") == "active" and item.get("is_current"):
+            return item["label"]
+    return "准备开始"
+
+
+def _job_public(job):
+    """JSON 端点的白名单结构：只有阶段进度，不含 intent / trace / 路线明细。"""
+    stages = _merge_stages(job)
+    return {
+        "status": job.get("status"),
+        "stages": [
+            {
+                "stage": item["stage"],
+                "label": item["label"],
+                "status": item["state"],
+                "elapsed_ms": item["elapsed_ms"],
+            }
+            for item in stages
+        ],
+        "elapsed_s": round(_job_elapsed_ms(job) / 1000, 1),
+        "done": job.get("status") in ("done", "error"),
+        "error": _job_error_text(job) if job.get("status") == "error" else None,
+    }
+
+
+def _run_job(job_id):
+    """后台线程：真实调用 ``run_agent``，把回调事件写进任务，结束后落结果缓存。"""
+    job = _job_get(job_id)
+    if job is None:
+        return
+    _job_mark_running(job_id)
+    query = job["query"]
+
+    def progress(event):
+        try:
+            _job_append_event(job_id, event)
+        except Exception:  # noqa: BLE001 - 回调异常不影响主流程
+            pass
+
+    try:
+        result = run_agent(query, progress=progress)
+    except Exception as exc:  # noqa: BLE001 - 线程异常落成 error 页，不让页面 500
+        result = _error_result(query, exc)
+        # 先落缓存再标记完成，确保 GET 看到 done 时旧缓存路径已可命中。
+        _store_result(query, result)
+        _job_finish(job_id, result, error=str(exc))
+        return
+    # 与旧同步流程一致：结果进进程内缓存，供 ?view=auditor / ?alt= 复用。
+    _store_result(query, result)
+    _job_finish(job_id, result)
+
+
+def _start_job(job_id):
+    thread = threading.Thread(
+        target=_run_job,
+        args=(job_id,),
+        name=f"p07-job-{str(job_id)[:8]}",
+        daemon=True,
+    )
+    thread.start()
+    return thread
+
+
+def _clear_jobs():
+    """清空任务表（测试用；页面不提供清空入口）。"""
+    with _JOBS_LOCK:
+        _JOBS.clear()
+
+
+def _job_count():
+    """当前任务数（测试用）。"""
+    with _JOBS_LOCK:
+        return len(_JOBS)
 
 
 def _normalize_reasons(raw):
@@ -723,21 +1044,73 @@ def _render_failure_page():
     return render_template_string(page)
 
 
+def _error_result(query, exc=None):
+    """把线程/调用异常收敛成四值契约里的 error 结果（不泄露原始堆栈到页面）。"""
+    return {
+        "query": query,
+        "status": "error",
+        "message": "服务暂时不可用，请稍后重试。",
+        "error": str(exc) if exc is not None else "",
+        "reasons": [{
+            "code": "model_error",
+            "text": "服务暂时不可用，本次没有生成行程。",
+        }],
+    }
+
+
 def _run_agent_safely(query):
     """调用一次 ``run_agent``；异常兜成 error 结果，不让路由抛 500。"""
     try:
         return run_agent(query)
     except Exception as exc:
-        return {
-            "query": query,
-            "status": "error",
-            "message": "服务暂时不可用，请稍后重试。",
-            "error": str(exc),
-            "reasons": [{
-                "code": "model_error",
-                "text": "服务暂时不可用，本次没有生成行程。",
-            }],
-        }
+        return _error_result(query, exc)
+
+
+def _render_job_error(job, view):
+    """失败页：四值徽标 + 原因 + 回填 query 的「重新提交」表单；模板异常也不 500。"""
+    job = job if isinstance(job, dict) else {}
+    result = job.get("result")
+    result = result if isinstance(result, dict) else {}
+    try:
+        return render_template(
+            "error.html",
+            view=view,
+            query=_safe_text(job.get("query")),
+            status="error",
+            reasons=_normalize_reasons(result.get("reasons")),
+            message=_job_error_text(job),
+        )
+    except Exception:  # noqa: BLE001 - 模板失败仍要给访客一个 200 的错误页
+        return _render_failure_page()
+
+
+def _render_progress_page(job, view):
+    """运行中进度页：四个固定阶段 + 真实阶段状态；模板异常回落错误页。"""
+    stages = _merge_stages(job)
+    try:
+        return render_template(
+            "progress.html",
+            view=view,
+            job_id=job.get("job_id", ""),
+            query=_safe_text(job.get("query")),
+            stages=stages,
+            current_label=_job_current_label(job, stages),
+            elapsed_s=f"{_job_elapsed_ms(job) / 1000:.1f}",
+            job_status=_safe_text(job.get("status")),
+        )
+    except Exception:  # noqa: BLE001 - 进度页模板失败也要有可读页面
+        return _render_failure_page()
+
+
+def _sync_pending_query(result, query):
+    """完成页才同步追问上下文（后台线程不能碰 session，只能在请求里做）。"""
+    try:
+        if isinstance(result, dict) and result.get("needs_followup"):
+            session["pending_query"] = query
+        else:
+            session.pop("pending_query", None)
+    except Exception:  # noqa: BLE001 - 没有 session 上下文时忽略
+        pass
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -759,6 +1132,7 @@ def home():
             view=view,
             query=get_query,
             examples=EXAMPLES,
+            notice=_safe_text(request.args.get("notice")),
         )
 
     if request.form.get("action") == "reset":
@@ -789,14 +1163,44 @@ def home():
             notice="请输入旅行需求。",
         )
 
-    result = _run_agent_safely(query)
-    if isinstance(result, dict) and result.get("needs_followup"):
-        session["pending_query"] = query
-    else:
-        session.pop("pending_query", None)
-    _store_result(query, result)
+    # T3.7：POST 不再等在模型结束；建任务 + 起后台线程后立刻 303 到进度页。
+    job_id = _create_job(query, view)
+    _start_job(job_id)
+    return redirect(url_for("run_progress", job_id=job_id, view=view), code=303)
 
-    return _render_result(result, view, query, request.args.get("alt", ""))
+
+@app.route("/run/<job_id>")
+def run_progress(job_id):
+    """进度页：运行中渲染四阶段；完成渲染结果页；失败渲染可重试错误页。"""
+    view = _resolve_view()
+    job = _job_get(job_id)
+    if job is None:
+        return redirect(
+            url_for("home", view=view, notice="任务已过期，请重新提交"),
+            code=303,
+        )
+    if job.get("status") == "error":
+        return _render_job_error(job, view)
+    if job.get("status") == "done":
+        result = job.get("result")
+        result = result if isinstance(result, dict) else {}
+        # 与旧流程一致：完成后同步追问上下文，?view=auditor / ?alt= 走结果页。
+        _sync_pending_query(result, job.get("query", ""))
+        return _render_result(
+            result, view, job.get("query", ""),
+            request.args.get("alt", ""),
+            cache_hit=False,
+        )
+    return _render_progress_page(job, view)
+
+
+@app.route("/run/<job_id>/json")
+def run_progress_json(job_id):
+    """进度 JSON：只暴露阶段状态；不含 intent / trace / 工具决策 / 路线明细。"""
+    job = _job_get(job_id)
+    if job is None:
+        return jsonify({"error": "任务不存在或已过期"}), 404
+    return jsonify(_job_public(job))
 
 
 if __name__ == "__main__":

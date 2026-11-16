@@ -1,4 +1,4 @@
-# P7 前端：设计系统与双视图（T3.1 + T3.2 + T3.3 + T3.4 + T3.5）
+# P7 前端：设计系统与双视图（T3.1 + T3.2 + T3.3 + T3.4 + T3.5 + T3.7）
 
 T3.1 交付可复用的设计系统（调色板、四状态徽标、响应式样式表、基础模板）；
 **T3.2 已接线**：`analysis/p07_agent/src/web_app.py` 不再使用 `render_template_string`，
@@ -12,6 +12,12 @@ P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是
 一天一组、一个时段一张卡，时间段（资料钟点或逐字「资料未给出」）、停留点、
 时长区间 + 来源标签（资料 / 模板估算 / 未给出）、餐饮块、休息块、
 体力/人群提示（写成规划假设）与未核验项逐项可见；旧 `period.text` 仍在卡内逐字渲染。
+**T3.7 已接线**：POST 改成**任务化提交**（进程内 JobStore + daemon 线程）：
+POST 校验后立刻 `303` 到 `GET /run/<job_id>`，进度页四个阶段的状态只来自
+`agent.run_agent(progress=...)` 的真实回调（按 stage 合并，verify 重复出现也只渲染一次），
+`GET /run/<job_id>/json` 只返回阶段状态；完成后同一 URL 直接渲染结果页，
+线程异常/`status=error` 渲染可重试错误页；无 JS 靠 `meta refresh` 每 2 秒刷新，
+有 JS 时内联脚本轮询且不整页重载；零外部资源。
 
 - 访客视图：`web/templates/result.html`（正文抽到 `_visitor_body.html`，与评审视图共用）
 - 评审视图：`web/templates/auditor.html`（在访客内容之后追加 `<details>` 评审面板）
@@ -21,8 +27,10 @@ P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是
 - 路线示意图宏：`web/templates/_route_diagram.html`（T3.3，访客/评审共用）
 - 设计口径：`docs/optimization/PRODUCT_SPEC.md` §4.1 / §5 / §6 / §7 / §9
 
-页面默认**无 JS、零外部资源**：所有内容服务端渲染，图标是 Unicode 字符，
-字体只用系统栈，断网也能打开已返回的结果。
+页面**默认无 JS 也能用、零外部资源**：所有内容服务端渲染，图标是 Unicode 字符，
+字体只用系统栈，断网也能打开已返回的结果。T3.7 的进度页是唯一的渐进增强页：
+无 JS 时 `<meta http-equiv="refresh" content="2">` 每 2 秒刷新，有 JS 时内联脚本
+轮询同源 JSON 并只更新进度区；脚本失败会恢复 meta refresh 兜底，不把页面卡死。
 
 ## 1. 交付物
 
@@ -35,6 +43,8 @@ P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是
 | `web/templates/_evidence_card.html` | T3.4 证据卡宏：标题 / `source_url` 新窗口链接 / 发布日期 / 摘句 / 评审字符区间 |
 | `web/templates/_route_diagram.html` | T3.3 路线示意图宏：服务端内联 SVG，按天分色，箭头方向 = 图谱 `NEXT`，零坐标 |
 | `web/templates/index.html` | 首屏查询页（T3.2）：表单 + 3 个示例 + 提交；无结果时渲染 |
+| `web/templates/progress.html` | T3.7 进度页：四阶段真实状态 + `meta refresh` 兜底 + 内联轮询（无外部资源） |
+| `web/templates/error.html` | T3.7 失败页：四值徽标 + 原因 + query 回填的「重新提交」表单 |
 | `web/templates/result.html` | 访客视图结果页（T3.2），`extends "base.html"` |
 | `web/templates/auditor.html` | 评审视图结果页（T3.2），`extends "base.html"`；T3.4 追加摘句字符区间 |
 | `web/templates/_visitor_body.html` | 两个结果页共用的访客正文，避免双视图内容漂移；T3.4 证据入口、T3.3 示意图入口在此 |
@@ -46,6 +56,8 @@ P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是
 | `web/preview/diagram_375.png`、`diagram_1280.png` | T3.3 路线示意图真实模板渲染截图（白云山 BYS-T-02 链，见 §11） |
 | `web/preview/alternatives_1280.png` | T3.2 补丁：3 条真实备选路线 + `alt-CL-T-03` 高亮（缓存命中态，见 §11） |
 | `web/preview/timeline_375.png`、`timeline_1280.png` | T3.5 时间线真实模板渲染截图（白云山 BYS-T-02 + T2.3 v2 结构，见 §9.13 / §11） |
+| `web/preview/progress_375.png`、`progress_1280.png` | T3.7 真实任务进度页截图（真实模型，非 fixture；见 §11） |
+| `web/preview/progress_result_375.png` | T3.7 同一任务完成后的真实结果页截图（375 CSS px） |
 | `web/README.md` | 本文件：调色板、对比度、接线说明、状态映射、缓存、证据卡、示意图、截图复现 |
 
 ## 2. 设计口径（先读）
@@ -58,7 +70,8 @@ P6 `rel=NEXT` 边，零坐标、无地图瓦片），页面逐字写明「这是
   不含任何调试字段。
 - **零外部资源**：样式表不引用任何外部字体、图标、脚本、CDN；图标全部是 Unicode 字符
   （✅ ⚠️ ❓ ❌ ✔ ▶ ○），字体只用系统栈。
-- **无 JS 也能读**：所有内容都是服务端渲染的静态 HTML；模板里没有任何脚本标签。
+- **无 JS 也能读**：所有内容都是服务端渲染的静态 HTML；只有 T3.7 进度页有一个内联
+  轮询脚本，它失败时页面仍靠 `meta refresh` 每 2 秒刷新（结果页/首页/错误页无脚本）。
 - **切换视图不重跑模型**：结果缓存在当前进程内存（8 条 / 30 分钟，不落盘、不进
   cookie），GET 视图切换与备选高亮直接复用上次结果；详见 §9.12。
 - **状态只由后端判定**：`web_app.py` 只调用 `status.normalize_status()` 与
@@ -513,7 +526,8 @@ periods_without_evidence=0  segments_without_evidence=0  details_open=0
 - 示意图外层是 `<details class="diagram-block">`（访客默认折叠、评审默认展开），
   `summary` 文案「查看路线示意（图谱顺序，不是地图）」；
 - 滚动容器 `role="region"` + `tabindex="0"`，键盘可横向滚动；
-- 模板里没有任何脚本标签、没有外部图片/字体/瓦片，断网也能看。
+- 结果页/首页/错误页没有任何脚本标签、没有外部图片/字体/瓦片，断网也能看；
+  T3.7 进度页只有一段内联轮询脚本（同一份 HTML 在禁用 JS 时仍可用）。
 
 **复现验证（Flask test client + 真实图谱，不调模型）**
 
@@ -667,10 +681,13 @@ T3.4 完成时：check 通过，137 条测试 OK（T3.2 完成时为 121 条）�
 T3.3 完成时同样是 check 通过 + **137 条测试 OK**（只新增模板与渲染接线，没改测试）。
 T3.2 缓存补丁后仍为 **137 条测试 OK**，并新增缓存/视图切换断言（见 §10.2 第 5 条）。
 T3.5 完成时：check 通过 + **174 条测试 OK**（仍是只改模板 / 样式 / 渲染接线，没改测试）。
+T3.7 完成时：check 通过 + **271 条测试 OK**（新增 11 条任务/进度/错误页断言；
+`test_workflow` 里 3 条 POST 用例改为「POST 303 → 等任务完成 → GET 进度页」）。
 
 ## 11. 截图复现（T3.2 / T3.4 / T3.3 / 缓存补丁 / T3.5）
 
-十张截图都由**真实 Flask 模板**渲染，不是手工 HTML；fixture 数据不调用模型：
+十三张截图都由**真实 Flask 模板**渲染，不是手工 HTML；其中 T3.7 的三张由真实模型任务产生，
+其余 fixture 数据不调用模型：
 
 | 文件 | 视口 | 尺寸 | 说明 |
 |---|---|---|---|
@@ -684,6 +701,9 @@ T3.5 完成时：check 通过 + **174 条测试 OK**（仍是只改模板 / 样�
 | `alternatives_1280.png` | 1280 CSS px | 1280×3952 | T3.2 补丁：3 条真实备选 + `alt-CL-T-03` 高亮（缓存命中态） |
 | `timeline_375.png` | 375 CSS px | 375×4771 | T3.5 访客视图：时间线（白云山 BYS-T-02，三个时段全部「资料未给出」） |
 | `timeline_1280.png` | 1280 CSS px | 1280×3536 | T3.5 访客视图：时间线（同一 fixture，桌面单列） |
+| `progress_375.png` | 375 CSS px | 375×1030 | T3.7 真实任务进度页：解析需求已完成、查询图谱进行中，四阶段齐全 |
+| `progress_1280.png` | 1280 CSS px | 1280×900 | T3.7 同一进度页桌面视图（同一任务，稍晚 1.5s） |
+| `progress_result_375.png` | 375 CSS px | 375×6944 | T3.7 同一任务完成后的真实结果页（`?view=visitor`） |
 
 T3.4 两张图的 fixture：`tools.get_route_candidates('广州白云山')` 的真实 NEXT 连接
 （白云山南门 → 云台花园 → 缆车上山 → 山顶广场 → 摩星岭，来源 `BYS-T-02`）+
@@ -798,6 +818,9 @@ diagram_1280.png  METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":12
 alternatives_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":3952}
 timeline_375.png  METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":4771}
 timeline_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":3536}
+progress_375.png  METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":1030}
+progress_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":1280,"scrollHeight":900}
+progress_result_375.png METRICS {"innerWidth":375,"scrollWidth":375,"clientWidth":375,"scrollHeight":6944}
 ```
 
 375px 的 `scrollWidth` 等于 `clientWidth` 等于视口宽度 375，**没有横向滚动**
@@ -806,11 +829,44 @@ timeline_1280.png METRICS {"innerWidth":1280,"scrollWidth":1280,"clientWidth":12
 工具用 `Emulation.setDeviceMetricsOverride` 真正设置视口，而不是用 500px 布局裁切
 （T3.1 §11 记录过本机无头 Chrome 的 500px 下限）。
 
+### 11.1 T3.7 进度页（真实任务，不是 fixture）
+
+`progress_375.png` / `progress_1280.png` / `progress_result_375.png` 与上面的 fixture
+截图不同：它们由**真实 Flask 服务 + 真实 `run_agent`（qwen3:8b）**产生，未替换任何视图、
+未改模板、未注入阶段状态。步骤：
+
+1. 起服务：`$env:WEB_PORT='5005'; & .\.venv\Scripts\python.exe E:\ProgramProject\travel-agent-run\run_web.py`；
+2. 用 `requests` POST `CL-SUB-01` 的 query（`我想去长隆欢乐世界玩一天，喜欢刺激项目。`），
+   记录 `POST -> 303 -> GET Location` 的耗时；
+3. 拿到 `/run/<job_id>?view=visitor` 后立刻用 `cdp_shot.py --width 375` 与 `--width 1280`
+   截进度页；任务完成后再截同一个 URL 的 375 结果页。
+
+本次实测（2026-11-16，同一台机器）：
+
+```text
+POST 303：6.2 ms
+POST 发出 -> 进度页 HTML 含四阶段文案：26.0 ms（目标 <=3000 ms）
+任务完成：13.4 s（真实模型）
+progress_375.png  scrollWidth=375 == clientWidth=375
+progress_1280.png scrollWidth=1280 == clientWidth=1280
+```
+
+进度页四阶段固定为「解析需求 / 查询图谱 / 规划路线 / 核验行程」，每阶段状态只来自
+`run_agent(progress=...)` 的 `start` / `done` 事件。T2.7 的 `verify` 会在解析需求后先做一次
+需求预检、路线规划后再重复出现；进度页按 stage 合并，并且只按文档顺序点亮
+（前序未完成时后序保持「等待」，不提前把「核验行程」标成完成）。
+
 ## 12. 已知限制与后续
 
 - 结果缓存只在**当前进程内存**（8 条 / 30 分钟 / 不落盘 / 不进 cookie）：重启进程即清空；
   同一 query 在 TTL 内会复用旧结果（页面有「复用上次结果」提示与「重新生成」按钮）；
   多进程部署时各进程缓存不共享，T5.2 部署加固时需重新评估。
+- 任务表（T3.7）同样只在**当前进程内存**（最多 16 条 / TTL 30 分钟 / 不落盘 / 不进 cookie）：
+  重启进程或换 worker 后旧 `/run/<job_id>` 会回首页并提示「任务已过期，请重新提交」；
+  多进程部署需要改成共享存储（T5.2）。
+- 进度页的四阶段只反映 `run_agent` 的真实 `progress` 事件；T2.7 的 `verify` 在需求预检和
+  方案检查各出现一次，页面按 stage 合并并只按文档顺序点亮，因此不会把「核验行程」
+  显示在前序阶段之前。没有事件的阶段一律显示「等待」。
 - 证据卡（T3.4）只覆盖停留点与路线段：条件建议仍只显示 `doc_id` 列表，
   完整卡片按 PRODUCT_SPEC §6.4 等来源过滤（T2.5）后再接入。
 - 分时行程（`itinerary.py`）没有 node_id，停留点按时段文案里出现的节点名做确定性

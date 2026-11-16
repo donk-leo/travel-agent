@@ -1543,3 +1543,55 @@ td {
     padding: var(--space-4);
   }
 }
+
+/* --------------------------------------------------------------------------
+   25. T3.7 任务化进度页（四阶段真实状态；复用第 10 节的 .stepper 色值）
+   只做布局，不新增「同一条规则内 color + background」的色对。
+   -------------------------------------------------------------------------- */
+.stepper--progress {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.stepper--progress .stepper__step {
+  width: 100%;
+  min-width: 0;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+}
+
+.stepper__icon {
+  flex: 0 0 auto;
+  line-height: 1;
+}
+
+.stepper__label {
+  min-width: 0;
+}
+
+.stepper__meta {
+  margin-left: auto;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.progress__live {
+  margin-bottom: var(--space-3);
+}
+
+.progress__current {
+  margin: 0 0 var(--space-3);
+}
+
+@media (max-width: 30em) {
+  .stepper--progress .stepper__meta {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}

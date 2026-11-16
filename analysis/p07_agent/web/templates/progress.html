@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}处理中 · 可核验的景区行程助手{% endblock %}
+
+{#
+  T3.7 进度页（渐进增强）
+  ---------------------------------------------------------------------------
+  * 无 JS：本页每 2 秒由 meta refresh 自动刷新，完成后同一个 URL 直接渲染结果页；
+  * 有 JS：页面底部的内联脚本轮询 GET /run/<job_id>/json，只更新进度区，
+    不整页重载；首次取到数据后才移除 meta refresh，脚本/网络失败会把它加回来；
+  * 阶段状态全部来自 run_agent 的真实 progress 事件（按 stage 合并），
+    没有事件的阶段显示「等待」，不伪造完成；
+  * 零外部资源：脚本内联、fetch 同源相对路径、样式只来自 /static/style.css。
+#}
+{% block head %}
+  <meta http-equiv="refresh" content="2">
+{% endblock %}
+
+{% block content %}
+<section class="progress" aria-labelledby="progress-title">
+  <h2 id="progress-title">正在生成行程</h2>
+  <p class="muted">
+    已用 <span id="progress-elapsed">{{ elapsed_s }}</span> 秒。完成后本页会自动显示结果；
+    页面每 2 秒自动刷新一次，不依赖 JavaScript。
+  </p>
+
+  {#- 进度区：aria-live 让读屏在阶段变化时播报；ol 保持阶段顺序语义。 -#}
+  <div class="progress__live" aria-live="polite">
+    <p class="progress__current">
+      当前阶段：<strong id="progress-current-label">{{ current_label }}</strong>
+    </p>
+    <ol class="stepper stepper--progress" aria-label="处理阶段">
+      {% for stage in stages %}
+      <li class="stepper__step stepper__step--{{ stage.state }}"
+          data-stage="{{ stage.stage }}"
+          {%- if stage.is_current %} aria-current="step"{% endif %}>
+        <span class="stepper__icon" aria-hidden="true">{{ stage.icon }}</span>
+        <span class="stepper__label">{{ stage.label }}</span>
+        <span class="stepper__meta">{{ stage.state_text }}{% if stage.elapsed_ms > 0 %} · 已用 {{ stage.elapsed_s }} 秒{% endif %}</span>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <p class="muted">四个阶段依次为：解析需求 → 查询图谱 → 规划路线 → 核验行程。</p>
+  <p><a href="{{ url_for('run_progress', job_id=job_id, view=view) }}">立即刷新进度</a></p>
+</section>
+
+<script>
+(function () {
+  "use strict";
+  try {
+    if (!window.fetch || !window.document || !document.querySelector) { return; }
+
+    var jsonUrl = {{ url_for('run_progress_json', job_id=job_id)|tojson }};
+    var meta = document.querySelector('meta[http-equiv="refresh"]');
+    var metaRemoved = false;
+    var polling = false;
+
+    function removeMetaRefresh() {
+      if (meta && meta.parentNode) {
+        meta.parentNode.removeChild(meta);
+        metaRemoved = true;
+      }
+    }
+
+    function restoreMetaRefresh() {
+      // 脚本或网络失败时恢复无 JS 兜底，避免页面停在一个不更新的状态。
+      if (!metaRemoved) { return; }
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('http-equiv', 'refresh');
+        meta.setAttribute('content', '2');
+      }
+      if (!meta.parentNode) { document.head.appendChild(meta); }
+      metaRemoved = false;
+    }
+
+    function stateText(status) {
+      if (status === 'done') { return '已完成'; }
+      if (status === 'active') { return '进行中'; }
+      return '等待';
+    }
+
+    function apply(payload) {
+      if (!payload || !payload.stages) { return; }
+      var stages = payload.stages;
+      var currentLabel = '准备开始';
+      for (var i = 0; i < stages.length; i += 1) {
+        var item = stages[i];
+        var li = document.querySelector('[data-stage="' + item.stage + '"]');
+        if (!li) { continue; }
+        li.className = 'stepper__step stepper__step--' + item.status;
+        if (item.status === 'active') {
+          li.setAttribute('aria-current', 'step');
+          currentLabel = item.label;
+        } else {
+          li.removeAttribute('aria-current');
+        }
+        var metaText = li.querySelector('.stepper__meta');
+        if (metaText) {
+          var suffix = item.elapsed_ms > 0
+            ? ' · 已用 ' + (item.elapsed_ms / 1000).toFixed(1) + ' 秒'
+            : '';
+          metaText.textContent = stateText(item.status) + suffix;
+        }
+      }
+      var label = document.getElementById('progress-current-label');
+      if (label) { label.textContent = currentLabel; }
+      var elapsed = document.getElementById('progress-elapsed');
+      if (elapsed && typeof payload.elapsed_s === 'number') {
+        elapsed.textContent = payload.elapsed_s.toFixed(1);
+      }
+    }
+
+    function poll() {
+      if (polling) { return; }
+      polling = true;
+      fetch(jsonUrl, { credentials: 'same-origin', headers: { 'Accept': 'application/json' } })
+        .then(function (response) {
+          if (!response.ok) { throw new Error('bad status'); }
+          return response.json();
+        })
+        .then(function (payload) {
+          polling = false;
+          removeMetaRefresh();
+          apply(payload);
+          if (payload.done) {
+            // 完成后进入服务端结果页 / 错误页；轮询本身不整页重载。
+            window.location.replace(window.location.pathname + window.location.search);
+            return;
+          }
+          window.setTimeout(poll, 1000);
+        })
+        .catch(function () {
+          polling = false;
+          restoreMetaRefresh();
+          window.setTimeout(poll, 3000);
+        });
+    }
+
+    // 首屏内容已经由服务端渲染；异步轮询在下一个宏任务才开始，不阻塞首屏。
+    window.setTimeout(poll, 200);
+  } catch (err) {
+    // 任何脚本异常都保持 meta refresh 兜底，不影响页面继续刷新。
+  }
+}());
+</script>
+{% endblock %}

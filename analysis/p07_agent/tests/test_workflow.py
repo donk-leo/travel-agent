@@ -6,6 +6,7 @@ import os
 import re
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -14,6 +15,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 # T2.7 结果缓存默认开启；本模块用 patch 替换模型/路线夹具，必须关闭缓存避免跨用例串结果。
 os.environ["P07_RESULT_CACHE"] = "0"
+
+
+def _post_and_render(client, data, timeout=5.0):
+    """T3.7：POST 只返回 303；等后台任务完成后再 GET 进度页（完成态即结果页）。"""
+    response = client.post("/", data=data)
+    if response.status_code != 303:
+        return response
+    location = response.headers.get("Location", "")
+    match = re.search(r"/run/([0-9a-f]{32})", location)
+    if match:
+        deadline = time.time() + timeout
+        while time.time() < deadline:
+            payload = client.get(f"/run/{match.group(1)}/json")
+            if payload.status_code == 200 and (payload.get_json() or {}).get("done"):
+                break
+            time.sleep(0.01)
+    return client.get(location)
 
 import agent
 import condition_selector
@@ -318,7 +336,8 @@ class AgentFlowTests(unittest.TestCase):
 
     def test_day_plan_is_rendered_by_day(self):
         result = {
-            "query": "武功山两天", "intent": {"scenic_area": "武功山", "duration_days": 2},
+            "query": "武功山两天", "status": "verified",
+            "intent": {"scenic_area": "武功山", "duration_days": 2},
             "decision": None, "tool_decisions": [], "suggestions": [],
             "route": {
                 "proposal": {
@@ -338,7 +357,7 @@ class AgentFlowTests(unittest.TestCase):
             "message": "", "error": "", "trace_file": "", "trace_json": ""
         }
         with patch.object(web_app, "run_agent", return_value=result), web_app.app.test_client() as client:
-            response = client.post("/", data={"query": "武功山两天"})
+            response = _post_and_render(client, {"query": "武功山两天"})
             html = response.get_data(as_text=True)
         html = re.sub(r"\s+", " ", html)
         self.assertIn("游玩天数：2 天", html)
@@ -349,7 +368,8 @@ class AgentFlowTests(unittest.TestCase):
 
     def test_poi_list_heading_does_not_claim_name_match(self):
         result = {
-            "query": "孩子在长隆", "intent": {"scenic_area": "长隆", "duration_days": 1},
+            "query": "孩子在长隆", "status": "verified",
+            "intent": {"scenic_area": "长隆", "duration_days": 1},
             "decision": None, "tool_decisions": [], "suggestions": [], "route": None,
             "poi_results": [{"name": "熊猫村", "scenic_area": "长隆"}],
             "poi_list_all": True, "needs_followup": False,
@@ -357,20 +377,20 @@ class AgentFlowTests(unittest.TestCase):
             "error": "", "trace_file": "", "trace_json": ""
         }
         with patch.object(web_app, "run_agent", return_value=result), web_app.app.test_client() as client:
-            response = client.post("/", data={"query": "孩子在长隆"})
+            response = _post_and_render(client, {"query": "孩子在长隆"})
             html = response.get_data(as_text=True)
         self.assertIn("当前范围地点", html)
         self.assertIn("未按“儿童/亲子/老人”等偏好过滤", html)
         self.assertNotIn("图谱名称匹配结果", html)
 
     def test_followup_context_is_preserved(self):
-        first = {"query": "和父母轻松出游", "intent": None, "decision": None, "tool_decisions": [],
+        first = {"query": "和父母轻松出游", "status": "clarify", "intent": None, "decision": None, "tool_decisions": [],
                  "suggestions": [], "route": None, "poi_results": None, "poi_list_all": False,
                  "message": "请补充景区和天数", "error": "", "trace_file": "", "trace_json": "", "needs_followup": True}
         second = {**first, "query": "和父母轻松出游\n广州白云山，一天", "message": "完成", "needs_followup": False}
         with patch.object(web_app, "run_agent", side_effect=[first, second]) as runner, web_app.app.test_client() as client:
-            client.post("/", data={"query": "和父母轻松出游"})
-            client.post("/", data={"query": "广州白云山，一天"})
+            _post_and_render(client, {"query": "和父母轻松出游"})
+            _post_and_render(client, {"query": "广州白云山，一天"})
         self.assertEqual(runner.call_args_list[1].args[0], "和父母轻松出游\n广州白云山，一天")
 
 
